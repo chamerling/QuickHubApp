@@ -1,0 +1,453 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C996375A1448487900F6DB43 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637591448487900F6DB43 /* Cocoa.framework */; };
+		C99637641448487900F6DB43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C99637621448487900F6DB43 /* InfoPlist.strings */; };
+		C99637661448487900F6DB43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99637651448487900F6DB43 /* main.m */; };
+		C996376A1448487900F6DB43 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C99637681448487900F6DB43 /* Credits.rtf */; };
+		C996376D1448487900F6DB43 /* QuickHubAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C996376C1448487900F6DB43 /* QuickHubAppAppDelegate.m */; };
+		C99637701448487900F6DB43 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C996376E1448487900F6DB43 /* MainMenu.xib */; };
+		C99637731448487900F6DB43 /* QuickHubApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C99637711448487900F6DB43 /* QuickHubApp.xcdatamodeld */; };
+		C9963791144848BD00F6DB43 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C996377B144848BD00F6DB43 /* ASIDataCompressor.m */; };
+		C9963792144848BD00F6DB43 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C996377D144848BD00F6DB43 /* ASIDataDecompressor.m */; };
+		C9963793144848BD00F6DB43 /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C996377F144848BD00F6DB43 /* ASIDownloadCache.m */; };
+		C9963794144848BD00F6DB43 /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C9963781144848BD00F6DB43 /* ASIFormDataRequest.m */; };
+		C9963795144848BD00F6DB43 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C9963783144848BD00F6DB43 /* ASIHTTPRequest.m */; };
+		C9963796144848BD00F6DB43 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = C9963787144848BD00F6DB43 /* ASIInputStream.m */; };
+		C9963797144848BD00F6DB43 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C9963789144848BD00F6DB43 /* ASINetworkQueue.m */; };
+		C9963798144848BD00F6DB43 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C996378C144848BD00F6DB43 /* JSONKit.m */; };
+		C9963799144848BD00F6DB43 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = C996378E144848BD00F6DB43 /* NSData+Base64.m */; };
+		C996379A144848BD00F6DB43 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = C9963790144848BD00F6DB43 /* Preferences.m */; };
+		C996379C144848E200F6DB43 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C996379B144848E200F6DB43 /* Growl.framework */; };
+		C996379E144848F600F6DB43 /* QuickHubAppToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = C996379D144848F600F6DB43 /* QuickHubAppToolbar.png */; };
+		C99637A21448499600F6DB43 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C996379F1448499600F6DB43 /* PreferencesWindow.xib */; };
+		C99637A31448499600F6DB43 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99637A11448499600F6DB43 /* PreferencesWindowController.m */; };
+		C99637A714484AAB00F6DB43 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637A614484AAB00F6DB43 /* libz.dylib */; };
+		C99637A914484AB300F6DB43 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637A814484AB300F6DB43 /* SystemConfiguration.framework */; };
+		C99637AB14484AC500F6DB43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637AA14484AC500F6DB43 /* Security.framework */; };
+		C99637AD14484B7E00F6DB43 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C996379B144848E200F6DB43 /* Growl.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C99637AC14484B5500F6DB43 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C99637AD14484B7E00F6DB43 /* Growl.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C99637551448487900F6DB43 /* QuickHubApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickHubApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C99637591448487900F6DB43 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		C996375C1448487900F6DB43 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		C996375D1448487900F6DB43 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		C996375E1448487900F6DB43 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C99637611448487900F6DB43 /* QuickHubApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickHubApp-Info.plist"; sourceTree = "<group>"; };
+		C99637631448487900F6DB43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C99637651448487900F6DB43 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C99637671448487900F6DB43 /* QuickHubApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickHubApp-Prefix.pch"; sourceTree = "<group>"; };
+		C99637691448487900F6DB43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		C996376B1448487900F6DB43 /* QuickHubAppAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickHubAppAppDelegate.h; sourceTree = "<group>"; };
+		C996376C1448487900F6DB43 /* QuickHubAppAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickHubAppAppDelegate.m; sourceTree = "<group>"; };
+		C996376F1448487900F6DB43 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		C99637721448487900F6DB43 /* QuickHubApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QuickHubApp.xcdatamodel; sourceTree = "<group>"; };
+		C9963779144848BD00F6DB43 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
+		C996377A144848BD00F6DB43 /* ASIDataCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataCompressor.h; sourceTree = "<group>"; };
+		C996377B144848BD00F6DB43 /* ASIDataCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataCompressor.m; sourceTree = "<group>"; };
+		C996377C144848BD00F6DB43 /* ASIDataDecompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataDecompressor.h; sourceTree = "<group>"; };
+		C996377D144848BD00F6DB43 /* ASIDataDecompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataDecompressor.m; sourceTree = "<group>"; };
+		C996377E144848BD00F6DB43 /* ASIDownloadCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDownloadCache.h; sourceTree = "<group>"; };
+		C996377F144848BD00F6DB43 /* ASIDownloadCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDownloadCache.m; sourceTree = "<group>"; };
+		C9963780144848BD00F6DB43 /* ASIFormDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIFormDataRequest.h; sourceTree = "<group>"; };
+		C9963781144848BD00F6DB43 /* ASIFormDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIFormDataRequest.m; sourceTree = "<group>"; };
+		C9963782144848BD00F6DB43 /* ASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequest.h; sourceTree = "<group>"; };
+		C9963783144848BD00F6DB43 /* ASIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIHTTPRequest.m; sourceTree = "<group>"; };
+		C9963784144848BD00F6DB43 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestConfig.h; sourceTree = "<group>"; };
+		C9963785144848BD00F6DB43 /* ASIHTTPRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestDelegate.h; sourceTree = "<group>"; };
+		C9963786144848BD00F6DB43 /* ASIInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIInputStream.h; sourceTree = "<group>"; };
+		C9963787144848BD00F6DB43 /* ASIInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIInputStream.m; sourceTree = "<group>"; };
+		C9963788144848BD00F6DB43 /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINetworkQueue.h; sourceTree = "<group>"; };
+		C9963789144848BD00F6DB43 /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
+		C996378A144848BD00F6DB43 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
+		C996378B144848BD00F6DB43 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		C996378C144848BD00F6DB43 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		C996378D144848BD00F6DB43 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		C996378E144848BD00F6DB43 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		C996378F144848BD00F6DB43 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
+		C9963790144848BD00F6DB43 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
+		C996379B144848E200F6DB43 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = QuickHubApp/Growl.framework; sourceTree = "<group>"; };
+		C996379D144848F600F6DB43 /* QuickHubAppToolbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuickHubAppToolbar.png; sourceTree = "<group>"; };
+		C996379F1448499600F6DB43 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
+		C99637A01448499600F6DB43 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
+		C99637A11448499600F6DB43 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		C99637A614484AAB00F6DB43 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		C99637A814484AB300F6DB43 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C99637AA14484AC500F6DB43 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C99637521448487900F6DB43 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C99637AB14484AC500F6DB43 /* Security.framework in Frameworks */,
+				C99637A914484AB300F6DB43 /* SystemConfiguration.framework in Frameworks */,
+				C99637A714484AAB00F6DB43 /* libz.dylib in Frameworks */,
+				C996375A1448487900F6DB43 /* Cocoa.framework in Frameworks */,
+				C996379C144848E200F6DB43 /* Growl.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C99006841455B04A00744317 /* ASIHTTP */ = {
+			isa = PBXGroup;
+			children = (
+				C9963779144848BD00F6DB43 /* ASICacheDelegate.h */,
+				C996377A144848BD00F6DB43 /* ASIDataCompressor.h */,
+				C996377B144848BD00F6DB43 /* ASIDataCompressor.m */,
+				C996377C144848BD00F6DB43 /* ASIDataDecompressor.h */,
+				C996377D144848BD00F6DB43 /* ASIDataDecompressor.m */,
+				C996377E144848BD00F6DB43 /* ASIDownloadCache.h */,
+				C996377F144848BD00F6DB43 /* ASIDownloadCache.m */,
+				C9963780144848BD00F6DB43 /* ASIFormDataRequest.h */,
+				C9963781144848BD00F6DB43 /* ASIFormDataRequest.m */,
+				C9963782144848BD00F6DB43 /* ASIHTTPRequest.h */,
+				C9963783144848BD00F6DB43 /* ASIHTTPRequest.m */,
+				C9963784144848BD00F6DB43 /* ASIHTTPRequestConfig.h */,
+				C9963785144848BD00F6DB43 /* ASIHTTPRequestDelegate.h */,
+				C9963786144848BD00F6DB43 /* ASIInputStream.h */,
+				C9963787144848BD00F6DB43 /* ASIInputStream.m */,
+				C9963788144848BD00F6DB43 /* ASINetworkQueue.h */,
+				C9963789144848BD00F6DB43 /* ASINetworkQueue.m */,
+				C996378A144848BD00F6DB43 /* ASIProgressDelegate.h */,
+			);
+			name = ASIHTTP;
+			sourceTree = "<group>";
+		};
+		C99006861455B05E00744317 /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				C996378B144848BD00F6DB43 /* JSONKit.h */,
+				C996378C144848BD00F6DB43 /* JSONKit.m */,
+			);
+			name = JSONKit;
+			sourceTree = "<group>";
+		};
+		C990068B1455B14700744317 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C996379D144848F600F6DB43 /* QuickHubAppToolbar.png */,
+				C99637611448487900F6DB43 /* QuickHubApp-Info.plist */,
+				C99637621448487900F6DB43 /* InfoPlist.strings */,
+				C99637681448487900F6DB43 /* Credits.rtf */,
+				C996379F1448499600F6DB43 /* PreferencesWindow.xib */,
+				C996376E1448487900F6DB43 /* MainMenu.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		C996374A1448487900F6DB43 = {
+			isa = PBXGroup;
+			children = (
+				C99637A614484AAB00F6DB43 /* libz.dylib */,
+				C996375F1448487900F6DB43 /* QuickHubApp */,
+				C99637581448487900F6DB43 /* Frameworks */,
+				C99637561448487900F6DB43 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C99637561448487900F6DB43 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C99637551448487900F6DB43 /* QuickHubApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C99637581448487900F6DB43 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C996379B144848E200F6DB43 /* Growl.framework */,
+				C99637AA14484AC500F6DB43 /* Security.framework */,
+				C99637A814484AB300F6DB43 /* SystemConfiguration.framework */,
+				C99637591448487900F6DB43 /* Cocoa.framework */,
+				C996375B1448487900F6DB43 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C996375B1448487900F6DB43 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C996375C1448487900F6DB43 /* AppKit.framework */,
+				C996375D1448487900F6DB43 /* CoreData.framework */,
+				C996375E1448487900F6DB43 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		C996375F1448487900F6DB43 /* QuickHubApp */ = {
+			isa = PBXGroup;
+			children = (
+				C99006861455B05E00744317 /* JSONKit */,
+				C99006841455B04A00744317 /* ASIHTTP */,
+				C990068B1455B14700744317 /* Resources */,
+				C99637A01448499600F6DB43 /* PreferencesWindowController.h */,
+				C99637A11448499600F6DB43 /* PreferencesWindowController.m */,
+				C996378D144848BD00F6DB43 /* NSData+Base64.h */,
+				C996378E144848BD00F6DB43 /* NSData+Base64.m */,
+				C996378F144848BD00F6DB43 /* Preferences.h */,
+				C9963790144848BD00F6DB43 /* Preferences.m */,
+				C996376B1448487900F6DB43 /* QuickHubAppAppDelegate.h */,
+				C996376C1448487900F6DB43 /* QuickHubAppAppDelegate.m */,
+				C99637711448487900F6DB43 /* QuickHubApp.xcdatamodeld */,
+				C99637601448487900F6DB43 /* Supporting Files */,
+			);
+			path = QuickHubApp;
+			sourceTree = "<group>";
+		};
+		C99637601448487900F6DB43 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C99637651448487900F6DB43 /* main.m */,
+				C99637671448487900F6DB43 /* QuickHubApp-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C99637541448487900F6DB43 /* QuickHubApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C99637761448487900F6DB43 /* Build configuration list for PBXNativeTarget "QuickHubApp" */;
+			buildPhases = (
+				C99637511448487900F6DB43 /* Sources */,
+				C99637521448487900F6DB43 /* Frameworks */,
+				C99637531448487900F6DB43 /* Resources */,
+				C99637AC14484B5500F6DB43 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuickHubApp;
+			productName = QuickHubApp;
+			productReference = C99637551448487900F6DB43 /* QuickHubApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C996374C1448487900F6DB43 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C996374F1448487900F6DB43 /* Build configuration list for PBXProject "QuickHubApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C996374A1448487900F6DB43;
+			productRefGroup = C99637561448487900F6DB43 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C99637541448487900F6DB43 /* QuickHubApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C99637531448487900F6DB43 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C99637641448487900F6DB43 /* InfoPlist.strings in Resources */,
+				C996376A1448487900F6DB43 /* Credits.rtf in Resources */,
+				C99637701448487900F6DB43 /* MainMenu.xib in Resources */,
+				C996379E144848F600F6DB43 /* QuickHubAppToolbar.png in Resources */,
+				C99637A21448499600F6DB43 /* PreferencesWindow.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C99637511448487900F6DB43 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C99637661448487900F6DB43 /* main.m in Sources */,
+				C996376D1448487900F6DB43 /* QuickHubAppAppDelegate.m in Sources */,
+				C99637731448487900F6DB43 /* QuickHubApp.xcdatamodeld in Sources */,
+				C9963791144848BD00F6DB43 /* ASIDataCompressor.m in Sources */,
+				C9963792144848BD00F6DB43 /* ASIDataDecompressor.m in Sources */,
+				C9963793144848BD00F6DB43 /* ASIDownloadCache.m in Sources */,
+				C9963794144848BD00F6DB43 /* ASIFormDataRequest.m in Sources */,
+				C9963795144848BD00F6DB43 /* ASIHTTPRequest.m in Sources */,
+				C9963796144848BD00F6DB43 /* ASIInputStream.m in Sources */,
+				C9963797144848BD00F6DB43 /* ASINetworkQueue.m in Sources */,
+				C9963798144848BD00F6DB43 /* JSONKit.m in Sources */,
+				C9963799144848BD00F6DB43 /* NSData+Base64.m in Sources */,
+				C996379A144848BD00F6DB43 /* Preferences.m in Sources */,
+				C99637A31448499600F6DB43 /* PreferencesWindowController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C99637621448487900F6DB43 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C99637631448487900F6DB43 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C99637681448487900F6DB43 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C99637691448487900F6DB43 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		C996376E1448487900F6DB43 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C996376F1448487900F6DB43 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C99637741448487900F6DB43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C99637751448487900F6DB43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C99637771448487900F6DB43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/QuickHubApp\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QuickHubApp/QuickHubApp-Prefix.pch";
+				INFOPLIST_FILE = "QuickHubApp/QuickHubApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C99637781448487900F6DB43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/QuickHubApp\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "QuickHubApp/QuickHubApp-Prefix.pch";
+				INFOPLIST_FILE = "QuickHubApp/QuickHubApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C996374F1448487900F6DB43 /* Build configuration list for PBXProject "QuickHubApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C99637741448487900F6DB43 /* Debug */,
+				C99637751448487900F6DB43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C99637761448487900F6DB43 /* Build configuration list for PBXNativeTarget "QuickHubApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C99637771448487900F6DB43 /* Debug */,
+				C99637781448487900F6DB43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C99637711448487900F6DB43 /* QuickHubApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C99637721448487900F6DB43 /* QuickHubApp.xcdatamodel */,
+			);
+			currentVersion = C99637721448487900F6DB43 /* QuickHubApp.xcdatamodel */;
+			path = QuickHubApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = C996374C1448487900F6DB43 /* Project object */;
+}

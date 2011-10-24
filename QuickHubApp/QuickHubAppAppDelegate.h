@@ -105,5 +105,6 @@
 
 # pragma mark - menu management
 - (void) deleteOldEntriesFromMenu:(NSMenu*)menu fromItemTitle:(NSString*)title;
+- (IBAction)helpPressed:(id)sender;
 
 @end

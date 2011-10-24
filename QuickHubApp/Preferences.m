@@ -45,7 +45,8 @@ static Preferences *sharedInstance = nil;
 }
 
 -(NSString *)path {
-    return [@"~/Library/Preferences/org.chamerling.GHApp-Preferences.plist" stringByExpandingTildeInPath];
+    // TODO : Use API
+    return [@"~/Library/Preferences/org.chamerling.QuickHubApp-Preferences.plist" stringByExpandingTildeInPath];
 }
 
 -(void)setDefault {

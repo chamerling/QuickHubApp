@@ -665,5 +665,9 @@
     }
 }
 
+- (IBAction)helpPressed:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://chamerling.github.com/QuickHubApp/"]];
+}
+
 
 @end

@@ -18,3 +18,5 @@ build/*
 profile
 
 xcuserdata
+
+_site

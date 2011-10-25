@@ -1,0 +1,30 @@
+---
+layout: layout
+title: "QuickHub.App"
+---
+
+<div id="post">
+{% for post in site.posts limit:1 %}
+<h1><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h1>
+<div class="authoring">
+  <b>{{ post.date | date: "%B %e, %Y" }}</b>
+</div>
+ {{ post.content }}
+ <br>
+{% endfor %}
+</div>
+	
+<a name="articles"></a>	
+<section id="articles">	
+	<div class="page-header">
+	<h1>Older Articles</h1>
+	<table>
+	  <tbody>
+	  {% for post in site.posts %}
+	<tr>
+	    <td><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></td><td><span>{{ post.date | date: "%B %e, %Y" }}</span></td> 
+    </tr>
+	  {% endfor %}
+	  </tbody>
+	</table>
+</section>

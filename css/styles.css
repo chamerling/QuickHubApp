@@ -1,0 +1,385 @@
+body{
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  color: #373737;
+}
+a{
+  color: #186EAF;
+}
+a:hover{
+  text-decoration: none;
+}
+p code, li code{
+  background-color: #F9F9F9;
+  border: 1px solid #eee;
+  font-size: 12px;
+  padding: 2px 3px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+hr{
+  border: 0;
+  height: 1px;
+  background-color: #ccc;
+  margin: 2em 1em;
+}
+.content{
+  margin-left: 220px;
+  width: 650px;
+  margin-bottom: 50px;
+}
+.related{
+  margin-top: 10px;
+}
+.related ul{
+  margin: 0;
+  padding: 0;
+}
+.related li{
+  font-size: 14px;
+  list-style: none;
+  padding: 5px 0px;
+  margin: 0;
+  color: #777;
+  border-bottom: 1px solid #eee;
+}
+.related li span{
+  float: right;
+}
+.related a{
+  text-decoration: none;
+}
+.related a:hover{
+  text-decoration: underline;
+}
+h1,h2,h3,h4{
+  color: #333;
+  font-family: 'Voltaire', sans-serif;
+  font-weight: 400;
+  border-bottom: 1px solid #ccc;
+}
+h1 a, h2 a, h3 a, h4 a{
+  color: #111;
+  text-decoration: none;
+}
+h1{
+  font-size: 36px;
+  margin-top: 18px;
+  margin-bottom: .15em;
+}
+h2{
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+h3{
+  color: #777;
+  font-size: 25px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+#tweets{
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 175px;
+  font-family: Helvetica, sans-serif;
+}
+
+#header{
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  width: 80px;
+  font-family: Helvetica, sans-serif;
+}
+#header .avatar{
+  border: 0px solid #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 4px #555;
+}
+#header a{
+  text-decoration: none;
+}
+#header #me{
+  /*text-transform: uppercase;*/
+  margin: 10px 0 20px 0;
+}
+#header #christophe{
+  font-family: 'Voltaire', sans-serif;
+  padding-left: 1px;
+  font-size: 32px;
+  color: #000;
+}
+#header #christophe:hover {
+  color: #000;
+}
+#header #hamerling{
+  font-family: 'Voltaire', sans-serif;
+  font-size: 34px;
+  color: #000;
+}
+#header .site{
+}
+#header .site img{
+  padding: 0 3px;
+  border: 0;
+}
+#header #mousing{
+  font-size: 12px;
+  color: #999;
+  padding-left: 2px;
+  letter-spacing: 1px;
+}
+#header #sections{
+  margin: 25px 0 0 -15px;
+}
+#header #sections div{
+  margin-bottom: 7px;
+}
+#header #sections a{
+  background-color: #000;
+  padding: 3px 5px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+}
+#header #sections a:hover{
+  color: #ccc;
+}
+
+#post{
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  /* This will set default size (for gists for example) */ 
+  font-size: 13px;
+
+}
+
+#post ul{
+  font-size: 15px;
+  margin: 20px 20px 20px 0;
+}
+#post li{
+  line-height: 1.4em;
+  margin-bottom: 1em;
+  color: #222;
+  list-style-type: square;
+}
+#post li code{
+  border: 1px solid #ccc;
+}
+#post p{
+  font-size: 15px;
+  margin-top: 0;
+  margin-bottom: 1.2em;
+  line-height: 1.7em;
+}
+#post img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 610px;
+  -webkit-border-radius: 8px;
+  -webkit-box-shadow: 0px 0px 5px #555;
+}
+#post img.noclip{
+  max-width: 650px !important;
+  -webkit-box-shadow: none;
+}
+#post .aside{
+  background-color: #eee;
+  padding: 14px;
+  font-size: 14px;
+  margin: 5px 0 15px 0;
+  font-family: Helvetica, sans-serif;
+  line-height: 1.6em;
+}
+#post .aside strong{
+}
+#post .authoring{
+  margin-bottom: 17px;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  padding-left: 0px;
+  font-size: 17px;
+  color: #777;
+}
+#post blockquote{
+  font-style: italic;
+  font-size: 14px;
+  padding: .25em 1em;
+  margin: 1em 1em 0 1em;
+  color: #444;
+}
+#post blockquote cite:before{
+  content: '— ';
+}
+#post blockquote cite{
+  display: block;
+  margin-top: .5em;
+  text-align: right;
+  color: #111;
+  font-style: normal;
+}
+.whoring{
+  margin: 30px 0;
+  padding: 10px 0;
+  font-family: Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+.whoring p{
+  margin-top: 0px;
+}
+.whoring img{
+  position: relative;
+  float: left;
+  margin-top: 5px;
+  margin-right: 10px;
+  margin-left: -60px;
+  border-radius: 4px;
+}
+.whoring .copy{
+  padding-left: 60px;
+}
+.whoring .twitter-follow-button{
+  width: 75px !important;
+}
+
+/*
+ 
+ TALKS
+
+ */
+#talks h2{
+  font-size: 18px;
+  font-family: Helvetica, sans-serif;
+  padding: 5px 7px;
+  color: #fff;
+  display: inline;
+  background-color: #000;
+}
+#talks h2 a{
+  color: #fff;
+}
+.talk .details{
+  font-family: Helvetica, sans-serif;
+  font-size: 13px;
+  margin-top: 10px;
+  margin-left: 7px;
+}
+.talk .details strong{
+  color: #333;
+}
+.talk .details p{
+  margin: 17px 0 10px 0;
+}
+.talk .byline{
+  font-weight: bold;
+  color: #777;
+}
+.talk .byline a{
+  text-decoration: none;
+}
+.talk .byline a:hover{
+  color: #11BAF7;
+}
+.talk .byline strong{
+  color: #000;
+}
+.talk span{
+  color: #333;
+  font-size: 14px;
+}
+.talk{
+  margin: 30px 0;
+}
+.talk img{
+  margin-top: 10px;
+  border-radius: none;
+  box-shadow: none;
+}
+
+/*
+ 
+ SCREENCASTS
+
+ */
+#screencasts h2{
+  margin-bottom: 5px;
+}
+#screencasts .teaser{
+  color: #999;
+  font-size: 13px;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/*
+ 
+ HACKER NEWS MAD KARMA
+
+ */
+#hn{
+  margin: 30px 15px;
+}
+
+
+/*
+ 
+ BOASTFUL
+
+ */
+#boastful{
+  margin: 30px 0px 7em 0px;
+}
+#boastful .twitter-share-button{
+  float: right;
+  padding-top: 3px;
+  margin-right: 13px
+}
+.boastful{
+  display: inline;
+}
+.boastful img{
+  margin: 1px 2px;
+  border: 0;
+  width: 32px;
+  height: 32px;
+  display: inline !important;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+.boastful .boastful_pointer{
+  position: absolute;
+  z-index: 999;
+  left: -9999px;
+  opacity: .7;
+  display: none;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #000;
+  border-top: 0;
+}
+.boastful .boastful_tweet{
+  position: absolute;
+  z-index: 999;
+  left: -9999px;
+  background-color: #222;
+  opacity: .8;
+  padding: 5px;
+  width: 250px;
+  font-size: 11px;
+  text-shadow: 1px 1px 0 #000;
+  color: #eee;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+}
+.boastful .boastful_handle{
+  font-size: 13px;
+  font-weight: bold;
+}

@@ -15,5 +15,5 @@ ChocTop::Configuration.new do |s|
   # s.app_icon_position = [100, 90]
   # s.applications_icon_position =  [400, 90]
   # s.volume_icon = "dmg.icns"
-  # s.applications_icon = "appicon.icns" # or "appicon.png"
+  # s.applications_icon = "QuickHubLogo-128.png" # or "appicon.png"
 end

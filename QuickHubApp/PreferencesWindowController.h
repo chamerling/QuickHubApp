@@ -35,6 +35,7 @@
 
 - (IBAction)signIn:(id)sender;
 - (IBAction)about:(id)sender;
+- (IBAction)openAtStartup:(id)sender;
 
 - (BOOL) checkIfUpdateNeeded;
 

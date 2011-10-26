@@ -16,6 +16,8 @@
 #import <Growl/Growl.h>
 
 #import "Preferences.h"
+#import "GrowlManager.h"
+#import "AppController.h"
 #import "ASIHTTPRequest.h"
 
 @interface QuickHubAppAppDelegate : NSObject <NSApplicationDelegate, GrowlApplicationBridgeDelegate> {
@@ -47,7 +49,14 @@
     
     // misc.
     BOOL githubPolling;
+    
+    GrowlManager *growlManager;
+    AppController *appController;
 }
+
+@property (nonatomic, retain) IBOutlet GrowlManager *growlManager;
+@property (nonatomic, retain) IBOutlet AppController *appController;
+//@property (nonatomic, retain) PreferencesWindowController *preferencesWindowController;
 
 @property (assign) IBOutlet NSWindow *window;
 
@@ -73,6 +82,8 @@
 - (IBAction)openProjects:(id)sender;
 - (IBAction)openOrganizations:(id)sender;
 - (IBAction)openGists:(id)sender;
+- (IBAction)openPull:(id)sender;
+
 - (IBAction)createGist:(id)sender;
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)quit:(id)sender;
@@ -82,17 +93,20 @@
 - (void) organizationPressed:(id)sender;
 - (void) issuePressed:(id)sender;
 - (void) gistPressed:(id) sender;
+- (void) pullPressed:(id) sender;
 
 # pragma mark - GH HTTP processing
 - (void) issuesFinished:(ASIHTTPRequest*)request;
 - (void) gistFinished:(ASIHTTPRequest*)request;
 - (void) organizationsFinished:(ASIHTTPRequest*)request;
 - (void) reposFinished:(ASIHTTPRequest*)request;
+- (void) pullFinished:(ASIHTTPRequest*)request;
 
 - (void) issuesFailed:(ASIHTTPRequest*)request;
 - (void) gistsFailed:(ASIHTTPRequest*)request;
 - (void) organizationsFailed:(ASIHTTPRequest*)request;
 - (void) reposFailed:(ASIHTTPRequest*)request;
+- (void) pullFailed:(ASIHTTPRequest*)request;
 
 - (void) httpFailed:(ASIHTTPRequest*)request;
 
@@ -102,6 +116,7 @@
 - (void) loadGists:(id) sender;
 - (void) loadOrganizations:(id) sender;
 - (void) loadRepos:(id) sender;
+- (void) loadPulls:(id) sender;
 
 # pragma mark - menu management
 - (void) deleteOldEntriesFromMenu:(NSMenu*)menu fromItemTitle:(NSString*)title;

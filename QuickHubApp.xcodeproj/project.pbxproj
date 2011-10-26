@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D091456EF090013F78E /* NSWorkspaceHelper.m */; };
+		C9642D101456F1530013F78E /* GrowlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D0F1456F1530013F78E /* GrowlManager.m */; };
+		C9642D13145700D10013F78E /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D12145700D10013F78E /* AppController.m */; };
+		C9642D1A145707EB0013F78E /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D19145707EB0013F78E /* MenuController.m */; };
+		C9642D1E14570F5F0013F78E /* GitHubController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D1D14570F5F0013F78E /* GitHubController.m */; };
+		C994B80914561A1200CDC031 /* QuickHubLogo-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80714561A1200CDC031 /* QuickHubLogo-128.png */; };
+		C994B80A14561A1200CDC031 /* QuickHubLogo-512.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80814561A1200CDC031 /* QuickHubLogo-512.png */; };
+		C994B80D14561A6F00CDC031 /* QuickHubLogo-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */; };
 		C996375A1448487900F6DB43 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637591448487900F6DB43 /* Cocoa.framework */; };
 		C99637641448487900F6DB43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C99637621448487900F6DB43 /* InfoPlist.strings */; };
 		C99637661448487900F6DB43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99637651448487900F6DB43 /* main.m */; };
@@ -48,6 +56,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C9642D081456EF090013F78E /* NSWorkspaceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWorkspaceHelper.h; sourceTree = "<group>"; };
+		C9642D091456EF090013F78E /* NSWorkspaceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWorkspaceHelper.m; sourceTree = "<group>"; };
+		C9642D0E1456F1530013F78E /* GrowlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowlManager.h; sourceTree = "<group>"; };
+		C9642D0F1456F1530013F78E /* GrowlManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowlManager.m; sourceTree = "<group>"; };
+		C9642D11145700D10013F78E /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
+		C9642D12145700D10013F78E /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
+		C9642D18145707EB0013F78E /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuController.h; path = ../MenuController.h; sourceTree = "<group>"; };
+		C9642D19145707EB0013F78E /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuController.m; path = ../MenuController.m; sourceTree = "<group>"; };
+		C9642D1C14570F5F0013F78E /* GitHubController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GitHubController.h; path = ../GitHubController.h; sourceTree = "<group>"; };
+		C9642D1D14570F5F0013F78E /* GitHubController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GitHubController.m; path = ../GitHubController.m; sourceTree = "<group>"; };
+		C994B80714561A1200CDC031 /* QuickHubLogo-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-128.png"; sourceTree = "<group>"; };
+		C994B80814561A1200CDC031 /* QuickHubLogo-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-512.png"; sourceTree = "<group>"; };
+		C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-128.png"; sourceTree = "<group>"; };
 		C99637551448487900F6DB43 /* QuickHubApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickHubApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99637591448487900F6DB43 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C996375C1448487900F6DB43 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -112,6 +133,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C9642D0D1456EF1D0013F78E /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				C9642D081456EF090013F78E /* NSWorkspaceHelper.h */,
+				C9642D091456EF090013F78E /* NSWorkspaceHelper.m */,
+			);
+			name = Others;
+			sourceTree = "<group>";
+		};
 		C99006841455B04A00744317 /* ASIHTTP */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +179,8 @@
 		C990068B1455B14700744317 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C994B80714561A1200CDC031 /* QuickHubLogo-128.png */,
+				C994B80814561A1200CDC031 /* QuickHubLogo-512.png */,
 				C996379D144848F600F6DB43 /* QuickHubAppToolbar.png */,
 				C99637611448487900F6DB43 /* QuickHubApp-Info.plist */,
 				C99637621448487900F6DB43 /* InfoPlist.strings */,
@@ -162,6 +194,7 @@
 		C996374A1448487900F6DB43 = {
 			isa = PBXGroup;
 			children = (
+				C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */,
 				C99637A614484AAB00F6DB43 /* libz.dylib */,
 				C996375F1448487900F6DB43 /* QuickHubApp */,
 				C99637581448487900F6DB43 /* Frameworks */,
@@ -202,9 +235,14 @@
 		C996375F1448487900F6DB43 /* QuickHubApp */ = {
 			isa = PBXGroup;
 			children = (
+				C9642D0D1456EF1D0013F78E /* Others */,
 				C99006861455B05E00744317 /* JSONKit */,
 				C99006841455B04A00744317 /* ASIHTTP */,
 				C990068B1455B14700744317 /* Resources */,
+				C9642D18145707EB0013F78E /* MenuController.h */,
+				C9642D19145707EB0013F78E /* MenuController.m */,
+				C9642D1C14570F5F0013F78E /* GitHubController.h */,
+				C9642D1D14570F5F0013F78E /* GitHubController.m */,
 				C99637A01448499600F6DB43 /* PreferencesWindowController.h */,
 				C99637A11448499600F6DB43 /* PreferencesWindowController.m */,
 				C996378D144848BD00F6DB43 /* NSData+Base64.h */,
@@ -215,6 +253,10 @@
 				C996376C1448487900F6DB43 /* QuickHubAppAppDelegate.m */,
 				C99637711448487900F6DB43 /* QuickHubApp.xcdatamodeld */,
 				C99637601448487900F6DB43 /* Supporting Files */,
+				C9642D0E1456F1530013F78E /* GrowlManager.h */,
+				C9642D0F1456F1530013F78E /* GrowlManager.m */,
+				C9642D11145700D10013F78E /* AppController.h */,
+				C9642D12145700D10013F78E /* AppController.m */,
 			);
 			path = QuickHubApp;
 			sourceTree = "<group>";
@@ -281,6 +323,9 @@
 				C99637701448487900F6DB43 /* MainMenu.xib in Resources */,
 				C996379E144848F600F6DB43 /* QuickHubAppToolbar.png in Resources */,
 				C99637A21448499600F6DB43 /* PreferencesWindow.xib in Resources */,
+				C994B80914561A1200CDC031 /* QuickHubLogo-128.png in Resources */,
+				C994B80A14561A1200CDC031 /* QuickHubLogo-512.png in Resources */,
+				C994B80D14561A6F00CDC031 /* QuickHubLogo-128.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +350,11 @@
 				C9963799144848BD00F6DB43 /* NSData+Base64.m in Sources */,
 				C996379A144848BD00F6DB43 /* Preferences.m in Sources */,
 				C99637A31448499600F6DB43 /* PreferencesWindowController.m in Sources */,
+				C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */,
+				C9642D101456F1530013F78E /* GrowlManager.m in Sources */,
+				C9642D13145700D10013F78E /* AppController.m in Sources */,
+				C9642D1A145707EB0013F78E /* MenuController.m in Sources */,
+				C9642D1E14570F5F0013F78E /* GitHubController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

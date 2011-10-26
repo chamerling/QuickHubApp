@@ -13,9 +13,12 @@
 //
 
 #import <Growl/Growl.h>
+#import "NSWorkspaceHelper.h"
+
 #import "PreferencesWindowController.h"
 
 @implementation PreferencesWindowController
+
 @synthesize signInButton;
 @synthesize connectionStatus;
 @synthesize emailField;
@@ -58,7 +61,7 @@
 }
 
 - (void) windowWillClose:(NSNotification *)notification {
-    [self signIn:nil];
+    //[self signIn:nil];
 }
 
 # pragma mark - Actions
@@ -77,6 +80,7 @@
             [app stopAll:nil];
             [app cleanMenus:nil];
             [app loadAll:nil];
+            [self close];
         } else {
             [connectionStatus setStringValue:@"Bad credentials!"];
             [app stopAll:nil];
@@ -86,6 +90,27 @@
 }
 
 - (IBAction)about:(id)sender {
+}
+
+- (IBAction)openAtStartup:(id)sender {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"GenericListener" 
+														object:self 
+													  userInfo:nil];
+
+    
+    // get the current state and save to workspace to open at startup...
+    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+	NSBundle *bundle = [NSBundle mainBundle];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	BOOL shouldRegisterForLogin = [sender state];
+	if (shouldRegisterForLogin) {
+		[workspace registerLoginLaunchBundle:bundle];
+		[defaults setBool:YES forKey:@"openAtLogin"];
+	} else {
+		[workspace unregisterLoginLaunchBundle:bundle];
+		[defaults setBool:NO forKey:@"openAtLogin"];
+	}
 }
 
 - (BOOL) checkIfUpdateNeeded {

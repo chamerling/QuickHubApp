@@ -13,8 +13,8 @@
 //
 
 #import "QuickHubAppAppDelegate.h"
-
 #import "PreferencesWindowController.h"
+
 #import "ASIHTTPRequest.h"
 #import "JSONKit.h"
 #import "NSData+Base64.h"
@@ -23,6 +23,8 @@
 
 @synthesize window;
 @synthesize githubPolling;
+@synthesize growlManager;
+@synthesize appController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -45,12 +47,29 @@
     
     [GrowlApplicationBridge setGrowlDelegate:self];
     
+    NSString *photoUrl = @"https://playfoursquare.s3.amazonaws.com/userpix_thumbs/RFSVI3NNLIGQ0QM5.jpg";
+	NSImage *avatarImage = [[[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:photoUrl]] autorelease];
+	
+	[GrowlApplicationBridge notifyWithTitle:@"Title"
+								description:@"description"
+						   notificationName:@"QuickHub"
+								   iconData:[avatarImage TIFFRepresentation]
+								   priority:0
+								   isSticky:NO
+							   clickContext:nil];
+    
+    // TODO : register a listener to change status image on some failures, notifications, ...
+    
     preferences = [Preferences sharedInstance];
     if ([[preferences login]length] == 0 || ![self checkCredentials:nil]) {
         [GrowlApplicationBridge notifyWithTitle:@"QuickHub Failure" description:[NSString stringWithFormat:@"Bad credentials or not connected"] notificationName:@"QuickHub" iconData: nil priority:1 isSticky:NO clickContext:@"openPreferences"];
     } else {
         [self loadAll:nil];    
     }
+    
+    // TODO : check if we are connected to the internet...
+//    NSHost *host = [NSHost hostWithName:@"www.google.fr"];
+  //  NSLog(@"HOST GOOGOLE = %@", host);
 }
 
 /**
@@ -332,10 +351,16 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://gist.github.com"]];
 }
 
+- (IBAction)openPull:(id)sender {
+    id selectedItem = [sender representedObject];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];
+}
 - (IBAction)openPreferences:(id)sender {
-    PreferencesWindowController *preferencesWindow = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
-    [preferencesWindow setApp:self];
-    [preferencesWindow showWindow:self];
+    PreferencesWindowController *preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
+    //[preferencesWindowController setApp:self];
+    //[preferencesWindowController showWindow:self];
+    [NSApp activateIgnoringOtherApps: YES];
+	[[preferencesWindowController window] makeKeyWindow];
 }
 
 - (IBAction)quit:(id)sender {
@@ -357,6 +382,11 @@
 - (void) gistPressed:(id) sender {
     id selectedItem = [sender representedObject];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];
+}
+
+- (void) pullPressed:(id)sender {
+    id selectedItem = [sender representedObject];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];    
 }
 
 - (void) organizationPressed:(id) sender {
@@ -427,6 +457,20 @@
     [repositoriesRequest startAsynchronous];
 }
 
+- (void)loadPulls:(id)sender {
+    NSLog(@"Loaging Pulls for repository...");
+    
+    NSString *username = [preferences login];
+    NSString *password = [preferences password];
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/repos/:user/:repo/pulls?per_page=100"]];
+    [request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
+    [request setDidFinishSelector:@selector(pullFinished:)];
+    [request setDidFailSelector:@selector(pullFailed:)];
+    [request setDelegate:self];
+    [request startAsynchronous];
+}
+
 - (BOOL)checkCredentials:(id)sender {
     NSLog(@"Checking credentials...");
 
@@ -459,6 +503,10 @@
 - (void) reposFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
     [GrowlApplicationBridge notifyWithTitle:@"QuickHub Failure" description:[NSString stringWithFormat:@"Error while getting repositories"] notificationName:@"QuickHub" iconData: nil priority:1 isSticky:NO clickContext:nil];
+}
+
+- (void)pullFailed:(ASIHTTPRequest *)request {
+    
 }
 
 #pragma mark - process HTTP responses
@@ -527,7 +575,8 @@
     NSMutableSet* added = [NSMutableSet setWithSet:justGet];
     [added minusSet:existingGists];
     if ([added count] > 0 && !firstGistCall) {
-        [GrowlApplicationBridge notifyWithTitle:@"QuickHub" description:[NSString stringWithFormat:@"%d new Gists",[added count]] notificationName:@"QuickHub" iconData: nil priority:1 isSticky:NO clickContext:nil];
+        NSImage *avatarImage = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:@"QuickHubLogo-128.png"]] autorelease];
+        [GrowlApplicationBridge notifyWithTitle:@"QuickHub" description:[NSString stringWithFormat:@"%d new Gists",[added count]] notificationName:@"QuickHub" iconData:[avatarImage TIFFRepresentation] priority:0 isSticky:NO clickContext:nil];
     }
     firstGistCall = NO;
     
@@ -639,6 +688,10 @@
         [organizationItem autorelease];
         [menu addItem:organizationItem];
     }
+}
+
+- (void)pullFinished:(ASIHTTPRequest *)request {
+    
 }
 
 #pragma mark - Growl stuff

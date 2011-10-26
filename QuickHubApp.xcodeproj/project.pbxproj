@@ -137,6 +137,8 @@
 		C9642D0D1456EF1D0013F78E /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				C996378D144848BD00F6DB43 /* NSData+Base64.h */,
+				C996378E144848BD00F6DB43 /* NSData+Base64.m */,
 				C9642D081456EF090013F78E /* NSWorkspaceHelper.h */,
 				C9642D091456EF090013F78E /* NSWorkspaceHelper.m */,
 			);
@@ -246,8 +248,6 @@
 				C9642D1D14570F5F0013F78E /* GitHubController.m */,
 				C99637A01448499600F6DB43 /* PreferencesWindowController.h */,
 				C99637A11448499600F6DB43 /* PreferencesWindowController.m */,
-				C996378D144848BD00F6DB43 /* NSData+Base64.h */,
-				C996378E144848BD00F6DB43 /* NSData+Base64.m */,
 				C996378F144848BD00F6DB43 /* Preferences.h */,
 				C9963790144848BD00F6DB43 /* Preferences.m */,
 				C996376B1448487900F6DB43 /* QuickHubAppAppDelegate.h */,

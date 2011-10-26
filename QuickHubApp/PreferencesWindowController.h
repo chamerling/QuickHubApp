@@ -16,6 +16,7 @@
 
 #import "Preferences.h"
 #import "QuickHubAppAppDelegate.h"
+#import "MenuController.h"
 
 @interface PreferencesWindowController : NSWindowController<NSWindowDelegate, NSTextFieldDelegate> {
     Preferences *preferences;
@@ -25,12 +26,22 @@
     NSProgressIndicator *progressIndicator;
     NSTextField *connectionStatus;
     NSButton *signInButton;
+    
+    // controllers
+    GitHubController *ghController;
+    AppController *appController;
+    MenuController *menuController;
+    
 }
 @property (assign) IBOutlet NSButton *signInButton;
 @property (assign) IBOutlet NSTextField *connectionStatus;
 @property (assign) IBOutlet NSTextField *emailField;
 @property (assign) IBOutlet NSTextField *passworrField;
 @property (nonatomic, retain) QuickHubAppAppDelegate *app;
+@property (nonatomic, retain) GitHubController *ghController;
+@property (nonatomic, retain) AppController *appController;
+@property (nonatomic, retain) MenuController *menuController;
+
 @property (assign) IBOutlet NSProgressIndicator *progressIndicator;
 
 - (IBAction)signIn:(id)sender;

@@ -9,6 +9,7 @@
 //
 
 #import "GrowlManager.h"
+#import "QHConstants.h"
 
 @interface GrowlManager (Private)
 - (void)notifyWithNewCommits:(NSNotification *)aNotification;
@@ -28,6 +29,9 @@
 @implementation GrowlManager
 
 - (void) awakeFromNib {
+    NSLog(@"Registering notification listeners for growl");
+    [GrowlApplicationBridge setGrowlDelegate:self];
+    
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(notifyWithRepositoriesAdditions:)
 												 name:GITHUB_NOTIFICATION_REPOSITORIES_ADDED
@@ -37,25 +41,10 @@
 											 selector:@selector(notifyWithRepositoriesRemovals:)
 												 name:GITHUB_NOTIFICATION_REPOSITORIES_REMOVED
 											   object:nil];
-	
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(notifyWithNewPush:)
-                                                 name:GITHUB_NOTIFICATION_COMMITS_PUSHED
-                                               object:nil];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(notifyWithWatchersAdded:)
-                                                 name:GITHUB_NOTIFICATION_WATCHERS_ADDED
-                                               object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(genericListener:)
-                                                 name:@"GenericListener"
+                                                 name:GENERIC_NOTIFICATION
                                                object:nil];
-	
-	
-	[GrowlApplicationBridge setGrowlDelegate:self];
 }
 
 - (void)notifyWithNewCommits:(NSNotification *)aNotification {
@@ -79,79 +68,36 @@
 }
 
 - (void)notifyWithGistsAdded:(NSNotification *)aNotification {
-    //NSMutableDictionary *context = [NSMutableDictionary dictionary];
-	[GrowlApplicationBridge notifyWithTitle:@"QuickHub"
-								description:@"New gist have been added"
-						   notificationName:@"QuickHub"
-								   iconData:nil
-								   priority:0
-								   isSticky:NO
-							   clickContext:nil];
+    NSString *gistName = @"";//[aNotification object];
+    [self notifyWithName:@"QuickHub" desc:[NSString stringWithFormat:@"Gist '%@' added", gistName]];
 }
 
 - (void)notifyWithGistsRemoved:(NSNotification *)aNotification {
-    [GrowlApplicationBridge notifyWithTitle:@"QuickHub"
-								description:@"Gist deleted"
-						   notificationName:@"QuickHub"
-								   iconData:nil
-								   priority:0
-								   isSticky:NO
-							   clickContext:nil];
-
+    NSString *gistName = @"";//[aNotification object];
+    [self notifyWithName:@"QuickHub" desc:[NSString stringWithFormat:@"Gist '%@' removed", gistName]];
 }
 
 - (void)notifyWithOrgsAdded:(NSNotification *)aNotification {
-    [GrowlApplicationBridge notifyWithTitle:@"QuickHub"
-								description:@"Orgs added!"
-						   notificationName:@"QuickHub"
-								   iconData:nil
-								   priority:0
-								   isSticky:NO
-							   clickContext:nil];
+    NSString *orgName = @"";//[aNotification object];
+    [self notifyWithName:@"QuickHub" desc:[NSString stringWithFormat:@"Orgnization '%@' added", orgName]];
 }
 
 - (void)notifyWithOrgsDeleted:(NSNotification *)aNotification {
-    [GrowlApplicationBridge notifyWithTitle:@"QuickHub"
-								description:@"Orgs deleted!"
-						   notificationName:@"QuickHub"
-								   iconData:nil
-								   priority:0
-								   isSticky:NO
-							   clickContext:nil];
-
+    [self notifyWithName:@"QuickHub" desc:@"Organization deleted!"];
 }
 
 - (void)notifyWithIssueAdded:(NSNotification *)aNotification {
-    [GrowlApplicationBridge notifyWithTitle:@"QuickHub"
-								description:@"Issue added!"
-						   notificationName:@"QuickHub"
-								   iconData:nil
-								   priority:0
-								   isSticky:NO
-							   clickContext:nil];
-  
+    [self notifyWithName:@"QuickHub" desc:@"There is a new issue"];
 }
 
 - (void)notifyWithIssueDeleted:(NSNotification *)aNotification {
-    [GrowlApplicationBridge notifyWithTitle:@"QuickHub"
-								description:@"Issue deleted!"
-						   notificationName:@"QuickHub"
-								   iconData:nil
-								   priority:0
-								   isSticky:NO
-							   clickContext:nil];
-  
+    [self notifyWithName:@"QuickHub" desc:@"Issue deleted"];
 }
 
 -(void)genericListener:(NSNotification *)aNotification {
-    NSLog(@"Got a notification");
-    [GrowlApplicationBridge notifyWithTitle:@"QuickHub"
-								description:@"Got a notification..."
-						   notificationName:@"QuickHub"
-								   iconData:nil
-								   priority:0
-								   isSticky:NO
-							   clickContext:nil];
+    NSLog(@"Got a notification to growl...");
+    NSString *message = [aNotification object];
+    [self notifyWithName:@"QuickHub" desc:message];
 }
 
 #pragma mark - growl
@@ -161,6 +107,18 @@
                           notifications, GROWL_NOTIFICATIONS_ALL,
                           notifications, GROWL_NOTIFICATIONS_DEFAULT, nil];
     return dict;
+}
+
+- (void) notifyWithName:(NSString *)name desc:(NSString *)description {
+    NSImage *image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
+
+    [GrowlApplicationBridge notifyWithTitle:name
+								description:description
+						   notificationName:@"QuickHub"
+								   iconData:[image TIFFRepresentation]
+								   priority:0
+								   isSticky:NO
+							   clickContext:nil];    
 }
 
 @end

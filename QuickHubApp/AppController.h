@@ -28,6 +28,15 @@
     
 }
 
+- (void) pollIssues:(id) sender;
+- (void) pollGists:(id) sender;
+- (void) pollOrgs:(id) sender;
+- (void) pollRepos:(id) sender;
+//- (void) pollPulls:(id) sender;
+
+- (void) loadAll:(id)sender;
+- (void) stopAll:(id)sender;
+
 - (BOOL) checkInternetConnection;
 
 @end

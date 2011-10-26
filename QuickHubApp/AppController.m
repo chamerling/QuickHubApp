@@ -5,18 +5,11 @@
 // The main controller of the application...
 //
 //  Created by Christophe Hamerling on 25/10/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 chamerling.org. All rights reserved.
 //
 
 #import "AppController.h"
 #import "NSData+Base64.h"
-
-@interface AppController (Private)
-    - (void)loadGists;
-    - (void)loadRepos;
-    - (void)loadOrgs;
-    - (void)loadIssues;
-@end
 
 @implementation AppController
 
@@ -44,10 +37,10 @@
         NSLog(@"Load all and start polling things");
         [githubController loadGHData:nil];
         
-        gistTimer = [NSTimer scheduledTimerWithTimeInterval:120 target:self selector:@selector(loadGists:) userInfo:nil repeats:YES];
-        repositoryTimer = [NSTimer scheduledTimerWithTimeInterval:130 target:self selector:@selector(loadRepos:) userInfo:nil repeats:YES];
-        organizationTimer = [NSTimer scheduledTimerWithTimeInterval:600 target:self selector:@selector(loadOrgs:) userInfo:nil repeats:YES];
-        issueTimer = [NSTimer scheduledTimerWithTimeInterval:125 target:self selector:@selector(loadIssues:) userInfo:nil repeats:YES];
+        gistTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
+        repositoryTimer = [NSTimer scheduledTimerWithTimeInterval:130 target:self selector:@selector(pollRepos:) userInfo:nil repeats:YES];
+        organizationTimer = [NSTimer scheduledTimerWithTimeInterval:600 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
+        issueTimer = [NSTimer scheduledTimerWithTimeInterval:125 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
         
         // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
         // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input
@@ -72,19 +65,19 @@
     githubPolling = NO;
 }
 
-- (void)loadGists {
+- (void)pollGists:(id) sender {
     [githubController loadGists:nil];
 }
 
-- (void)loadRepos {
+- (void)pollRepos:(id) sender {
     [githubController loadRepos:nil];
 }
 
-- (void)loadOrgs {
+- (void)pollOrgs:(id) sender {
     [githubController loadOrganizations:nil];
 }
 
-- (void)loadIssues {
+- (void)pollIssues:(id) sender {
     [githubController loadIssues:nil];
 }
 

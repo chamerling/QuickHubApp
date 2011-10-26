@@ -7,6 +7,7 @@
 //
 
 #import "MenuController.h"
+#import "QHConstants.h"
 #import <Cocoa/Cocoa.h>
 #import "ASIHTTPRequest.h"
 #import "JSONKit.h"
@@ -51,23 +52,46 @@
     NSLog(@"Registering notifications listeners for the menu controller");
     [[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(notifyGists:)
-												 name:@"GistsNotify"
+												 name:GITHUB_NOTIFICATION_GISTS
 											   object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(notifyIssues:)
-												 name:@"IssuesNotify"
+												 name:GITHUB_NOTIFICATION_ISSUES
 											   object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(notifyOrganizations:)
-												 name:@"OrgsNotify"
+												 name:GITHUB_NOTIFICATION_ORGS
 											   object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(notifyRepos:)
-												 name:@"ReposNotify"
+												 name:GITHUB_NOTIFICATION_REPOS
 											   object:nil];
+}
+
+- (void)cleanMenus:(id)sender {
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Issues"];
+    NSMenu *menu = [menuItem submenu];
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    
+    menuItem = [statusMenu itemWithTitle:@"Gists"];
+    menu = [menuItem submenu];
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    
+    menuItem = [statusMenu itemWithTitle:@"Organizations"];
+    menu = [menuItem submenu];
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    
+    menuItem = [statusMenu itemWithTitle:@"Repositories"];
+    menu = [menuItem submenu];
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    
+    firstGistCall = YES;
+    firstIssueCall = YES;
+    firstOrganizationCall = YES;
+    firstRepositoryCall = YES;
 }
 
 #pragma mark - listeners
@@ -80,8 +104,7 @@
 - (void)notifyRepos:(NSNotification *)aNotification {
     NSLog(@"Got a Notify Repos");
     ASIHTTPRequest *httpRequest = [aNotification object];
-    [self gistFinished:httpRequest];
-    
+    [self reposFinished:httpRequest];
 }
 
 - (void)notifyOrganizations:(NSNotification *)aNotification {
@@ -115,11 +138,17 @@
     NSMutableSet* removedIssues = [NSMutableSet setWithSet:existingIssues];
     [removedIssues minusSet:justGetIssues];
     if ([removedIssues count] > 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                            object:[NSString stringWithFormat:@"%d issues removed", [removedIssues count]] 
+                                                          userInfo:nil];
     }
     
     NSMutableSet* addedIssues = [NSMutableSet setWithSet:justGetIssues];
     [addedIssues minusSet:existingIssues];
     if ([addedIssues count] > 0 && !firstIssueCall) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                            object:[NSString stringWithFormat:@"%d issues added", [removedIssues count]] 
+                                                          userInfo:nil];
     }
     firstIssueCall = NO;
     
@@ -154,12 +183,18 @@
     NSMutableSet* removed = [NSMutableSet setWithSet:existingGists];
     [removed minusSet:justGet];
     if ([removed count] > 0) {
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                            object:[NSString stringWithFormat:@"%d gists removed", [removed count]] 
+                                                          userInfo:nil];        
     }
     
     NSMutableSet* added = [NSMutableSet setWithSet:justGet];
     [added minusSet:existingGists];
     if ([added count] > 0 && !firstGistCall) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                            object:[NSString stringWithFormat:@"%d gists added", [added count]] 
+                                                          userInfo:nil];
+        
     }
     firstGistCall = NO;
     
@@ -245,14 +280,19 @@
     NSMutableSet* removed = [NSMutableSet setWithSet:existingRepos];
     [removed minusSet:justGet];
     if ([removed count] > 0) {
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                            object:[NSString stringWithFormat:@"%d repos removed", [removed count]] 
+                                                          userInfo:nil];        
     }
     
     NSMutableSet* added = [NSMutableSet setWithSet:justGet];
-    [added minusSet:existingGists];
+    [added minusSet:existingRepos];
     if ([added count] > 0 && !firstRepositoryCall) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                            object:[NSString stringWithFormat:@"%d repos added", [added count]] 
+                                                          userInfo:nil];
     }
-    firstGistCall = NO;
+    firstRepositoryCall = NO;
     
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
@@ -278,27 +318,27 @@
 
 # pragma mark - Actions on pressed menu items
 
-- (void) repoPressed:(id) sender {
+- (IBAction) repoPressed:(id) sender {
     id selectedItem = [sender representedObject];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];
 }
 
-- (void) issuePressed:(id) sender {
+- (IBAction) issuePressed:(id) sender {
     id selectedItem = [sender representedObject];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];
 }
 
-- (void) gistPressed:(id) sender {
+- (IBAction) gistPressed:(id) sender {
     id selectedItem = [sender representedObject];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];
 }
 
-- (void) pullPressed:(id)sender {
+- (IBAction) pullPressed:(id)sender {
     id selectedItem = [sender representedObject];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];    
 }
 
-- (void) organizationPressed:(id) sender {
+- (IBAction) organizationPressed:(id) sender {
     id selectedItem = [sender representedObject];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/organizations/%@", selectedItem]]];
 }

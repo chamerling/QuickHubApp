@@ -8,6 +8,7 @@
 
 #import "GitHubController.h"
 #import "NSData+Base64.h"
+#import "QHConstants.h"
 
 @interface GitHubController (Private)
 - (BOOL) checkResponseOK:(ASIHTTPRequest*) request;
@@ -19,7 +20,7 @@
 {
     self = [super init];
     if (self) {
-        // Initialization code here.
+        NSLog(@"Initializing GHController");
         preferences = [Preferences sharedInstance];
     }
     
@@ -124,42 +125,42 @@
     
     // TODO : create an objct with failure context...
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"HTTPFailed" 
+    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
 														object:request 
 													  userInfo:nil];   
 }
 
 - (void) gistsFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"HTTPFailed" 
+    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
 														object:request 
 													  userInfo:nil];   
 }
 
 - (void) organizationsFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"HTTPFailed" 
+    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
 														object:request 
 													  userInfo:nil];   
 }
 
 - (void) reposFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"HTTPFailed" 
+    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
 														object:request 
 													  userInfo:nil];   
 }
 
 - (void)pullFailed:(ASIHTTPRequest *)request {
     NSLog(@"Error : %@", [request error]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"HTTPFailed" 
+    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
 														object:request 
 													  userInfo:nil];       
 }
 
 - (void) httpFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"HTTPFailed" 
+    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
 														object:request 
 													  userInfo:nil];           
 }
@@ -176,7 +177,7 @@
     if (error) {
         
     } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"IssuesNotify" 
+        [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_ISSUES 
                                                             object:request 
                                                             userInfo:nil]; 
     }
@@ -184,30 +185,31 @@
 
 - (void) gistFinished:(ASIHTTPRequest*)request {
     NSLog(@"Gists Finished...");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"GistsNotify" 
+    [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_GISTS 
 														object:request 
 													  userInfo:nil];       
 }
 
 - (void) organizationsFinished:(ASIHTTPRequest*)request {
     NSLog(@"Organizations Finished...");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"OrgsNotify" 
+    [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_ORGS 
 														object:request 
 													  userInfo:nil];   
 }
 
 - (void) reposFinished:(ASIHTTPRequest*)request {
     NSLog(@"Repositories Finished...");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ReposNotify" 
+    [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_REPOS 
 														object:request 
-													  userInfo:nil];       
+													  userInfo:nil];   
 }
 
 - (void)pullFinished:(ASIHTTPRequest *)request {
     NSLog(@"Pulls Finished...");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PullsNotify" 
+    [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_PULLS 
 														object:request 
-													  userInfo:nil];       
+													  userInfo:nil]; 
+    
 }
 
 @end

@@ -13,14 +13,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <Growl/Growl.h>
 
 #import "Preferences.h"
 #import "GrowlManager.h"
 #import "AppController.h"
+#import "GitHubController.h"
 #import "ASIHTTPRequest.h"
 
-@interface QuickHubAppAppDelegate : NSObject <NSApplicationDelegate, GrowlApplicationBridgeDelegate> {
+@interface QuickHubAppAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
     NSPersistentStoreCoordinator *__persistentStoreCoordinator;
     NSManagedObjectModel *__managedObjectModel;
@@ -30,32 +30,17 @@
     NSStatusItem *statusItem;
     Preferences *preferences;
     
-    // caches
-    NSMutableSet* existingIssues;
-    NSMutableSet* existingGists;
-    NSMutableSet* existingRepos;
-    
-    // track first calls to avoid notifications
-    BOOL firstGistCall;
-    BOOL firstIssueCall;
-    BOOL firstOrganizationCall;
-    BOOL firstRepositoryCall;
-    
-    // update timers
-    NSTimer* gistTimer;
-    NSTimer* issueTimer;
-    NSTimer* organizationTimer;
-    NSTimer* repositoryTimer;
-    
     // misc.
     BOOL githubPolling;
     
     GrowlManager *growlManager;
     AppController *appController;
+    GitHubController *ghController;
 }
 
 @property (nonatomic, retain) IBOutlet GrowlManager *growlManager;
 @property (nonatomic, retain) IBOutlet AppController *appController;
+@property (nonatomic, retain) IBOutlet GitHubController *ghController;
 //@property (nonatomic, retain) PreferencesWindowController *preferencesWindowController;
 
 @property (assign) IBOutlet NSWindow *window;
@@ -69,12 +54,6 @@
 - (IBAction)saveAction:(id)sender;
 
 #pragma mark - GH
-
-- (void)loadGHData:(id)sender;
-
-- (void)loadAll:(id)sender;
-- (void)stopAll:(id)sender;
-- (void)cleanMenus:(id)sender;
 
 - (IBAction)saveAction:(id)sender;
 - (IBAction)openGitHub:(id)sender;
@@ -95,31 +74,6 @@
 - (void) gistPressed:(id) sender;
 - (void) pullPressed:(id) sender;
 
-# pragma mark - GH HTTP processing
-- (void) issuesFinished:(ASIHTTPRequest*)request;
-- (void) gistFinished:(ASIHTTPRequest*)request;
-- (void) organizationsFinished:(ASIHTTPRequest*)request;
-- (void) reposFinished:(ASIHTTPRequest*)request;
-- (void) pullFinished:(ASIHTTPRequest*)request;
-
-- (void) issuesFailed:(ASIHTTPRequest*)request;
-- (void) gistsFailed:(ASIHTTPRequest*)request;
-- (void) organizationsFailed:(ASIHTTPRequest*)request;
-- (void) reposFailed:(ASIHTTPRequest*)request;
-- (void) pullFailed:(ASIHTTPRequest*)request;
-
-- (void) httpFailed:(ASIHTTPRequest*)request;
-
-# pragma mark - Load things from github
-- (BOOL) checkCredentials:(id) sender;
-- (void) loadIssues:(id) sender;
-- (void) loadGists:(id) sender;
-- (void) loadOrganizations:(id) sender;
-- (void) loadRepos:(id) sender;
-- (void) loadPulls:(id) sender;
-
-# pragma mark - menu management
-- (void) deleteOldEntriesFromMenu:(NSMenu*)menu fromItemTitle:(NSString*)title;
 - (IBAction)helpPressed:(id)sender;
 
 @end

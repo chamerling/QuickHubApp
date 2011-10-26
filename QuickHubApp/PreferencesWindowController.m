@@ -24,6 +24,9 @@
 @synthesize emailField;
 @synthesize passworrField;
 @synthesize app;
+@synthesize ghController;
+@synthesize menuController;
+@synthesize appController;
 @synthesize progressIndicator;
 
 - (id)initWithWindow:(NSWindow *)window
@@ -51,7 +54,7 @@
     [[self window] center];
     [[self window] setLevel:10000];
     [progressIndicator setHidden:YES];
-    BOOL connected = [app checkCredentials:nil];
+    BOOL connected = [ghController checkCredentials:nil];
     if (connected) {
         [connectionStatus setStringValue:[NSString stringWithFormat:@"Connected as %@", [preferences login]]];
         [signInButton setEnabled:NO];
@@ -71,20 +74,20 @@
         [progressIndicator setHidden:NO];
         [connectionStatus setStringValue:@"Checking credentials..."];
         [progressIndicator startAnimation:nil];
-        BOOL credentials = [app checkCredentials:nil];
+        BOOL credentials = [ghController checkCredentials:nil];
         [progressIndicator stopAnimation:nil];
         [progressIndicator setHidden:YES];
         if (credentials) {
             [connectionStatus setStringValue:[NSString stringWithFormat:@"Connected as %@", [preferences login]]];
             [signInButton setEnabled:NO];
-            [app stopAll:nil];
-            [app cleanMenus:nil];
-            [app loadAll:nil];
+            [appController stopAll:nil];
+            [menuController cleanMenus:nil];
+            [appController loadAll:nil];
             [self close];
         } else {
             [connectionStatus setStringValue:@"Bad credentials!"];
-            [app stopAll:nil];
-            [app cleanMenus:nil];
+            [appController stopAll:nil];
+            [menuController cleanMenus:nil];
         }
     }
 }

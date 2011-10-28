@@ -301,7 +301,7 @@
 											<string key="NSFrame">{{16, 72}, {152, 18}}</string>
 											<reference key="NSSuperview" ref="3861269"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView"/>
+											<reference key="NSNextKeyView" ref="387410622"/>
 											<string key="NSReuseIdentifierKey">_NS:239</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="42142798">
@@ -324,6 +324,26 @@
 												<string key="NSKeyEquivalent"/>
 												<int key="NSPeriodicDelay">200</int>
 												<int key="NSPeriodicInterval">25</int>
+											</object>
+										</object>
+										<object class="NSTextField" id="387410622">
+											<reference key="NSNextResponder" ref="3861269"/>
+											<int key="NSvFlags">268</int>
+											<string key="NSFrame">{{15, 7}, {409, 17}}</string>
+											<reference key="NSSuperview" ref="3861269"/>
+											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView"/>
+											<string key="NSReuseIdentifierKey">_NS:3936</string>
+											<bool key="NSEnabled">YES</bool>
+											<object class="NSTextFieldCell" key="NSCell" id="520940091">
+												<int key="NSCellFlags">68288064</int>
+												<int key="NSCellFlags2">138413056</int>
+												<string key="NSContents"/>
+												<reference key="NSSupport" ref="136823285"/>
+												<string key="NSCellIdentifier">_NS:3936</string>
+												<reference key="NSControlView" ref="387410622"/>
+												<reference key="NSBackgroundColor" ref="100389760"/>
+												<reference key="NSTextColor" ref="621155800"/>
 											</object>
 										</object>
 									</object>
@@ -442,6 +462,22 @@
 					</object>
 					<int key="connectionID">47</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">openAtStartupButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="106347073"/>
+					</object>
+					<int key="connectionID">50</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">Version</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="387410622"/>
+					</object>
+					<int key="connectionID">53</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -517,6 +553,7 @@
 							<reference ref="707231021"/>
 						</object>
 						<reference key="parent" ref="686332963"/>
+						<string key="objectName">Static Text - Username:</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">4</int>
@@ -609,6 +646,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="106347073"/>
+							<reference ref="387410622"/>
 						</object>
 						<reference key="parent" ref="1006"/>
 					</object>
@@ -625,6 +663,20 @@
 						<int key="objectID">46</int>
 						<reference key="object" ref="42142798"/>
 						<reference key="parent" ref="106347073"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">51</int>
+						<reference key="object" ref="387410622"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="520940091"/>
+						</object>
+						<reference key="parent" ref="329377172"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">52</int>
+						<reference key="object" ref="520940091"/>
+						<reference key="parent" ref="387410622"/>
 					</object>
 				</object>
 			</object>
@@ -657,6 +709,8 @@
 					<string>45.IBPluginDependency</string>
 					<string>46.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
+					<string>51.IBPluginDependency</string>
+					<string>52.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
@@ -691,6 +745,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -705,11 +761,27 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">48</int>
+			<int key="maxID">53</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">AppController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/AppController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GitHubController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GitHubController.h</string>
+					</object>
+				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">GrowlManager</string>
 					<string key="superclassName">NSObject</string>
@@ -764,8 +836,10 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>Version</string>
 							<string>connectionStatus</string>
 							<string>emailField</string>
+							<string>openAtStartupButton</string>
 							<string>passworrField</string>
 							<string>progressIndicator</string>
 							<string>signInButton</string>
@@ -774,6 +848,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
+							<string>NSTextField</string>
+							<string>NSButton</string>
 							<string>NSTextField</string>
 							<string>NSProgressIndicator</string>
 							<string>NSButton</string>
@@ -783,8 +859,10 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>Version</string>
 							<string>connectionStatus</string>
 							<string>emailField</string>
+							<string>openAtStartupButton</string>
 							<string>passworrField</string>
 							<string>progressIndicator</string>
 							<string>signInButton</string>
@@ -792,12 +870,20 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
+								<string key="name">Version</string>
+								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">connectionStatus</string>
 								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">emailField</string>
 								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">openAtStartupButton</string>
+								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">passworrField</string>
@@ -920,12 +1006,16 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>appController</string>
+							<string>ghController</string>
 							<string>growlManager</string>
 							<string>statusMenu</string>
 							<string>window</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>AppController</string>
+							<string>GitHubController</string>
 							<string>GrowlManager</string>
 							<string>NSMenu</string>
 							<string>NSWindow</string>
@@ -935,12 +1025,22 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>appController</string>
+							<string>ghController</string>
 							<string>growlManager</string>
 							<string>statusMenu</string>
 							<string>window</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">appController</string>
+								<string key="candidateClassName">AppController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">ghController</string>
+								<string key="candidateClassName">GitHubController</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">growlManager</string>
 								<string key="candidateClassName">GrowlManager</string>

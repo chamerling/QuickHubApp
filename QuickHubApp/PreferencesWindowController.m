@@ -17,13 +17,17 @@
 
 #import "PreferencesWindowController.h"
 
+@interface PreferencesWindowController (Private)
+- (void) taskDidTerminate:(NSNotification *)notification;
+- (void) updateUI:(id)sender;
+@end
+
 @implementation PreferencesWindowController
 
 @synthesize signInButton;
 @synthesize connectionStatus;
 @synthesize emailField;
 @synthesize passworrField;
-@synthesize app;
 @synthesize ghController;
 @synthesize menuController;
 @synthesize appController;
@@ -33,34 +37,48 @@
 {
     self = [super initWithWindow:window];
     if (self) {
+        NSLog(@"Init preferences window");
         preferences = [Preferences sharedInstance];
     }
     return self;
 }
 
+- (void) windowWillLoad {
+}
+
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    [emailField setStringValue:[preferences login]];
-    [emailField setDelegate:self];
-
-    [passworrField setStringValue:[preferences password]];
-    [passworrField setDelegate:self];
-
+  
     [[self window]setDelegate:self];
 }
 
 - (void)showWindow:(id)sender {
+    NSLog(@"Show Preferences Window");
     [[self window] center];
     [[self window] setLevel:10000];
+
     [progressIndicator setHidden:YES];
-    BOOL connected = [ghController checkCredentials:nil];
-    if (connected) {
-        [connectionStatus setStringValue:[NSString stringWithFormat:@"Connected as %@", [preferences login]]];
-        [signInButton setEnabled:NO];
-    } else {
-        [connectionStatus setStringValue:@"Bad credentials!"];
+
+    [emailField setStringValue:[preferences login]];
+    [emailField setDelegate:self];
+    
+    [passworrField setStringValue:[preferences password]];
+    [passworrField setDelegate:self];
+    
+    // set quickhub preferences from the configuration
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL openAtLogin = [defaults boolForKey:@"openAtLogin"];
+    NSInteger state = 0;
+    if (openAtLogin) {
+        state = 1;
     }
+    [openAtStartupButton setState:state];
+    
+    [Version setStringValue:[NSString stringWithFormat:@"Version %@", (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey)]];
+    
+    // do it in a separate process so that we do not freeze the window
+    [self performSelectorInBackground:@selector(checkRemoteTask:) withObject:nil];    
 }
 
 - (void) windowWillClose:(NSNotification *)notification {
@@ -78,10 +96,12 @@
         [progressIndicator stopAnimation:nil];
         [progressIndicator setHidden:YES];
         if (credentials) {
+            // need to reset all data so that we do not display bad stuff...
             [connectionStatus setStringValue:[NSString stringWithFormat:@"Connected as %@", [preferences login]]];
             [signInButton setEnabled:NO];
             [appController stopAll:nil];
             [menuController cleanMenus:nil];
+            [menuController resetCache:nil];
             [appController loadAll:nil];
             [self close];
         } else {
@@ -96,11 +116,7 @@
 }
 
 - (IBAction)openAtStartup:(id)sender {
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"GenericListener" 
-														object:self 
-													  userInfo:nil];
-
+    NSLog(@"Open at startup called");
     
     // get the current state and save to workspace to open at startup...
     NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
@@ -127,6 +143,32 @@
         result = YES;
     }
     return result;
+}
+
+- (void)checkRemoteTask:(id) sender {
+    
+    BOOL internetAvailable = YES;
+    if (internetAvailable) {
+        BOOL connected = [ghController checkCredentials:nil];
+        if (connected) {
+            [connectionStatus setStringValue:[NSString stringWithFormat:@"Connected as %@", [preferences login]]];
+            [signInButton setEnabled:NO];
+        } else {
+            [connectionStatus setStringValue:@"Bad credentials!"];
+        }
+    } else {
+        [signInButton setEnabled:NO];
+        [connectionStatus setStringValue:@"No Internet connection!"];        
+    }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(taskDidTerminate:)
+                                                 name:NSTaskDidTerminateNotification
+                                               object:nil];
+}
+
+- (void) taskDidTerminate:(NSNotification *)notification {
+    // Call updateUI method on main thread to update the user interface
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
 }
 
 # pragma mark - text fields delegate

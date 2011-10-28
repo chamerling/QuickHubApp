@@ -36,7 +36,7 @@
 
 # pragma mark - Load things from github
 - (void) loadIssues:(id) sender {
-    NSLog(@"Loaging Issues...");
+    NSLog(@"Loading Issues...");
     
     NSString *username = [preferences login];
     NSString *password = [preferences password];
@@ -65,7 +65,7 @@
 }
 
 - (void) loadOrganizations:(id) sender {
-    NSLog(@"Loaging Organizations...");
+    NSLog(@"Loading Organizations...");
     
     NSString *username = [preferences login];
     NSString *password = [preferences password];
@@ -79,7 +79,7 @@
 }
 
 - (void) loadRepos:(id) sender {
-    NSLog(@"Loaging Repositories...");
+    NSLog(@"Loading Repositories...");
     
     NSString *username = [preferences login];
     NSString *password = [preferences password];
@@ -93,7 +93,7 @@
 }
 
 - (void)loadPulls:(id)sender {
-    NSLog(@"TODO : Loaging Pulls for repository...");
+    NSLog(@"TODO : Loading Pulls for repository...");
     
     NSString *username = [preferences login];
     NSString *password = [preferences password];
@@ -122,46 +122,48 @@
 # pragma mark - HTTP failures
 - (void) issuesFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    
-    // TODO : create an objct with failure context...
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
-														object:request 
+    NSString *error = [NSString stringWithFormat:@"Error getting issues '%@'", [[request error]domain]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+														object:error 
 													  userInfo:nil];   
 }
 
 - (void) gistsFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
-														object:request 
+    NSString *error = [NSString stringWithFormat:@"Error getting gists '%@'", [[request error]domain]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+														object:error 
 													  userInfo:nil];   
 }
 
 - (void) organizationsFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
-														object:request 
+    NSString *error = [NSString stringWithFormat:@"Error getting organizations '%@'", [[request error]domain]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+														object:error 
 													  userInfo:nil];   
 }
 
 - (void) reposFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
-														object:request 
+    NSString *error = [NSString stringWithFormat:@"Error getting repositories '%@'", [[request error]domain]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+														object:error 
 													  userInfo:nil];   
 }
 
 - (void)pullFailed:(ASIHTTPRequest *)request {
     NSLog(@"Error : %@", [request error]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
+    [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
 														object:request 
 													  userInfo:nil];       
 }
 
 - (void) httpFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:HTTP_NOTIFICATION_FAILURE 
-														object:request 
+    NSString *error = [NSString stringWithFormat:@"HTTP failure '%@'", [[request error]domain]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+														object:error 
 													  userInfo:nil];           
 }
 

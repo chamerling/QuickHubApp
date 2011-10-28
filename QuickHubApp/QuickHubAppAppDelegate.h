@@ -30,9 +30,6 @@
     NSStatusItem *statusItem;
     Preferences *preferences;
     
-    // misc.
-    BOOL githubPolling;
-    
     GrowlManager *growlManager;
     AppController *appController;
     GitHubController *ghController;
@@ -41,7 +38,6 @@
 @property (nonatomic, retain) IBOutlet GrowlManager *growlManager;
 @property (nonatomic, retain) IBOutlet AppController *appController;
 @property (nonatomic, retain) IBOutlet GitHubController *ghController;
-//@property (nonatomic, retain) PreferencesWindowController *preferencesWindowController;
 
 @property (assign) IBOutlet NSWindow *window;
 

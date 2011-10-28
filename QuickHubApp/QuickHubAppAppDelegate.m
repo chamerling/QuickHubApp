@@ -14,7 +14,7 @@
 
 #import "QuickHubAppAppDelegate.h"
 #import "PreferencesWindowController.h"
-#import "QHConstants.h";
+#import "QHConstants.h"
 
 #import "ASIHTTPRequest.h"
 #import "JSONKit.h"
@@ -36,18 +36,20 @@
     [statusImage setTemplate:YES];
     [statusItem setImage:statusImage];
     [statusItem setHighlightMode:YES];
-        
-    githubPolling = NO;
-
+    
     // TODO : register a listener to change status image on some failures, notifications, ...
     
     preferences = [Preferences sharedInstance];
     if ([[preferences login]length] == 0 || ![ghController checkCredentials:nil]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];        
     } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Connected to GitHub..." userInfo:nil];        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Connecting to GitHub..." userInfo:nil];        
         [appController loadAll:nil];    
     }
+    
+    NSString *version = (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
+    NSLog(@"VERSION : %@", version);
+
 }
 
 /**
@@ -248,6 +250,7 @@
 }
 
 - (IBAction)openOrganizations:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://github.com/account/organizations"]];
 }
 
 - (IBAction)createGist:(id)sender {
@@ -264,10 +267,10 @@
 - (IBAction)openPreferences:(id)sender {
     PreferencesWindowController *preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
     [preferencesWindowController setGhController:ghController];
-    //[preferencesWindowController setApp:self];
-    //[preferencesWindowController showWindow:self];
+    [preferencesWindowController setAppController:appController];
     [NSApp activateIgnoringOtherApps: YES];
 	[[preferencesWindowController window] makeKeyWindow];
+    [preferencesWindowController showWindow:self];
 }
 
 - (IBAction)quit:(id)sender {
@@ -301,9 +304,8 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/organizations/%@", selectedItem]]];
 }
 
-
 - (IBAction)helpPressed:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://chamerling.github.com/QuickHubApp/"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:appsite]];
 }
 
 

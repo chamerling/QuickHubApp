@@ -22,10 +22,12 @@
     Preferences *preferences;
     NSTextField *emailField;
     NSTextField *passworrField;
-    QuickHubAppAppDelegate* app;
     NSProgressIndicator *progressIndicator;
     NSTextField *connectionStatus;
     NSButton *signInButton;
+    IBOutlet NSTextField *Version;
+    
+    IBOutlet NSButton *openAtStartupButton;
     
     // controllers
     GitHubController *ghController;
@@ -37,7 +39,6 @@
 @property (assign) IBOutlet NSTextField *connectionStatus;
 @property (assign) IBOutlet NSTextField *emailField;
 @property (assign) IBOutlet NSTextField *passworrField;
-@property (nonatomic, retain) QuickHubAppAppDelegate *app;
 @property (nonatomic, retain) GitHubController *ghController;
 @property (nonatomic, retain) AppController *appController;
 @property (nonatomic, retain) MenuController *menuController;
@@ -49,5 +50,6 @@
 - (IBAction)openAtStartup:(id)sender;
 
 - (BOOL) checkIfUpdateNeeded;
+- (void)checkRemoteTask:(id) sender;
 
 @end

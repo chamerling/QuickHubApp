@@ -30,9 +30,19 @@
 #define GITHUB_NOTIFICATION_ISSUES @"GetIssues"
 #define GITHUB_NOTIFICATION_PULLS @"GetPulls"
 
-#define HTTP_NOTIFICATION_FAILURE @"GetIssues"
+#define GITHUB_NOTIFICATION_ISSUE_ADDED @"IssueAdded"
+#define GITHUB_NOTIFICATION_ISSUE_REMOVED @"IssueRemoved"
+
+#define GITHUB_NOTIFICATION_GIST_ADDED @"GistAdded"
+#define GITHUB_NOTIFICATION_GIST_REMOVED @"GistRemoved"
+#define GITHUB_NOTIFICATION_GIST_REMOVED @"GistRemoved"
+
+#define HTTP_NOTIFICATION_FAILURE @"HTTPFailure"
 
 #define GENERIC_NOTIFICATION @"GenericListener"
+
+#define POLLING_START @"PollingStart"
+#define POLLING_STOP @"PollingStop"
 
 #endif
 

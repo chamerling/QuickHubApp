@@ -134,6 +134,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C92D63F91459D59C002F3FA9 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				C9642D0D1456EF1D0013F78E /* Others */,
+				C99006861455B05E00744317 /* JSONKit */,
+				C99006841455B04A00744317 /* ASIHTTP */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
 		C9642D0D1456EF1D0013F78E /* Others */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,10 +248,11 @@
 		C996375F1448487900F6DB43 /* QuickHubApp */ = {
 			isa = PBXGroup;
 			children = (
-				C9642D0D1456EF1D0013F78E /* Others */,
-				C99006861455B05E00744317 /* JSONKit */,
-				C99006841455B04A00744317 /* ASIHTTP */,
+				C92D63F91459D59C002F3FA9 /* Dependencies */,
 				C990068B1455B14700744317 /* Resources */,
+				C99637601448487900F6DB43 /* Supporting Files */,
+				C99637711448487900F6DB43 /* QuickHubApp.xcdatamodeld */,
+				C9F190711458B21000648538 /* QHConstants.h */,
 				C9642D18145707EB0013F78E /* MenuController.h */,
 				C9642D19145707EB0013F78E /* MenuController.m */,
 				C9642D1C14570F5F0013F78E /* GitHubController.h */,
@@ -250,15 +261,12 @@
 				C99637A11448499600F6DB43 /* PreferencesWindowController.m */,
 				C996378F144848BD00F6DB43 /* Preferences.h */,
 				C9963790144848BD00F6DB43 /* Preferences.m */,
-				C996376B1448487900F6DB43 /* QuickHubAppAppDelegate.h */,
-				C996376C1448487900F6DB43 /* QuickHubAppAppDelegate.m */,
-				C99637711448487900F6DB43 /* QuickHubApp.xcdatamodeld */,
-				C99637601448487900F6DB43 /* Supporting Files */,
 				C9642D0E1456F1530013F78E /* GrowlManager.h */,
 				C9642D0F1456F1530013F78E /* GrowlManager.m */,
 				C9642D11145700D10013F78E /* AppController.h */,
 				C9642D12145700D10013F78E /* AppController.m */,
-				C9F190711458B21000648538 /* QHConstants.h */,
+				C996376B1448487900F6DB43 /* QuickHubAppAppDelegate.h */,
+				C996376C1448487900F6DB43 /* QuickHubAppAppDelegate.m */,
 			);
 			path = QuickHubApp;
 			sourceTree = "<group>";
@@ -394,7 +402,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -410,9 +418,9 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 			};
 			name = Debug;
 		};
@@ -420,7 +428,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -430,8 +438,8 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx10.6;
 			};
 			name = Release;
 		};

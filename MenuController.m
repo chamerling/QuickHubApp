@@ -3,7 +3,7 @@
 //  QuickHubApp
 //
 //  Created by Christophe Hamerling on 25/10/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 chamerling.org. All rights reserved.
 //
 
 #import "MenuController.h"
@@ -47,7 +47,7 @@
     return self;
 }
 
-// register to notifications so that the menu can be updated...
+// register to notifications so that the menu can be updated when data is retrieved from github...
 - (void) awakeFromNib {
     NSLog(@"Registering notifications listeners for the menu controller");
     [[NSNotificationCenter defaultCenter] addObserver:self 
@@ -94,7 +94,7 @@
     firstRepositoryCall = YES;
 }
 
-#pragma mark - listeners
+#pragma mark - selectors
 - (void)notifyGists:(NSNotification *)aNotification {
     NSLog(@"Got a Notify Gists");
     ASIHTTPRequest *httpRequest = [aNotification object];
@@ -137,32 +137,55 @@
     
     NSMutableSet* removedIssues = [NSMutableSet setWithSet:existingIssues];
     [removedIssues minusSet:justGetIssues];
-    if ([removedIssues count] > 0) {
+    if ([removedIssues count] > 0 && !firstIssueCall) {
+        // for now we do not cache the issue title, so we just say that we removed some...
+        NSString *title = [NSString stringWithString:@"Yeah! One less issue!"];
+        if ([removedIssues count] > 1) {
+            title = [NSString stringWithFormat:@"OMG, %d less issues", [removedIssues count]];
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                            object:[NSString stringWithFormat:@"%d issues removed", [removedIssues count]] 
+                                                            object:title 
                                                           userInfo:nil];
     }
     
     NSMutableSet* addedIssues = [NSMutableSet setWithSet:justGetIssues];
     [addedIssues minusSet:existingIssues];
-    if ([addedIssues count] > 0 && !firstIssueCall) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                            object:[NSString stringWithFormat:@"%d issues added", [removedIssues count]] 
-                                                          userInfo:nil];
-    }
-    firstIssueCall = NO;
     
-    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    if ([addedIssues count] > 0 && !firstIssueCall) {
+        if ([addedIssues count] > 3) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                                object:[NSString stringWithFormat:@"%d new issues...", [addedIssues count]] 
+                                                              userInfo:nil];
+        } else {
+            for (NSString *key in addedIssues) {
+                for (NSArray *issue in result) {
+                    if ([issue valueForKey:@"number"] == key) {
+                        NSString *title = [issue valueForKey:@"title"];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_ISSUE_ADDED 
+                                                                            object:[NSString stringWithFormat:@"%@", title]                                                             userInfo:nil];                
+                    }
+                }
+            }
+        }
+    }
+    
+    firstIssueCall = NO;
+    BOOL clean = (addedIssues != 0 || removedIssues != 0);
+    if (clean) {
+        [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    }
     
     // clear the existing Issues
     existingIssues = [[NSMutableSet alloc]init]; 
     
     for (NSArray *issue in result) {
         [existingIssues addObject:[issue valueForKey:@"number"]];
-        NSMenuItem *issueItem = [[NSMenuItem alloc] initWithTitle:[issue valueForKey:@"title"] action:@selector(issuePressed:) keyEquivalent:@""];
-        [issueItem setRepresentedObject:[issue valueForKey:@"html_url"]];
-        [issueItem autorelease];
-        [menu addItem:issueItem];
+        if (clean) {
+            NSMenuItem *issueItem = [[NSMenuItem alloc] initWithTitle:[issue valueForKey:@"title"] action:@selector(issuePressed:) keyEquivalent:@""];
+            [issueItem setRepresentedObject:[issue valueForKey:@"html_url"]];
+            [issueItem autorelease];
+            [menu addItem:issueItem];
+        }
     }
 }
 
@@ -182,23 +205,50 @@
     
     NSMutableSet* removed = [NSMutableSet setWithSet:existingGists];
     [removed minusSet:justGet];
-    if ([removed count] > 0) {
+    if ([removed count] > 0 && !firstGistCall) {
+        NSString *title = nil;
+        if ([removed count] > 1) {
+            title = [NSString stringWithFormat:@"OMG, %d less gists", [removed count]];
+        } else {
+            title = [NSString stringWithString:@"RIP gist #"];
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                            object:[NSString stringWithFormat:@"%d gists removed", [removed count]] 
-                                                          userInfo:nil];        
+                                                            object:title 
+                                                          userInfo:nil];       
     }
     
     NSMutableSet* added = [NSMutableSet setWithSet:justGet];
     [added minusSet:existingGists];
+    
     if ([added count] > 0 && !firstGistCall) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                            object:[NSString stringWithFormat:@"%d gists added", [added count]] 
-                                                          userInfo:nil];
-        
+        if ([added count] > 3) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                                object:[NSString stringWithFormat:@"%d new gists!", [added count]] 
+                                                              userInfo:nil];
+        } else {
+            for (NSString *key in added) {
+                for (NSArray *issue in result) {
+                    if ([[issue valueForKey:@"id"] isEqual:key]) {
+                        NSString *title = nil;
+                        NSString *description = [issue valueForKey:@"description"];
+                        if (description == (id)[NSNull null] || description.length == 0) {
+                            title = [NSString stringWithFormat:@"gist %@", [issue valueForKey:@"id"]];
+                        } else {
+                            title = [NSString stringWithFormat:@"gist %@ : %@", [issue valueForKey:@"id"], description];
+                        }
+                        [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_GIST_ADDED 
+                                                                            object:[NSString stringWithFormat:@"%@", title]                                                             userInfo:nil];                
+                    }
+                }
+            }
+        }
     }
+    
     firstGistCall = NO;
     
-    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    BOOL clean = (added != 0 || added != 0); {
+        [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    }
     
     // clear the existing Issues
     existingGists = [[NSMutableSet alloc]init]; 
@@ -207,19 +257,21 @@
         // cache for next time...
         [existingGists addObject:[gist valueForKey:@"id"]];
         
-        NSString *title = nil;
-        NSString *description = [gist valueForKey:@"description"];
-        if (description == (id)[NSNull null] || description.length == 0) {
-            title = [NSString stringWithFormat:@"gist %@", [gist valueForKey:@"id"]];
-        } else {
-            title = [NSString stringWithFormat:@"gist %@ : %@", [gist valueForKey:@"id"], description];
+        if (clean) {
+            NSString *title = nil;
+            NSString *description = [gist valueForKey:@"description"];
+            if (description == (id)[NSNull null] || description.length == 0) {
+                title = [NSString stringWithFormat:@"gist %@", [gist valueForKey:@"id"]];
+            } else {
+                title = [NSString stringWithFormat:@"gist %@ : %@", [gist valueForKey:@"id"], description];
+            }
+        
+            NSMenuItem *gistItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(gistPressed:) keyEquivalent:@""];
+        
+            [gistItem setRepresentedObject:[gist valueForKey:@"html_url"]];
+            [gistItem autorelease];
+            [menu addItem:gistItem];
         }
-        
-        NSMenuItem *gistItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(gistPressed:) keyEquivalent:@""];
-        
-        [gistItem setRepresentedObject:[gist valueForKey:@"html_url"]];
-        [gistItem autorelease];
-        [menu addItem:gistItem];
     }
 }
 
@@ -279,22 +331,44 @@
     
     NSMutableSet* removed = [NSMutableSet setWithSet:existingRepos];
     [removed minusSet:justGet];
-    if ([removed count] > 0) {
+    if ([removed count] > 0 && !firstRepositoryCall) {
+        NSString *title = nil;
+        if ([removed count] > 1) {
+            title = [NSString stringWithFormat:@"OMG, %d less repositories!?", [removed count]];
+        } else {
+            // TODO get the name from the set
+            title = [NSString stringWithString:@"RIP little repository..."];
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                            object:[NSString stringWithFormat:@"%d repos removed", [removed count]] 
-                                                          userInfo:nil];        
+                                                            object:title 
+                                                          userInfo:nil];       
     }
     
     NSMutableSet* added = [NSMutableSet setWithSet:justGet];
     [added minusSet:existingRepos];
     if ([added count] > 0 && !firstRepositoryCall) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                            object:[NSString stringWithFormat:@"%d repos added", [added count]] 
-                                                          userInfo:nil];
+        if ([added count] > 3) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                                object:[NSString stringWithFormat:@"%d new repositories! Take coffee and code!", [added count]] 
+                                                              userInfo:nil];
+        } else {
+            for (NSString *key in added) {
+                for (NSArray *issue in result) {
+                    if ([[issue valueForKey:@"name"] isEqual:key]) {
+                        NSString *title = [issue valueForKey:@"name"];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                                            object:[NSString stringWithFormat:@"%@ is your new repository", title]                                                             userInfo:nil];                
+                    }
+                }
+            }
+        }
     }
     firstRepositoryCall = NO;
-    
-    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    BOOL clean = (added != 0 || added != 0);
+
+    if (clean) {
+        [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    }
     
     // clear the existing Issues
     existingRepos = [[NSMutableSet alloc]init]; 
@@ -303,12 +377,14 @@
         // cache for next time
         [existingRepos addObject:[repo valueForKey:@"name"]];
         
-        NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
-        [organizationItem setToolTip: @""];
-        [organizationItem setRepresentedObject:[repo valueForKey:@"html_url"]];
-        [organizationItem setEnabled:YES];
-        [organizationItem autorelease];
-        [menu addItem:organizationItem];
+        if (clean) {
+            NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
+            [organizationItem setToolTip: @""];
+            [organizationItem setRepresentedObject:[repo valueForKey:@"html_url"]];
+            [organizationItem setEnabled:YES];
+            [organizationItem autorelease];
+            [menu addItem:organizationItem];
+        }
     }
 }
 
@@ -353,6 +429,16 @@
             [menu removeItemAtIndex:deleteItemLimit + 1];
         }
     }
+}
+
+- (void) resetCache:(id)sender {
+    firstGistCall = YES;
+    firstIssueCall = YES;
+    firstOrganizationCall = YES;
+    firstRepositoryCall = YES;
+    existingRepos = [[NSMutableSet alloc]init]; 
+    existingGists = [[NSMutableSet alloc]init]; 
+    existingIssues = [[NSMutableSet alloc]init]; 
 }
 
 @end

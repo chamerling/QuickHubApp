@@ -41,5 +41,6 @@
 
 #pragma mark - UI management
 - (void) deleteOldEntriesFromMenu:(NSMenu*)menu fromItemTitle:(NSString*)title;
+- (void) resetCache:(id) sender;
 
 @end

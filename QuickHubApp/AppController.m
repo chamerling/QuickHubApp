@@ -10,6 +10,8 @@
 
 #import "AppController.h"
 #import "NSData+Base64.h"
+#import "ASIHTTPRequest.h"
+#import "QHConstants.h"
 
 @implementation AppController
 
@@ -26,8 +28,15 @@
 
 - (void)awakeFromNib {
     // register listeners to start and stop polling...
-    // TODO
-    NSLog(@"TODO : register listeners to start and stop polling");
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(loadAll:)
+                                                 name:POLLING_START
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(stopAll:)
+                                                 name:POLLING_STOP
+                                               object:nil];
 }
 
 #pragma mark - Github Actions
@@ -37,7 +46,7 @@
         NSLog(@"Load all and start polling things");
         [githubController loadGHData:nil];
         
-        gistTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
+        gistTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
         repositoryTimer = [NSTimer scheduledTimerWithTimeInterval:130 target:self selector:@selector(pollRepos:) userInfo:nil repeats:YES];
         organizationTimer = [NSTimer scheduledTimerWithTimeInterval:600 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
         issueTimer = [NSTimer scheduledTimerWithTimeInterval:125 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
@@ -83,8 +92,14 @@
 
 #pragma mark - misc
 - (BOOL)checkInternetConnection {
-    NSHost *host = [NSHost hostWithName:@"www.google.fr"];
-    NSLog(@"%@", host);
+    // hope that google is always on...
+    ASIHTTPRequest *googleCheck = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://google.com"]];
+    [googleCheck setTimeOutSeconds:5];
+    //[googleCheck setDidFinishSelector:@selector(issuesFinished:)];
+    //[googleCheck setDidFailSelector:@selector(issuesFailed:)];
+    //[googleCheck setDelegate:self];
+    [googleCheck startSynchronous];
+    NSLog(@"HTTPCheck %@", googleCheck);
     return YES;
 }
 

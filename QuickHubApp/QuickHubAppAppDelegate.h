@@ -17,6 +17,7 @@
 #import "Preferences.h"
 #import "GrowlManager.h"
 #import "AppController.h"
+#import "MenuController.h"
 #import "GitHubController.h"
 #import "ASIHTTPRequest.h"
 
@@ -33,16 +34,15 @@
     GrowlManager *growlManager;
     AppController *appController;
     GitHubController *ghController;
+    MenuController *menuController;
 }
 
 @property (nonatomic, retain) IBOutlet GrowlManager *growlManager;
 @property (nonatomic, retain) IBOutlet AppController *appController;
 @property (nonatomic, retain) IBOutlet GitHubController *ghController;
+@property (nonatomic, retain) IBOutlet MenuController *menuController;
 
 @property (assign) IBOutlet NSWindow *window;
-
-@property (nonatomic) BOOL githubPolling;
-
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;

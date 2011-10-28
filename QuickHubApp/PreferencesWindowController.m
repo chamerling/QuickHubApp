@@ -60,10 +60,14 @@
 
     [progressIndicator setHidden:YES];
 
-    [emailField setStringValue:[preferences login]];
+    if ([[preferences login]length] > 0) {
+        [emailField setStringValue:[preferences login]];
+    }
     [emailField setDelegate:self];
     
-    [passworrField setStringValue:[preferences password]];
+    if ([[preferences password]length] > 0) {
+        [passworrField setStringValue:[preferences password]];
+    }
     [passworrField setDelegate:self];
     
     // set quickhub preferences from the configuration
@@ -75,14 +79,13 @@
     }
     [openAtStartupButton setState:state];
     
-    [Version setStringValue:[NSString stringWithFormat:@"Version %@", (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey)]];
-    
+    [Version setStringValue:[NSString stringWithFormat:@"%@ - Version %@", (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleNameKey), (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey)]];
+
     // do it in a separate process so that we do not freeze the window
     [self performSelectorInBackground:@selector(checkRemoteTask:) withObject:nil];    
 }
 
 - (void) windowWillClose:(NSNotification *)notification {
-    //[self signIn:nil];
 }
 
 # pragma mark - Actions
@@ -103,11 +106,11 @@
             [menuController cleanMenus:nil];
             [menuController resetCache:nil];
             [appController loadAll:nil];
-            [self close];
         } else {
             [connectionStatus setStringValue:@"Bad credentials!"];
             [appController stopAll:nil];
             [menuController cleanMenus:nil];
+            [menuController resetCache:nil];
         }
     }
 }
@@ -132,10 +135,33 @@
 	}
 }
 
+- (IBAction)selectPollingPeriod:(id)sender {
+    NSLog(@"Select polling period %@", sender);
+    NSPopUpButton *popup = sender;
+    NSMenuItem *item = [popup selectedItem];
+    //NSString *title = [item title];
+    NSLog(@"%@", [item title]);
+}
+
+- (IBAction)selectGistSize:(id)sender {
+    NSLog(@"Select gist size %@", sender);
+    // TODO
+}
+
 - (BOOL) checkIfUpdateNeeded {
+    return YES;
+    /*
     BOOL result = NO;
     NSString* oldLogin = [preferences login];
     NSString* oldPassword = [preferences password];
+    
+    if (!oldLogin) {
+        oldLogin = [NSString stringWithString:@""];
+    }
+    if (!oldPassword) {
+        oldPassword = [NSString stringWithString:@""];
+    }
+    
     NSComparisonResult loginCompare = [oldLogin compare:[emailField stringValue]];
     NSComparisonResult pwdCompare = [oldPassword compare:[passworrField stringValue]];
     
@@ -143,6 +169,7 @@
         result = YES;
     }
     return result;
+     */
 }
 
 - (void)checkRemoteTask:(id) sender {

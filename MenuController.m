@@ -23,13 +23,12 @@
 - (void) gistFinished:(ASIHTTPRequest*)request;
 - (void) organizationsFinished:(ASIHTTPRequest*)request;
 - (void) reposFinished:(ASIHTTPRequest*)request;
-- (void)pullFinished:(ASIHTTPRequest *)request;
+- (void) pullFinished:(ASIHTTPRequest *)request;
 @end
 
 @implementation MenuController
 
 @synthesize statusMenu;
-
 
 - (id)init
 {
@@ -72,6 +71,7 @@
 }
 
 - (void)cleanMenus:(id)sender {
+    NSLog(@"Cleaning menu");
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Issues"];
     NSMenu *menu = [menuItem submenu];
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
@@ -420,6 +420,7 @@
 }
 
 - (void) deleteOldEntriesFromMenu:(NSMenu*)menu fromItemTitle:(NSString*)title {
+    NSLog(@"Delete entries from menu");
     // remove all the menu items
     NSInteger deleteItemLimit = [menu indexOfItemWithTitle:title];
     if (deleteItemLimit > 0) {

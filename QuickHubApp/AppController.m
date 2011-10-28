@@ -46,7 +46,7 @@
         NSLog(@"Load all and start polling things");
         [githubController loadGHData:nil];
         
-        gistTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
+        gistTimer = [NSTimer scheduledTimerWithTimeInterval:100 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
         repositoryTimer = [NSTimer scheduledTimerWithTimeInterval:130 target:self selector:@selector(pollRepos:) userInfo:nil repeats:YES];
         organizationTimer = [NSTimer scheduledTimerWithTimeInterval:600 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
         issueTimer = [NSTimer scheduledTimerWithTimeInterval:125 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
@@ -72,22 +72,31 @@
         [issueTimer invalidate];
     }
     githubPolling = NO;
+    NSLog(@"Stopped");
 }
 
 - (void)pollGists:(id) sender {
-    [githubController loadGists:nil];
+    if (githubPolling) {
+        [githubController loadGists:nil];
+    }
 }
 
 - (void)pollRepos:(id) sender {
-    [githubController loadRepos:nil];
+    if (githubPolling) {
+        [githubController loadRepos:nil];
+    }
 }
 
 - (void)pollOrgs:(id) sender {
-    [githubController loadOrganizations:nil];
+    if (githubPolling) {
+        [githubController loadOrganizations:nil];
+    }
 }
 
 - (void)pollIssues:(id) sender {
-    [githubController loadIssues:nil];
+    if (githubPolling) {
+        [githubController loadIssues:nil];
+    }
 }
 
 #pragma mark - misc

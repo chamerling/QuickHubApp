@@ -15,13 +15,9 @@
 #import <Foundation/Foundation.h>
 
 @interface Preferences : NSObject {
-    NSMutableDictionary *prefs;
     BOOL filled;
 }
 
-- (void) saveData;
-- (void) loadData;
-- (NSString *) path;
 - (void) setDefault;
 
 - (NSString *) login;

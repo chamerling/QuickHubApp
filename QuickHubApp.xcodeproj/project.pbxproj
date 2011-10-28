@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C91CE183145B41EE0059EACC /* QH-16.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE17C145B41EE0059EACC /* QH-16.png */; };
+		C91CE184145B41EE0059EACC /* QH-32.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE17D145B41EE0059EACC /* QH-32.png */; };
+		C91CE185145B41EE0059EACC /* QH-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE17E145B41EE0059EACC /* QH-128.png */; };
+		C91CE186145B41EE0059EACC /* QH-256.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE17F145B41EE0059EACC /* QH-256.png */; };
+		C91CE187145B41EE0059EACC /* QH-512.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE180145B41EE0059EACC /* QH-512.png */; };
+		C91CE188145B41EE0059EACC /* QH.psd in Resources */ = {isa = PBXBuildFile; fileRef = C91CE181145B41EE0059EACC /* QH.psd */; };
+		C91CE189145B41EE0059EACC /* QH-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE182145B41EE0059EACC /* QH-1024.png */; };
+		C91CE18C145B421A0059EACC /* QH-256.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE18B145B421A0059EACC /* QH-256.png */; };
 		C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D091456EF090013F78E /* NSWorkspaceHelper.m */; };
 		C9642D101456F1530013F78E /* GrowlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D0F1456F1530013F78E /* GrowlManager.m */; };
 		C9642D13145700D10013F78E /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D12145700D10013F78E /* AppController.m */; };
@@ -56,6 +64,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C91CE17C145B41EE0059EACC /* QH-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-16.png"; sourceTree = "<group>"; };
+		C91CE17D145B41EE0059EACC /* QH-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-32.png"; sourceTree = "<group>"; };
+		C91CE17E145B41EE0059EACC /* QH-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-128.png"; sourceTree = "<group>"; };
+		C91CE17F145B41EE0059EACC /* QH-256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-256.png"; sourceTree = "<group>"; };
+		C91CE180145B41EE0059EACC /* QH-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-512.png"; sourceTree = "<group>"; };
+		C91CE181145B41EE0059EACC /* QH.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = QH.psd; sourceTree = "<group>"; };
+		C91CE182145B41EE0059EACC /* QH-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-1024.png"; sourceTree = "<group>"; };
+		C91CE18B145B421A0059EACC /* QH-256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-256.png"; sourceTree = "<group>"; };
 		C9642D081456EF090013F78E /* NSWorkspaceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWorkspaceHelper.h; sourceTree = "<group>"; };
 		C9642D091456EF090013F78E /* NSWorkspaceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWorkspaceHelper.m; sourceTree = "<group>"; };
 		C9642D0E1456F1530013F78E /* GrowlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowlManager.h; sourceTree = "<group>"; };
@@ -192,6 +208,13 @@
 		C990068B1455B14700744317 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C91CE17C145B41EE0059EACC /* QH-16.png */,
+				C91CE17D145B41EE0059EACC /* QH-32.png */,
+				C91CE17E145B41EE0059EACC /* QH-128.png */,
+				C91CE17F145B41EE0059EACC /* QH-256.png */,
+				C91CE180145B41EE0059EACC /* QH-512.png */,
+				C91CE181145B41EE0059EACC /* QH.psd */,
+				C91CE182145B41EE0059EACC /* QH-1024.png */,
 				C994B80714561A1200CDC031 /* QuickHubLogo-128.png */,
 				C994B80814561A1200CDC031 /* QuickHubLogo-512.png */,
 				C996379D144848F600F6DB43 /* QuickHubAppToolbar.png */,
@@ -207,6 +230,7 @@
 		C996374A1448487900F6DB43 = {
 			isa = PBXGroup;
 			children = (
+				C91CE18B145B421A0059EACC /* QH-256.png */,
 				C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */,
 				C99637A614484AAB00F6DB43 /* libz.dylib */,
 				C996375F1448487900F6DB43 /* QuickHubApp */,
@@ -336,6 +360,14 @@
 				C994B80914561A1200CDC031 /* QuickHubLogo-128.png in Resources */,
 				C994B80A14561A1200CDC031 /* QuickHubLogo-512.png in Resources */,
 				C994B80D14561A6F00CDC031 /* QuickHubLogo-128.png in Resources */,
+				C91CE183145B41EE0059EACC /* QH-16.png in Resources */,
+				C91CE184145B41EE0059EACC /* QH-32.png in Resources */,
+				C91CE185145B41EE0059EACC /* QH-128.png in Resources */,
+				C91CE186145B41EE0059EACC /* QH-256.png in Resources */,
+				C91CE187145B41EE0059EACC /* QH-512.png in Resources */,
+				C91CE188145B41EE0059EACC /* QH.psd in Resources */,
+				C91CE189145B41EE0059EACC /* QH-1024.png in Resources */,
+				C91CE18C145B421A0059EACC /* QH-256.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +435,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -420,6 +453,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx10.6;
 			};
 			name = Debug;
@@ -429,6 +463,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -439,6 +474,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx10.6;
 			};
 			name = Release;

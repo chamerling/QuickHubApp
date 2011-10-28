@@ -112,6 +112,10 @@
     NSString *username = [preferences login];
     NSString *password = [preferences password];
     
+    if ([username length] == 0) {
+        return NO;
+    }
+    
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/user"]];
     [request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
     [request startSynchronous];

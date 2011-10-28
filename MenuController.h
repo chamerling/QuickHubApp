@@ -30,7 +30,6 @@
 
 @property (nonatomic, retain) IBOutlet NSMenu *statusMenu;
 
-- (void)cleanMenus:(id)sender;
 
 # pragma mark - GH Menu pressed actions
 - (IBAction) repoPressed:(id)sender;
@@ -42,5 +41,6 @@
 #pragma mark - UI management
 - (void) deleteOldEntriesFromMenu:(NSMenu*)menu fromItemTitle:(NSString*)title;
 - (void) resetCache:(id) sender;
+- (void) cleanMenus:(id) sender;
 
 @end

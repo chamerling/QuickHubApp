@@ -23,10 +23,10 @@
 @implementation QuickHubAppAppDelegate
 
 @synthesize window;
-@synthesize githubPolling;
 @synthesize growlManager;
 @synthesize appController;
 @synthesize ghController;
+@synthesize menuController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -43,13 +43,9 @@
     if ([[preferences login]length] == 0 || ![ghController checkCredentials:nil]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];        
     } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Connecting to GitHub..." userInfo:nil];        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub as %@", [preferences login]] userInfo:nil];        
         [appController loadAll:nil];    
     }
-    
-    NSString *version = (NSString *)CFBundleGetValueForInfoDictionaryKey(CFBundleGetMainBundle(), kCFBundleVersionKey);
-    NSLog(@"VERSION : %@", version);
-
 }
 
 /**
@@ -268,6 +264,7 @@
     PreferencesWindowController *preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
     [preferencesWindowController setGhController:ghController];
     [preferencesWindowController setAppController:appController];
+    [preferencesWindowController setMenuController:menuController];
     [NSApp activateIgnoringOtherApps: YES];
 	[[preferencesWindowController window] makeKeyWindow];
     [preferencesWindowController showWindow:self];

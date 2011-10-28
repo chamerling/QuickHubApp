@@ -14,9 +14,14 @@
 #define QH_Constants_h
 
 #define appsite     @"http://quickhubapp.com"
-#define growllogo   @"QuickHubLogo-128.png"
+#define growllogo   @"QH-128.png"
 #define notificatioName @"QuickHub";
 #define eventDatePattern  @"yyyy-MM-dd"
+
+#pragma mark - Configuration
+#define QH_CONF_USER @"userID";
+#define QH_CONF_PASSWORD @"password";
+#define QH_CONF_STARTUP @"openAtStartup";
 
 #pragma mark - GITHUB Notification events
 #define GITHUB_NOTIFICATION_REPOSITORIES_ADDED   @"Repository Added"

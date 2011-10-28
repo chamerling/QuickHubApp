@@ -25,10 +25,13 @@
     NSProgressIndicator *progressIndicator;
     NSTextField *connectionStatus;
     NSButton *signInButton;
-    IBOutlet NSTextField *Version;
     
+    IBOutlet NSTextField *Version;
+    IBOutlet NSTextField *copyright;
     IBOutlet NSButton *openAtStartupButton;
     
+    IBOutlet NSPopUpButton *pollingButton;
+    IBOutlet NSPopUpButton *gistsButton;
     // controllers
     GitHubController *ghController;
     AppController *appController;
@@ -48,6 +51,8 @@
 - (IBAction)signIn:(id)sender;
 - (IBAction)about:(id)sender;
 - (IBAction)openAtStartup:(id)sender;
+- (IBAction)selectPollingPeriod:(id)sender;
+- (IBAction)selectGistSize:(id)sender;
 
 - (BOOL) checkIfUpdateNeeded;
 - (void)checkRemoteTask:(id) sender;

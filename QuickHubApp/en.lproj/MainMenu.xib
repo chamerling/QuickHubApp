@@ -403,6 +403,14 @@
 					</object>
 					<int key="connectionID">583</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menuController</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="189135458"/>
+					</object>
+					<int key="connectionID">584</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -764,7 +772,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">583</int>
+			<int key="maxID">584</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -970,14 +978,16 @@
 							<string>appController</string>
 							<string>ghController</string>
 							<string>growlManager</string>
+							<string>menuController</string>
 							<string>statusMenu</string>
 							<string>window</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>AppController</string>
-							<string>GitHubController</string>
+							<string>MenuCOntroller</string>
 							<string>GrowlManager</string>
+							<string>MenuController</string>
 							<string>NSMenu</string>
 							<string>NSWindow</string>
 						</object>
@@ -989,6 +999,7 @@
 							<string>appController</string>
 							<string>ghController</string>
 							<string>growlManager</string>
+							<string>menuController</string>
 							<string>statusMenu</string>
 							<string>window</string>
 						</object>
@@ -1000,11 +1011,15 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">ghController</string>
-								<string key="candidateClassName">GitHubController</string>
+								<string key="candidateClassName">MenuCOntroller</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">growlManager</string>
 								<string key="candidateClassName">GrowlManager</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">menuController</string>
+								<string key="candidateClassName">MenuController</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">statusMenu</string>

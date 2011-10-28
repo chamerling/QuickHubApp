@@ -22,31 +22,11 @@ static Preferences *sharedInstance = nil;
 {
     self = [super init];
     if (self) {
-        // Initialization code here.
-        [self loadData];
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSLog(@"Preferences = %@ ", prefs);
     }
     
     return self;
-}
-
--(void)saveData {
-    if ([prefs writeToFile:[self path] atomically:YES])
-        NSLog(@"Successfully wrote preferences to disk.");
-    else
-        NSLog(@"Failed to write preferences to disk. Permissions problem in ~/Library/Preferences?");
-}
-
-- (void) loadData {
-    prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:[self path]];
-    if (!prefs) {
-        prefs = [[NSMutableDictionary alloc] init];
-        [self setDefault];
-    }
-}
-
--(NSString *)path {
-    // TODO : Use API
-    return [@"~/Library/Preferences/org.chamerling.QuickHubApp-Preferences.plist" stringByExpandingTildeInPath];
 }
 
 -(void)setDefault {
@@ -55,17 +35,28 @@ static Preferences *sharedInstance = nil;
 }
 
 - (NSString *)login {
-    return (NSString *)[prefs objectForKey:@"userID"];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *result = [prefs stringForKey:@"userID"];
+    if (!result) {
+        result = [NSString stringWithString:@""];
+    }
+    return result;
 }
 
 - (NSString *)password {
-    return (NSString *)[prefs objectForKey:@"pwd"];    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *result = [prefs stringForKey:@"pwd"];
+
+    if (!result) {
+        result = [NSString stringWithString:@""];
+    }
+    return result;
 }
 
 - (void) storeLogin:(NSString*)login withPassword:(NSString*)password{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:login forKey:@"userID"];
     [prefs setObject:password forKey:@"pwd"];
-    [self saveData];
 }
 
 + (Preferences *)sharedInstance {

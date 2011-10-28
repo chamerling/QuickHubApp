@@ -29,7 +29,7 @@
 		C996376A1448487900F6DB43 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C99637681448487900F6DB43 /* Credits.rtf */; };
 		C996376D1448487900F6DB43 /* QuickHubAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C996376C1448487900F6DB43 /* QuickHubAppAppDelegate.m */; };
 		C99637701448487900F6DB43 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C996376E1448487900F6DB43 /* MainMenu.xib */; };
-		C99637731448487900F6DB43 /* QuickHubApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C99637711448487900F6DB43 /* QuickHubApp.xcdatamodeld */; };
+		C99637731448487900F6DB43 /* QuickHub.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C99637711448487900F6DB43 /* QuickHub.xcdatamodeld */; };
 		C9963791144848BD00F6DB43 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C996377B144848BD00F6DB43 /* ASIDataCompressor.m */; };
 		C9963792144848BD00F6DB43 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = C996377D144848BD00F6DB43 /* ASIDataDecompressor.m */; };
 		C9963793144848BD00F6DB43 /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C996377F144848BD00F6DB43 /* ASIDownloadCache.m */; };
@@ -85,20 +85,20 @@
 		C994B80714561A1200CDC031 /* QuickHubLogo-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-128.png"; sourceTree = "<group>"; };
 		C994B80814561A1200CDC031 /* QuickHubLogo-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-512.png"; sourceTree = "<group>"; };
 		C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-128.png"; sourceTree = "<group>"; };
-		C99637551448487900F6DB43 /* QuickHubApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickHubApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C99637551448487900F6DB43 /* QuickHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99637591448487900F6DB43 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C996375C1448487900F6DB43 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		C996375D1448487900F6DB43 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C996375E1448487900F6DB43 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C99637611448487900F6DB43 /* QuickHubApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickHubApp-Info.plist"; sourceTree = "<group>"; };
+		C99637611448487900F6DB43 /* QuickHub-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickHub-Info.plist"; sourceTree = "<group>"; };
 		C99637631448487900F6DB43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C99637651448487900F6DB43 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C99637671448487900F6DB43 /* QuickHubApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickHubApp-Prefix.pch"; sourceTree = "<group>"; };
+		C99637671448487900F6DB43 /* QuickHub-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QuickHub-Prefix.pch"; sourceTree = "<group>"; };
 		C99637691448487900F6DB43 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		C996376B1448487900F6DB43 /* QuickHubAppAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickHubAppAppDelegate.h; sourceTree = "<group>"; };
 		C996376C1448487900F6DB43 /* QuickHubAppAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuickHubAppAppDelegate.m; sourceTree = "<group>"; };
 		C996376F1448487900F6DB43 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		C99637721448487900F6DB43 /* QuickHubApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QuickHubApp.xcdatamodel; sourceTree = "<group>"; };
+		C99637721448487900F6DB43 /* QuickHub.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QuickHub.xcdatamodel; sourceTree = "<group>"; };
 		C9963779144848BD00F6DB43 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
 		C996377A144848BD00F6DB43 /* ASIDataCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataCompressor.h; sourceTree = "<group>"; };
 		C996377B144848BD00F6DB43 /* ASIDataCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataCompressor.m; sourceTree = "<group>"; };
@@ -218,7 +218,7 @@
 				C994B80714561A1200CDC031 /* QuickHubLogo-128.png */,
 				C994B80814561A1200CDC031 /* QuickHubLogo-512.png */,
 				C996379D144848F600F6DB43 /* QuickHubAppToolbar.png */,
-				C99637611448487900F6DB43 /* QuickHubApp-Info.plist */,
+				C99637611448487900F6DB43 /* QuickHub-Info.plist */,
 				C99637621448487900F6DB43 /* InfoPlist.strings */,
 				C99637681448487900F6DB43 /* Credits.rtf */,
 				C996379F1448499600F6DB43 /* PreferencesWindow.xib */,
@@ -233,7 +233,7 @@
 				C91CE18B145B421A0059EACC /* QH-256.png */,
 				C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */,
 				C99637A614484AAB00F6DB43 /* libz.dylib */,
-				C996375F1448487900F6DB43 /* QuickHubApp */,
+				C996375F1448487900F6DB43 /* QuickHub */,
 				C99637581448487900F6DB43 /* Frameworks */,
 				C99637561448487900F6DB43 /* Products */,
 			);
@@ -242,7 +242,7 @@
 		C99637561448487900F6DB43 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C99637551448487900F6DB43 /* QuickHubApp.app */,
+				C99637551448487900F6DB43 /* QuickHub.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -269,13 +269,13 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		C996375F1448487900F6DB43 /* QuickHubApp */ = {
+		C996375F1448487900F6DB43 /* QuickHub */ = {
 			isa = PBXGroup;
 			children = (
 				C92D63F91459D59C002F3FA9 /* Dependencies */,
 				C990068B1455B14700744317 /* Resources */,
 				C99637601448487900F6DB43 /* Supporting Files */,
-				C99637711448487900F6DB43 /* QuickHubApp.xcdatamodeld */,
+				C99637711448487900F6DB43 /* QuickHub.xcdatamodeld */,
 				C9F190711458B21000648538 /* QHConstants.h */,
 				C9642D18145707EB0013F78E /* MenuController.h */,
 				C9642D19145707EB0013F78E /* MenuController.m */,
@@ -299,7 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				C99637651448487900F6DB43 /* main.m */,
-				C99637671448487900F6DB43 /* QuickHubApp-Prefix.pch */,
+				C99637671448487900F6DB43 /* QuickHub-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -307,9 +307,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C99637541448487900F6DB43 /* QuickHubApp */ = {
+		C99637541448487900F6DB43 /* QuickHub */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C99637761448487900F6DB43 /* Build configuration list for PBXNativeTarget "QuickHubApp" */;
+			buildConfigurationList = C99637761448487900F6DB43 /* Build configuration list for PBXNativeTarget "QuickHub" */;
 			buildPhases = (
 				C99637511448487900F6DB43 /* Sources */,
 				C99637521448487900F6DB43 /* Frameworks */,
@@ -320,9 +320,9 @@
 			);
 			dependencies = (
 			);
-			name = QuickHubApp;
-			productName = QuickHubApp;
-			productReference = C99637551448487900F6DB43 /* QuickHubApp.app */;
+			name = QuickHub;
+			productName = QuickHub;
+			productReference = C99637551448487900F6DB43 /* QuickHub.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -330,7 +330,7 @@
 /* Begin PBXProject section */
 		C996374C1448487900F6DB43 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C996374F1448487900F6DB43 /* Build configuration list for PBXProject "QuickHubApp" */;
+			buildConfigurationList = C996374F1448487900F6DB43 /* Build configuration list for PBXProject "QuickHub" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -342,7 +342,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C99637541448487900F6DB43 /* QuickHubApp */,
+				C99637541448487900F6DB43 /* QuickHub */,
 			);
 		};
 /* End PBXProject section */
@@ -488,8 +488,8 @@
 					"\"$(SRCROOT)/QuickHubApp\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QuickHubApp/QuickHubApp-Prefix.pch";
-				INFOPLIST_FILE = "QuickHubApp/QuickHubApp-Info.plist";
+				GCC_PREFIX_HEADER = "QuickHubApp/QuickHub-Prefix.pch";
+				INFOPLIST_FILE = "QuickHubApp/QuickHub-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -503,8 +503,8 @@
 					"\"$(SRCROOT)/QuickHubApp\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "QuickHubApp/QuickHubApp-Prefix.pch";
-				INFOPLIST_FILE = "QuickHubApp/QuickHubApp-Info.plist";
+				GCC_PREFIX_HEADER = "QuickHubApp/QuickHub-Prefix.pch";
+				INFOPLIST_FILE = "QuickHubApp/QuickHub-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -513,7 +513,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C996374F1448487900F6DB43 /* Build configuration list for PBXProject "QuickHubApp" */ = {
+		C996374F1448487900F6DB43 /* Build configuration list for PBXProject "QuickHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C99637741448487900F6DB43 /* Debug */,
@@ -522,7 +522,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C99637761448487900F6DB43 /* Build configuration list for PBXNativeTarget "QuickHubApp" */ = {
+		C99637761448487900F6DB43 /* Build configuration list for PBXNativeTarget "QuickHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C99637771448487900F6DB43 /* Debug */,
@@ -534,13 +534,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		C99637711448487900F6DB43 /* QuickHubApp.xcdatamodeld */ = {
+		C99637711448487900F6DB43 /* QuickHub.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				C99637721448487900F6DB43 /* QuickHubApp.xcdatamodel */,
+				C99637721448487900F6DB43 /* QuickHub.xcdatamodel */,
 			);
-			currentVersion = C99637721448487900F6DB43 /* QuickHubApp.xcdatamodel */;
-			path = QuickHubApp.xcdatamodeld;
+			currentVersion = C99637721448487900F6DB43 /* QuickHub.xcdatamodel */;
+			path = QuickHub.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

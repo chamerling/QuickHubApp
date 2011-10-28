@@ -20,6 +20,7 @@
 		C9642D13145700D10013F78E /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D12145700D10013F78E /* AppController.m */; };
 		C9642D1A145707EB0013F78E /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D19145707EB0013F78E /* MenuController.m */; };
 		C9642D1E14570F5F0013F78E /* GitHubController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D1D14570F5F0013F78E /* GitHubController.m */; };
+		C977DAA6145B5E41009B46C6 /* qh.icns in Resources */ = {isa = PBXBuildFile; fileRef = C977DAA5145B5E41009B46C6 /* qh.icns */; };
 		C994B80914561A1200CDC031 /* QuickHubLogo-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80714561A1200CDC031 /* QuickHubLogo-128.png */; };
 		C994B80A14561A1200CDC031 /* QuickHubLogo-512.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80814561A1200CDC031 /* QuickHubLogo-512.png */; };
 		C994B80D14561A6F00CDC031 /* QuickHubLogo-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */; };
@@ -82,6 +83,7 @@
 		C9642D19145707EB0013F78E /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuController.m; path = ../MenuController.m; sourceTree = "<group>"; };
 		C9642D1C14570F5F0013F78E /* GitHubController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GitHubController.h; path = ../GitHubController.h; sourceTree = "<group>"; };
 		C9642D1D14570F5F0013F78E /* GitHubController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GitHubController.m; path = ../GitHubController.m; sourceTree = "<group>"; };
+		C977DAA5145B5E41009B46C6 /* qh.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = qh.icns; sourceTree = "<group>"; };
 		C994B80714561A1200CDC031 /* QuickHubLogo-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-128.png"; sourceTree = "<group>"; };
 		C994B80814561A1200CDC031 /* QuickHubLogo-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-512.png"; sourceTree = "<group>"; };
 		C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-128.png"; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 		C990068B1455B14700744317 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C977DAA5145B5E41009B46C6 /* qh.icns */,
 				C91CE17C145B41EE0059EACC /* QH-16.png */,
 				C91CE17D145B41EE0059EACC /* QH-32.png */,
 				C91CE17E145B41EE0059EACC /* QH-128.png */,
@@ -233,7 +236,7 @@
 				C91CE18B145B421A0059EACC /* QH-256.png */,
 				C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */,
 				C99637A614484AAB00F6DB43 /* libz.dylib */,
-				C996375F1448487900F6DB43 /* QuickHub */,
+				C996375F1448487900F6DB43 /* QuickHubApp */,
 				C99637581448487900F6DB43 /* Frameworks */,
 				C99637561448487900F6DB43 /* Products */,
 			);
@@ -269,7 +272,7 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		C996375F1448487900F6DB43 /* QuickHub */ = {
+		C996375F1448487900F6DB43 /* QuickHubApp */ = {
 			isa = PBXGroup;
 			children = (
 				C92D63F91459D59C002F3FA9 /* Dependencies */,
@@ -368,6 +371,7 @@
 				C91CE188145B41EE0059EACC /* QH.psd in Resources */,
 				C91CE189145B41EE0059EACC /* QH-1024.png in Resources */,
 				C91CE18C145B421A0059EACC /* QH-256.png in Resources */,
+				C977DAA6145B5E41009B46C6 /* qh.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,7 +384,7 @@
 			files = (
 				C99637661448487900F6DB43 /* main.m in Sources */,
 				C996376D1448487900F6DB43 /* QuickHubAppAppDelegate.m in Sources */,
-				C99637731448487900F6DB43 /* QuickHubApp.xcdatamodeld in Sources */,
+				C99637731448487900F6DB43 /* QuickHub.xcdatamodeld in Sources */,
 				C9963791144848BD00F6DB43 /* ASIDataCompressor.m in Sources */,
 				C9963792144848BD00F6DB43 /* ASIDataDecompressor.m in Sources */,
 				C9963793144848BD00F6DB43 /* ASIDownloadCache.m in Sources */,

@@ -21,6 +21,7 @@
 		C9642D1A145707EB0013F78E /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D19145707EB0013F78E /* MenuController.m */; };
 		C9642D1E14570F5F0013F78E /* GitHubController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D1D14570F5F0013F78E /* GitHubController.m */; };
 		C977DAA6145B5E41009B46C6 /* qh.icns in Resources */ = {isa = PBXBuildFile; fileRef = C977DAA5145B5E41009B46C6 /* qh.icns */; };
+		C977DAA9145B5F72009B46C6 /* qh.icns in Resources */ = {isa = PBXBuildFile; fileRef = C977DAA8145B5F72009B46C6 /* qh.icns */; };
 		C994B80914561A1200CDC031 /* QuickHubLogo-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80714561A1200CDC031 /* QuickHubLogo-128.png */; };
 		C994B80A14561A1200CDC031 /* QuickHubLogo-512.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80814561A1200CDC031 /* QuickHubLogo-512.png */; };
 		C994B80D14561A6F00CDC031 /* QuickHubLogo-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */; };
@@ -84,6 +85,7 @@
 		C9642D1C14570F5F0013F78E /* GitHubController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GitHubController.h; path = ../GitHubController.h; sourceTree = "<group>"; };
 		C9642D1D14570F5F0013F78E /* GitHubController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GitHubController.m; path = ../GitHubController.m; sourceTree = "<group>"; };
 		C977DAA5145B5E41009B46C6 /* qh.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = qh.icns; sourceTree = "<group>"; };
+		C977DAA8145B5F72009B46C6 /* qh.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = qh.icns; sourceTree = "<group>"; };
 		C994B80714561A1200CDC031 /* QuickHubLogo-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-128.png"; sourceTree = "<group>"; };
 		C994B80814561A1200CDC031 /* QuickHubLogo-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-512.png"; sourceTree = "<group>"; };
 		C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-128.png"; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 		C996374A1448487900F6DB43 = {
 			isa = PBXGroup;
 			children = (
+				C977DAA8145B5F72009B46C6 /* qh.icns */,
 				C91CE18B145B421A0059EACC /* QH-256.png */,
 				C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */,
 				C99637A614484AAB00F6DB43 /* libz.dylib */,
@@ -372,6 +375,7 @@
 				C91CE189145B41EE0059EACC /* QH-1024.png in Resources */,
 				C91CE18C145B421A0059EACC /* QH-256.png in Resources */,
 				C977DAA6145B5E41009B46C6 /* qh.icns in Resources */,
+				C977DAA9145B5F72009B46C6 /* qh.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

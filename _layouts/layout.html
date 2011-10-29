@@ -8,12 +8,20 @@
   <meta name="author" content="{{ site.author }}" />
   <link rel="alternate" type="application/rss+xml" href="http://feeds.feedburner.com/{{ site.feedburner }}" />
   <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.2.0.min.css">
+  <link rel="stylesheet" href="{{ site.url }}/css/lightbox.css" type="text/css" media="screen" />
+ <link rel="stylesheet" href="{{ site.url }}/css/qh.css" type="text/css" media="screen" />
+
   <link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
   <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
   <script type="text/javascript" src="{{ site.url }}/js/jquery.tweet.js" charset="utf-8"></script>
   <script type="text/javascript" src="{{ site.url }}/js/application.js"></script>
+
+<!-- lightbox -->
+	<script src="{{ site.url }}/js/prototype.js" type="text/javascript"></script>
+	<script src="{{ site.url }}/js/scriptaculous.js?load=effects,builder" type="text/javascript"></script>
+	<script src="{{ site.url }}/js/lightbox.js" type="text/javascript"></script>
 
 </head>
 <body style="padding-top: 60px;">
@@ -24,9 +32,10 @@
         <div class="container">
           <h3><a href="{{ site.url }}">{{ site.title }}</a></h3>
           <ul class="nav">
-            <li><a href="{{ site.url }}/index.html#articles">News</a></li>
+            <li><a href="{{ site.url }}/news.html">News</a></li>
             <li><a href="{{ site.url }}/pages/documentation.html">Documentation</a></li>
-            <li><a href="https://github.com/chamerling/QuickHubApp/downloads">Downloads</a></li>
+            <li><a href="{{ site.url }}/pages/releasenotes.html">Release Notes</a></li>
+            <li><a target="_blank" href="http://itunes.apple.com/us/app/quickhub/id476665193?l=fr&ls=1&mt=12">Download</a></li>
           </ul>
         </div>
       </div>
@@ -37,6 +46,14 @@
 {{ content }}
 
 </div>
+
+<!--
+<footer class="footer">
+    <div class="container">
+      <p align="center">2011 - Christophe Hamerling</p>
+    </div>
+</footer>
+-->
 
 <script type="text/javascript">
   var _gaq = _gaq || [];

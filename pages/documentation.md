@@ -1,16 +1,17 @@
 ---
 layout: layout
-title: "Documentation"
+title: "QH - Documentation"
 ---
 
 # What is QuickHub.App?
 QuickHub.App is an OS X application which stands in the OS X status bar. It allows to quickly access your GitHub stuff from a dynamic menu. From this menu you can access to your repositories, organizations, issues, gists, (and more to come)...
-QuickHub.App uses the last version of the [GitHub API](http://developer.github.com/v3/ "GitHub API v3").
 
 <img src="http://f.cl.ly/items/1n0p0k3u0C2n3i0A3a44/quickhub-intial.png"/>
 
 # Bug Tracking
-You can post bugs on the project tracker located at [https://github.com/chamerling/QuickHubApp/issues](https://github.com/chamerling/QuickHubApp/issues).
+There is no bug tracker for now. You can send feedback on Twitter at [@quickhubapp](http://twitter.com/quickhubapp) or [@chamerling](http://twitter.com/chamerling).
 
-# Licence
-To be defined...
+# Who is behind QuickHub?
+My name is Christophe Hamerling, I am a software engineer at [PetalsLink](http://petalslink.com/), a french Open Source company delivering SOA tools. I am a big lover of OS X, Growl and GitHub and that's why I started to developed QuickHub to be able to be always connected to GitHub.
+
+You can follow me at [@chamerling](http://twitter.com/chamerling) and have a look to my [software blog](http://chamerling.org/).

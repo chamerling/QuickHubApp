@@ -6,6 +6,7 @@ rdiscount:
   extensions: [smart]
 gravatar: 123
 url: http://quickhubapp.com
+#url: http://localhost:4000
 feedburner: quickhubapp
 ga: UA-26468797-1
 disqus: quickhubapp

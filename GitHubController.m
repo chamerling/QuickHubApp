@@ -9,6 +9,7 @@
 #import "GitHubController.h"
 #import "NSData+Base64.h"
 #import "QHConstants.h"
+#import "JSONKit.h"
 
 @interface GitHubController (Private)
 - (BOOL) checkResponseOK:(ASIHTTPRequest*) request;
@@ -56,7 +57,7 @@
     NSString *password = [preferences password];
     
     // get gists
-    ASIHTTPRequest *gistRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/gists?per_page=100"]];
+    ASIHTTPRequest *gistRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/gists?per_page=50"]];
     [gistRequest addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
     [gistRequest setDidFinishSelector:@selector(gistFinished:)];
     [gistRequest setDidFailSelector:@selector(gistsFailed:)];
@@ -216,6 +217,43 @@
 														object:request 
 													  userInfo:nil]; 
     
+}
+
+# pragma mark - Write
+- (NSString*) createGist:(NSString*) content withDescription:(NSString*) description andFileName:(NSString *) fileName isPublic:(BOOL) pub {
+    NSString *gistId = nil;
+    
+    NSString *username = [preferences login];
+    NSString *password = [preferences password];
+        
+    NSString *payload = [NSString stringWithFormat:@"{\"description\": \"%@\", \"public\": %@, \"files\":{\"%@\": { \"content\": %@ }}}", description, pub ? @"true" : @"false", fileName, [content JSONString]];
+    
+    NSLog(@"Outgoing Payload : %@", payload);
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/gists"]];
+    [request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
+    
+    [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [request startSynchronous];
+    NSError *error = [request error];
+    if (!error) {
+        NSString *response = [request responseString];
+        NSLog(@"Gist creation result %@", response);
+        
+        NSDictionary* result = [response objectFromJSONString];
+        gistId = [result objectForKey:@"id"];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_GIST_CREATED 
+                                                            object:gistId 
+                                                          userInfo:nil];           
+    } else {
+        NSLog(@"Gist creation error %@", error);
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                            object:@"Failed to create Gist" 
+                                                          userInfo:nil];           
+    }
+    return gistId;
 }
 
 @end

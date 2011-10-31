@@ -40,4 +40,7 @@
 - (void) loadRepos:(id) sender;
 - (void) loadPulls:(id) sender;
 
+# pragma mark - Write API
+- (NSString*) createGist:(NSString*) content withDescription:(NSString*) title andFileName:(NSString *) fileName isPublic:(BOOL) pub;
+
 @end

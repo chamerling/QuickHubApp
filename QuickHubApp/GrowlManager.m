@@ -15,6 +15,7 @@
 - (void)genericListener:(NSNotification *)aNotification;
 - (void)issueAdded:(NSNotification *)aNotification;
 - (void)gistAdded:(NSNotification *)aNotification;
+- (void)gistCreated:(NSNotification *)aNotification;
 @end
 
 @implementation GrowlManager
@@ -28,13 +29,18 @@
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(genericListener:)
+                                             selector:@selector(issueAdded:)
                                                  name:GITHUB_NOTIFICATION_ISSUE_ADDED
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(genericListener:)
+                                             selector:@selector(gistAdded:)
                                                  name:GITHUB_NOTIFICATION_GIST_ADDED
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(gistCreated:)
+                                                 name:GITHUB_NOTIFICATION_GIST_CREATED
                                                object:nil];
     
     [GrowlApplicationBridge setGrowlDelegate:self];
@@ -57,6 +63,13 @@
     NSString *message = [aNotification object];
     NSLog(@"Got a gist notification to growl '%@'...", message);
     [self notifyWithName:@"QuickHub - New Gist" desc:message];
+}
+
+- (void)gistCreated:(NSNotification *)aNotification {
+    NSString *message = [aNotification object];
+    NSLog(@"Got a gist creation to growl '%@'...", message);
+    // TODO : add click context to open gist!
+    [self notifyWithName:@"QuickHub - Gist created" desc:message];
 }
 
 #pragma mark - growl

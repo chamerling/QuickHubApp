@@ -14,6 +14,7 @@
 
 #import "QuickHubAppAppDelegate.h"
 #import "PreferencesWindowController.h"
+#import "GistCreateWindowController.h"
 #import "QHConstants.h"
 
 #import "ASIHTTPRequest.h"
@@ -250,6 +251,12 @@
 }
 
 - (IBAction)createGist:(id)sender {
+    NSLog(@"Create a gist!");
+    GistCreateWindowController *gistCreator = [[GistCreateWindowController alloc] initWithWindowNibName:@"GistCreateWindow"];
+    [gistCreator setGhController:ghController];
+    [NSApp activateIgnoringOtherApps: YES];
+	[[gistCreator window] makeKeyWindow];
+    [gistCreator showWindow:self];
 }
 
 - (IBAction)openGists:(id)sender {

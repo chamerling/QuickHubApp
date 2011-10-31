@@ -37,6 +37,13 @@
                                              selector:@selector(stopAll:)
                                                  name:POLLING_STOP
                                                object:nil];
+    
+    // load gists when a gist is created!
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(pollGists:)
+                                                 name:GITHUB_NOTIFICATION_GIST_CREATED
+                                               object:nil];
+
 }
 
 #pragma mark - Github Actions

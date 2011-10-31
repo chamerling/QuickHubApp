@@ -40,7 +40,7 @@
 
 #define GITHUB_NOTIFICATION_GIST_ADDED @"GistAdded"
 #define GITHUB_NOTIFICATION_GIST_REMOVED @"GistRemoved"
-#define GITHUB_NOTIFICATION_GIST_REMOVED @"GistRemoved"
+#define GITHUB_NOTIFICATION_GIST_CREATED @"GistCreated"
 
 #define HTTP_NOTIFICATION_FAILURE @"HTTPFailure"
 
@@ -48,6 +48,7 @@
 
 #define POLLING_START @"PollingStart"
 #define POLLING_STOP @"PollingStop"
+
 
 #endif
 

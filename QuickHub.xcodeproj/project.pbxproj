@@ -50,6 +50,8 @@
 		C99637A914484AB300F6DB43 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637A814484AB300F6DB43 /* SystemConfiguration.framework */; };
 		C99637AB14484AC500F6DB43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637AA14484AC500F6DB43 /* Security.framework */; };
 		C99637AD14484B7E00F6DB43 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C996379B144848E200F6DB43 /* Growl.framework */; };
+		C9E07B1A145EF6B9004A94A7 /* GistCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */; };
+		C9E07B20145EF8BF004A94A7 /* GistCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -135,6 +137,9 @@
 		C99637A614484AAB00F6DB43 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C99637A814484AB300F6DB43 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C99637AA14484AC500F6DB43 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GistCreateWindow.xib; sourceTree = "<group>"; };
+		C9E07B1E145EF8BF004A94A7 /* GistCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistCreateWindowController.h; sourceTree = "<group>"; };
+		C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistCreateWindowController.m; sourceTree = "<group>"; };
 		C9F190711458B21000648538 /* QHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,6 +233,7 @@
 				C99637681448487900F6DB43 /* Credits.rtf */,
 				C996379F1448499600F6DB43 /* PreferencesWindow.xib */,
 				C996376E1448487900F6DB43 /* MainMenu.xib */,
+				C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -297,6 +303,8 @@
 				C9642D12145700D10013F78E /* AppController.m */,
 				C996376B1448487900F6DB43 /* QuickHubAppAppDelegate.h */,
 				C996376C1448487900F6DB43 /* QuickHubAppAppDelegate.m */,
+				C9E07B1E145EF8BF004A94A7 /* GistCreateWindowController.h */,
+				C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */,
 			);
 			path = QuickHubApp;
 			sourceTree = "<group>";
@@ -376,6 +384,7 @@
 				C91CE18C145B421A0059EACC /* QH-256.png in Resources */,
 				C977DAA6145B5E41009B46C6 /* qh.icns in Resources */,
 				C977DAA9145B5F72009B46C6 /* qh.icns in Resources */,
+				C9E07B1A145EF6B9004A94A7 /* GistCreateWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +414,7 @@
 				C9642D13145700D10013F78E /* AppController.m in Sources */,
 				C9642D1A145707EB0013F78E /* MenuController.m in Sources */,
 				C9642D1E14570F5F0013F78E /* GitHubController.m in Sources */,
+				C9E07B20145EF8BF004A94A7 /* GistCreateWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

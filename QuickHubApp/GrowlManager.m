@@ -50,29 +50,28 @@
 -(void)genericListener:(NSNotification *)aNotification {
     NSString *message = [aNotification object];
     NSLog(@"Got a notification to growl '%@'...", message);
-    [self notifyWithName:@"QuickHub" desc:message];
+    [self notifyWithName:@"QuickHub" desc:message context:nil];
 }
 
 -(void)issueAdded:(NSNotification *)aNotification {
     NSString *message = [aNotification object];
     NSLog(@"Got a issue notification to growl '%@'...", message);
-    [self notifyWithName:@"QuickHub - New Issue" desc:message];
+    [self notifyWithName:@"QuickHub - New Issue" desc:message context:nil];
 }
 
 -(void)gistAdded:(NSNotification *)aNotification {
     NSString *message = [aNotification object];
     NSLog(@"Got a gist notification to growl '%@'...", message);
-    [self notifyWithName:@"QuickHub - New Gist" desc:message];
+    [self notifyWithName:@"QuickHub - New Gist" desc:message context:nil];
 }
 
 - (void)gistCreated:(NSNotification *)aNotification {
-    NSString *message = [aNotification object];
-    NSLog(@"Got a gist creation to growl '%@'...", message);
-    // TODO : add click context to open gist!
-    [self notifyWithName:@"QuickHub - Gist created" desc:message];
+    NSDictionary *dict = [aNotification object];
+    NSLog(@"Got a gist creation to growl '%@'...", dict);
+    [self notifyWithName:@"QuickHub - Gist created" desc:[NSString stringWithFormat:@"New Gist ID is %@", [dict valueForKey:@"id"]] context:dict];
 }
 
-#pragma mark - growl
+#pragma mark - growl delegate
 - (NSDictionary *)registrationDictionaryForGrowl {
     NSArray *notifications = [NSArray arrayWithObject: @"QuickHub"];
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -81,7 +80,20 @@
     return dict;
 }
 
-- (void) notifyWithName:(NSString *)name desc:(NSString *)description {
+- (void)growlNotificationWasClicked:(id)clickContext {
+    NSLog(@"Growl notification was clicked...");
+    NSDictionary *context = clickContext;
+    if (context) {
+        if ([context valueForKey:@"url"]) {
+            NSLog(@"Let's open...");
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[context valueForKey:@"url"]]];
+
+        }
+    }
+    
+}
+
+- (void) notifyWithName:(NSString *)name desc:(NSString *)description context:(NSDictionary*)context {
     NSLog(@"Let's really notify '%@' '%@'!", name, description);
     NSImage *image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
 
@@ -91,7 +103,7 @@
 								   iconData:[image TIFFRepresentation]
 								   priority:0
 								   isSticky:NO
-							   clickContext:nil];    
+							   clickContext:context];    
 }
 
 @end

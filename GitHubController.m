@@ -243,9 +243,12 @@
         
         NSDictionary* result = [response objectFromJSONString];
         gistId = [result objectForKey:@"id"];
+        NSString *gistURL = [result objectForKey:@"html_url"];
+        
+        NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:gistId, gistURL, nil] forKeys:[NSArray arrayWithObjects:@"id", @"url", nil]];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_GIST_CREATED 
-                                                            object:gistId 
+                                                            object:dict 
                                                           userInfo:nil];           
     } else {
         NSLog(@"Gist creation error %@", error);

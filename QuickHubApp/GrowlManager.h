@@ -11,6 +11,6 @@
 
 @interface GrowlManager : NSObject<GrowlApplicationBridgeDelegate>
 
-- (void)notifyWithName:(NSString*)name desc:(NSString*)description;
+- (void)notifyWithName:(NSString*)name desc:(NSString*)description context:(NSDictionary*)context;
 
 @end

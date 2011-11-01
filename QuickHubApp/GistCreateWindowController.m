@@ -29,20 +29,24 @@
 }
 
 - (IBAction)createGist:(id)sender {
-    [createButton setEnabled:NO];
-    [progressIndicator setHidden:NO];
-    [progressIndicator startAnimation:nil];
     // create the gist...
     NSString *description = [[descriptionField stringValue]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *theFileName = [[fileNameField stringValue]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     BOOL pub = [publicChoice state] == 1 ? TRUE : FALSE;
     NSString *content = [contentTextView string];
     
-    if (ghController) {
-        [ghController createGist:content withDescription:description andFileName:theFileName isPublic:pub];
+    if (!theFileName || !content || ([theFileName length] == 0) || ([content length] == 0)) {
+        NSBeep();
+    } else {
+        [createButton setEnabled:NO];
+        [progressIndicator setHidden:NO];
+        [progressIndicator startAnimation:nil];
+        if (ghController) {
+            [ghController createGist:content withDescription:description andFileName:theFileName isPublic:pub];
+        }
+        [progressIndicator stopAnimation:nil];
+        [progressIndicator setHidden:YES];
+        [createButton setEnabled:YES];
     }
-    [progressIndicator stopAnimation:nil];
-    [progressIndicator setHidden:YES];
-    [createButton setEnabled:YES];
 }
 @end

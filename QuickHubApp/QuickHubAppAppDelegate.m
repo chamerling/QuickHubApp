@@ -233,6 +233,7 @@
 }
 
 #pragma mark - Github Actions
+// FIXME : Do not understand why these actions are fired instead of the MenuController ones...
 
 - (IBAction)openGitHub:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://github.com"]];
@@ -306,6 +307,16 @@
 - (void) organizationPressed:(id) sender {
     id selectedItem = [sender representedObject];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/organizations/%@", selectedItem]]];
+}
+
+- (void) followerPressed:(id) sender {
+    id selectedItem = [sender representedObject];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];    
+}
+
+- (void) followingPressed:(id) sender {
+    id selectedItem = [sender representedObject];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];        
 }
 
 - (IBAction)helpPressed:(id)sender {

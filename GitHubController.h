@@ -22,6 +22,8 @@
 - (void) organizationsFinished:(ASIHTTPRequest*)request;
 - (void) reposFinished:(ASIHTTPRequest*)request;
 - (void) pullFinished:(ASIHTTPRequest*)request;
+- (void) followingsFinished:(ASIHTTPRequest*)request;
+- (void) followersFinished:(ASIHTTPRequest*)request;
 
 - (void) issuesFailed:(ASIHTTPRequest*)request;
 - (void) gistsFailed:(ASIHTTPRequest*)request;
@@ -33,12 +35,14 @@
 
 # pragma mark - Load things from github
 - (BOOL) checkCredentials:(id) sender;
-- (void)loadGHData:(id)sender;
+- (void) loadGHData:(id)sender;
 - (void) loadIssues:(id) sender;
 - (void) loadGists:(id) sender;
 - (void) loadOrganizations:(id) sender;
 - (void) loadRepos:(id) sender;
 - (void) loadPulls:(id) sender;
+- (void) loadFollowers:(id) sender;
+- (void) loadFollowings:(id) sender;
 
 # pragma mark - Write API
 - (NSString*) createGist:(NSString*) content withDescription:(NSString*) title andFileName:(NSString *) fileName isPublic:(BOOL) pub;

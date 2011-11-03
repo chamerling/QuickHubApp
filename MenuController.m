@@ -18,12 +18,16 @@
 - (void)notifyRepos:(NSNotification *)aNotification;
 - (void)notifyOrganizations:(NSNotification *)aNotification;
 - (void)notifyIssues:(NSNotification *)aNotification;
+- (void)notifyFollowings:(NSNotification *)aNotification;
+- (void)notifyFollowers:(NSNotification *)aNotification;
 
 - (void) issuesFinished:(ASIHTTPRequest*)request;
 - (void) gistFinished:(ASIHTTPRequest*)request;
 - (void) organizationsFinished:(ASIHTTPRequest*)request;
 - (void) reposFinished:(ASIHTTPRequest*)request;
 - (void) pullFinished:(ASIHTTPRequest *)request;
+- (void) followersFinished:(ASIHTTPRequest*)request;
+- (void) followingsFinished:(ASIHTTPRequest *)request;
 @end
 
 @implementation MenuController
@@ -68,6 +72,17 @@
 											 selector:@selector(notifyRepos:)
 												 name:GITHUB_NOTIFICATION_REPOS
 											   object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(notifyFollowers:)
+												 name:GITHUB_NOTIFICATION_FOLLOWERS
+											   object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(notifyFollowings:)
+												 name:GITHUB_NOTIFICATION_FOLLOWINGS
+											   object:nil];
+
 }
 
 - (void)cleanMenus:(id)sender {
@@ -111,13 +126,24 @@
     NSLog(@"Got a Notify Orgs");
     ASIHTTPRequest *httpRequest = [aNotification object];
     [self organizationsFinished:httpRequest];
-    
 }
 
 - (void)notifyIssues:(NSNotification *)aNotification {
     NSLog(@"Got a Notify Issues");
     ASIHTTPRequest *httpRequest = [aNotification object];
     [self issuesFinished:httpRequest];
+}
+
+- (void)notifyFollowings:(NSNotification *)aNotification {
+    NSLog(@"Got a Notify Followings");
+    ASIHTTPRequest *httpRequest = [aNotification object];
+    [self followingsFinished:httpRequest];
+}
+
+- (void)notifyFollowers:(NSNotification *)aNotification {
+    NSLog(@"Got a Notify Followers");
+    ASIHTTPRequest *httpRequest = [aNotification object];
+    [self followersFinished:httpRequest];
 }
 
 #pragma mark - process HTTP responses
@@ -183,6 +209,13 @@
         if (clean) {
             NSMenuItem *issueItem = [[NSMenuItem alloc] initWithTitle:[issue valueForKey:@"title"] action:@selector(issuePressed:) keyEquivalent:@""];
             [issueItem setRepresentedObject:[issue valueForKey:@"html_url"]];
+            
+            /*
+            NSImage* iconImage = [NSImage imageNamed:@"bug.png"];
+            [iconImage setSize:NSMakeSize(16,16)];
+            [issueItem setImage:iconImage];
+            */
+            
             [issueItem autorelease];
             [menu addItem:issueItem];
         }
@@ -261,13 +294,24 @@
             NSString *title = nil;
             NSString *description = [gist valueForKey:@"description"];
             if (description == (id)[NSNull null] || description.length == 0) {
-                title = [NSString stringWithFormat:@"gist %@", [gist valueForKey:@"id"]];
+                title = [NSString stringWithFormat:@"%@", [gist valueForKey:@"id"]];
             } else {
-                title = [NSString stringWithFormat:@"gist %@ : %@", [gist valueForKey:@"id"], description];
+                title = [NSString stringWithFormat:@"%@ : %@", [gist valueForKey:@"id"], description];
             }
         
             NSMenuItem *gistItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(gistPressed:) keyEquivalent:@""];
-        
+            
+            NSNumber *pub = [gist valueForKey:@"public"];
+            NSImage* iconImage = nil;
+            if ([pub boolValue]) {
+                iconImage = [NSImage imageNamed: @"bullet_green.png"];
+            } else {
+                iconImage = [NSImage imageNamed: @"bullet_red.png"];
+            }
+            [iconImage setSize:NSMakeSize(16,16)];
+            [gistItem setImage:iconImage];
+            
+            [gistItem setToolTip:[NSString stringWithFormat:@"Created at %@, %@ comment(s)", [gist valueForKey:@"created_at"], [gist valueForKey:@"comments"]]];
             [gistItem setRepresentedObject:[gist valueForKey:@"html_url"]];
             [gistItem autorelease];
             [menu addItem:gistItem];
@@ -288,8 +332,13 @@
     for (NSArray *org in result) {
         
         NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[org valueForKey:@"login"] action:@selector(organizationPressed:) keyEquivalent:@""];
-        [organizationItem setToolTip: @""];
+        //[organizationItem setToolTip: [NSString stringWithFormat:@"Created at %@", [org valueForKey:@"created_at"]]];
         [organizationItem setRepresentedObject:[org valueForKey:@"login"]];
+        
+        NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[org valueForKey:@"avatar_url"]]];
+        [iconImage setSize:NSMakeSize(16,16)];
+        [organizationItem setImage:iconImage];
+        
         [organizationItem setEnabled:YES];
         [organizationItem autorelease];
         [menu addItem:organizationItem];
@@ -305,8 +354,19 @@
         NSMenu* repositoriesMenu = [[NSMenu alloc] init];
         for (NSArray *repo in repos) {
             NSMenuItem *organizationRepoItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
-            [organizationRepoItem setToolTip: @""];
+            //[organizationRepoItem setToolTip: @""];
             [organizationRepoItem setRepresentedObject:[repo valueForKey:@"html_url"]];
+            
+            NSNumber *priv = [repo valueForKey:@"private"];
+            NSImage* iconImage = nil;
+            if ([priv boolValue]) {
+                iconImage = [NSImage imageNamed: @"bullet_red.png"];
+            } else {
+                iconImage = [NSImage imageNamed: @"bullet_green.png"];
+            }
+            [iconImage setSize:NSMakeSize(16,16)];
+            [organizationRepoItem setImage:iconImage];
+            
             [organizationRepoItem setEnabled:YES];
             [organizationRepoItem autorelease];
             [repositoriesMenu addItem:organizationRepoItem];
@@ -379,8 +439,19 @@
         
         if (clean) {
             NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
-            [organizationItem setToolTip: @""];
+            [organizationItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
             [organizationItem setRepresentedObject:[repo valueForKey:@"html_url"]];
+            
+            NSNumber *priv = [repo valueForKey:@"private"];
+            NSImage* iconImage = nil;
+            if ([priv boolValue]) {
+                iconImage = [NSImage imageNamed: @"bullet_red.png"];
+            } else {
+                iconImage = [NSImage imageNamed: @"bullet_green.png"];
+            }
+            [iconImage setSize:NSMakeSize(16,16)];
+            [organizationItem setImage:iconImage];
+            
             [organizationItem setEnabled:YES];
             [organizationItem autorelease];
             [menu addItem:organizationItem];
@@ -390,6 +461,57 @@
 
 - (void)pullFinished:(ASIHTTPRequest *)request {
     
+}
+
+- (void) followersFinished:(ASIHTTPRequest*)request {
+    NSLog(@"Followers Finished...");
+    
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Users"];
+    NSMenu *tmp = [menuItem submenu];
+    
+    NSMenuItem *followersItem = [tmp itemWithTitle:@"Followers"];
+    NSMenu *menu = [followersItem submenu];
+
+    NSDictionary* result = [[request responseString] objectFromJSONString];
+    
+    // always delete...
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    
+    for (NSArray *user in result) {
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[user valueForKey:@"login"] action:@selector(followerPressed:) keyEquivalent:@""];
+        //[item setRepresentedObject:[user valueForKey:@"login"]];
+        NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[user valueForKey:@"avatar_url"]]];
+        [iconImage setSize:NSMakeSize(18,18)];
+        [item setImage:iconImage];
+        [item autorelease];
+        [menu addItem:item];
+    }    
+}
+
+- (void) followingsFinished:(ASIHTTPRequest *)request {
+    NSLog(@"Following Finished...");
+    
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Users"];
+    NSMenu *tmp = [menuItem submenu];
+    
+    NSMenuItem *followingsItem = [tmp itemWithTitle:@"Following"];
+    NSMenu *menu = [followingsItem submenu];
+    
+    NSDictionary* result = [[request responseString] objectFromJSONString];
+    
+    // always delete...
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    
+    for (NSArray *user in result) {
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[user valueForKey:@"login"] action:@selector(followingPressed:) keyEquivalent:@""];
+        [item setRepresentedObject:[user valueForKey:@"login"]];
+        NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[user valueForKey:@"avatar_url"]]];
+        [iconImage setSize:NSMakeSize(16,16)];
+        [item setImage:iconImage];
+        [item setEnabled:YES];
+        [item autorelease];
+        [menu addItem:item];
+    }    
 }
 
 # pragma mark - Actions on pressed menu items
@@ -419,6 +541,25 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/organizations/%@", selectedItem]]];
 }
 
+- (void) followerPressed:(id) sender {
+    id selectedItem = [sender representedObject];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];    
+}
+
+- (void) followingPressed:(id) sender {
+    id selectedItem = [sender representedObject];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];        
+}
+
+- (IBAction)openFollowings:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@/following", [preferences login]]]];
+}
+
+- (IBAction)openFollowers:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@/followers", [preferences login]]]];
+}
+
+#pragma mark - item stuff
 - (void) deleteOldEntriesFromMenu:(NSMenu*)menu fromItemTitle:(NSString*)title {
     NSLog(@"Delete entries from menu");
     // remove all the menu items

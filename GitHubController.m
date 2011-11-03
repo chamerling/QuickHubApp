@@ -33,6 +33,8 @@
     [self loadGists:nil];
     [self loadOrganizations:nil];
     [self loadRepos:nil];
+    [self loadFollowers:nil];
+    [self loadFollowings:nil];
 }
 
 # pragma mark - Load things from github
@@ -122,6 +124,32 @@
     [request startSynchronous];
     int status = [request responseStatusCode];
     return status == 200;
+}
+
+- (void) loadFollowers:(id) sender {
+    NSLog(@"Loading Followers...");
+    
+    NSString *username = [preferences login];
+    NSString *password = [preferences password];
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/user/followers?per_page=100"]];
+    [request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
+    [request setDidFinishSelector:@selector(followersFinished:)];
+    [request setDidFailSelector:@selector(httpFailed:)];
+    [request setDelegate:self];
+    [request startAsynchronous];    
+}
+
+- (void) loadFollowings:(id) sender {
+    NSString *username = [preferences login];
+    NSString *password = [preferences password];
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/user/following?per_page=100"]];
+    [request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
+    [request setDidFinishSelector:@selector(followingsFinished:)];
+    [request setDidFailSelector:@selector(httpFailed:)];
+    [request setDelegate:self];
+    [request startAsynchronous];
 }
 
 # pragma mark - HTTP failures
@@ -216,7 +244,20 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_PULLS 
 														object:request 
 													  userInfo:nil]; 
-    
+}
+
+- (void) followingsFinished:(ASIHTTPRequest*)request {
+    NSLog(@"Followings Finished...");
+    [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_FOLLOWINGS 
+														object:request 
+													  userInfo:nil];    
+}
+
+- (void) followersFinished:(ASIHTTPRequest*)request {
+    NSLog(@"Followers Finished...");
+    [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_FOLLOWERS
+														object:request 
+													  userInfo:nil]; 
 }
 
 # pragma mark - Write
@@ -257,6 +298,10 @@
                                                           userInfo:nil];           
     }
     return gistId;
+}
+
+- (void)dealloc {
+    // TODO
 }
 
 @end

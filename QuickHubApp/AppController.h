@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Preferences.h"
 #import "ASIHTTPRequest.h"
+#import "Reachability.h"
+
+#import "Preferences.h"
 #import "GitHubController.h"
 
+@class Reachability;
 @interface AppController : NSObject {
     
     Preferences *preferences;
@@ -22,9 +25,13 @@
     NSTimer* issueTimer;
     NSTimer* organizationTimer;
     NSTimer* repositoryTimer;
+    NSTimer* followTimer;
     
     // misc.
     BOOL githubPolling;
+    
+    // Reachability
+    Reachability* internetReachable;
     
 }
 
@@ -32,11 +39,12 @@
 - (void) pollGists:(id) sender;
 - (void) pollOrgs:(id) sender;
 - (void) pollRepos:(id) sender;
+- (void) pollFollow:(id) sender;
 //- (void) pollPulls:(id) sender;
 
 - (void) loadAll:(id)sender;
 - (void) stopAll:(id)sender;
 
-- (BOOL) checkInternetConnection;
+- (void) checkNetworkStatus:(NSNotification *)notice;
 
 @end

@@ -21,8 +21,15 @@
     if (self) {
         // Initialization code here.
         githubController = [[GitHubController alloc]init];
+        
+        
+        //reachability
+        // check for internet connection
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
+        
+        internetReachable = [[Reachability reachabilityForInternetConnection] retain];
+        [internetReachable startNotifier];
     }
-    
     return self;
 }
 
@@ -57,13 +64,15 @@
         repositoryTimer = [NSTimer scheduledTimerWithTimeInterval:130 target:self selector:@selector(pollRepos:) userInfo:nil repeats:YES];
         organizationTimer = [NSTimer scheduledTimerWithTimeInterval:600 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
         issueTimer = [NSTimer scheduledTimerWithTimeInterval:125 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
-        
+        followTimer = [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(pollFollow:) userInfo:nil repeats:YES];
+
         // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
         // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input
         [[NSRunLoop currentRunLoop] addTimer:gistTimer forMode:NSRunLoopCommonModes];
         [[NSRunLoop currentRunLoop] addTimer:repositoryTimer forMode:NSRunLoopCommonModes];
         [[NSRunLoop currentRunLoop] addTimer:organizationTimer forMode:NSRunLoopCommonModes];
         [[NSRunLoop currentRunLoop] addTimer:issueTimer forMode:NSRunLoopCommonModes];
+        [[NSRunLoop currentRunLoop] addTimer:followTimer forMode:NSRunLoopCommonModes];
         githubPolling = YES;
     } else {
         NSLog(@"Can not start all since we are already polling...");
@@ -77,6 +86,7 @@
         [repositoryTimer invalidate];
         [organizationTimer invalidate];
         [issueTimer invalidate];
+        [followTimer invalidate];
     }
     githubPolling = NO;
     NSLog(@"Stopped");
@@ -106,17 +116,46 @@
     }
 }
 
-#pragma mark - misc
-- (BOOL)checkInternetConnection {
-    // hope that google is always on...
-    ASIHTTPRequest *googleCheck = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://google.com"]];
-    [googleCheck setTimeOutSeconds:5];
-    //[googleCheck setDidFinishSelector:@selector(issuesFinished:)];
-    //[googleCheck setDidFailSelector:@selector(issuesFailed:)];
-    //[googleCheck setDelegate:self];
-    [googleCheck startSynchronous];
-    NSLog(@"HTTPCheck %@", googleCheck);
-    return YES;
+- (void) pollFollow:(id) sender {
+    if (githubPolling) {
+        [githubController loadFollowers:nil];
+        [githubController loadFollowings:nil];
+    }
 }
+
+
+#pragma mark - reachability
+- (void) checkNetworkStatus:(NSNotification *)notice {
+    NetworkStatus internetStatus = [internetReachable currentReachabilityStatus];
+    switch (internetStatus)
+    
+    {
+        case NotReachable:
+        {
+            NSLog(@"The internet is down.");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetDown" object:nil];
+            break;
+            
+        }
+        case ReachableViaWiFi:
+        {
+            NSLog(@"The internet is working via WIFI.");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetUp" object:nil];
+            break;
+            
+        }
+        case ReachableViaWWAN:
+        {
+            NSLog(@"The internet is working via WWAN.");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetUp" object:nil];
+            break;            
+        }
+    }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 @end

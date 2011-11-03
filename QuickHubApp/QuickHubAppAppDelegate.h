@@ -69,6 +69,8 @@
 - (void) issuePressed:(id)sender;
 - (void) gistPressed:(id) sender;
 - (void) pullPressed:(id) sender;
+- (void) followerPressed:(id) sender;
+- (void) followingPressed:(id) sender;
 
 - (IBAction)helpPressed:(id)sender;
 

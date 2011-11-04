@@ -17,7 +17,6 @@
     IBOutlet NSTextField *fileNameField;
     IBOutlet NSTextFieldCell *descriptionField;
     IBOutlet NSTextView *contentTextView;
-    IBOutlet NSButton *publicChoice;
     IBOutlet NSProgressIndicator *progressIndicator;
     IBOutlet NSButton *createButton;
 }
@@ -26,5 +25,6 @@
 
 #pragma mark - actions
 - (IBAction)createGist:(id)sender;
+- (IBAction)createPrivateGist:(id)sender;
 
 @end

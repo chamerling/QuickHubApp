@@ -8,6 +8,10 @@
 
 #import "GistCreateWindowController.h"
 
+@interface GistCreateWindowController (Private)
+- (void) createGist:(NSString*) content withDescription:(NSString*) description andFileName:(NSString *) fileName isPublic:(BOOL) pub;
+@end
+
 @implementation GistCreateWindowController
 @synthesize ghController;
 
@@ -32,21 +36,37 @@
     // create the gist...
     NSString *description = [[descriptionField stringValue]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *theFileName = [[fileNameField stringValue]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    BOOL pub = [publicChoice state] == 1 ? TRUE : FALSE;
     NSString *content = [contentTextView string];
     
     if (!theFileName || !content || ([theFileName length] == 0) || ([content length] == 0)) {
         NSBeep();
     } else {
-        [createButton setEnabled:NO];
-        [progressIndicator setHidden:NO];
-        [progressIndicator startAnimation:nil];
-        if (ghController) {
-            [ghController createGist:content withDescription:description andFileName:theFileName isPublic:pub];
-        }
-        [progressIndicator stopAnimation:nil];
-        [progressIndicator setHidden:YES];
-        [createButton setEnabled:YES];
+        [self createGist:content withDescription:description andFileName:theFileName isPublic:TRUE];
     }
+}
+
+- (IBAction)createPrivateGist:(id)sender {
+    // create the gist...
+    NSString *description = [[descriptionField stringValue]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *theFileName = [[fileNameField stringValue]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *content = [contentTextView string];
+    
+    if (!theFileName || !content || ([theFileName length] == 0) || ([content length] == 0)) {
+        NSBeep();
+    } else {
+        [self createGist:content withDescription:description andFileName:theFileName isPublic:FALSE];
+    }
+}
+
+- (void) createGist:(NSString*) content withDescription:(NSString*) description andFileName:(NSString *) fileName isPublic:(BOOL) pub {
+    [createButton setEnabled:NO];
+    [progressIndicator setHidden:NO];
+    [progressIndicator startAnimation:nil];
+    if (ghController) {
+        [ghController createGist:content withDescription:description andFileName:fileName isPublic:pub];
+    }
+    [progressIndicator stopAnimation:nil];
+    [progressIndicator setHidden:YES];
+    [createButton setEnabled:YES];
 }
 @end

@@ -57,6 +57,7 @@
 		C99E311F1462FA3000FA4327 /* bullet_red.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E311E1462FA3000FA4327 /* bullet_red.png */; };
 		C99E312114630C7300FA4327 /* bullet_green.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E312014630C7300FA4327 /* bullet_green.png */; };
 		C99E31231463104400FA4327 /* bug.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E31221463104400FA4327 /* bug.png */; };
+		C99E31291463E65A00FA4327 /* bullet_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E31281463E65A00FA4327 /* bullet_yellow.png */; };
 		C9E07B1A145EF6B9004A94A7 /* GistCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */; };
 		C9E07B20145EF8BF004A94A7 /* GistCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */; };
 /* End PBXBuildFile section */
@@ -152,6 +153,7 @@
 		C99E311E1462FA3000FA4327 /* bullet_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet_red.png; sourceTree = "<group>"; };
 		C99E312014630C7300FA4327 /* bullet_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet_green.png; sourceTree = "<group>"; };
 		C99E31221463104400FA4327 /* bug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bug.png; sourceTree = "<group>"; };
+		C99E31281463E65A00FA4327 /* bullet_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet_yellow.png; sourceTree = "<group>"; };
 		C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GistCreateWindow.xib; sourceTree = "<group>"; };
 		C9E07B1E145EF8BF004A94A7 /* GistCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistCreateWindowController.h; sourceTree = "<group>"; };
 		C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistCreateWindowController.m; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				C99E31181462E7B600FA4327 /* red-circle-16.png */,
 				C99E311E1462FA3000FA4327 /* bullet_red.png */,
 				C99E312014630C7300FA4327 /* bullet_green.png */,
+				C99E31281463E65A00FA4327 /* bullet_yellow.png */,
 				C99E31191462E7B600FA4327 /* green-circle-16.png */,
 				C977DAA5145B5E41009B46C6 /* qh.icns */,
 				C91CE17C145B41EE0059EACC /* QH-16.png */,
@@ -414,6 +417,7 @@
 				C99E311F1462FA3000FA4327 /* bullet_red.png in Resources */,
 				C99E312114630C7300FA4327 /* bullet_green.png in Resources */,
 				C99E31231463104400FA4327 /* bug.png in Resources */,
+				C99E31291463E65A00FA4327 /* bullet_yellow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

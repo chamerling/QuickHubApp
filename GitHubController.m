@@ -35,6 +35,7 @@
     [self loadRepos:nil];
     [self loadFollowers:nil];
     [self loadFollowings:nil];
+    [self loadWatchedRepos:nil];
 }
 
 # pragma mark - Load things from github
@@ -152,6 +153,18 @@
     [request startAsynchronous];
 }
 
+- (void) loadWatchedRepos:(id) sender {
+    NSString *username = [preferences login];
+    NSString *password = [preferences password];
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/user/watched?per_page=100"]];
+    [request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
+    [request setDidFinishSelector:@selector(watchedReposFinished:)];
+    [request setDidFailSelector:@selector(httpFailed:)];
+    [request setDelegate:self];
+    [request startAsynchronous];    
+}
+
 # pragma mark - HTTP failures
 - (void) issuesFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
@@ -194,7 +207,7 @@
 
 - (void) httpFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    NSString *error = [NSString stringWithFormat:@"HTTP failure '%@'", [[request error]domain]];
+    NSString *error = @"HTTP failure, can not get data";
     [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
 														object:error 
 													  userInfo:nil];           
@@ -256,6 +269,13 @@
 - (void) followersFinished:(ASIHTTPRequest*)request {
     NSLog(@"Followers Finished...");
     [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_FOLLOWERS
+														object:request 
+													  userInfo:nil]; 
+}
+
+- (void) watchedReposFinished:(ASIHTTPRequest*)request {
+    NSLog(@"Watched Repos Finished...");
+    [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_WATCHEDREPO
 														object:request 
 													  userInfo:nil]; 
 }

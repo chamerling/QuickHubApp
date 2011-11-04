@@ -33,6 +33,7 @@
 
 - (IBAction)openFollowings:(id)sender;
 - (IBAction)openFollowers:(id)sender;
+- (IBAction)openWatchedRepositories:(id)sender;
 
 # pragma mark - GH Menu pressed actions
 - (IBAction) repoPressed:(id)sender;

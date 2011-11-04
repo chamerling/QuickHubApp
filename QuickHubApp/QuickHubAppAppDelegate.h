@@ -58,6 +58,7 @@
 - (IBAction)openOrganizations:(id)sender;
 - (IBAction)openGists:(id)sender;
 - (IBAction)openPull:(id)sender;
+- (IBAction)openURL:(id)sender;
 
 - (IBAction)createGist:(id)sender;
 - (IBAction)openPreferences:(id)sender;

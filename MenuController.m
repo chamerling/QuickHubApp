@@ -20,6 +20,7 @@
 - (void)notifyIssues:(NSNotification *)aNotification;
 - (void)notifyFollowings:(NSNotification *)aNotification;
 - (void)notifyFollowers:(NSNotification *)aNotification;
+- (void)notifyWatchedRepos:(NSNotification *)aNotification;
 
 - (void) issuesFinished:(ASIHTTPRequest*)request;
 - (void) gistFinished:(ASIHTTPRequest*)request;
@@ -28,6 +29,7 @@
 - (void) pullFinished:(ASIHTTPRequest *)request;
 - (void) followersFinished:(ASIHTTPRequest*)request;
 - (void) followingsFinished:(ASIHTTPRequest *)request;
+- (void) watchedReposFinished:(ASIHTTPRequest *)request;
 @end
 
 @implementation MenuController
@@ -82,6 +84,11 @@
 											 selector:@selector(notifyFollowings:)
 												 name:GITHUB_NOTIFICATION_FOLLOWINGS
 											   object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(notifyWatchedRepos:)
+												 name:GITHUB_NOTIFICATION_WATCHEDREPO
+											   object:nil];
 
 }
 
@@ -100,6 +107,10 @@
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
     menuItem = [statusMenu itemWithTitle:@"Repositories"];
+    menu = [menuItem submenu];
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    
+    menuItem = [statusMenu itemWithTitle:@"Watching"];
     menu = [menuItem submenu];
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
@@ -144,6 +155,12 @@
     NSLog(@"Got a Notify Followers");
     ASIHTTPRequest *httpRequest = [aNotification object];
     [self followersFinished:httpRequest];
+}
+
+- (void)notifyWatchedRepos:(NSNotification *)aNotification {
+    NSLog(@"Got a Notify Watched Respos");
+    ASIHTTPRequest *httpRequest = [aNotification object];
+    [self watchedReposFinished:httpRequest];
 }
 
 #pragma mark - process HTTP responses
@@ -210,11 +227,9 @@
             NSMenuItem *issueItem = [[NSMenuItem alloc] initWithTitle:[issue valueForKey:@"title"] action:@selector(issuePressed:) keyEquivalent:@""];
             [issueItem setRepresentedObject:[issue valueForKey:@"html_url"]];
             
-            /*
-            NSImage* iconImage = [NSImage imageNamed:@"bug.png"];
+            NSImage* iconImage = [NSImage imageNamed:@"bullet_yellow.png"];
             [iconImage setSize:NSMakeSize(16,16)];
             [issueItem setImage:iconImage];
-            */
             
             [issueItem autorelease];
             [menu addItem:issueItem];
@@ -514,6 +529,39 @@
     }    
 }
 
+- (void) watchedReposFinished:(ASIHTTPRequest *)request {
+    NSLog(@"Following Finished...");
+    
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Watching"];
+    NSMenu *menu = [menuItem submenu];
+    
+    NSDictionary* result = [[request responseString] objectFromJSONString];
+    
+    // always delete...
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    
+    for (NSArray *repo in result) {
+        // get the owner
+        NSArray *owner = [repo valueForKey:@"owner"];
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@/%@", [owner valueForKey:@"login"], [repo valueForKey:@"name"]] action:@selector(openURL:) keyEquivalent:@""];
+        [item setRepresentedObject:[repo valueForKey:@"html_url"]];
+        [item setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
+
+        NSNumber *priv = [repo valueForKey:@"private"];
+        NSImage* iconImage = nil;
+        if ([priv boolValue]) {
+            iconImage = [NSImage imageNamed: @"bullet_red.png"];
+        } else {
+            iconImage = [NSImage imageNamed: @"bullet_green.png"];
+        }
+        [item setImage:iconImage];
+        
+        [item setEnabled:YES];
+        [item autorelease];
+        [menu addItem:item];
+    }    
+}
+
 # pragma mark - Actions on pressed menu items
 
 - (IBAction) repoPressed:(id) sender {
@@ -557,6 +605,10 @@
 
 - (IBAction)openFollowers:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@/followers", [preferences login]]]];
+}
+
+- (IBAction)openWatchedRepositories:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@/following", [preferences login]]]]; 
 }
 
 #pragma mark - item stuff

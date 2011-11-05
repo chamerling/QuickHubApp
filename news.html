@@ -4,7 +4,7 @@ title: "QuickHub.App - News"
 ---
 
 <div id="post">
-{% for post in site.posts limit:1 %}
+{% for post in site.posts %}
 <h1><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h1>
 <div class="authoring">
   <b>{{ post.date | date: "%B %e, %Y" }}</b>

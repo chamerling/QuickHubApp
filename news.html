@@ -3,13 +3,23 @@ layout: layout
 title: "QuickHub.App - News"
 ---
 
-<div id="post">
+<div class="content">
 {% for post in site.posts %}
+
+<div id="post">
 <h1><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h1>
 <div class="authoring">
   <b>{{ post.date | date: "%B %e, %Y" }}</b>
 </div>
  {{ post.content }}
- <br>
+<a href="">Comments</a>
+<br/><br/>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ post.url }}" data-text="{{ post.title }}" data-count="horizontal" data-via="chamerling" data-related="quickhubapp" data-lang="fr">Tweeter</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+	<g:plusone size="medium" href="{{ site.url }}{{ post.url }}"></g:plusone>
+<br>
+<br>
+</div>
+<hr/>
+
 {% endfor %}
 </div>

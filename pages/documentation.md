@@ -8,8 +8,11 @@ QuickHub.App is an OS X application which stands in the OS X status bar. It allo
 
 <img src="http://f.cl.ly/items/1n0p0k3u0C2n3i0A3a44/quickhub-intial.png"/>
 
-# Bug Tracking
-There is no bug tracker for now. You can send feedback on Twitter at [@quickhubapp](http://twitter.com/quickhubapp) or [@chamerling](http://twitter.com/chamerling).
+# Issues
+You can send bugs, feature and improvment requests (also ideas) by using the [tracker on GitHub](https://github.com/chamerling/QuickHubApp/issues).
+
+# Contact
+There is no mailing list available for the project but you can send feedback and contact the developer on Twitter at [@quickhubapp](http://twitter.com/quickhubapp) or [@chamerling](http://twitter.com/chamerling).
 
 # Who is behind QuickHub?
 My name is Christophe Hamerling, I am a software engineer at [PetalsLink](http://petalslink.com/), a french Open Source company delivering SOA tools. I am a big lover of OS X, Growl and GitHub and that's why I started to developed QuickHub to be able to be always connected to GitHub.

@@ -2,12 +2,31 @@
 layout: layout
 title: "QuickHub.App"
 ---
-
+		
 <div class="well">
-	The missing GitHub stuff for OS X has just been published to the <a target="_blank" href="http://itunes.apple.com/us/app/quickhub/id476665193">Mac App store!</a><br>
-	You can subscribe to <a href="http://twitter.com/quickhubapp">@quickhubapp</a> and <a href="http://twitter.com/chamerling">@chamerling</a> to be notified about status. There is also the <a href="atom.xml">Atom feed</a>, <a href="http://chamerling.org">C.Hamerling blog</a>. So in any case you will be notified!
-</div>
+	<p><b>QuickHub</b> is a tiny but useful OS X application for <a href="http://github.com" target="_blank">GitHub</a> lovers.
+	It helps you to quickly access to GitHub directly from your status bar: Repositories, issues, gists and organizations are just one click away. QuickHub will also notify you when something changes on your GitHub artifacts.</p>
+	
+	<p>QuickHub is available on the <a target="_blank" href="http://itunes.apple.com/us/app/quickhub/id476665193">Mac App store</a> for just 99 cents!</p>
+	</div>
 
 <p align="center">
 `<a href="http://f.cl.ly/items/290t230w3J1A3n0l2v2M/quickhub-screenshot-1024.png" rel="lightbox" title="QuickHub in action"><img src="http://f.cl.ly/items/2a363Z3B0m2c272z0y3Z/quickhub-screenshot-800.png"/></a>
 </p>
+
+<!--
+<br/><br/>
+<h2>Quotes</h2>
+<blockquote><p>It is for github addicted, it's great, it's cheap (€ 0.79)</p><small>@k33g_org</small></blockquote>
+<blockquote><p>Definitely worth the 99 cents!</p><small>Clément Escoffier</small></blockquote>
+-->
+
+<br/><br/>
+<h2>Last News</h2>
+<table>
+	<tbody>
+		{% for post in site.posts limit 10 %}
+		<tr><td><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></td><td><span>{{ post.date | date: "%B %e, %Y" }}</span></td></tr>
+		{% endfor %}
+	</tbody>
+</table>

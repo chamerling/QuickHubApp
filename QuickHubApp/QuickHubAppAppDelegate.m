@@ -20,6 +20,7 @@
 #import "ASIHTTPRequest.h"
 #import "JSONKit.h"
 #import "NSData+Base64.h"
+#import "Reachability.h"
 
 @implementation QuickHubAppAppDelegate
 
@@ -40,12 +41,17 @@
     
     // TODO : register a listener to change status image on some failures, notifications, ...
     
-    preferences = [Preferences sharedInstance];
-    if ([[preferences login]length] == 0 || ![ghController checkCredentials:nil]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];        
+    Reachability *internetDonnection = [Reachability reachabilityForInternetConnection];
+    if ([internetDonnection currentReachabilityStatus] == NotReachable) {
+        NSLog(@"Startup : Internet is not reachable");
     } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub as %@", [preferences login]] userInfo:nil];        
-        [appController loadAll:nil];    
+        preferences = [Preferences sharedInstance];
+        if ([[preferences login]length] == 0 || ![ghController checkCredentials:nil]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];        
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub as '%@'...", [preferences login]] userInfo:nil];        
+            [appController loadAll:nil];    
+        }
     }
 }
 

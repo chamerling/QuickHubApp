@@ -32,6 +32,7 @@
     BOOL githubPolling;
     
     // Reachability
+    Reachability* hostReach;
     Reachability* internetReachable;
     
 }

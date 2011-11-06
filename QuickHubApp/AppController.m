@@ -29,6 +29,10 @@
         
         internetReachable = [[Reachability reachabilityForInternetConnection] retain];
         [internetReachable startNotifier];
+        
+        hostReach = [[Reachability reachabilityWithHostName: @"api.github.com"] retain];
+        [hostReach startNotifier];
+
     }
     return self;
 }
@@ -75,6 +79,7 @@
         [[NSRunLoop currentRunLoop] addTimer:issueTimer forMode:NSRunLoopCommonModes];
         [[NSRunLoop currentRunLoop] addTimer:followTimer forMode:NSRunLoopCommonModes];
         [[NSRunLoop currentRunLoop] addTimer:watchingTimer forMode:NSRunLoopCommonModes];
+        
         githubPolling = YES;
     } else {
         NSLog(@"Can not start all since we are already polling...");
@@ -82,7 +87,7 @@
 }
 
 - (void) stopAll:(id)sender {
-    NSLog(@"Stop all...");
+    NSLog(@"Stop polling all GH stuff...");
     if (githubPolling) {
         [gistTimer invalidate];
         [repositoryTimer invalidate];
@@ -92,7 +97,7 @@
         [watchingTimer invalidate];
     }
     githubPolling = NO;
-    NSLog(@"Stopped");
+    NSLog(@"Stopped!");
 }
 
 - (void)pollGists:(id) sender {
@@ -134,29 +139,51 @@
 
 #pragma mark - reachability
 - (void) checkNetworkStatus:(NSNotification *)notice {
-    NetworkStatus internetStatus = [internetReachable currentReachabilityStatus];
-    switch (internetStatus)
+    Reachability* reach = [notice object];
     
-    {
-        case NotReachable:
+    if (reach == internetReachable) {
+        NSLog(@"Internet reachablity changed!");
+   
+        NetworkStatus internetStatus = [internetReachable currentReachabilityStatus];
+        switch (internetStatus)
+    
         {
-            NSLog(@"The internet is down.");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetDown" object:nil];
-            break;
+            case NotReachable:
+            {
+                NSLog(@"The internet is down.");
             
-        }
-        case ReachableViaWiFi:
-        {
-            NSLog(@"The internet is working via WIFI.");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetUp" object:nil];
-            break;
+                // if already polling github, stop all background task
+                [self stopAll:nil];
             
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetDown" object:nil];
+                break;
+            
+            }
+            case ReachableViaWiFi:
+            {
+                NSLog(@"The internet is working via WIFI.");
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetUp" object:nil];
+                break;
+            }
+            case ReachableViaWWAN:
+            {
+                NSLog(@"The internet is working via WWAN.");
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetUp" object:nil];
+                break;            
+            }
         }
-        case ReachableViaWWAN:
-        {
-            NSLog(@"The internet is working via WWAN.");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetUp" object:nil];
-            break;            
+    } else if (reach == hostReach) {
+        NSLog(@"Host reachablity changed!");
+    
+        NetworkStatus hostStatus = [hostReach currentReachabilityStatus];
+        if (hostStatus == NotReachable) {
+            NSLog(@"The host is not reachable");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"HostDown" object:nil];
+
+        } else {
+            NSLog(@"The host is reachable");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"HostUp" object:nil];
+            [self loadAll:nil];
         }
     }
 }

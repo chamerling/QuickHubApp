@@ -93,7 +93,7 @@
 }
 
 - (void)cleanMenus:(id)sender {
-    NSLog(@"Cleaning menu");
+    NSLog(@"Cleaning menus");
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Issues"];
     NSMenu *menu = [menuItem submenu];
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
@@ -112,6 +112,17 @@
     
     menuItem = [statusMenu itemWithTitle:@"Watching"];
     menu = [menuItem submenu];
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+
+    // Delete users
+    menuItem = [statusMenu itemWithTitle:@"Users"];
+    NSMenu *tmp = [menuItem submenu];
+    NSMenuItem *followersItem = [tmp itemWithTitle:@"Followers"];
+    menu = [followersItem submenu];
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    
+    followersItem = [tmp itemWithTitle:@"Following"];
+    menu = [followersItem submenu];
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
     firstGistCall = YES;

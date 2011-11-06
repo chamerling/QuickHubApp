@@ -60,7 +60,7 @@
         NSLog(@"Load all and start polling things");
         [githubController loadGHData:nil];
         
-        gistTimer = [NSTimer scheduledTimerWithTimeInterval:100 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
+        gistTimer = [NSTimer scheduledTimerWithTimeInterval:120 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
         repositoryTimer = [NSTimer scheduledTimerWithTimeInterval:130 target:self selector:@selector(pollRepos:) userInfo:nil repeats:YES];
         organizationTimer = [NSTimer scheduledTimerWithTimeInterval:600 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
         issueTimer = [NSTimer scheduledTimerWithTimeInterval:125 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];

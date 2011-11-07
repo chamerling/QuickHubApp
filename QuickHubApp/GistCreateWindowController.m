@@ -58,6 +58,12 @@
     }
 }
 
+- (IBAction)cleanFields:(id)sender {
+    [fileNameField setStringValue:@""];
+    [descriptionField setStringValue:@""];
+    [contentTextView setString:@""];
+}
+
 - (void) createGist:(NSString*) content withDescription:(NSString*) description andFileName:(NSString *) fileName isPublic:(BOOL) pub {
     [createButton setEnabled:NO];
     [progressIndicator setHidden:NO];

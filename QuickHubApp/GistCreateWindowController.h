@@ -26,5 +26,6 @@
 #pragma mark - actions
 - (IBAction)createGist:(id)sender;
 - (IBAction)createPrivateGist:(id)sender;
+- (IBAction)cleanFields:(id)sender;
 
 @end

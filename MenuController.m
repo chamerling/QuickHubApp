@@ -505,7 +505,7 @@
     
     for (NSArray *user in result) {
         NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[user valueForKey:@"login"] action:@selector(followerPressed:) keyEquivalent:@""];
-        //[item setRepresentedObject:[user valueForKey:@"login"]];
+        [item setRepresentedObject:[user valueForKey:@"login"]];
         NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[user valueForKey:@"avatar_url"]]];
         [iconImage setSize:NSMakeSize(18,18)];
         [item setImage:iconImage];

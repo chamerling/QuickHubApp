@@ -1,6 +1,3 @@
 <h1>
-  <a href="{{ site.url }}{{ page.url }}">{{ page.title }}</a>
+  {{ page.title }}&nbsp;<small>{{ page.date | date: "%B %e, %Y" }}</small>
 </h1>
-<div class="authoring">
-  <b>{{ page.date | date: "%B %e, %Y" }}</b>
-</div>

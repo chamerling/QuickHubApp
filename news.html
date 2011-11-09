@@ -7,12 +7,9 @@ title: "QuickHub.App - News"
 {% for post in site.posts %}
 
 <div id="post">
-<h1><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h1>
-<div class="authoring">
-  <b>{{ post.date | date: "%B %e, %Y" }}</b>
-</div>
+<h1><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a> &nbsp;<small>{{ post.date | date: "%B %e, %Y" }}</small></h1>
  {{ post.content }}
-<a href="">Comments</a>
+<h4><a href="{{ site.url }}{{ post.url }}">> Comments</a></h4>
 <br/><br/>
 	<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url }}{{ post.url }}" data-text="{{ post.title }}" data-count="horizontal" data-via="chamerling" data-related="quickhubapp" data-lang="fr">Tweeter</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 	<g:plusone size="medium" href="{{ site.url }}{{ post.url }}"></g:plusone>

@@ -3,7 +3,22 @@ layout: layout
 title: "QH - Release Notes"
 ---
 
+# v1.2 - 2011/11/30
+<div class="alert-message warning">
+Coming next...
+</div>
+Planned things:
+
+- [IMPROVEMENT] Add clean button to gist creation window
+- [NEW] Create gist from file
+- [NEW] Save the new created gist URL in clipboard
+- [NEW] Configure polling periods for all tasks
+- [NEW] Click on notifications brings user to the right Github page
+
 # v1.1 - 2011/11/06
+<div class="alert-message error">
+Note that this version has been submitted to Apple and is currently under validation.
+</div>
 The version 1.1 comes with many improvements, new features and bug fixes:
 
 - [IMPROVEMENT] All artifacts now have icons in menu. Green bullets for public things, red for private ones. Avatars are also displayed for organizations and people

@@ -554,22 +554,25 @@
     for (NSArray *repo in result) {
         // get the owner
         NSArray *owner = [repo valueForKey:@"owner"];
-        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@/%@", [owner valueForKey:@"login"], [repo valueForKey:@"name"]] action:@selector(openURL:) keyEquivalent:@""];
-        [item setRepresentedObject:[repo valueForKey:@"html_url"]];
-        [item setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
-
-        NSNumber *priv = [repo valueForKey:@"private"];
-        NSImage* iconImage = nil;
-        if ([priv boolValue]) {
-            iconImage = [NSImage imageNamed: @"bullet_red.png"];
-        } else {
-            iconImage = [NSImage imageNamed: @"bullet_green.png"];
-        }
-        [item setImage:iconImage];
         
-        [item setEnabled:YES];
-        [item autorelease];
-        [menu addItem:item];
+        // do not display my own repositories...
+        if (![[preferences login] isEqualToString:[owner valueForKey:@"login"]]) {
+            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@/%@", [owner valueForKey:@"login"], [repo valueForKey:@"name"]] action:@selector(openURL:) keyEquivalent:@""];
+            [item setRepresentedObject:[repo valueForKey:@"html_url"]];
+            [item setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
+
+            NSNumber *priv = [repo valueForKey:@"private"];
+            NSImage* iconImage = nil;
+            if ([priv boolValue]) {
+                iconImage = [NSImage imageNamed: @"bullet_red.png"];
+            } else {
+                iconImage = [NSImage imageNamed: @"bullet_green.png"];
+            }
+            [item setImage:iconImage];
+            [item setEnabled:YES];
+            [item autorelease];
+            [menu addItem:item];
+        }
     }    
 }
 

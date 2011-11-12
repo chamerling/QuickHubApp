@@ -380,6 +380,8 @@
         NSMenu* repositoriesMenu = [[NSMenu alloc] init];
         for (NSArray *repo in repos) {
             NSMenuItem *organizationRepoItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
+            [organizationRepoItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
+
             //[organizationRepoItem setToolTip: @""];
             [organizationRepoItem setRepresentedObject:[repo valueForKey:@"html_url"]];
             
@@ -456,25 +458,34 @@
         [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     }
     
-    // clear the existing Issues
+    // clear the existing repos
     existingRepos = [[NSMutableSet alloc]init]; 
     
     for (NSArray *repo in result) {
         // cache for next time
         [existingRepos addObject:[repo valueForKey:@"name"]];
-        
+                
         if (clean) {
-            NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
+            NSNumber *forked = [repo valueForKey:@"fork"];
+                        
+            NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"owner"] action:@selector(repoPressed:) keyEquivalent:@""];
             [organizationItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
+            
             [organizationItem setRepresentedObject:[repo valueForKey:@"html_url"]];
             
             NSNumber *priv = [repo valueForKey:@"private"];
             NSImage* iconImage = nil;
+            
+            if ([forked boolValue]) {
+                // TODO, set a specific icon
+            }
+                
             if ([priv boolValue]) {
                 iconImage = [NSImage imageNamed: @"bullet_red.png"];
             } else {
                 iconImage = [NSImage imageNamed: @"bullet_green.png"];
             }
+            
             [iconImage setSize:NSMakeSize(16,16)];
             [organizationItem setImage:iconImage];
             

@@ -9,9 +9,12 @@ Coming next...
 </div>
 Planned things:
 
-- [IMPROVEMENT] Add clean button to gist creation window
-- [NEW] Create gist from file
 - [NEW] Save the new created gist URL in clipboard
+- [IMPROVEMENT] Add clean button to gist creation window
+- [FIX] Fix menus update when Growl is not installed
+
+- [NEW] Create gist from file
+- [NEW] Allow DnD for gist creation
 - [NEW] Configure polling periods for all tasks
 - [NEW] Click on notifications brings user to the right Github page
 

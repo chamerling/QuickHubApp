@@ -68,11 +68,18 @@
     [createButton setEnabled:NO];
     [progressIndicator setHidden:NO];
     [progressIndicator startAnimation:nil];
+    NSString *gistURL = nil;
     if (ghController) {
-        [ghController createGist:content withDescription:description andFileName:fileName isPublic:pub];
+        gistURL = [ghController createGist:content withDescription:description andFileName:fileName isPublic:pub];
     }
     [progressIndicator stopAnimation:nil];
     [progressIndicator setHidden:YES];
     [createButton setEnabled:YES];
+    if ([copyURLToPasteBoard state] == 1) {
+        NSString *finalURL = [NSString stringWithFormat:@"https://gist.github.com/%@", gistURL];
+        NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+        [pasteboard clearContents];
+        [pasteboard writeObjects:[NSArray arrayWithObject:finalURL]];
+    }
 }
 @end

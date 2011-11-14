@@ -19,6 +19,7 @@
     IBOutlet NSTextView *contentTextView;
     IBOutlet NSProgressIndicator *progressIndicator;
     IBOutlet NSButton *createButton;
+    IBOutlet NSButtonCell *copyURLToPasteBoard;
 }
 
 @property (assign) GitHubController *ghController;

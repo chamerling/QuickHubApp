@@ -468,7 +468,7 @@
         if (clean) {
             NSNumber *forked = [repo valueForKey:@"fork"];
                         
-            NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"owner"] action:@selector(repoPressed:) keyEquivalent:@""];
+            NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
             [organizationItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
             
             [organizationItem setRepresentedObject:[repo valueForKey:@"html_url"]];

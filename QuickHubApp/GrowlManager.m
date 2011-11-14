@@ -23,6 +23,8 @@
 - (void) awakeFromNib {
     NSLog(@"Registering notification listeners for growl");
     
+    [GrowlApplicationBridge setGrowlDelegate:self];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(genericListener:)
                                                  name:GENERIC_NOTIFICATION
@@ -43,8 +45,6 @@
                                                  name:GITHUB_NOTIFICATION_GIST_CREATED
                                                object:nil];
     
-    [GrowlApplicationBridge setGrowlDelegate:self];
-    NSLog(@"delegate set");
 }
 
 -(void)genericListener:(NSNotification *)aNotification {
@@ -94,6 +94,11 @@
 }
 
 - (void) notifyWithName:(NSString *)name desc:(NSString *)description context:(NSDictionary*)context {
+    if (![GrowlApplicationBridge isGrowlRunning]) {
+        // return now if growl is not installed not running, looks like it can cause problems...
+        return;
+    }
+    
     NSLog(@"Let's really notify '%@' '%@'!", name, description);
     NSImage *image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
 

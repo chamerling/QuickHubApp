@@ -387,10 +387,17 @@
             
             NSNumber *priv = [repo valueForKey:@"private"];
             NSImage* iconImage = nil;
-            if ([priv boolValue]) {
-                iconImage = [NSImage imageNamed: @"bullet_red.png"];
+            
+            NSNumber *forked = [repo valueForKey:@"fork"];
+            if ([forked boolValue]) {
+                // TODO, set a specific icon
+                iconImage = [NSImage imageNamed: @"fork.png"];
             } else {
-                iconImage = [NSImage imageNamed: @"bullet_green.png"];
+                if ([priv boolValue]) {
+                    iconImage = [NSImage imageNamed: @"bullet_red.png"];
+                } else {
+                    iconImage = [NSImage imageNamed: @"bullet_green.png"];
+                }
             }
             [iconImage setSize:NSMakeSize(16,16)];
             [organizationRepoItem setImage:iconImage];
@@ -478,12 +485,15 @@
             
             if ([forked boolValue]) {
                 // TODO, set a specific icon
-            }
-                
-            if ([priv boolValue]) {
-                iconImage = [NSImage imageNamed: @"bullet_red.png"];
+                iconImage = [NSImage imageNamed: @"fork.png"];
+
             } else {
-                iconImage = [NSImage imageNamed: @"bullet_green.png"];
+                
+                if ([priv boolValue]) {
+                    iconImage = [NSImage imageNamed: @"bullet_red.png"];
+                } else {
+                    iconImage = [NSImage imageNamed: @"bullet_green.png"];
+                }
             }
             
             [iconImage setSize:NSMakeSize(16,16)];

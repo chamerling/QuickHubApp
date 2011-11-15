@@ -35,7 +35,9 @@ $("a.menu").click(function (e) {
 });
 
 $(window).load(function() {
-  $('#featured').orbit();
+  $('#featured').orbit({
+	bullets: true
+  });
 });
 
 });

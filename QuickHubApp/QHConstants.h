@@ -14,7 +14,7 @@
 #define QH_Constants_h
 
 #define appsite     @"http://quickhubapp.com"
-#define growllogo   @"QH-128.png"
+#define growllogo   @"growl.png"
 #define notificatioName @"QuickHub";
 #define eventDatePattern  @"yyyy-MM-dd"
 

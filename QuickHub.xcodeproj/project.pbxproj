@@ -7,24 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C91CE183145B41EE0059EACC /* QH-16.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE17C145B41EE0059EACC /* QH-16.png */; };
-		C91CE184145B41EE0059EACC /* QH-32.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE17D145B41EE0059EACC /* QH-32.png */; };
-		C91CE185145B41EE0059EACC /* QH-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE17E145B41EE0059EACC /* QH-128.png */; };
-		C91CE186145B41EE0059EACC /* QH-256.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE17F145B41EE0059EACC /* QH-256.png */; };
-		C91CE187145B41EE0059EACC /* QH-512.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE180145B41EE0059EACC /* QH-512.png */; };
-		C91CE188145B41EE0059EACC /* QH.psd in Resources */ = {isa = PBXBuildFile; fileRef = C91CE181145B41EE0059EACC /* QH.psd */; };
-		C91CE189145B41EE0059EACC /* QH-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE182145B41EE0059EACC /* QH-1024.png */; };
-		C91CE18C145B421A0059EACC /* QH-256.png in Resources */ = {isa = PBXBuildFile; fileRef = C91CE18B145B421A0059EACC /* QH-256.png */; };
+		C93B5A3414728161003D6A7F /* fork.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A3314728161003D6A7F /* fork.png */; };
+		C93B5A381472841A003D6A7F /* growl.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A3514728417003D6A7F /* growl.png */; };
+		C93B5A391472841A003D6A7F /* QH-16.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A3614728418003D6A7F /* QH-16.png */; };
+		C93B5A3A1472841A003D6A7F /* QH-32.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A3714728419003D6A7F /* QH-32.png */; };
+		C93B5A4714728661003D6A7F /* QH-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A431472865D003D6A7F /* QH-128.png */; };
+		C93B5A4814728661003D6A7F /* QH-256.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A441472865E003D6A7F /* QH-256.png */; };
+		C93B5A4914728661003D6A7F /* QH-512.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A451472865E003D6A7F /* QH-512.png */; };
+		C93B5A4A14728661003D6A7F /* QH-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A461472865F003D6A7F /* QH-1024.png */; };
+		C93B5A4C147288E6003D6A7F /* quickhub.icns in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A4B147288E6003D6A7F /* quickhub.icns */; };
 		C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D091456EF090013F78E /* NSWorkspaceHelper.m */; };
 		C9642D101456F1530013F78E /* GrowlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D0F1456F1530013F78E /* GrowlManager.m */; };
 		C9642D13145700D10013F78E /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D12145700D10013F78E /* AppController.m */; };
 		C9642D1A145707EB0013F78E /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D19145707EB0013F78E /* MenuController.m */; };
 		C9642D1E14570F5F0013F78E /* GitHubController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D1D14570F5F0013F78E /* GitHubController.m */; };
-		C977DAA6145B5E41009B46C6 /* qh.icns in Resources */ = {isa = PBXBuildFile; fileRef = C977DAA5145B5E41009B46C6 /* qh.icns */; };
-		C977DAA9145B5F72009B46C6 /* qh.icns in Resources */ = {isa = PBXBuildFile; fileRef = C977DAA8145B5F72009B46C6 /* qh.icns */; };
-		C994B80914561A1200CDC031 /* QuickHubLogo-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80714561A1200CDC031 /* QuickHubLogo-128.png */; };
-		C994B80A14561A1200CDC031 /* QuickHubLogo-512.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80814561A1200CDC031 /* QuickHubLogo-512.png */; };
-		C994B80D14561A6F00CDC031 /* QuickHubLogo-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */; };
 		C996375A1448487900F6DB43 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637591448487900F6DB43 /* Cocoa.framework */; };
 		C99637641448487900F6DB43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C99637621448487900F6DB43 /* InfoPlist.strings */; };
 		C99637661448487900F6DB43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99637651448487900F6DB43 /* main.m */; };
@@ -58,6 +54,7 @@
 		C99E312114630C7300FA4327 /* bullet_green.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E312014630C7300FA4327 /* bullet_green.png */; };
 		C99E31231463104400FA4327 /* bug.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E31221463104400FA4327 /* bug.png */; };
 		C99E31291463E65A00FA4327 /* bullet_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E31281463E65A00FA4327 /* bullet_yellow.png */; };
+		C9D53DBE1471CD2700D0212B /* NSTextViewFileContent.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D53DBD1471CD2700D0212B /* NSTextViewFileContent.m */; };
 		C9E07B1A145EF6B9004A94A7 /* GistCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */; };
 		C9E07B20145EF8BF004A94A7 /* GistCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */; };
 /* End PBXBuildFile section */
@@ -76,14 +73,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C91CE17C145B41EE0059EACC /* QH-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-16.png"; sourceTree = "<group>"; };
-		C91CE17D145B41EE0059EACC /* QH-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-32.png"; sourceTree = "<group>"; };
-		C91CE17E145B41EE0059EACC /* QH-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-128.png"; sourceTree = "<group>"; };
-		C91CE17F145B41EE0059EACC /* QH-256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-256.png"; sourceTree = "<group>"; };
-		C91CE180145B41EE0059EACC /* QH-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-512.png"; sourceTree = "<group>"; };
-		C91CE181145B41EE0059EACC /* QH.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = QH.psd; sourceTree = "<group>"; };
-		C91CE182145B41EE0059EACC /* QH-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-1024.png"; sourceTree = "<group>"; };
-		C91CE18B145B421A0059EACC /* QH-256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-256.png"; sourceTree = "<group>"; };
+		C93B5A3314728161003D6A7F /* fork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fork.png; sourceTree = "<group>"; };
+		C93B5A3514728417003D6A7F /* growl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = growl.png; sourceTree = "<group>"; };
+		C93B5A3614728418003D6A7F /* QH-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-16.png"; sourceTree = "<group>"; };
+		C93B5A3714728419003D6A7F /* QH-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-32.png"; sourceTree = "<group>"; };
+		C93B5A431472865D003D6A7F /* QH-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-128.png"; sourceTree = "<group>"; };
+		C93B5A441472865E003D6A7F /* QH-256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-256.png"; sourceTree = "<group>"; };
+		C93B5A451472865E003D6A7F /* QH-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-512.png"; sourceTree = "<group>"; };
+		C93B5A461472865F003D6A7F /* QH-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-1024.png"; sourceTree = "<group>"; };
+		C93B5A4B147288E6003D6A7F /* quickhub.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = quickhub.icns; sourceTree = "<group>"; };
 		C9642D081456EF090013F78E /* NSWorkspaceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWorkspaceHelper.h; sourceTree = "<group>"; };
 		C9642D091456EF090013F78E /* NSWorkspaceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWorkspaceHelper.m; sourceTree = "<group>"; };
 		C9642D0E1456F1530013F78E /* GrowlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowlManager.h; sourceTree = "<group>"; };
@@ -94,11 +92,6 @@
 		C9642D19145707EB0013F78E /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuController.m; path = ../MenuController.m; sourceTree = "<group>"; };
 		C9642D1C14570F5F0013F78E /* GitHubController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GitHubController.h; path = ../GitHubController.h; sourceTree = "<group>"; };
 		C9642D1D14570F5F0013F78E /* GitHubController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GitHubController.m; path = ../GitHubController.m; sourceTree = "<group>"; };
-		C977DAA5145B5E41009B46C6 /* qh.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = qh.icns; sourceTree = "<group>"; };
-		C977DAA8145B5F72009B46C6 /* qh.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = qh.icns; sourceTree = "<group>"; };
-		C994B80714561A1200CDC031 /* QuickHubLogo-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-128.png"; sourceTree = "<group>"; };
-		C994B80814561A1200CDC031 /* QuickHubLogo-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-512.png"; sourceTree = "<group>"; };
-		C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QuickHubLogo-128.png"; sourceTree = "<group>"; };
 		C99637551448487900F6DB43 /* QuickHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99637591448487900F6DB43 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C996375C1448487900F6DB43 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -154,6 +147,8 @@
 		C99E312014630C7300FA4327 /* bullet_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet_green.png; sourceTree = "<group>"; };
 		C99E31221463104400FA4327 /* bug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bug.png; sourceTree = "<group>"; };
 		C99E31281463E65A00FA4327 /* bullet_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet_yellow.png; sourceTree = "<group>"; };
+		C9D53DBC1471CD2700D0212B /* NSTextViewFileContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTextViewFileContent.h; sourceTree = "<group>"; };
+		C9D53DBD1471CD2700D0212B /* NSTextViewFileContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextViewFileContent.m; sourceTree = "<group>"; };
 		C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GistCreateWindow.xib; sourceTree = "<group>"; };
 		C9E07B1E145EF8BF004A94A7 /* GistCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistCreateWindowController.h; sourceTree = "<group>"; };
 		C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistCreateWindowController.m; sourceTree = "<group>"; };
@@ -236,6 +231,14 @@
 		C990068B1455B14700744317 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C93B5A3314728161003D6A7F /* fork.png */,
+				C93B5A3514728417003D6A7F /* growl.png */,
+				C93B5A3614728418003D6A7F /* QH-16.png */,
+				C93B5A3714728419003D6A7F /* QH-32.png */,
+				C93B5A431472865D003D6A7F /* QH-128.png */,
+				C93B5A441472865E003D6A7F /* QH-256.png */,
+				C93B5A451472865E003D6A7F /* QH-512.png */,
+				C93B5A461472865F003D6A7F /* QH-1024.png */,
 				C99E31221463104400FA4327 /* bug.png */,
 				C99E311C1462FA2700FA4327 /* bullet_star.png */,
 				C99E31181462E7B600FA4327 /* red-circle-16.png */,
@@ -243,16 +246,6 @@
 				C99E312014630C7300FA4327 /* bullet_green.png */,
 				C99E31281463E65A00FA4327 /* bullet_yellow.png */,
 				C99E31191462E7B600FA4327 /* green-circle-16.png */,
-				C977DAA5145B5E41009B46C6 /* qh.icns */,
-				C91CE17C145B41EE0059EACC /* QH-16.png */,
-				C91CE17D145B41EE0059EACC /* QH-32.png */,
-				C91CE17E145B41EE0059EACC /* QH-128.png */,
-				C91CE17F145B41EE0059EACC /* QH-256.png */,
-				C91CE180145B41EE0059EACC /* QH-512.png */,
-				C91CE181145B41EE0059EACC /* QH.psd */,
-				C91CE182145B41EE0059EACC /* QH-1024.png */,
-				C994B80714561A1200CDC031 /* QuickHubLogo-128.png */,
-				C994B80814561A1200CDC031 /* QuickHubLogo-512.png */,
 				C996379D144848F600F6DB43 /* QuickHubAppToolbar.png */,
 				C99637611448487900F6DB43 /* QuickHub-Info.plist */,
 				C99637621448487900F6DB43 /* InfoPlist.strings */,
@@ -267,9 +260,7 @@
 		C996374A1448487900F6DB43 = {
 			isa = PBXGroup;
 			children = (
-				C977DAA8145B5F72009B46C6 /* qh.icns */,
-				C91CE18B145B421A0059EACC /* QH-256.png */,
-				C994B80C14561A6F00CDC031 /* QuickHubLogo-128.png */,
+				C93B5A4B147288E6003D6A7F /* quickhub.icns */,
 				C99637A614484AAB00F6DB43 /* libz.dylib */,
 				C996375F1448487900F6DB43 /* QuickHubApp */,
 				C99637581448487900F6DB43 /* Frameworks */,
@@ -331,6 +322,8 @@
 				C996376C1448487900F6DB43 /* QuickHubAppAppDelegate.m */,
 				C9E07B1E145EF8BF004A94A7 /* GistCreateWindowController.h */,
 				C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */,
+				C9D53DBC1471CD2700D0212B /* NSTextViewFileContent.h */,
+				C9D53DBD1471CD2700D0212B /* NSTextViewFileContent.m */,
 			);
 			path = QuickHubApp;
 			sourceTree = "<group>";
@@ -397,19 +390,6 @@
 				C99637701448487900F6DB43 /* MainMenu.xib in Resources */,
 				C996379E144848F600F6DB43 /* QuickHubAppToolbar.png in Resources */,
 				C99637A21448499600F6DB43 /* PreferencesWindow.xib in Resources */,
-				C994B80914561A1200CDC031 /* QuickHubLogo-128.png in Resources */,
-				C994B80A14561A1200CDC031 /* QuickHubLogo-512.png in Resources */,
-				C994B80D14561A6F00CDC031 /* QuickHubLogo-128.png in Resources */,
-				C91CE183145B41EE0059EACC /* QH-16.png in Resources */,
-				C91CE184145B41EE0059EACC /* QH-32.png in Resources */,
-				C91CE185145B41EE0059EACC /* QH-128.png in Resources */,
-				C91CE186145B41EE0059EACC /* QH-256.png in Resources */,
-				C91CE187145B41EE0059EACC /* QH-512.png in Resources */,
-				C91CE188145B41EE0059EACC /* QH.psd in Resources */,
-				C91CE189145B41EE0059EACC /* QH-1024.png in Resources */,
-				C91CE18C145B421A0059EACC /* QH-256.png in Resources */,
-				C977DAA6145B5E41009B46C6 /* qh.icns in Resources */,
-				C977DAA9145B5F72009B46C6 /* qh.icns in Resources */,
 				C9E07B1A145EF6B9004A94A7 /* GistCreateWindow.xib in Resources */,
 				C99E311A1462E7B600FA4327 /* red-circle-16.png in Resources */,
 				C99E311B1462E7B600FA4327 /* green-circle-16.png in Resources */,
@@ -418,6 +398,15 @@
 				C99E312114630C7300FA4327 /* bullet_green.png in Resources */,
 				C99E31231463104400FA4327 /* bug.png in Resources */,
 				C99E31291463E65A00FA4327 /* bullet_yellow.png in Resources */,
+				C93B5A3414728161003D6A7F /* fork.png in Resources */,
+				C93B5A381472841A003D6A7F /* growl.png in Resources */,
+				C93B5A391472841A003D6A7F /* QH-16.png in Resources */,
+				C93B5A3A1472841A003D6A7F /* QH-32.png in Resources */,
+				C93B5A4714728661003D6A7F /* QH-128.png in Resources */,
+				C93B5A4814728661003D6A7F /* QH-256.png in Resources */,
+				C93B5A4914728661003D6A7F /* QH-512.png in Resources */,
+				C93B5A4A14728661003D6A7F /* QH-1024.png in Resources */,
+				C93B5A4C147288E6003D6A7F /* quickhub.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +438,7 @@
 				C9642D1E14570F5F0013F78E /* GitHubController.m in Sources */,
 				C9E07B20145EF8BF004A94A7 /* GistCreateWindowController.m in Sources */,
 				C99E310C146287F900FA4327 /* Reachability.m in Sources */,
+				C9D53DBE1471CD2700D0212B /* NSTextViewFileContent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

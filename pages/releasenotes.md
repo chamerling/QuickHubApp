@@ -7,14 +7,15 @@ title: "QH - Release Notes"
 <div class="alert-message warning">
 Coming next...
 </div>
-Planned things:
-
+### --> Done
 - [NEW] Save the new created gist URL in clipboard
-- [IMPROVEMENT] Add clean button to gist creation window
 - [FIX] Fix menus update when Growl is not installed
+- [NEW] Allow drag and drop for gist creation. User can now drag and drop file from Finder to the Gist creation window.
+- [IMPROVEMENT] Forks now have their own icons
+- [IMPROVEMENT] Add clean button to gist creation window
+- [IMPROVEMENT] Better logo, but not final...
 
-- [NEW] Create gist from file
-- [NEW] Allow DnD for gist creation
+### --> Todo
 - [NEW] Configure polling periods for all tasks
 - [NEW] Click on notifications brings user to the right Github page
 

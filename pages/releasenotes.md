@@ -3,30 +3,32 @@ layout: layout
 title: "QH - Release Notes"
 ---
 
+# v1.x
+Unplanned features and ideas, sort of wish list...
+
+- [NEW] Configure polling periods for all tasks
+- [NEW] Click on notifications brings user to the right Github page
+- [NEW] Display API limit quota
+
 # v1.2 - 2011/11/30
-<div class="alert-message warning">
-Coming next...
-</div>
-### --> Done
+
 - [NEW] Save the new created gist URL in clipboard
-- [FIX] Fix menus update when Growl is not installed
 - [NEW] Allow drag and drop for gist creation. User can now drag and drop file from Finder to the Gist creation window.
+- [NEW] Pull requests support
 - [IMPROVEMENT] Forks now have their own icons
 - [IMPROVEMENT] Add clean button to gist creation window
 - [IMPROVEMENT] Better logo, but not final...
-
-### --> Todo
-- [NEW] Configure polling periods for all tasks
-- [NEW] Click on notifications brings user to the right Github page
+- [IMPROVEMENT] Change the Gist creation window color for better readability
+- [FIX] Fix menus update when Growl is not installed
 
 # v1.1 - 2011/11/06
 The version 1.1 comes with many improvements, new features and bug fixes:
 
-- [IMPROVEMENT] All artifacts now have icons in menu. Green bullets for public things, red for private ones. Avatars are also displayed for organizations and people
 - [NEW] Added following and followers menus
 - [NEW] Added watched repositories
 - [NEW] User can now create public and private gists from QuickHub
 - [NEW] Notifications from created Gists are clickable and brings user to the Gist page
+- [IMPROVEMENT] All artifacts now have icons in menu. Green bullets for public things, red for private ones. Avatars are also displayed for organizations and people
 - [FIX] Fix Internet connection availability problems: On startup, QuickHub now start to get data only if Internet connection is up. At runtime, QuickHub detects when Internet is up or down and so starts or stops getting things from GitHub.
 
 # v1.0 - 2011/10/28

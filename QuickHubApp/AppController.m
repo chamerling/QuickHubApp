@@ -83,6 +83,8 @@
         
         watchingTimer = [NSTimer scheduledTimerWithTimeInterval:1800 target:self selector:@selector(pollWatching:) userInfo:nil repeats:YES];
         //[watchingTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.6]];
+        
+        pullTimer = [NSTimer scheduledTimerWithTimeInterval:1200 target:self selector:@selector(pollPulls:) userInfo:nil repeats:YES];
 
         // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
         // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input
@@ -92,6 +94,7 @@
         [[NSRunLoop currentRunLoop] addTimer:issueTimer forMode:NSRunLoopCommonModes];
         [[NSRunLoop currentRunLoop] addTimer:followTimer forMode:NSRunLoopCommonModes];
         [[NSRunLoop currentRunLoop] addTimer:watchingTimer forMode:NSRunLoopCommonModes];
+        [[NSRunLoop currentRunLoop] addTimer:pullTimer forMode:NSRunLoopCommonModes];
         
         githubPolling = YES;
         
@@ -101,10 +104,8 @@
         [issueTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:4]];
         [followTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:6]];
         [watchingTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:7]];
+        [pullTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:10]];
 
-        
-        // fire all now!
-        
     } else {
         NSLog(@"Can not start all since we are already polling...");
     }
@@ -119,6 +120,7 @@
         [issueTimer invalidate];
         [followTimer invalidate];
         [watchingTimer invalidate];
+        [pullTimer invalidate];
     }
     githubPolling = NO;
     NSLog(@"Stopped!");
@@ -158,6 +160,12 @@
 - (void) pollWatching:(id) sender {
     if (githubPolling) {
         [githubController loadWatchedRepos:nil];
+    }  
+}
+
+- (void) pollPulls:(id) sender {
+    if (githubPolling) {
+        [githubController loadPulls:nil];
     }  
 }
 

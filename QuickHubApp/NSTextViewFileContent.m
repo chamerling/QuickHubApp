@@ -52,7 +52,7 @@
                 [self setString:content];
                 // dispatch the file name in order to notify others that something happened with this file.
                 // espacially, we want to update others fields with that data and set the cursor somewhere...
-                // TODO
+                [[NSNotificationCenter defaultCenter] postNotificationName:GIST_DND object:item userInfo:nil];
             }
         } else {
             NSLog(@"Invalid format");

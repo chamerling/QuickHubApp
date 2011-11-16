@@ -14,8 +14,8 @@
     GitHubController *ghController;
     
     // local
+    IBOutlet NSTextField *descriptionField;
     IBOutlet NSTextField *fileNameField;
-    IBOutlet NSTextFieldCell *descriptionField;
     IBOutlet NSTextView *contentTextView;
     IBOutlet NSProgressIndicator *progressIndicator;
     IBOutlet NSButton *createButton;

@@ -57,7 +57,7 @@
 - (IBAction)openProjects:(id)sender;
 - (IBAction)openOrganizations:(id)sender;
 - (IBAction)openGists:(id)sender;
-- (IBAction)openPull:(id)sender;
+- (IBAction)openPulls:(id)sender;
 - (IBAction)openURL:(id)sender;
 
 - (IBAction)createGist:(id)sender;

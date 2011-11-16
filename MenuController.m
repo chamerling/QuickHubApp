@@ -21,15 +21,17 @@
 - (void)notifyFollowings:(NSNotification *)aNotification;
 - (void)notifyFollowers:(NSNotification *)aNotification;
 - (void)notifyWatchedRepos:(NSNotification *)aNotification;
+- (void)notifyPulls:(NSNotification *)aNotification;
 
 - (void) issuesFinished:(ASIHTTPRequest*)request;
 - (void) gistFinished:(ASIHTTPRequest*)request;
 - (void) organizationsFinished:(ASIHTTPRequest*)request;
 - (void) reposFinished:(ASIHTTPRequest*)request;
-- (void) pullFinished:(ASIHTTPRequest *)request;
 - (void) followersFinished:(ASIHTTPRequest*)request;
 - (void) followingsFinished:(ASIHTTPRequest *)request;
 - (void) watchedReposFinished:(ASIHTTPRequest *)request;
+- (void) pullsFinished:(NSDictionary *)dictionary;
+
 @end
 
 @implementation MenuController
@@ -88,6 +90,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(notifyWatchedRepos:)
 												 name:GITHUB_NOTIFICATION_WATCHEDREPO
+											   object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(notifyPulls:)
+												 name:GITHUB_NOTIFICATION_PULLS
 											   object:nil];
 
 }
@@ -172,6 +179,12 @@
     NSLog(@"Got a Notify Watched Respos");
     ASIHTTPRequest *httpRequest = [aNotification object];
     [self watchedReposFinished:httpRequest];
+}
+
+- (void)notifyPulls:(NSNotification *)aNotification {
+    NSLog(@"Got a Notify Pulls");
+    NSDictionary *dictionary = [aNotification object];
+    [self pullsFinished:dictionary];
 }
 
 #pragma mark - process HTTP responses
@@ -506,7 +519,54 @@
     }
 }
 
-- (void)pullFinished:(ASIHTTPRequest *)request {
+/*
+ * TODO :
+ * The input dictionary is composed:
+ * - key is the repo name
+ * - value is a dictionary
+ *   - key = 'repository', value NSDictionary of the repository
+ *   - key = 'pulls', value NSDictionary of the pulls
+ */
+- (void)pullsFinished:(NSDictionary *)dictionary {
+    
+    NSLog(@"Pulls finished...");
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Pull Requests"];
+    NSMenu *menu = [menuItem submenu];
+    
+    // TODO : create the notifications on add and delete
+    
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    
+    NSArray *keys = [dictionary allKeys];
+    for (NSString *key in keys) {
+        NSLog(@"Processing pulls for repo '%@'", key);
+        NSDictionary *pulls = [dictionary valueForKey:key];
+        
+        // create a menu entry for the current repository
+        NSMenuItem *item = [[NSMenuItem alloc]initWithTitle:[NSString stringWithFormat:@"%@/%@", [preferences login], key] action:@selector(openURL:) keyEquivalent:@""];
+        [item setRepresentedObject:[NSString stringWithFormat:@"https://github.com/%@/%@/pulls", [preferences login], key]];
+        
+        // TODO : image from the repository type and privacy
+        NSImage* iconImage = [NSImage imageNamed:@"bullet_yellow.png"];
+        [iconImage setSize:NSMakeSize(16,16)];
+        [item setImage:iconImage];
+        
+        [item autorelease];
+        [menu addItem:item];
+        
+        // add submenus and item for each pull
+        NSMenu* pullsMenu = [[NSMenu alloc] init];
+        for (NSArray *pull in pulls) {
+            NSMenuItem *pullItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"#%@ - %@", [pull valueForKey:@"number"], [pull valueForKey:@"title"]] action:@selector(openURL:) keyEquivalent:@""];
+            
+            [pullItem setRepresentedObject:[pull valueForKey:@"html_url"]];
+            [pullItem setToolTip:[NSString stringWithFormat:@"Created at %@", [pull valueForKey:@"created_at"]]];
+            
+            [pullItem autorelease];
+            [pullsMenu addItem:pullItem];
+        }
+        [item setSubmenu:pullsMenu];
+    }
     
 }
 
@@ -597,6 +657,11 @@
     }    
 }
 
+- (void) openPull:(id)sender {
+    id selectedItem = [sender representedObject];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];    
+}
+
 # pragma mark - Actions on pressed menu items
 
 - (IBAction) repoPressed:(id) sender {
@@ -648,7 +713,7 @@
 
 #pragma mark - item stuff
 - (void) deleteOldEntriesFromMenu:(NSMenu*)menu fromItemTitle:(NSString*)title {
-    NSLog(@"Delete entries from menu");
+    NSLog(@"Delete entries from menu %@", [menu title]);
     // remove all the menu items
     NSInteger deleteItemLimit = [menu indexOfItemWithTitle:title];
     if (deleteItemLimit > 0) {

@@ -13,6 +13,8 @@
 
 @interface GitHubController (Private)
 - (BOOL) checkResponseOK:(ASIHTTPRequest*) request;
+- (NSMutableSet*) getRepositories:(id) sender;
+- (NSDictionary*) getPullsForRepository:(NSString *)name;
 @end
 
 @implementation GitHubController
@@ -97,17 +99,60 @@
 }
 
 - (void)loadPulls:(id)sender {
-    NSLog(@"TODO : Loading Pulls for repository...");
+    NSLog(@"Loading Pulls for repositories...");
+    NSMutableSet *repos = [self getRepositories:nil];
+
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+    for (NSString *repoName in repos) {
+        // get the pulls for this repository
+        NSDictionary *pulls = [self getPullsForRepository:repoName];
+        if (pulls != nil && [pulls valueForKey:@"url"]) {
+            [dict setValue:pulls forKey:repoName];
+        }
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_PULLS 
+														object:dict 
+													  userInfo:nil];           
+    
+}
+
+- (NSMutableSet *)getRepositories:(id)sender {
+    NSLog(@"Getting Repositories...");
+    NSMutableSet *result = [[NSMutableSet alloc]init];
     
     NSString *username = [preferences login];
     NSString *password = [preferences password];
     
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/repos/:user/:repo/pulls?per_page=100"]];
-    [request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
-    [request setDidFinishSelector:@selector(pullFinished:)];
-    [request setDidFailSelector:@selector(pullFailed:)];
-    [request setDelegate:self];
-    [request startAsynchronous];
+    ASIHTTPRequest *repositoriesRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/user/repos?per_page=100"]];
+    [repositoriesRequest addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
+    [repositoriesRequest setDidFailSelector:@selector(reposFailed:)];
+    [repositoriesRequest setDelegate:self];
+    [repositoriesRequest startSynchronous];    
+    
+    NSDictionary* dict = [[repositoriesRequest responseString] objectFromJSONString];
+
+    for (NSArray *repo in dict) {
+        [result addObject:[repo valueForKey:@"name"]];
+    }  
+    return result;
+}
+
+- (NSDictionary *)getPullsForRepository:(NSString *)name {
+    NSString *username = [preferences login];
+    NSString *password = [preferences password];
+    
+    ASIHTTPRequest *repositoriesRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/repos/%@/%@/pulls", username, name]]];
+    [repositoriesRequest addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
+    [repositoriesRequest setDelegate:self];
+    [repositoriesRequest startSynchronous];    
+    int status = [repositoriesRequest responseStatusCode];
+    NSString *response = [[repositoriesRequest responseString]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    // an empty response is a JSON string like '[]' (without quotes)...
+    if (status == 200 && [response length] > 2) {
+        return [[repositoriesRequest responseString] objectFromJSONString];
+    }
+    return nil;
 }
 
 - (BOOL) checkCredentials:(id) sender {

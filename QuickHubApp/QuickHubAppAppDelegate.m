@@ -49,7 +49,10 @@
         if ([[preferences login]length] == 0 || ![ghController checkCredentials:nil]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];        
         } else {
-            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub as '%@'...", [preferences login]] userInfo:nil];        
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub as '%@'...", [preferences login]] userInfo:nil];   
+            
+            // TODO : To it in background thread...
+            
             [appController loadAll:nil];    
         }
     }
@@ -270,9 +273,8 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://gist.github.com"]];
 }
 
-- (IBAction)openPull:(id)sender {
-    id selectedItem = [sender representedObject];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];
+- (IBAction)openPulls:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/dashboard/pulls"]];
 }
 
 - (void)openURL:(id)sender {

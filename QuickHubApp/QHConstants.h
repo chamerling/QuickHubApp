@@ -49,6 +49,8 @@
 
 #define GENERIC_NOTIFICATION @"GenericListener"
 
+#define GIST_DND @"GistDnd"
+
 #define POLLING_START @"PollingStart"
 #define POLLING_STOP @"PollingStop"
 

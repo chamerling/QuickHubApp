@@ -7,9 +7,11 @@
 //
 
 #import "GistCreateWindowController.h"
+#import "QHConstants.h"
 
 @interface GistCreateWindowController (Private)
 - (void) createGist:(NSString*) content withDescription:(NSString*) description andFileName:(NSString *) fileName isPublic:(BOOL) pub;
+- (void) fileHasBeenDnD:(NSNotification *)aNotification;
 @end
 
 @implementation GistCreateWindowController
@@ -19,7 +21,12 @@
 {
     self = [super initWithWindow:window];
     if (self) {
-        // Initialization code here.
+        // listen for events
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(fileHasBeenDnD:)
+                                                     name:GIST_DND
+                                                   object:nil];
+
     }
     
     return self;
@@ -82,4 +89,15 @@
         [pasteboard writeObjects:[NSArray arrayWithObject:finalURL]];
     }
 }
+
+- (void)fileHasBeenDnD:(NSNotification *)aNotification {
+    // get the notification content which should be the file name with full path
+    NSString *fileName = [aNotification object];
+    [fileNameField setStringValue:[fileName lastPathComponent]];
+    
+    // focus
+    [descriptionField selectText:self];
+    [[descriptionField currentEditor] setSelectedRange:NSMakeRange([[fileNameField stringValue]length], 0)];
+}
+
 @end

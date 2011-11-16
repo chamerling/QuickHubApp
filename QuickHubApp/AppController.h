@@ -27,6 +27,7 @@
     NSTimer* repositoryTimer;
     NSTimer* followTimer;
     NSTimer* watchingTimer;
+    NSTimer* pullTimer;
     
     // misc.
     BOOL githubPolling;
@@ -43,6 +44,7 @@
 - (void) pollRepos:(id) sender;
 - (void) pollFollow:(id) sender;
 - (void) pollWatching:(id) sender;
+- (void) pollPulls:(id) sender;
 
 //- (void) pollPulls:(id) sender;
 

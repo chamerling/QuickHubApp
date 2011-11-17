@@ -120,6 +120,10 @@
     menuItem = [statusMenu itemWithTitle:@"Watching"];
     menu = [menuItem submenu];
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    
+    menuItem = [statusMenu itemWithTitle:@"Pull Requests"];
+    menu = [menuItem submenu];
+    [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
 
     // Delete users
     menuItem = [statusMenu itemWithTitle:@"Users"];
@@ -259,6 +263,13 @@
             [menu addItem:issueItem];
         }
     }
+    
+    if ([result count] == 0) {
+        // default menu item
+        NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No issues" action:nil keyEquivalent:@""];
+        [defaultItem autorelease];
+        [menu addItem:defaultItem];
+    }
 }
 
 - (void) gistFinished:(ASIHTTPRequest*)request {
@@ -356,6 +367,13 @@
             [menu addItem:gistItem];
         }
     }
+    
+    if ([result count] == 0) {
+        // default menu item
+        NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No gists" action:nil keyEquivalent:@""];
+        [defaultItem autorelease];
+        [menu addItem:defaultItem];
+    }
 }
 
 - (void) organizationsFinished:(ASIHTTPRequest*)request {
@@ -421,6 +439,12 @@
             
         }
         [organizationItem setSubmenu:repositoriesMenu]; 
+    }
+    if ([result count] == 0) {
+        // default menu item
+        NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No orgnizations" action:nil keyEquivalent:@""];
+        [defaultItem autorelease];
+        [menu addItem:defaultItem];
     }
 }
 
@@ -517,6 +541,12 @@
             [menu addItem:organizationItem];
         }
     }
+    if ([result count] == 0) {
+        // default menu item
+        NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No repositories" action:nil keyEquivalent:@""];
+        [defaultItem autorelease];
+        [menu addItem:defaultItem];
+    }
 }
 
 /*
@@ -567,6 +597,12 @@
         }
         [item setSubmenu:pullsMenu];
     }
+    if ([keys count] == 0) {
+        // default menu item
+        NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No pull requests" action:nil keyEquivalent:@""];
+        [defaultItem autorelease];
+        [menu addItem:defaultItem];
+    }
     
 }
 
@@ -592,7 +628,13 @@
         [item setImage:iconImage];
         [item autorelease];
         [menu addItem:item];
-    }    
+    }
+    if ([result count] == 0) {
+        // default menu item
+        NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No followers" action:nil keyEquivalent:@""];
+        [defaultItem autorelease];
+        [menu addItem:defaultItem];
+    }  
 }
 
 - (void) followingsFinished:(ASIHTTPRequest *)request {
@@ -618,11 +660,17 @@
         [item setEnabled:YES];
         [item autorelease];
         [menu addItem:item];
-    }    
+    }
+    if ([result count] == 0) {
+        // default menu item
+        NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"Nobody" action:nil keyEquivalent:@""];
+        [defaultItem autorelease];
+        [menu addItem:defaultItem];
+    }
 }
 
 - (void) watchedReposFinished:(ASIHTTPRequest *)request {
-    NSLog(@"Following Finished...");
+    NSLog(@"Watched repos Finished...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Watching"];
     NSMenu *menu = [menuItem submenu];
@@ -654,7 +702,13 @@
             [item autorelease];
             [menu addItem:item];
         }
-    }    
+    }
+    if ([result count] == 0) {
+        // default menu item
+        NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"Nothing to watch" action:nil keyEquivalent:@""];
+        [defaultItem autorelease];
+        [menu addItem:defaultItem];
+    }
 }
 
 - (void) openPull:(id)sender {

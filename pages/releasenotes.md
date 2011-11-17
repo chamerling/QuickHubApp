@@ -10,15 +10,17 @@ Unplanned features and ideas, sort of wish list...
 - [NEW] Click on notifications brings user to the right Github page
 - [NEW] Display API limit quota
 
-# v1.2 - 2011/11/30
+# v1.2 - 2011/11/17
 
 - [NEW] Save the new created gist URL in clipboard
-- [NEW] Allow drag and drop for gist creation. User can now drag and drop file from Finder to the Gist creation window.
+- [NEW] Allow drag and drop for gist creation. User can now drag and drop file from Finder to the Gist creation window
 - [NEW] Pull requests support
 - [IMPROVEMENT] Forks now have their own icons
 - [IMPROVEMENT] Add clean button to gist creation window
-- [IMPROVEMENT] Better logo, but not final...
+- [IMPROVEMENT] Better logo, but not final
 - [IMPROVEMENT] Change the Gist creation window color for better readability
+- [IMPROVEMENT] Display default messages in empty menus
+- [IMPROVEMENT] Clean error messages, no more HTTP details
 - [FIX] Fix menus update when Growl is not installed
 
 # v1.1 - 2011/11/06

@@ -47,7 +47,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSWindowTemplate" id="1005">
-				<int key="NSWindowStyleMask">259</int>
+				<int key="NSWindowStyleMask">19</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{196, 240}, {480, 438}}</string>
 				<int key="NSWTFlags">544735232</int>
@@ -161,7 +161,7 @@
 											<string key="NSFrameSize">{436, 61}</string>
 											<reference key="NSSuperview" ref="145083075"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="309433472"/>
+											<reference key="NSNextKeyView" ref="10540687"/>
 											<string key="NSReuseIdentifierKey">_NS:3760</string>
 											<object class="NSTextContainer" key="NSTextContainer" id="158128517">
 												<object class="NSLayoutManager" key="NSLayoutManager">
@@ -183,7 +183,7 @@
 												<int key="NSTCFlags">1</int>
 											</object>
 											<object class="NSTextViewSharedData" key="NSSharedData">
-												<int key="NSFlags">11619</int>
+												<int key="NSFlags">67120483</int>
 												<int key="NSTextCheckingTypes">0</int>
 												<nil key="NSMarkedAttributes"/>
 												<reference key="NSBackgroundColor" ref="680475499"/>
@@ -311,7 +311,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string key="NSFrame">{{20, 60}, {440, 255}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="10540687"/>
+							<reference key="NSNextKeyView" ref="145083075"/>
 							<string key="NSReuseIdentifierKey">_NS:148</string>
 							<int key="NSsFlags">133139</int>
 							<reference key="NSVScroller" ref="309433472"/>
@@ -324,7 +324,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<string key="NSFrame">{{343, 12}, {123, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:161</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="698024301">
@@ -379,7 +378,11 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents">Description</string>
-								<reference key="NSSupport" ref="192653152"/>
+								<object class="NSFont" key="NSSupport" id="135999743">
+									<string key="NSName">LucidaGrande</string>
+									<double key="NSSize">12</double>
+									<int key="NSfFlags">16</int>
+								</object>
 								<string key="NSCellIdentifier">_NS:3936</string>
 								<reference key="NSControlView" ref="484078525"/>
 								<object class="NSColor" key="NSBackgroundColor" id="371448654">
@@ -404,7 +407,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents">File name</string>
-								<reference key="NSSupport" ref="192653152"/>
+								<reference key="NSSupport" ref="135999743"/>
 								<string key="NSCellIdentifier">_NS:3936</string>
 								<reference key="NSControlView" ref="528033141"/>
 								<reference key="NSBackgroundColor" ref="371448654"/>
@@ -460,7 +463,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">0</int>
 								<string key="NSContents">Copy Gist URL to clipboard</string>
-								<reference key="NSSupport" ref="192653152"/>
+								<reference key="NSSupport" ref="135999743"/>
 								<string key="NSCellIdentifier">_NS:239</string>
 								<reference key="NSControlView" ref="720889583"/>
 								<int key="NSButtonFlags">1210864127</int>

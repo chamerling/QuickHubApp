@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C93B5A3414728161003D6A7F /* fork.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A3314728161003D6A7F /* fork.png */; };
-		C93B5A4C147288E6003D6A7F /* quickhub.icns in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A4B147288E6003D6A7F /* quickhub.icns */; };
 		C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D091456EF090013F78E /* NSWorkspaceHelper.m */; };
 		C9642D101456F1530013F78E /* GrowlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D0F1456F1530013F78E /* GrowlManager.m */; };
 		C9642D13145700D10013F78E /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D12145700D10013F78E /* AppController.m */; };
@@ -72,7 +71,6 @@
 
 /* Begin PBXFileReference section */
 		C93B5A3314728161003D6A7F /* fork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fork.png; sourceTree = "<group>"; };
-		C93B5A4B147288E6003D6A7F /* quickhub.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = quickhub.icns; sourceTree = "<group>"; };
 		C9642D081456EF090013F78E /* NSWorkspaceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWorkspaceHelper.h; sourceTree = "<group>"; };
 		C9642D091456EF090013F78E /* NSWorkspaceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWorkspaceHelper.m; sourceTree = "<group>"; };
 		C9642D0E1456F1530013F78E /* GrowlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowlManager.h; sourceTree = "<group>"; };
@@ -254,7 +252,6 @@
 			isa = PBXGroup;
 			children = (
 				C96509B414754DE500F80846 /* qh.icns */,
-				C93B5A4B147288E6003D6A7F /* quickhub.icns */,
 				C99637A614484AAB00F6DB43 /* libz.dylib */,
 				C996375F1448487900F6DB43 /* QuickHubApp */,
 				C99637581448487900F6DB43 /* Frameworks */,
@@ -393,7 +390,6 @@
 				C99E31231463104400FA4327 /* bug.png in Resources */,
 				C99E31291463E65A00FA4327 /* bullet_yellow.png in Resources */,
 				C93B5A3414728161003D6A7F /* fork.png in Resources */,
-				C93B5A4C147288E6003D6A7F /* quickhub.icns in Resources */,
 				C96509B114754DD100F80846 /* QH-128.png in Resources */,
 				C96509B214754DD100F80846 /* QH-256.png in Resources */,
 				C96509B314754DD100F80846 /* QH-512.png in Resources */,

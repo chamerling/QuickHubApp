@@ -213,7 +213,7 @@
 # pragma mark - HTTP failures
 - (void) issuesFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    NSString *error = [NSString stringWithFormat:@"Error getting issues '%@'", [[request error]domain]];
+    NSString *error = @"Error getting issues";
     [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
 														object:error 
 													  userInfo:nil];   
@@ -221,7 +221,7 @@
 
 - (void) gistsFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    NSString *error = [NSString stringWithFormat:@"Error getting gists '%@'", [[request error]domain]];
+    NSString *error = @"Error getting gists";
     [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
 														object:error 
 													  userInfo:nil];   
@@ -229,7 +229,7 @@
 
 - (void) organizationsFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    NSString *error = [NSString stringWithFormat:@"Error getting organizations '%@'", [[request error]domain]];
+    NSString *error = @"Error getting organizations";
     [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
 														object:error 
 													  userInfo:nil];   
@@ -237,7 +237,7 @@
 
 - (void) reposFailed:(ASIHTTPRequest*)request {
     NSLog(@"Error : %@", [request error]);
-    NSString *error = [NSString stringWithFormat:@"Error getting repositories '%@'", [[request error]domain]];
+    NSString *error = @"Error getting repositories";
     [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
 														object:error 
 													  userInfo:nil];   

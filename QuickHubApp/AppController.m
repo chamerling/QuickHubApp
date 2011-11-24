@@ -187,20 +187,20 @@
                 // if already polling github, stop all background task
                 [self stopAll:nil];
             
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetDown" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_INTERNET_DOWN object:nil];
                 break;
             
             }
             case ReachableViaWiFi:
             {
                 NSLog(@"The internet is working via WIFI.");
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetUp" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_INTERNET_UP object:nil];
                 break;
             }
             case ReachableViaWWAN:
             {
                 NSLog(@"The internet is working via WWAN.");
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"InternetUp" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_INTERNET_UP object:nil];
                 break;            
             }
         }
@@ -210,10 +210,12 @@
         NetworkStatus hostStatus = [hostReach currentReachabilityStatus];
         if (hostStatus == NotReachable) {
             NSLog(@"The host is not reachable");
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_INTERNET_DOWN object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"HostDown" object:nil];
 
         } else {
             NSLog(@"The host is reachable");
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_INTERNET_UP object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"HostUp" object:nil];
             [self loadAll:nil];
         }

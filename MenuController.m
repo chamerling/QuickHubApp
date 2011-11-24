@@ -22,6 +22,7 @@
 - (void)notifyFollowers:(NSNotification *)aNotification;
 - (void)notifyWatchedRepos:(NSNotification *)aNotification;
 - (void)notifyPulls:(NSNotification *)aNotification;
+- (void)notifyInternet:(NSNotification *)aNotification;
 
 - (void) issuesFinished:(ASIHTTPRequest*)request;
 - (void) gistFinished:(ASIHTTPRequest*)request;
@@ -100,9 +101,14 @@
     // register to internet connection changes so that we can update the first entry...
     [[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(notifyInternet:)
-												 name:NOTIFY_INTERNET
+												 name:NOTIFY_INTERNET_UP
 											   object:nil];
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(notifyInternet:)
+												 name:NOTIFY_INTERNET_DOWN
+											   object:nil];
+
 
 }
 
@@ -150,6 +156,18 @@
 }
 
 #pragma mark - selectors
+- (void)notifyInternet:(NSNotification *)aNotification {
+    NSLog(@"Internet statius change on menu");
+    NSString *name = [aNotification name];
+    if ([name compare:NOTIFY_INTERNET_UP] == NSOrderedSame) {
+        [internetItem setTitle:@"Open GitHub..."];
+        [internetItem setEnabled:TRUE];
+    } else {
+        [internetItem setTitle:@"No Internet connection"];
+        [internetItem setEnabled:FALSE];
+    }
+}
+
 - (void)notifyGists:(NSNotification *)aNotification {
     NSLog(@"Got a Notify Gists");
     ASIHTTPRequest *httpRequest = [aNotification object];

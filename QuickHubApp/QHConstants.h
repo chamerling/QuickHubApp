@@ -54,6 +54,9 @@
 #define POLLING_START @"PollingStart"
 #define POLLING_STOP @"PollingStop"
 
+#define NOTIFY_INTERNET_DOWN @"InternetIsDown"
+#define NOTIFY_INTERNET_UP @"InternetIsUp"
+
 
 #endif
 

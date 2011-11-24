@@ -27,6 +27,8 @@
     
     Preferences *preferences;
     NSMenuItem *followingPressed;
+    
+    IBOutlet NSMenuItem *internetItem;
 }
 
 @property (nonatomic, retain) IBOutlet NSMenu *statusMenu;

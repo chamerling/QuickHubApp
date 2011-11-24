@@ -18,6 +18,8 @@
 		C96509B314754DD100F80846 /* QH-512.png in Resources */ = {isa = PBXBuildFile; fileRef = C96509B014754DD100F80846 /* QH-512.png */; };
 		C96509B514754DE500F80846 /* qh.icns in Resources */ = {isa = PBXBuildFile; fileRef = C96509B414754DE500F80846 /* qh.icns */; };
 		C96509B714754DFA00F80846 /* growl.png in Resources */ = {isa = PBXBuildFile; fileRef = C96509B614754DFA00F80846 /* growl.png */; };
+		C96ABC6F147ED383001A2407 /* RepoCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96ABC6E147ED383001A2407 /* RepoCreateWindow.xib */; };
+		C96ABC72147ED6F9001A2407 /* RepoCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96ABC71147ED6F9001A2407 /* RepoCreateWindowController.m */; };
 		C996375A1448487900F6DB43 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637591448487900F6DB43 /* Cocoa.framework */; };
 		C99637641448487900F6DB43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C99637621448487900F6DB43 /* InfoPlist.strings */; };
 		C99637661448487900F6DB43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99637651448487900F6DB43 /* main.m */; };
@@ -86,6 +88,9 @@
 		C96509B014754DD100F80846 /* QH-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-512.png"; sourceTree = "<group>"; };
 		C96509B414754DE500F80846 /* qh.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = qh.icns; sourceTree = "<group>"; };
 		C96509B614754DFA00F80846 /* growl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = growl.png; sourceTree = "<group>"; };
+		C96ABC6E147ED383001A2407 /* RepoCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepoCreateWindow.xib; sourceTree = "<group>"; };
+		C96ABC70147ED6F9001A2407 /* RepoCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepoCreateWindowController.h; sourceTree = "<group>"; };
+		C96ABC71147ED6F9001A2407 /* RepoCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepoCreateWindowController.m; sourceTree = "<group>"; };
 		C99637551448487900F6DB43 /* QuickHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99637591448487900F6DB43 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C996375C1448487900F6DB43 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -244,6 +249,7 @@
 				C996379F1448499600F6DB43 /* PreferencesWindow.xib */,
 				C996376E1448487900F6DB43 /* MainMenu.xib */,
 				C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */,
+				C96ABC6E147ED383001A2407 /* RepoCreateWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -315,6 +321,8 @@
 				C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */,
 				C9D53DBC1471CD2700D0212B /* NSTextViewFileContent.h */,
 				C9D53DBD1471CD2700D0212B /* NSTextViewFileContent.m */,
+				C96ABC70147ED6F9001A2407 /* RepoCreateWindowController.h */,
+				C96ABC71147ED6F9001A2407 /* RepoCreateWindowController.m */,
 			);
 			path = QuickHubApp;
 			sourceTree = "<group>";
@@ -395,6 +403,7 @@
 				C96509B314754DD100F80846 /* QH-512.png in Resources */,
 				C96509B514754DE500F80846 /* qh.icns in Resources */,
 				C96509B714754DFA00F80846 /* growl.png in Resources */,
+				C96ABC6F147ED383001A2407 /* RepoCreateWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +436,7 @@
 				C9E07B20145EF8BF004A94A7 /* GistCreateWindowController.m in Sources */,
 				C99E310C146287F900FA4327 /* Reachability.m in Sources */,
 				C9D53DBE1471CD2700D0212B /* NSTextViewFileContent.m in Sources */,
+				C96ABC72147ED6F9001A2407 /* RepoCreateWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

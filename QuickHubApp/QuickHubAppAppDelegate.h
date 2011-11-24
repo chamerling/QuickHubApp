@@ -62,6 +62,7 @@
 
 - (IBAction)createGist:(id)sender;
 - (IBAction)openPreferences:(id)sender;
+- (IBAction)createRepository:(id)sender;
 - (IBAction)quit:(id)sender;
 
 # pragma mark - GH Menu pressed actions

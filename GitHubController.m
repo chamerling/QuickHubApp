@@ -365,6 +365,45 @@
     return gistId;
 }
 
+- (NSString*) createRepository:(NSString*) name description:(NSString*)desc homepage:(NSString*) home wiki:(BOOL)wk issues:(BOOL)is downloads:(BOOL)dl isPrivate:(BOOL)privacy {
+    NSString *location = nil;
+    
+    NSString *username = [preferences login];
+    NSString *password = [preferences password];
+    
+    NSString *payload = [NSString stringWithFormat:@"{\"name\": \"%@\", \"description\": \"%@\", \"homepage\": \"%@\", \"public\": %@, \"has_issues\": %@, \"has_wiki\": %@, \"has_downloads\": %@}", name, desc, home, privacy ? @"true" : @"false", wk ? @"true" : @"false", is? @"true" : @"false", dl? @"true" : @"false"];
+    
+    NSLog(@"Outgoing Payload : %@", payload);
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/gists"]];
+    [request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
+    
+    [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [request startSynchronous];
+    
+    NSError *error = [request error];
+    if (!error) {
+        int status = [request responseStatusCode];
+        NSString *response = [request responseString];
+        if (status == 201) {
+            NSLog(@"Repo creation result %@", response);
+            NSDictionary* result = [response objectFromJSONString];
+            location = [result objectForKey:@"Location"];
+        } else {
+            NSLog(@"Repo creation error, bad return code %d", status);
+            NSLog(@"Returned message is %@", response);
+        }
+
+    } else {
+        NSLog(@"Repo creation error %@", error);
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                            object:@"Failed to create repository" 
+                                                          userInfo:nil];           
+    }
+    return location;
+}
+
 - (void)dealloc {
     // TODO
 }

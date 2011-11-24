@@ -96,6 +96,13 @@
 											 selector:@selector(notifyPulls:)
 												 name:GITHUB_NOTIFICATION_PULLS
 											   object:nil];
+    
+    // register to internet connection changes so that we can update the first entry...
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(notifyInternet:)
+												 name:NOTIFY_INTERNET
+											   object:nil];
+    
 
 }
 

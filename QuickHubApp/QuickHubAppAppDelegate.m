@@ -15,6 +15,7 @@
 #import "QuickHubAppAppDelegate.h"
 #import "PreferencesWindowController.h"
 #import "GistCreateWindowController.h"
+#import "RepoCreateWindowController.h"
 #import "QHConstants.h"
 
 #import "ASIHTTPRequest.h"
@@ -267,6 +268,15 @@
     [NSApp activateIgnoringOtherApps: YES];
 	[[gistCreator window] makeKeyWindow];
     [gistCreator showWindow:self];
+}
+
+- (IBAction)createRepository:(id)sender {
+    NSLog(@"Create a repository!");
+    RepoCreateWindowController *creator = [[RepoCreateWindowController alloc] initWithWindowNibName:@"RepoCreateWindow"];
+    [creator setGhController:ghController];
+    [NSApp activateIgnoringOtherApps: YES];
+	[[creator window] makeKeyWindow];
+    [creator showWindow:self];
 }
 
 - (IBAction)openGists:(id)sender {

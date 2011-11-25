@@ -371,11 +371,11 @@
     NSString *username = [preferences login];
     NSString *password = [preferences password];
     
-    NSString *payload = [NSString stringWithFormat:@"{\"name\": \"%@\", \"description\": \"%@\", \"homepage\": \"%@\", \"public\": %@, \"has_issues\": %@, \"has_wiki\": %@, \"has_downloads\": %@}", name, desc, home, privacy ? @"true" : @"false", wk ? @"true" : @"false", is? @"true" : @"false", dl? @"true" : @"false"];
+    NSString *payload = [NSString stringWithFormat:@"{\"name\": \"%@\", \"description\": \"%@\", \"homepage\": \"%@\", \"public\": %@, \"has_issues\": %@, \"has_wiki\": %@, \"has_downloads\": %@}", name, desc, home, privacy ? @"false" : @"true", wk ? @"true" : @"false", is? @"true" : @"false", dl? @"true" : @"false"];
     
     NSLog(@"Outgoing Payload : %@", payload);
     
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/gists"]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/user/repos"]];
     [request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
     
     [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];
@@ -389,7 +389,7 @@
         if (status == 201) {
             NSLog(@"Repo creation result %@", response);
             NSDictionary* result = [response objectFromJSONString];
-            location = [result objectForKey:@"Location"];
+            location = [result objectForKey:@"html_url"];
         } else {
             NSLog(@"Repo creation error, bad return code %d", status);
             NSLog(@"Returned message is %@", response);

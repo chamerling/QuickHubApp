@@ -39,6 +39,8 @@
     BOOL downloads = ([downloadBox state] == 1) ? TRUE : FALSE;
     BOOL isPrivate = ([privateBox state] == 1) ? TRUE : FALSE;
     
+    BOOL open = ([openBox state] == 1) ? TRUE : FALSE;
+    
     if (!name || [name length] == 0) {
         NSBeep();
     } else {
@@ -58,10 +60,12 @@
         
         // TODO : catch an exception
         if (repoAPIURL && [repoAPIURL length] > 0) {
-            // TODO : reload all the repositories
-            
+            if (open) {
+                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:repoAPIURL]];
+            }
         } else {
             NSLog(@"Creation problem, URL is nil");
+            // diplay something somewhere...
         }
         
         [[self window] close];

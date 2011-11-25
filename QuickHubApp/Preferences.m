@@ -22,8 +22,6 @@ static Preferences *sharedInstance = nil;
 {
     self = [super init];
     if (self) {
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSLog(@"Preferences = %@ ", prefs);
     }
     
     return self;

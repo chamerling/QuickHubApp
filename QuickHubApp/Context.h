@@ -9,5 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface Context : NSObject
+{
+    NSString *remainingCalls;
+}
+    
++ (Context *)sharedInstance;
+
+@property (nonatomic, assign) NSString *remainingCalls;
 
 @end

@@ -26,6 +26,7 @@
 		C96ABC8C147EF5F7001A2407 /* AccountPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96ABC8A147EF5F7001A2407 /* AccountPreferencesViewController.xib */; };
 		C96ABC90147EF624001A2407 /* LocalPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96ABC8E147EF624001A2407 /* LocalPreferencesViewController.m */; };
 		C96ABC91147EF624001A2407 /* LocalPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96ABC8F147EF624001A2407 /* LocalPreferencesViewController.xib */; };
+		C96ABC9C14803E3A001A2407 /* Context.m in Sources */ = {isa = PBXBuildFile; fileRef = C96ABC9B14803E3A001A2407 /* Context.m */; };
 		C996375A1448487900F6DB43 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637591448487900F6DB43 /* Cocoa.framework */; };
 		C99637641448487900F6DB43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C99637621448487900F6DB43 /* InfoPlist.strings */; };
 		C99637661448487900F6DB43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99637651448487900F6DB43 /* main.m */; };
@@ -107,6 +108,8 @@
 		C96ABC8D147EF624001A2407 /* LocalPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalPreferencesViewController.h; sourceTree = "<group>"; };
 		C96ABC8E147EF624001A2407 /* LocalPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalPreferencesViewController.m; sourceTree = "<group>"; };
 		C96ABC8F147EF624001A2407 /* LocalPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocalPreferencesViewController.xib; sourceTree = "<group>"; };
+		C96ABC9A14803E39001A2407 /* Context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Context.h; sourceTree = "<group>"; };
+		C96ABC9B14803E3A001A2407 /* Context.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Context.m; sourceTree = "<group>"; };
 		C99637551448487900F6DB43 /* QuickHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99637591448487900F6DB43 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C996375C1448487900F6DB43 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -365,6 +368,8 @@
 				C9D53DBD1471CD2700D0212B /* NSTextViewFileContent.m */,
 				C96ABC70147ED6F9001A2407 /* RepoCreateWindowController.h */,
 				C96ABC71147ED6F9001A2407 /* RepoCreateWindowController.m */,
+				C96ABC9A14803E39001A2407 /* Context.h */,
+				C96ABC9B14803E3A001A2407 /* Context.m */,
 			);
 			path = QuickHubApp;
 			sourceTree = "<group>";
@@ -485,6 +490,7 @@
 				C96ABC87147EF536001A2407 /* MASPreferencesWindowController.m in Sources */,
 				C96ABC8B147EF5F7001A2407 /* AccountPreferencesViewController.m in Sources */,
 				C96ABC90147EF624001A2407 /* LocalPreferencesViewController.m in Sources */,
+				C96ABC9C14803E3A001A2407 /* Context.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

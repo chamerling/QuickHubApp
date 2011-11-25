@@ -11,6 +11,7 @@
 
 @interface LocalPreferencesViewController : NSViewController<MASPreferencesViewController> {
      
+    IBOutlet NSLevelIndicator *remainingIndicator;
 }
 
 @end

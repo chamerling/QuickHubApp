@@ -7,6 +7,7 @@
 //
 
 #import "LocalPreferencesViewController.h"
+#import "Context.h"
 
 @implementation LocalPreferencesViewController
 
@@ -27,6 +28,12 @@
 
 #pragma mark -
 #pragma mark MASPreferencesViewController
+
+- (void)viewWillAppear {
+    Context *context = [Context sharedInstance];
+    NSString *s = [NSString stringWithString:context.remainingCalls];
+    [remainingIndicator setIntValue:[s intValue]];
+}
 
 - (NSString *)identifier
 {

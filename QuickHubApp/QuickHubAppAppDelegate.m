@@ -317,6 +317,7 @@
 
 - (IBAction)openPreferences:(id)sender {
     
+    
     PreferencesWindowController *preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
     [preferencesWindowController setGhController:ghController];
     [preferencesWindowController setAppController:appController];

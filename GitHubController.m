@@ -9,12 +9,14 @@
 #import "GitHubController.h"
 #import "NSData+Base64.h"
 #import "QHConstants.h"
+#import "Context.h"
 #import "JSONKit.h"
 
 @interface GitHubController (Private)
 - (BOOL) checkResponseOK:(ASIHTTPRequest*) request;
 - (NSMutableSet*) getRepositories:(id) sender;
 - (NSDictionary*) getPullsForRepository:(NSString *)name;
+- (void) updateRemaining:(ASIHTTPRequest*) request;
 @end
 
 @implementation GitHubController
@@ -38,6 +40,14 @@
     [self loadFollowers:nil];
     [self loadFollowings:nil];
     [self loadWatchedRepos:nil];
+}
+
+- (void)updateRemaining:(ASIHTTPRequest *)request {
+    // TODO : put it in a HTTP wrapper
+    if (request) {
+        NSString *r = [[request responseHeaders] valueForKey:@"X-RateLimit-Remaining"];
+        [[Context sharedInstance] setRemainingCalls:r];
+    }
 }
 
 # pragma mark - Load things from github
@@ -128,7 +138,8 @@
     [repositoriesRequest addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
     [repositoriesRequest setDidFailSelector:@selector(reposFailed:)];
     [repositoriesRequest setDelegate:self];
-    [repositoriesRequest startSynchronous];    
+    [repositoriesRequest startSynchronous];
+    [self updateRemaining:repositoriesRequest];
     
     NSDictionary* dict = [[repositoriesRequest responseString] objectFromJSONString];
 
@@ -145,7 +156,8 @@
     ASIHTTPRequest *repositoriesRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/repos/%@/%@/pulls", username, name]]];
     [repositoriesRequest addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
     [repositoriesRequest setDelegate:self];
-    [repositoriesRequest startSynchronous];    
+    [repositoriesRequest startSynchronous];
+    [self updateRemaining:repositoriesRequest];
     int status = [repositoriesRequest responseStatusCode];
     NSString *response = [[repositoriesRequest responseString]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     // an empty response is a JSON string like '[]' (without quotes)...
@@ -168,6 +180,8 @@
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/user"]];
     [request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
     [request startSynchronous];
+    [self updateRemaining:request];
+
     int status = [request responseStatusCode];
     return status == 200;
 }
@@ -264,6 +278,7 @@
 // TODO : dispatch on error handlers after response decode and on good data handlers too...
 - (void) issuesFinished:(ASIHTTPRequest*)request {
     NSLog(@"Issues Finished...");
+    [self updateRemaining:request];
     // TODO
     BOOL error = NO;
     
@@ -278,6 +293,8 @@
 
 - (void) gistFinished:(ASIHTTPRequest*)request {
     NSLog(@"Gists Finished...");
+    [self updateRemaining:request];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_GISTS 
 														object:request 
 													  userInfo:nil];       
@@ -285,6 +302,8 @@
 
 - (void) organizationsFinished:(ASIHTTPRequest*)request {
     NSLog(@"Organizations Finished...");
+    [self updateRemaining:request];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_ORGS 
 														object:request 
 													  userInfo:nil];   
@@ -292,6 +311,8 @@
 
 - (void) reposFinished:(ASIHTTPRequest*)request {
     NSLog(@"Repositories Finished...");
+    [self updateRemaining:request];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_REPOS 
 														object:request 
 													  userInfo:nil];   
@@ -299,6 +320,8 @@
 
 - (void)pullFinished:(ASIHTTPRequest *)request {
     NSLog(@"Pulls Finished...");
+    [self updateRemaining:request];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_PULLS 
 														object:request 
 													  userInfo:nil]; 
@@ -306,6 +329,8 @@
 
 - (void) followingsFinished:(ASIHTTPRequest*)request {
     NSLog(@"Followings Finished...");
+    [self updateRemaining:request];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_FOLLOWINGS 
 														object:request 
 													  userInfo:nil];    
@@ -313,6 +338,8 @@
 
 - (void) followersFinished:(ASIHTTPRequest*)request {
     NSLog(@"Followers Finished...");
+    [self updateRemaining:request];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_FOLLOWERS
 														object:request 
 													  userInfo:nil]; 
@@ -320,6 +347,8 @@
 
 - (void) watchedReposFinished:(ASIHTTPRequest*)request {
     NSLog(@"Watched Repos Finished...");
+    [self updateRemaining:request];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_WATCHEDREPO
 														object:request 
 													  userInfo:nil]; 
@@ -342,6 +371,8 @@
     [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];
     
     [request startSynchronous];
+    [self updateRemaining:request];
+
     NSError *error = [request error];
     if (!error) {
         NSString *response = [request responseString];
@@ -381,6 +412,7 @@
     [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];
     
     [request startSynchronous];
+    [self updateRemaining:request];
     
     NSError *error = [request error];
     if (!error) {

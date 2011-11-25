@@ -17,7 +17,10 @@
 #import "GistCreateWindowController.h"
 #import "RepoCreateWindowController.h"
 #import "QHConstants.h"
+#import "LocalPreferencesViewController.h"
+#import "AccountPreferencesViewController.h"
 
+#import "MASPreferencesWindowController.h"
 #import "ASIHTTPRequest.h"
 #import "JSONKit.h"
 #import "NSData+Base64.h"
@@ -239,7 +242,27 @@
     [statusMenu release];
     [statusItem release];
     [preferences release];
+    [_preferencesWindowController release];
     [super dealloc];
+}
+
+#pragma mark - Public accessors
+
+- (NSWindowController *)preferencesWindowController
+{
+    if (_preferencesWindowController == nil)
+    {
+        NSViewController *accountViewController = [[AccountPreferencesViewController alloc] init];
+        NSViewController *localViewController = [[LocalPreferencesViewController alloc] init];
+        NSArray *controllers = [[NSArray alloc] initWithObjects:accountViewController, localViewController, nil];
+        [accountViewController release];
+        [localViewController release];
+        
+        NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");
+        _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers title:title];
+        [controllers release];
+    }
+    return _preferencesWindowController;
 }
 
 #pragma mark - Github Actions
@@ -293,6 +316,7 @@
 }
 
 - (IBAction)openPreferences:(id)sender {
+    /*
     PreferencesWindowController *preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
     [preferencesWindowController setGhController:ghController];
     [preferencesWindowController setAppController:appController];
@@ -300,6 +324,8 @@
     [NSApp activateIgnoringOtherApps: YES];
 	[[preferencesWindowController window] makeKeyWindow];
     [preferencesWindowController showWindow:self];
+     */
+    [self.preferencesWindowController showWindow:nil];
 }
 
 - (IBAction)quit:(id)sender {

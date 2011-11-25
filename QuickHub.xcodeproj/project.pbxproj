@@ -20,6 +20,12 @@
 		C96509B714754DFA00F80846 /* growl.png in Resources */ = {isa = PBXBuildFile; fileRef = C96509B614754DFA00F80846 /* growl.png */; };
 		C96ABC6F147ED383001A2407 /* RepoCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96ABC6E147ED383001A2407 /* RepoCreateWindow.xib */; };
 		C96ABC72147ED6F9001A2407 /* RepoCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96ABC71147ED6F9001A2407 /* RepoCreateWindowController.m */; };
+		C96ABC86147EF536001A2407 /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96ABC82147EF536001A2407 /* MASPreferencesWindow.xib */; };
+		C96ABC87147EF536001A2407 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96ABC85147EF536001A2407 /* MASPreferencesWindowController.m */; };
+		C96ABC8B147EF5F7001A2407 /* AccountPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96ABC89147EF5F7001A2407 /* AccountPreferencesViewController.m */; };
+		C96ABC8C147EF5F7001A2407 /* AccountPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96ABC8A147EF5F7001A2407 /* AccountPreferencesViewController.xib */; };
+		C96ABC90147EF624001A2407 /* LocalPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96ABC8E147EF624001A2407 /* LocalPreferencesViewController.m */; };
+		C96ABC91147EF624001A2407 /* LocalPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96ABC8F147EF624001A2407 /* LocalPreferencesViewController.xib */; };
 		C996375A1448487900F6DB43 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637591448487900F6DB43 /* Cocoa.framework */; };
 		C99637641448487900F6DB43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C99637621448487900F6DB43 /* InfoPlist.strings */; };
 		C99637661448487900F6DB43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99637651448487900F6DB43 /* main.m */; };
@@ -91,6 +97,16 @@
 		C96ABC6E147ED383001A2407 /* RepoCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepoCreateWindow.xib; sourceTree = "<group>"; };
 		C96ABC70147ED6F9001A2407 /* RepoCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepoCreateWindowController.h; sourceTree = "<group>"; };
 		C96ABC71147ED6F9001A2407 /* RepoCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepoCreateWindowController.m; sourceTree = "<group>"; };
+		C96ABC82147EF536001A2407 /* MASPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MASPreferencesWindow.xib; sourceTree = "<group>"; };
+		C96ABC83147EF536001A2407 /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
+		C96ABC84147EF536001A2407 /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesWindowController.h; sourceTree = "<group>"; };
+		C96ABC85147EF536001A2407 /* MASPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASPreferencesWindowController.m; sourceTree = "<group>"; };
+		C96ABC88147EF5F7001A2407 /* AccountPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountPreferencesViewController.h; sourceTree = "<group>"; };
+		C96ABC89147EF5F7001A2407 /* AccountPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountPreferencesViewController.m; sourceTree = "<group>"; };
+		C96ABC8A147EF5F7001A2407 /* AccountPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountPreferencesViewController.xib; sourceTree = "<group>"; };
+		C96ABC8D147EF624001A2407 /* LocalPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalPreferencesViewController.h; sourceTree = "<group>"; };
+		C96ABC8E147EF624001A2407 /* LocalPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalPreferencesViewController.m; sourceTree = "<group>"; };
+		C96ABC8F147EF624001A2407 /* LocalPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocalPreferencesViewController.xib; sourceTree = "<group>"; };
 		C99637551448487900F6DB43 /* QuickHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99637591448487900F6DB43 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C996375C1448487900F6DB43 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -173,6 +189,7 @@
 		C92D63F91459D59C002F3FA9 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				C96ABC81147EF509001A2407 /* MASPreferences */,
 				C9642D0D1456EF1D0013F78E /* Others */,
 				C99006861455B05E00744317 /* JSONKit */,
 				C99006841455B04A00744317 /* ASIHTTP */,
@@ -191,6 +208,30 @@
 				C9642D091456EF090013F78E /* NSWorkspaceHelper.m */,
 			);
 			name = Others;
+			sourceTree = "<group>";
+		};
+		C96ABC7C147EF479001A2407 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				C96ABC88147EF5F7001A2407 /* AccountPreferencesViewController.h */,
+				C96ABC89147EF5F7001A2407 /* AccountPreferencesViewController.m */,
+				C96ABC8A147EF5F7001A2407 /* AccountPreferencesViewController.xib */,
+				C96ABC8D147EF624001A2407 /* LocalPreferencesViewController.h */,
+				C96ABC8E147EF624001A2407 /* LocalPreferencesViewController.m */,
+				C96ABC8F147EF624001A2407 /* LocalPreferencesViewController.xib */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		C96ABC81147EF509001A2407 /* MASPreferences */ = {
+			isa = PBXGroup;
+			children = (
+				C96ABC82147EF536001A2407 /* MASPreferencesWindow.xib */,
+				C96ABC83147EF536001A2407 /* MASPreferencesViewController.h */,
+				C96ABC84147EF536001A2407 /* MASPreferencesWindowController.h */,
+				C96ABC85147EF536001A2407 /* MASPreferencesWindowController.m */,
+			);
+			name = MASPreferences;
 			sourceTree = "<group>";
 		};
 		C99006841455B04A00744317 /* ASIHTTP */ = {
@@ -298,6 +339,7 @@
 		C996375F1448487900F6DB43 /* QuickHubApp */ = {
 			isa = PBXGroup;
 			children = (
+				C96ABC7C147EF479001A2407 /* Preferences */,
 				C92D63F91459D59C002F3FA9 /* Dependencies */,
 				C990068B1455B14700744317 /* Resources */,
 				C99637601448487900F6DB43 /* Supporting Files */,
@@ -404,6 +446,9 @@
 				C96509B514754DE500F80846 /* qh.icns in Resources */,
 				C96509B714754DFA00F80846 /* growl.png in Resources */,
 				C96ABC6F147ED383001A2407 /* RepoCreateWindow.xib in Resources */,
+				C96ABC86147EF536001A2407 /* MASPreferencesWindow.xib in Resources */,
+				C96ABC8C147EF5F7001A2407 /* AccountPreferencesViewController.xib in Resources */,
+				C96ABC91147EF624001A2407 /* LocalPreferencesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +482,9 @@
 				C99E310C146287F900FA4327 /* Reachability.m in Sources */,
 				C9D53DBE1471CD2700D0212B /* NSTextViewFileContent.m in Sources */,
 				C96ABC72147ED6F9001A2407 /* RepoCreateWindowController.m in Sources */,
+				C96ABC87147EF536001A2407 /* MASPreferencesWindowController.m in Sources */,
+				C96ABC8B147EF5F7001A2407 /* AccountPreferencesViewController.m in Sources */,
+				C96ABC90147EF624001A2407 /* LocalPreferencesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

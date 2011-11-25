@@ -35,7 +35,13 @@
     AppController *appController;
     GitHubController *ghController;
     MenuController *menuController;
+    
+    // MAS based preferences window controller
+    NSWindowController *_preferencesWindowController;
 }
+
+// MAS based preferences window controller
+@property (nonatomic, readonly) NSWindowController *preferencesWindowController;
 
 @property (nonatomic, retain) IBOutlet GrowlManager *growlManager;
 @property (nonatomic, retain) IBOutlet AppController *appController;

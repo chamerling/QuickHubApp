@@ -316,7 +316,7 @@
 }
 
 - (IBAction)openPreferences:(id)sender {
-    /*
+    
     PreferencesWindowController *preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
     [preferencesWindowController setGhController:ghController];
     [preferencesWindowController setAppController:appController];
@@ -324,8 +324,9 @@
     [NSApp activateIgnoringOtherApps: YES];
 	[[preferencesWindowController window] makeKeyWindow];
     [preferencesWindowController showWindow:self];
-     */
-    [self.preferencesWindowController showWindow:nil];
+    
+    // TODO : activate when new preferences are ok...
+    //[self.preferencesWindowController showWindow:nil];
 }
 
 - (IBAction)quit:(id)sender {

@@ -55,6 +55,11 @@
                                                  name:GITHUB_NOTIFICATION_GIST_CREATED
                                                object:nil];
 
+    // load repos when a repo is created!
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(pollRepos:)
+                                                 name:GITHUB_NOTIFICATION_REPO_CREATED
+                                               object:nil];
 }
 
 #pragma mark - Github Actions

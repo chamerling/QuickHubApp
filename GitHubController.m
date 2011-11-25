@@ -390,11 +390,16 @@
             NSLog(@"Repo creation result %@", response);
             NSDictionary* result = [response objectFromJSONString];
             location = [result objectForKey:@"html_url"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_REPO_CREATED 
+                                                                object:nil 
+                                                              userInfo:nil];     
         } else {
             NSLog(@"Repo creation error, bad return code %d", status);
             NSLog(@"Returned message is %@", response);
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                                object:@"Failed to create repository" 
+                                                              userInfo:nil]; 
         }
-
     } else {
         NSLog(@"Repo creation error %@", error);
         [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 

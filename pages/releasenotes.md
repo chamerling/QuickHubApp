@@ -9,6 +9,14 @@ Unplanned features and ideas, sort of wish list...
 - [NEW] Configure polling periods for all tasks
 - [NEW] Click on notifications brings user to the right Github page
 - [NEW] Display API limit quota
+- [NEW] Local search engine
+- [NEW] Hot keys!
+- [NEW] Local storage in order to be able to rebuild all even if Internet is down!
+
+# v1.3 - 2011/12/??
+
+- [NEW] User can now create repositories from the repositories menu
+- [NEW] When Internet is down, change the 'Open GitHub...' menu to 'No Internet connection' 
 
 # v1.2 - 2011/11/17
 

@@ -382,9 +382,4 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];        
 }
 
-- (IBAction)helpPressed:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:appsite]];
-}
-
-
 @end

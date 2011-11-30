@@ -121,6 +121,8 @@
         }
     }
     
+    // FIXME : remove this just send back the dictionnay of pulls!
+    // j'ai du faire ca tard la nuit!
     [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_PULLS 
 														object:dict 
 													  userInfo:nil];           

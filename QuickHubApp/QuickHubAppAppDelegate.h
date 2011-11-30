@@ -81,7 +81,4 @@
 - (void) followerPressed:(id) sender;
 - (void) followingPressed:(id) sender;
 
-- (IBAction)helpPressed:(id)sender;
-
-
 @end

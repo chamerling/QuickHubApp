@@ -13,12 +13,13 @@
 //
 
 #import "QuickHubAppAppDelegate.h"
-#import "PreferencesWindowController.h"
 #import "GistCreateWindowController.h"
 #import "RepoCreateWindowController.h"
 #import "QHConstants.h"
 #import "LocalPreferencesViewController.h"
 #import "AccountPreferencesViewController.h"
+#import "AboutPreferencesViewController.h"
+#import "GistViewWindowController.h"
 
 #import "MASPreferencesWindowController.h"
 #import "ASIHTTPRequest.h"
@@ -248,18 +249,28 @@
 
 #pragma mark - Public accessors
 
-- (NSWindowController *)preferencesWindowController
+- (MASPreferencesWindowController *)preferencesWindowController
 {
     if (_preferencesWindowController == nil)
     {
-        NSViewController *accountViewController = [[AccountPreferencesViewController alloc] init];
-        NSViewController *localViewController = [[LocalPreferencesViewController alloc] init];
-        NSArray *controllers = [[NSArray alloc] initWithObjects:accountViewController, localViewController, nil];
+        AccountPreferencesViewController *accountViewController = [[AccountPreferencesViewController alloc] init];
+        [accountViewController setAppController:appController];
+        [accountViewController setGhController:ghController];
+        [accountViewController setMenuController:menuController];
+        
+        // TODO
+        // NSViewController *localViewController = [[LocalPreferencesViewController alloc] init];
+        AboutPreferencesViewController *aboutViewController = [[AboutPreferencesViewController alloc] init];
+        
+        NSArray *controllers = [[NSArray alloc] initWithObjects:accountViewController, /*localViewController,*/ aboutViewController, nil];
         [accountViewController release];
-        [localViewController release];
+        [aboutViewController release];
+        //[localViewController release];
         
         NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");
         _preferencesWindowController = [[MASPreferencesWindowController alloc] initWithViewControllers:controllers title:title];
+        
+        [_preferencesWindowController selectControllerAtIndex:0];
         [controllers release];
     }
     return _preferencesWindowController;
@@ -316,18 +327,9 @@
 }
 
 - (IBAction)openPreferences:(id)sender {
-    
-    
-    PreferencesWindowController *preferencesWindowController = [[PreferencesWindowController alloc] initWithWindowNibName:@"PreferencesWindow"];
-    [preferencesWindowController setGhController:ghController];
-    [preferencesWindowController setAppController:appController];
-    [preferencesWindowController setMenuController:menuController];
     [NSApp activateIgnoringOtherApps: YES];
-	[[preferencesWindowController window] makeKeyWindow];
-    [preferencesWindowController showWindow:self];
-    
-    // TODO : activate when new preferences are ok...
-    //[self.preferencesWindowController showWindow:nil];
+    //[[preferencesWindowController window] makeKeyWindow];
+    [self.preferencesWindowController showWindow:nil];
 }
 
 - (IBAction)quit:(id)sender {
@@ -347,8 +349,17 @@
 }
 
 - (void) gistPressed:(id) sender {
-    id selectedItem = [sender representedObject];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];
+    NSArray *selectedItem = [sender representedObject];
+    // TODO, if needed!
+    BOOL showGistOnGitHub = YES;
+    if (showGistOnGitHub) {
+        NSString *url = [selectedItem valueForKey:@"html_url"];
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+    } else {
+        GistViewWindowController* viewGist = [[GistViewWindowController alloc] initWithWindowNibName:@"GistViewWindow"];
+        [viewGist setGist:selectedItem];
+        [viewGist showWindow:self];
+    }
 }
 
 - (void) pullPressed:(id)sender {

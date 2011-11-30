@@ -51,4 +51,6 @@
 
 - (NSString*) createRepository:(NSString*) name description:(NSString*)desc homepage:(NSString*) home wiki:(BOOL)wk issues:(BOOL)is downloads:(BOOL)dl isPrivate:(BOOL)privacy;
 
+- (NSDictionary *) getGist:(NSString*)gistId;
+
 @end

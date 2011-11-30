@@ -20,6 +20,7 @@
 #import "MenuController.h"
 #import "GitHubController.h"
 #import "ASIHTTPRequest.h"
+#import "MASPreferencesWindowController.h"
 
 @interface QuickHubAppAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
@@ -37,11 +38,11 @@
     MenuController *menuController;
     
     // MAS based preferences window controller
-    NSWindowController *_preferencesWindowController;
+    MASPreferencesWindowController *_preferencesWindowController;
 }
 
 // MAS based preferences window controller
-@property (nonatomic, readonly) NSWindowController *preferencesWindowController;
+@property (nonatomic, readonly) MASPreferencesWindowController *preferencesWindowController;
 
 @property (nonatomic, retain) IBOutlet GrowlManager *growlManager;
 @property (nonatomic, retain) IBOutlet AppController *appController;

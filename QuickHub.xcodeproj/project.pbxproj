@@ -27,6 +27,8 @@
 		C96ABC90147EF624001A2407 /* LocalPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C96ABC8E147EF624001A2407 /* LocalPreferencesViewController.m */; };
 		C96ABC91147EF624001A2407 /* LocalPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C96ABC8F147EF624001A2407 /* LocalPreferencesViewController.xib */; };
 		C96ABC9C14803E3A001A2407 /* Context.m in Sources */ = {isa = PBXBuildFile; fileRef = C96ABC9B14803E3A001A2407 /* Context.m */; };
+		C98FB8991486CBF000B7D92A /* AboutPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C98FB8971486CBF000B7D92A /* AboutPreferencesViewController.m */; };
+		C98FB89A1486CBF000B7D92A /* AboutPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C98FB8981486CBF000B7D92A /* AboutPreferencesViewController.xib */; };
 		C996375A1448487900F6DB43 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637591448487900F6DB43 /* Cocoa.framework */; };
 		C99637641448487900F6DB43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C99637621448487900F6DB43 /* InfoPlist.strings */; };
 		C99637661448487900F6DB43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99637651448487900F6DB43 /* main.m */; };
@@ -47,7 +49,6 @@
 		C996379C144848E200F6DB43 /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C996379B144848E200F6DB43 /* Growl.framework */; };
 		C996379E144848F600F6DB43 /* QuickHubAppToolbar.png in Resources */ = {isa = PBXBuildFile; fileRef = C996379D144848F600F6DB43 /* QuickHubAppToolbar.png */; };
 		C99637A21448499600F6DB43 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C996379F1448499600F6DB43 /* PreferencesWindow.xib */; };
-		C99637A31448499600F6DB43 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99637A11448499600F6DB43 /* PreferencesWindowController.m */; };
 		C99637A714484AAB00F6DB43 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637A614484AAB00F6DB43 /* libz.dylib */; };
 		C99637A914484AB300F6DB43 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637A814484AB300F6DB43 /* SystemConfiguration.framework */; };
 		C99637AB14484AC500F6DB43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637AA14484AC500F6DB43 /* Security.framework */; };
@@ -61,6 +62,8 @@
 		C99E31231463104400FA4327 /* bug.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E31221463104400FA4327 /* bug.png */; };
 		C99E31291463E65A00FA4327 /* bullet_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E31281463E65A00FA4327 /* bullet_yellow.png */; };
 		C9D53DBE1471CD2700D0212B /* NSTextViewFileContent.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D53DBD1471CD2700D0212B /* NSTextViewFileContent.m */; };
+		C9D67A2C14852DBB00026988 /* GistViewWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9D67A2B14852DBB00026988 /* GistViewWindow.xib */; };
+		C9D67A331485336700026988 /* GistViewWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D67A321485336700026988 /* GistViewWindowController.m */; };
 		C9E07B1A145EF6B9004A94A7 /* GistCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */; };
 		C9E07B20145EF8BF004A94A7 /* GistCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */; };
 /* End PBXBuildFile section */
@@ -110,6 +113,9 @@
 		C96ABC8F147EF624001A2407 /* LocalPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocalPreferencesViewController.xib; sourceTree = "<group>"; };
 		C96ABC9A14803E39001A2407 /* Context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Context.h; sourceTree = "<group>"; };
 		C96ABC9B14803E3A001A2407 /* Context.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Context.m; sourceTree = "<group>"; };
+		C98FB8961486CBF000B7D92A /* AboutPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutPreferencesViewController.h; sourceTree = "<group>"; };
+		C98FB8971486CBF000B7D92A /* AboutPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutPreferencesViewController.m; sourceTree = "<group>"; };
+		C98FB8981486CBF000B7D92A /* AboutPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutPreferencesViewController.xib; sourceTree = "<group>"; };
 		C99637551448487900F6DB43 /* QuickHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99637591448487900F6DB43 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C996375C1448487900F6DB43 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -151,8 +157,6 @@
 		C996379B144848E200F6DB43 /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = QuickHubApp/Growl.framework; sourceTree = "<group>"; };
 		C996379D144848F600F6DB43 /* QuickHubAppToolbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuickHubAppToolbar.png; sourceTree = "<group>"; };
 		C996379F1448499600F6DB43 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
-		C99637A01448499600F6DB43 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
-		C99637A11448499600F6DB43 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		C99637A614484AAB00F6DB43 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C99637A814484AB300F6DB43 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C99637AA14484AC500F6DB43 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -167,6 +171,9 @@
 		C99E31281463E65A00FA4327 /* bullet_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet_yellow.png; sourceTree = "<group>"; };
 		C9D53DBC1471CD2700D0212B /* NSTextViewFileContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTextViewFileContent.h; sourceTree = "<group>"; };
 		C9D53DBD1471CD2700D0212B /* NSTextViewFileContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextViewFileContent.m; sourceTree = "<group>"; };
+		C9D67A2B14852DBB00026988 /* GistViewWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GistViewWindow.xib; sourceTree = "<group>"; };
+		C9D67A311485336700026988 /* GistViewWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistViewWindowController.h; sourceTree = "<group>"; };
+		C9D67A321485336700026988 /* GistViewWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistViewWindowController.m; sourceTree = "<group>"; };
 		C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GistCreateWindow.xib; sourceTree = "<group>"; };
 		C9E07B1E145EF8BF004A94A7 /* GistCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistCreateWindowController.h; sourceTree = "<group>"; };
 		C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistCreateWindowController.m; sourceTree = "<group>"; };
@@ -216,6 +223,9 @@
 		C96ABC7C147EF479001A2407 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				C98FB8961486CBF000B7D92A /* AboutPreferencesViewController.h */,
+				C98FB8971486CBF000B7D92A /* AboutPreferencesViewController.m */,
+				C98FB8981486CBF000B7D92A /* AboutPreferencesViewController.xib */,
 				C96ABC88147EF5F7001A2407 /* AccountPreferencesViewController.h */,
 				C96ABC89147EF5F7001A2407 /* AccountPreferencesViewController.m */,
 				C96ABC8A147EF5F7001A2407 /* AccountPreferencesViewController.xib */,
@@ -294,6 +304,7 @@
 				C996376E1448487900F6DB43 /* MainMenu.xib */,
 				C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */,
 				C96ABC6E147ED383001A2407 /* RepoCreateWindow.xib */,
+				C9D67A2B14852DBB00026988 /* GistViewWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -352,8 +363,6 @@
 				C9642D19145707EB0013F78E /* MenuController.m */,
 				C9642D1C14570F5F0013F78E /* GitHubController.h */,
 				C9642D1D14570F5F0013F78E /* GitHubController.m */,
-				C99637A01448499600F6DB43 /* PreferencesWindowController.h */,
-				C99637A11448499600F6DB43 /* PreferencesWindowController.m */,
 				C996378F144848BD00F6DB43 /* Preferences.h */,
 				C9963790144848BD00F6DB43 /* Preferences.m */,
 				C9642D0E1456F1530013F78E /* GrowlManager.h */,
@@ -370,6 +379,8 @@
 				C96ABC71147ED6F9001A2407 /* RepoCreateWindowController.m */,
 				C96ABC9A14803E39001A2407 /* Context.h */,
 				C96ABC9B14803E3A001A2407 /* Context.m */,
+				C9D67A311485336700026988 /* GistViewWindowController.h */,
+				C9D67A321485336700026988 /* GistViewWindowController.m */,
 			);
 			path = QuickHubApp;
 			sourceTree = "<group>";
@@ -454,6 +465,8 @@
 				C96ABC86147EF536001A2407 /* MASPreferencesWindow.xib in Resources */,
 				C96ABC8C147EF5F7001A2407 /* AccountPreferencesViewController.xib in Resources */,
 				C96ABC91147EF624001A2407 /* LocalPreferencesViewController.xib in Resources */,
+				C9D67A2C14852DBB00026988 /* GistViewWindow.xib in Resources */,
+				C98FB89A1486CBF000B7D92A /* AboutPreferencesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,7 +490,6 @@
 				C9963798144848BD00F6DB43 /* JSONKit.m in Sources */,
 				C9963799144848BD00F6DB43 /* NSData+Base64.m in Sources */,
 				C996379A144848BD00F6DB43 /* Preferences.m in Sources */,
-				C99637A31448499600F6DB43 /* PreferencesWindowController.m in Sources */,
 				C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */,
 				C9642D101456F1530013F78E /* GrowlManager.m in Sources */,
 				C9642D13145700D10013F78E /* AppController.m in Sources */,
@@ -491,6 +503,8 @@
 				C96ABC8B147EF5F7001A2407 /* AccountPreferencesViewController.m in Sources */,
 				C96ABC90147EF624001A2407 /* LocalPreferencesViewController.m in Sources */,
 				C96ABC9C14803E3A001A2407 /* Context.m in Sources */,
+				C9D67A331485336700026988 /* GistViewWindowController.m in Sources */,
+				C98FB8991486CBF000B7D92A /* AboutPreferencesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -387,7 +387,7 @@
             [gistItem setImage:iconImage];
             
             [gistItem setToolTip:[NSString stringWithFormat:@"Created at %@, %@ comment(s)", [gist valueForKey:@"created_at"], [gist valueForKey:@"comments"]]];
-            [gistItem setRepresentedObject:[gist valueForKey:@"html_url"]];
+            [gistItem setRepresentedObject:gist];
             [gistItem autorelease];
             [menu addItem:gistItem];
         }
@@ -755,7 +755,10 @@
 
 - (IBAction) gistPressed:(id) sender {
     id selectedItem = [sender representedObject];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];
+    // get the URL from the NSArray
+    NSLog(@"Pressed!");
+    NSString *url = [selectedItem valueForKey:@"html_url"];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
 }
 
 - (IBAction) pullPressed:(id)sender {

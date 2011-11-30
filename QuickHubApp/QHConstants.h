@@ -58,6 +58,9 @@
 #define NOTIFY_INTERNET_DOWN @"InternetIsDown"
 #define NOTIFY_INTERNET_UP @"InternetIsUp"
 
+#define HTTP_200 200;
+#define HTTP_201 201;
+
 
 #endif
 

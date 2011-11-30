@@ -441,6 +441,38 @@
     return location;
 }
 
+- (NSDictionary *) getGist:(NSString*)gistId {
+    NSDictionary *result = nil;
+    
+    NSString *username = [preferences login];
+    NSString *password = [preferences password];
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/gists/%@", gistId]]];
+    [request addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", username, password] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
+        
+    [request startSynchronous];
+    [self updateRemaining:request];
+    
+    NSError *error = [request error];
+    if (!error) {
+        int status = [request responseStatusCode];
+        NSString *response = [request responseString];
+        if (status == 200) {
+            NSLog(@"Get gist result %@", response);
+            result = [response objectFromJSONString];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                                object:@"Get gist failure" 
+                                                              userInfo:nil]; 
+        }
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                            object:@"Get gist failure" 
+                                                          userInfo:nil];           
+    }
+    return result;
+}
+
 - (void)dealloc {
     // TODO
 }

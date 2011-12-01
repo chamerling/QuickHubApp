@@ -22,7 +22,6 @@
         // Initialization code here.
         githubController = [[GitHubController alloc]init];
         
-        
         //reachability
         // check for internet connection
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];

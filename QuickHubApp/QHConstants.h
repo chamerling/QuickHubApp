@@ -14,6 +14,11 @@
 #define QH_Constants_h
 
 #define appsite     @"http://quickhubapp.com"
+#define oauthsite   @"http://quickhubapp.heroku.com"
+#define revokeurl   @"https://github.com/account/applications/"
+
+#define urlscheme   @"quickhub"
+
 #define growllogo   @"growl.png"
 #define notificatioName @"QuickHub";
 #define eventDatePattern  @"yyyy-MM-dd"

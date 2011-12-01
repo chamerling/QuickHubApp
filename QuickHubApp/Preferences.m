@@ -51,11 +51,31 @@ static Preferences *sharedInstance = nil;
     return result;
 }
 
+- (NSString *)oauthToken {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *result = [prefs stringForKey:@"oauth"];
+    
+    if (!result) {
+        result = [NSString stringWithString:@""];
+    }
+    return result;
+}
+
 - (void) storeLogin:(NSString*)login withPassword:(NSString*)password{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:login forKey:@"userID"];
     [prefs setObject:password forKey:@"pwd"];
 }
+
+- (void) deleteOldPreferences {
+    [self setDefault];
+}
+
+- (void) storeToken:(NSString*)token {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:token forKey:@"oauth"];
+}
+
 
 + (Preferences *)sharedInstance {
     @synchronized(self) {

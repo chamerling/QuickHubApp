@@ -20,10 +20,16 @@
 
 - (void) setDefault;
 
+// deprecated
 - (NSString *) login;
 - (NSString *) password;
 
+// use oauth
+- (NSString *) oauthToken;
+
 - (void) storeLogin:(NSString*)login withPassword:(NSString*)password;
+- (void) deleteOldPreferences;
+- (void) storeToken:(NSString*)token;
 
 + (Preferences *)sharedInstance;
 

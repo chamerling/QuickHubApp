@@ -20,6 +20,7 @@
 #import "AccountPreferencesViewController.h"
 #import "AboutPreferencesViewController.h"
 #import "GistViewWindowController.h"
+#import "UserPreferences.h"
 
 #import "MASPreferencesWindowController.h"
 #import "ASIHTTPRequest.h"
@@ -262,9 +263,13 @@
         // NSViewController *localViewController = [[LocalPreferencesViewController alloc] init];
         AboutPreferencesViewController *aboutViewController = [[AboutPreferencesViewController alloc] init];
         
-        NSArray *controllers = [[NSArray alloc] initWithObjects:accountViewController, /*localViewController,*/ aboutViewController, nil];
+        //UserPreferences *userPreferences = [[UserPreferences alloc] init];
+        
+        NSArray *controllers = [[NSArray alloc] initWithObjects:/*userPreferences,*/ accountViewController, /*localViewController,*/ aboutViewController, nil];
+        
         [accountViewController release];
         [aboutViewController release];
+        //[userPreferences release];
         //[localViewController release];
         
         NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");

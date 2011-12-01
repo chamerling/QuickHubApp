@@ -50,6 +50,19 @@
     }
 }
 
+- (void) loadUser:(id) sender {
+    NSLog(@"Load user...");
+                
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/user?access_token=2736c4fc084dbb25156b6bb4635275048e5415ef"]];
+    [request setDelegate:self];
+    [request startSynchronous];
+    [self updateRemaining:request];
+        
+    NSString *responseString = [request responseString];
+    NSLog(@"Get the user request response : %@", responseString);
+        //NSDictionary* dict = [[request responseString] objectFromJSONString];    
+}
+
 # pragma mark - Load things from github
 - (void) loadIssues:(id) sender {
     NSLog(@"Loading Issues...");

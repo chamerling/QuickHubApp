@@ -46,6 +46,8 @@
 - (void) loadFollowings:(id) sender;
 - (void) loadWatchedRepos:(id) sender;
 
+- (void) loadUser:(id) sender;
+
 # pragma mark - Write API
 - (NSString*) createGist:(NSString*) content withDescription:(NSString*) title andFileName:(NSString *) fileName isPublic:(BOOL) pub;
 

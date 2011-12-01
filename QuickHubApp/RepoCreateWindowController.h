@@ -3,18 +3,16 @@
 //  QuickHub
 //
 //  Created by Christophe Hamerling on 24/11/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 christophehamerling.com. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
 
-#import "GitHubController.h"
+#import "GithubOAuthClient.h"
 
 @interface RepoCreateWindowController : NSWindowController {
-    // injected
-    GitHubController *ghController;
-    
-    // local
+    GithubOAuthClient *ghClient;
+
     IBOutlet NSTextField *nameField;
     IBOutlet NSTextField *descriptionField;
     IBOutlet NSTextField *homePageField;
@@ -31,6 +29,6 @@
 - (IBAction)createAction:(id)sender;
 - (IBAction)cancelAction:(id)sender;
 
-@property (assign) GitHubController *ghController;
+@property (assign) GithubOAuthClient *ghClient;
 
 @end

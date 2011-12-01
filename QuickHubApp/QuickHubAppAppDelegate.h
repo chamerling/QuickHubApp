@@ -18,7 +18,7 @@
 #import "GrowlManager.h"
 #import "AppController.h"
 #import "MenuController.h"
-#import "GitHubController.h"
+#import "GithubOAuthClient.h"
 #import "ASIHTTPRequest.h"
 #import "MASPreferencesWindowController.h"
 
@@ -34,7 +34,7 @@
     
     GrowlManager *growlManager;
     AppController *appController;
-    GitHubController *ghController;
+    GithubOAuthClient *ghClient;
     MenuController *menuController;
     
     // MAS based preferences window controller
@@ -46,7 +46,7 @@
 
 @property (nonatomic, retain) IBOutlet GrowlManager *growlManager;
 @property (nonatomic, retain) IBOutlet AppController *appController;
-@property (nonatomic, retain) IBOutlet GitHubController *ghController;
+@property (nonatomic, retain) IBOutlet GithubOAuthClient *ghClient;
 @property (nonatomic, retain) IBOutlet MenuController *menuController;
 
 @property (assign) IBOutlet NSWindow *window;
@@ -80,5 +80,8 @@
 - (void) pullPressed:(id) sender;
 - (void) followerPressed:(id) sender;
 - (void) followingPressed:(id) sender;
+
+- (void)getUrl:(NSAppleEventDescriptor *)event;
+- (void) registerURLHandler:(id) sender;
 
 @end

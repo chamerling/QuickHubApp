@@ -9,31 +9,6 @@
 #import "MenuController.h"
 #import "QHConstants.h"
 #import <Cocoa/Cocoa.h>
-#import "ASIHTTPRequest.h"
-#import "JSONKit.h"
-#import "NSData+Base64.h"
-
-@interface MenuController (Private)
-- (void)notifyGists:(NSNotification *)aNotification;
-- (void)notifyRepos:(NSNotification *)aNotification;
-- (void)notifyOrganizations:(NSNotification *)aNotification;
-- (void)notifyIssues:(NSNotification *)aNotification;
-- (void)notifyFollowings:(NSNotification *)aNotification;
-- (void)notifyFollowers:(NSNotification *)aNotification;
-- (void)notifyWatchedRepos:(NSNotification *)aNotification;
-- (void)notifyPulls:(NSNotification *)aNotification;
-- (void)notifyInternet:(NSNotification *)aNotification;
-
-- (void) issuesFinished:(ASIHTTPRequest*)request;
-- (void) gistFinished:(ASIHTTPRequest*)request;
-- (void) organizationsFinished:(ASIHTTPRequest*)request;
-- (void) reposFinished:(ASIHTTPRequest*)request;
-- (void) followersFinished:(ASIHTTPRequest*)request;
-- (void) followingsFinished:(ASIHTTPRequest *)request;
-- (void) watchedReposFinished:(ASIHTTPRequest *)request;
-- (void) pullsFinished:(NSDictionary *)dictionary;
-
-@end
 
 @implementation MenuController
 
@@ -58,46 +33,7 @@
 // register to notifications so that the menu can be updated when data is retrieved from github...
 - (void) awakeFromNib {
     NSLog(@"Registering notifications listeners for the menu controller");
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(notifyGists:)
-												 name:GITHUB_NOTIFICATION_GISTS
-											   object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(notifyIssues:)
-												 name:GITHUB_NOTIFICATION_ISSUES
-											   object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(notifyOrganizations:)
-												 name:GITHUB_NOTIFICATION_ORGS
-											   object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(notifyRepos:)
-												 name:GITHUB_NOTIFICATION_REPOS
-											   object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(notifyFollowers:)
-												 name:GITHUB_NOTIFICATION_FOLLOWERS
-											   object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(notifyFollowings:)
-												 name:GITHUB_NOTIFICATION_FOLLOWINGS
-											   object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(notifyWatchedRepos:)
-												 name:GITHUB_NOTIFICATION_WATCHEDREPO
-											   object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(notifyPulls:)
-												 name:GITHUB_NOTIFICATION_PULLS
-											   object:nil];
-    
+     
     // register to internet connection changes so that we can update the first entry...
     [[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(notifyInternet:)
@@ -168,62 +104,14 @@
     }
 }
 
-- (void)notifyGists:(NSNotification *)aNotification {
-    NSLog(@"Got a Notify Gists");
-    ASIHTTPRequest *httpRequest = [aNotification object];
-    [self gistFinished:httpRequest];
-}
-
-- (void)notifyRepos:(NSNotification *)aNotification {
-    NSLog(@"Got a Notify Repos");
-    ASIHTTPRequest *httpRequest = [aNotification object];
-    [self reposFinished:httpRequest];
-}
-
-- (void)notifyOrganizations:(NSNotification *)aNotification {
-    NSLog(@"Got a Notify Orgs");
-    ASIHTTPRequest *httpRequest = [aNotification object];
-    [self organizationsFinished:httpRequest];
-}
-
-- (void)notifyIssues:(NSNotification *)aNotification {
-    NSLog(@"Got a Notify Issues");
-    ASIHTTPRequest *httpRequest = [aNotification object];
-    [self issuesFinished:httpRequest];
-}
-
-- (void)notifyFollowings:(NSNotification *)aNotification {
-    NSLog(@"Got a Notify Followings");
-    ASIHTTPRequest *httpRequest = [aNotification object];
-    [self followingsFinished:httpRequest];
-}
-
-- (void)notifyFollowers:(NSNotification *)aNotification {
-    NSLog(@"Got a Notify Followers");
-    ASIHTTPRequest *httpRequest = [aNotification object];
-    [self followersFinished:httpRequest];
-}
-
-- (void)notifyWatchedRepos:(NSNotification *)aNotification {
-    NSLog(@"Got a Notify Watched Respos");
-    ASIHTTPRequest *httpRequest = [aNotification object];
-    [self watchedReposFinished:httpRequest];
-}
-
-- (void)notifyPulls:(NSNotification *)aNotification {
-    NSLog(@"Got a Notify Pulls");
-    NSDictionary *dictionary = [aNotification object];
-    [self pullsFinished:dictionary];
-}
-
 #pragma mark - process HTTP responses
-- (void) issuesFinished:(ASIHTTPRequest*)request {
+- (void) issuesFinished:(NSDictionary *)result {
     NSLog(@"Issues Finished...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Issues"];
     NSMenu *menu = [menuItem submenu];
     
-    NSDictionary* result = [[request responseString] objectFromJSONString];
+    //NSDictionary* result = [[request responseString] objectFromJSONString];
     
     // process added and removed issues
     NSMutableSet* justGetIssues = [[NSMutableSet alloc] init];
@@ -297,14 +185,12 @@
     }
 }
 
-- (void) gistFinished:(ASIHTTPRequest*)request {
+- (void) gistFinished:(NSDictionary *)result {
     NSLog(@"Gists Finished...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Gists"];
     NSMenu *menu = [menuItem submenu];
-    
-    NSDictionary* result = [[request responseString] objectFromJSONString];
-    
+        
     // process added and removed issues
     NSMutableSet* justGet = [[NSMutableSet alloc] init];
     for (NSArray *issue in result) {
@@ -401,20 +287,21 @@
     }
 }
 
-- (void) organizationsFinished:(ASIHTTPRequest*)request {
+//dict = [orgname -> [repos->[dict], [org->[dict]]]]
+- (void) organizationsFinished:(NSDictionary *)result {
     NSLog(@"Organizations Finished...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Organizations"];
     NSMenu *menu = [menuItem submenu];
-    NSDictionary* result = [[request responseString] objectFromJSONString];
     
-    // clean if called N times...
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
-    for (NSArray *org in result) {
+    
+    for (NSString *orgName in [result allKeys]) {
+        NSDictionary *entry = [result valueForKey:orgName];
+        NSDictionary *org = [entry valueForKey:@"org"];
         
         NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[org valueForKey:@"login"] action:@selector(organizationPressed:) keyEquivalent:@""];
-        //[organizationItem setToolTip: [NSString stringWithFormat:@"Created at %@", [org valueForKey:@"created_at"]]];
         [organizationItem setRepresentedObject:[org valueForKey:@"login"]];
         
         NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[org valueForKey:@"avatar_url"]]];
@@ -425,13 +312,7 @@
         [organizationItem autorelease];
         [menu addItem:organizationItem];
         
-        // let's get the repositories for all organization...
-        ASIHTTPRequest *repositoriesRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/orgs/%@/repos", [org valueForKey:@"login"]]]];
-        [repositoriesRequest addRequestHeader:@"Authorization" value:[NSString stringWithFormat:@"Basic %@", [[[NSString stringWithFormat:@"%@:%@", [preferences login], [preferences password]] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString]]];
-        [repositoriesRequest setDelegate:self];
-        [repositoriesRequest startSynchronous];
-        
-        NSDictionary* repos = [[repositoriesRequest responseString] objectFromJSONString];
+        NSDictionary* repos = [entry valueForKey:@"repos"];
         
         NSMenu* repositoriesMenu = [[NSMenu alloc] init];
         for (NSArray *repo in repos) {
@@ -465,20 +346,21 @@
         }
         [organizationItem setSubmenu:repositoriesMenu]; 
     }
+    
     if ([result count] == 0) {
         // default menu item
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No orgnizations" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         [menu addItem:defaultItem];
     }
+    
 }
 
-- (void) reposFinished:(ASIHTTPRequest*)request {
-    NSLog(@"Repositories Finished...");
+- (void) reposFinished:(NSDictionary *)result {
+    NSLog(@"Repositories update...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Repositories"];
     NSMenu *menu = [menuItem submenu];
-    NSDictionary* result = [[request responseString] objectFromJSONString];
     
     // process added and removed issues
     NSMutableSet* justGet = [[NSMutableSet alloc] init];
@@ -631,7 +513,7 @@
     
 }
 
-- (void) followersFinished:(ASIHTTPRequest*)request {
+- (void) followersFinished:(NSDictionary *)result {
     NSLog(@"Followers Finished...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Users"];
@@ -639,8 +521,6 @@
     
     NSMenuItem *followersItem = [tmp itemWithTitle:@"Followers"];
     NSMenu *menu = [followersItem submenu];
-
-    NSDictionary* result = [[request responseString] objectFromJSONString];
     
     // always delete...
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
@@ -662,7 +542,7 @@
     }  
 }
 
-- (void) followingsFinished:(ASIHTTPRequest *)request {
+- (void) followingsFinished:(NSDictionary *)result {
     NSLog(@"Following Finished...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Users"];
@@ -670,9 +550,7 @@
     
     NSMenuItem *followingsItem = [tmp itemWithTitle:@"Following"];
     NSMenu *menu = [followingsItem submenu];
-    
-    NSDictionary* result = [[request responseString] objectFromJSONString];
-    
+        
     // always delete...
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
@@ -694,14 +572,12 @@
     }
 }
 
-- (void) watchedReposFinished:(ASIHTTPRequest *)request {
-    NSLog(@"Watched repos Finished...");
+- (void) watchedReposFinished:(NSDictionary *)result {
+    NSLog(@"Watched repos update...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Watching"];
     NSMenu *menu = [menuItem submenu];
-    
-    NSDictionary* result = [[request responseString] objectFromJSONString];
-    
+        
     // always delete...
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
@@ -755,8 +631,6 @@
 
 - (IBAction) gistPressed:(id) sender {
     id selectedItem = [sender representedObject];
-    // get the URL from the NSArray
-    NSLog(@"Pressed!");
     NSString *url = [selectedItem valueForKey:@"html_url"];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
 }

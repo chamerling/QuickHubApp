@@ -12,13 +12,14 @@
 #import "Reachability.h"
 
 #import "Preferences.h"
-#import "GitHubController.h"
+#import "GithubOAuthClient.h"
+#import "MenuController.h"
 
 @class Reachability;
 @interface AppController : NSObject {
     
-    Preferences *preferences;
-    GitHubController *githubController;
+    GithubOAuthClient *githubController;
+    IBOutlet MenuController *menuController;
     
     // update timers
     NSTimer* gistTimer;

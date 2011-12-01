@@ -51,4 +51,14 @@
 - (void) resetCache:(id) sender;
 - (void) cleanMenus:(id) sender;
 
+#pragma mark - updates
+- (void) issuesFinished:(NSDictionary *)request;
+- (void) gistFinished:(NSDictionary *)request;
+- (void) organizationsFinished:(NSDictionary *)request;
+- (void) reposFinished:(NSDictionary *)request;
+- (void) followersFinished:(NSDictionary *)request;
+- (void) followingsFinished:(NSDictionary *)request;
+- (void) watchedReposFinished:(NSDictionary *)request;
+- (void) pullsFinished:(NSDictionary *)dictionary;
+
 @end

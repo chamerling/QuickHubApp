@@ -33,7 +33,7 @@
 @synthesize window;
 @synthesize growlManager;
 @synthesize appController;
-@synthesize ghController;
+@synthesize ghClient;
 @synthesize menuController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -45,17 +45,18 @@
     [statusItem setImage:statusImage];
     [statusItem setHighlightMode:YES];
     
-    // TODO : register a listener to change status image on some failures, notifications, ...
+    // register handler for protocol
+    [self registerURLHandler:nil];
     
     Reachability *internetDonnection = [Reachability reachabilityForInternetConnection];
     if ([internetDonnection currentReachabilityStatus] == NotReachable) {
         NSLog(@"Startup : Internet is not reachable");
     } else {
         preferences = [Preferences sharedInstance];
-        if ([[preferences login]length] == 0 || ![ghController checkCredentials:nil]) {
+        if ([[preferences oauthToken]length] == 0 || ![ghClient checkCredentials:nil]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];        
         } else {
-            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub as '%@'...", [preferences login]] userInfo:nil];   
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub..."] userInfo:nil];   
             
             // TODO : To it in background thread...
             
@@ -63,6 +64,56 @@
         }
     }
 }
+
+#pragma mark - Custom URL handling
+- (void)registerURLHandler:(id) sender
+{
+    NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
+    OSStatus httpResult = LSSetDefaultHandlerForURLScheme((CFStringRef)@"quickhubapp", (CFStringRef)bundleID);
+    NSLog(@"Result : %@", httpResult);
+	[[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(getUrl:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+}
+
+- (void)getUrl:(NSAppleEventDescriptor *)event
+{
+	NSString *url = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+	// Now you can parse the URL and perform whatever action is needed
+    NSLog(@"Got an URL %@", url);
+    NSURL *callbackURL = [NSURL URLWithString:url];
+    
+    // for now we do not support N operations, so 'oauth' is the only one. Will need to add more...
+    NSString *query = [callbackURL query];    
+    NSLog(@"query %@", query);
+    
+    if ([[[Preferences sharedInstance] oauthToken]length] > 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Already Authorized..."] userInfo:nil];
+        return;
+    }
+    
+    NSArray *components = [query componentsSeparatedByString:@"&"];
+    NSString *oauth = nil;
+    for (NSString *component in components) {
+        if ([component hasPrefix:@"access_token="]) {
+            oauth = [component substringFromIndex:[@"access_token=" length]];
+        }
+    }
+    NSLog(@"Save oauth '%@' !", oauth);
+    [[Preferences sharedInstance]storeToken:oauth];
+    // save the user, can be used in some payloads...
+    NSDictionary *user = [ghClient loadUser:nil];
+    [[Preferences sharedInstance]storeLogin:[user valueForKey:@"login"] withPassword:@""];
+    
+    // TODO : Must reinitialize all and start polling stuff with the new OAuth token
+    [appController stopAll:nil];
+    [menuController cleanMenus:nil];
+    [menuController resetCache:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub..."] userInfo:nil];   
+
+    [appController loadAll:nil];
+}
+
+#pragma mark - Xcode generated stuff
 
 /**
     Returns the directory the application uses to store the Core Data store file. This code uses a directory named "QuickHubApp" in the user's Library directory.
@@ -255,21 +306,20 @@
     if (_preferencesWindowController == nil)
     {
         AccountPreferencesViewController *accountViewController = [[AccountPreferencesViewController alloc] init];
-        [accountViewController setAppController:appController];
-        [accountViewController setGhController:ghController];
-        [accountViewController setMenuController:menuController];
-        
+    
         // TODO
         // NSViewController *localViewController = [[LocalPreferencesViewController alloc] init];
         AboutPreferencesViewController *aboutViewController = [[AboutPreferencesViewController alloc] init];
         
-        //UserPreferences *userPreferences = [[UserPreferences alloc] init];
+        UserPreferences *userPreferences = [[UserPreferences alloc] init];
+        [userPreferences setAppController:appController];
+        [userPreferences setMenuController:menuController];
         
-        NSArray *controllers = [[NSArray alloc] initWithObjects:/*userPreferences,*/ accountViewController, /*localViewController,*/ aboutViewController, nil];
+        NSArray *controllers = [[NSArray alloc] initWithObjects:accountViewController, userPreferences, /*localViewController,*/ aboutViewController, nil];
         
         [accountViewController release];
         [aboutViewController release];
-        //[userPreferences release];
+        [userPreferences release];
         //[localViewController release];
         
         NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");
@@ -277,6 +327,8 @@
         
         [_preferencesWindowController selectControllerAtIndex:0];
         [controllers release];
+    } else {
+        [_preferencesWindowController selectControllerAtIndex:0];        
     }
     return _preferencesWindowController;
 }
@@ -303,7 +355,7 @@
 - (IBAction)createGist:(id)sender {
     NSLog(@"Create a gist!");
     GistCreateWindowController *gistCreator = [[GistCreateWindowController alloc] initWithWindowNibName:@"GistCreateWindow"];
-    [gistCreator setGhController:ghController];
+    [gistCreator setGhClient:ghClient];
     [NSApp activateIgnoringOtherApps: YES];
 	[[gistCreator window] makeKeyWindow];
     [gistCreator showWindow:self];
@@ -312,7 +364,7 @@
 - (IBAction)createRepository:(id)sender {
     NSLog(@"Create a repository!");
     RepoCreateWindowController *creator = [[RepoCreateWindowController alloc] initWithWindowNibName:@"RepoCreateWindow"];
-    [creator setGhController:ghController];
+    [creator setGhClient:ghClient];
     [NSApp activateIgnoringOtherApps: YES];
 	[[creator window] makeKeyWindow];
     [creator showWindow:self];

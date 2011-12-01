@@ -19,6 +19,7 @@
 - (void) updateRemaining:(ASIHTTPRequest*) request;
 @end
 
+
 @implementation GitHubController
 
 - (id)init

@@ -3,17 +3,15 @@
 //  QuickHub
 //
 //  Created by Christophe Hamerling on 31/10/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Copyright 2011 christophehamerling.com. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
-#import "GitHubController.h"
+#import "GithubOAuthClient.h"
 
 @interface GistCreateWindowController : NSWindowController {
-    // injected
-    GitHubController *ghController;
+    GithubOAuthClient *ghClient;
     
-    // local
     IBOutlet NSTextField *descriptionField;
     IBOutlet NSTextField *fileNameField;
     IBOutlet NSTextView *contentTextView;
@@ -22,7 +20,7 @@
     IBOutlet NSButtonCell *copyURLToPasteBoard;
 }
 
-@property (assign) GitHubController *ghController;
+@property (assign) GithubOAuthClient *ghClient;
 
 #pragma mark - actions
 - (IBAction)createGist:(id)sender;

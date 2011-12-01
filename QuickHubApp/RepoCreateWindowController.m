@@ -10,7 +10,7 @@
 
 @implementation RepoCreateWindowController
 
-@synthesize ghController;
+@synthesize ghClient;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -49,7 +49,7 @@
         [progress setHidden:FALSE];
         [progress startAnimation:nil];
         
-        NSString *repoAPIURL = [ghController createRepository:name description:description homepage:url wiki:wiki issues:issues downloads:downloads isPrivate:isPrivate];
+        NSString *repoAPIURL = [ghClient createRepository:name description:description homepage:url wiki:wiki issues:issues downloads:downloads isPrivate:isPrivate];
         
         NSLog(@"Repo created and URL is %@", repoAPIURL);
         

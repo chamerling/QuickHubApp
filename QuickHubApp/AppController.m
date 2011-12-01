@@ -20,7 +20,7 @@
     self = [super init];
     if (self) {
         // Initialization code here.
-        githubController = [[GitHubController alloc]init];
+        githubController = [[GithubOAuthClient alloc]init];
         
         //reachability
         // check for internet connection
@@ -65,8 +65,12 @@
 
 - (void) loadAll:(id)sender {
     if (!githubPolling) {
+        Preferences *preferences = [Preferences sharedInstance];
+        if ([[preferences oauthToken]length] == 0 || ![githubController checkCredentials:nil]) {
+            return;
+        }
+
         NSLog(@"Load all and start polling things");
-        
         // data is no more loaded on first call, the timers are initialized with a fire date which is close to the creation.
         //[githubController loadGHData:nil];
 
@@ -132,44 +136,79 @@
 
 - (void)pollGists:(id) sender {
     if (githubPolling) {
-        [githubController loadGists:nil];
+        NSDictionary *dictionary = [githubController loadGists:nil];
+        if (dictionary) {
+            [menuController gistFinished:dictionary];  
+        }
     }
 }
 
 - (void)pollRepos:(id) sender {
     if (githubPolling) {
-        [githubController loadRepos:nil];
+        NSDictionary *dictionary = [githubController loadRepos:nil];
+        if (dictionary) {
+            [menuController reposFinished:dictionary];  
+        }
     }
 }
 
 - (void)pollOrgs:(id) sender {
     if (githubPolling) {
-        [githubController loadOrganizations:nil];
+        NSDictionary *dictionary = [githubController loadOrganizations:nil];
+        // get all repository for each organization
+        if (dictionary) {
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+
+            for (NSArray *org in dictionary) {
+                NSMutableDictionary *orgDictionary = [[NSMutableDictionary alloc]init];
+                NSDictionary *repoDictionary = [githubController getReposForOrganization:[org valueForKey:@"login"]];
+                [orgDictionary setValue:repoDictionary forKey:@"repos"];
+                [orgDictionary setValue:org forKey:@"org"];
+                [dict setValue:orgDictionary forKey:[org valueForKey:@"login"]];
+            }
+            //dict = [orgname -> [repos->[dict], [org->[dict]]]]
+            [menuController organizationsFinished:dict];  
+        }
     }
 }
 
 - (void)pollIssues:(id) sender {
     if (githubPolling) {
-        [githubController loadIssues:nil];
+        NSDictionary *dictionary = [githubController loadIssues:nil];
+        if (dictionary) {
+            [menuController issuesFinished:dictionary];  
+        }
     }
 }
 
 - (void) pollFollow:(id) sender {
     if (githubPolling) {
-        [githubController loadFollowers:nil];
-        [githubController loadFollowings:nil];
+        NSDictionary *dictionary = [githubController loadFollowers:nil];
+        if (dictionary) {
+            [menuController followersFinished:dictionary];  
+        }
+        NSDictionary *dictionary2 = [githubController loadFollowings:nil];
+        if (dictionary2) {
+            [menuController followingsFinished:dictionary2];  
+        }
     }
 }
 
 - (void) pollWatching:(id) sender {
     if (githubPolling) {
-        [githubController loadWatchedRepos:nil];
+        NSDictionary *dictionary = [githubController loadWatchedRepos:nil];
+        if (dictionary) {
+            [menuController watchedReposFinished:dictionary];  
+        }
     }  
 }
 
 - (void) pollPulls:(id) sender {
     if (githubPolling) {
-        [githubController loadPulls:nil];
+        NSDictionary *dictionary = [githubController loadPulls:nil];
+        if (dictionary) {
+            [menuController pullsFinished:dictionary];  
+        }
     }  
 }
 

@@ -15,7 +15,8 @@
 @end
 
 @implementation GistCreateWindowController
-@synthesize ghController;
+
+@synthesize ghClient;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -76,8 +77,8 @@
     [progressIndicator setHidden:NO];
     [progressIndicator startAnimation:nil];
     NSString *gistURL = nil;
-    if (ghController) {
-        gistURL = [ghController createGist:content withDescription:description andFileName:fileName isPublic:pub];
+    if (ghClient) {
+        gistURL = [ghClient createGist:content withDescription:description andFileName:fileName isPublic:pub];
     }
     [progressIndicator stopAnimation:nil];
     [progressIndicator setHidden:YES];

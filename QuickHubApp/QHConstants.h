@@ -14,8 +14,8 @@
 #define QH_Constants_h
 
 #define appsite     @"http://quickhubapp.com"
-#define oauthsite   @"http://quickhubapp.heroku.com"
-#define revokeurl   @"https://github.com/account/applications/"
+#define oauthsite   @"http://quickhubapp.herokuapp.com"
+#define revokeurl   @"https://github.com/account/connections/"
 
 #define urlscheme   @"quickhub"
 

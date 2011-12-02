@@ -83,11 +83,14 @@
     [progressIndicator stopAnimation:nil];
     [progressIndicator setHidden:YES];
     [createButton setEnabled:YES];
+    NSString *finalURL = [NSString stringWithFormat:@"https://gist.github.com/%@", gistURL];
     if ([copyURLToPasteBoard state] == 1) {
-        NSString *finalURL = [NSString stringWithFormat:@"https://gist.github.com/%@", gistURL];
         NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
         [pasteboard clearContents];
         [pasteboard writeObjects:[NSArray arrayWithObject:finalURL]];
+    }
+    if ([openWebPage state] == 1) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:finalURL]];
     }
 }
 

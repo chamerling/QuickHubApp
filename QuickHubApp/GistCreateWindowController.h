@@ -12,6 +12,7 @@
 @interface GistCreateWindowController : NSWindowController {
     GithubOAuthClient *ghClient;
     
+    IBOutlet NSButton *openWebPage;
     IBOutlet NSTextField *descriptionField;
     IBOutlet NSTextField *fileNameField;
     IBOutlet NSTextView *contentTextView;

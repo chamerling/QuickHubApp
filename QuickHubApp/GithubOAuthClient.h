@@ -28,6 +28,7 @@
 - (NSDictionary*) loadFollowers:(id) sender;
 - (NSDictionary*) loadFollowings:(id) sender;
 - (NSDictionary*) loadWatchedRepos:(id) sender;
+- (NSDictionary *) getAuthorizations:(id) sender;
 
 # pragma mark - Write API
 - (NSString*) createGist:(NSString*) content withDescription:(NSString*) title andFileName:(NSString *) fileName isPublic:(BOOL) pub;
@@ -40,6 +41,11 @@
 
 - (NSDictionary *)getReposForOrganization:(NSString *)name;
 
+- (NSDictionary *)getReposForOrganization:(NSString *)name;
+
 - (NSMutableSet *)getRepositories:(id)sender;
+
+# pragma mark - delete API
+- (BOOL) deleteAuth:(NSString *) authId;
 
 @end

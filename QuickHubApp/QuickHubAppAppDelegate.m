@@ -57,7 +57,6 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];        
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub..."] userInfo:nil];   
-            
             // TODO : To it in background thread...
             
             [appController loadAll:nil];    

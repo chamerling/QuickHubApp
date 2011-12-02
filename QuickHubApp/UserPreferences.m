@@ -82,8 +82,10 @@
     if (![pref oauthToken] || [[pref oauthToken]length] == 0) {
         [accessButton setTitle:@"Revoke Access"];
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:oauthsite]];
-        // close the current window...
     } else {
+        
+        // not available for now
+        //NSDictionary* auths = [client getAuthorizations:nil];
         [pref storeToken:@""];
         [pref storeLogin:@"" withPassword:@""];
         [appController stopAll:nil];

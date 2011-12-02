@@ -203,8 +203,18 @@
     return result;
 }
 
+// Note : this is not available with oauth!
+- (NSDictionary *) getAuthorizations:(id) sender {
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"authorizations"]]];
+    [request setDelegate:self];
+    [request startSynchronous];   
+    NSDictionary *result = [[request responseString] objectFromJSONString];
+    // DO not release the request, it cause failures on the threads...
+    //[request release];
+    return result;
+}
+
 #pragma mark - WRITE API Impl
-# pragma mark - Write
 - (NSString*) createGist:(NSString*) content withDescription:(NSString*) description andFileName:(NSString *) fileName isPublic:(BOOL) pub {
     NSString *gistId = nil;
     
@@ -221,7 +231,6 @@
     NSError *error = [request error];
     if (!error) {
         NSString *response = [request responseString];
-        NSLog(@"Gist creation result %@", response);
         
         NSDictionary* result = [response objectFromJSONString];
         gistId = [result objectForKey:@"id"];
@@ -264,6 +273,17 @@
         NSLog(@"Repo creation error %@", error);
     }
     return location;
+}
+
+#pragma mark - delete
+// Note : this is not available with oauth!
+- (BOOL)deleteAuth:(NSString *)authId {
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:[NSString stringWithFormat:@"authorizations/%@", authId]]]];
+    [request setRequestMethod:@"DELETE"];
+    [request startSynchronous];
+    
+    return ([request responseStatusCode] == 204);
+
 }
 
 - (NSDictionary *) getGist:(NSString*)gistId {

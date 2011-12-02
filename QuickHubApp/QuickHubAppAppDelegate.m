@@ -27,6 +27,7 @@
 #import "JSONKit.h"
 #import "NSData+Base64.h"
 #import "Reachability.h"
+#import "NSString+JavaAPI.h"
 
 @implementation QuickHubAppAppDelegate
 
@@ -78,38 +79,53 @@
 	NSString *url = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
 	// Now you can parse the URL and perform whatever action is needed
     NSLog(@"Got an URL %@", url);
-    NSURL *callbackURL = [NSURL URLWithString:url];
     
-    // for now we do not support N operations, so 'oauth' is the only one. Will need to add more...
-    NSString *query = [callbackURL query];    
-    NSLog(@"query %@", query);
+    if (url) {
+        NSURL *callbackURL = [NSURL URLWithString:url];
     
-    if ([[[Preferences sharedInstance] oauthToken]length] > 0) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Already Authorized..."] userInfo:nil];
-        return;
-    }
-    
-    NSArray *components = [query componentsSeparatedByString:@"&"];
-    NSString *oauth = nil;
-    for (NSString *component in components) {
-        if ([component hasPrefix:@"access_token="]) {
-            oauth = [component substringFromIndex:[@"access_token=" length]];
+        if ([url startsWith:@"quickhubapp://oauth"]) {
+            // for now we do not support N operations, so 'oauth' is the only one. Will need to add more...
+            NSString *query = [callbackURL query];    
+            NSLog(@"query %@", query);
+            
+            if ([[[Preferences sharedInstance] oauthToken]length] > 0) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Already Authorized..."] userInfo:nil];
+                return;
+            }
+            
+            NSArray *components = [query componentsSeparatedByString:@"&"];
+            NSString *oauth = nil;
+            for (NSString *component in components) {
+                if ([component hasPrefix:@"access_token="]) {
+                    oauth = [component substringFromIndex:[@"access_token=" length]];
+                }
+            }
+            NSLog(@"Save oauth '%@' !", oauth);
+            [[Preferences sharedInstance]storeToken:oauth];
+            // save the user, can be used in some payloads...
+            NSDictionary *user = [ghClient loadUser:nil];
+            if (!user) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"User not found!"] userInfo:nil];   
+                [[Preferences sharedInstance]storeToken:@""];
+                return;
+            }
+            
+            [[Preferences sharedInstance]storeLogin:[user valueForKey:@"login"] withPassword:@""];
+            
+            // TODO : Must reinitialize all and start polling stuff with the new OAuth token
+            [appController stopAll:nil];
+            [menuController cleanMenus:nil];
+            [menuController resetCache:nil];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connected to GitHub!"] userInfo:nil];   
+
+            [appController loadAll:nil];
+        } else if ([url startsWith:@"quickhubapp://gist"]) {
+            NSLog(@"Create Gist action...");
+        } else {
+            // ?
         }
     }
-    NSLog(@"Save oauth '%@' !", oauth);
-    [[Preferences sharedInstance]storeToken:oauth];
-    // save the user, can be used in some payloads...
-    NSDictionary *user = [ghClient loadUser:nil];
-    [[Preferences sharedInstance]storeLogin:[user valueForKey:@"login"] withPassword:@""];
-    
-    // TODO : Must reinitialize all and start polling stuff with the new OAuth token
-    [appController stopAll:nil];
-    [menuController cleanMenus:nil];
-    [menuController resetCache:nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub..."] userInfo:nil];   
-
-    [appController loadAll:nil];
 }
 
 #pragma mark - Xcode generated stuff

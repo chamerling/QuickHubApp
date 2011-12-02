@@ -17,7 +17,10 @@
 #define oauthsite   @"http://quickhubapp.com/oauth.html"
 #define revokeurl   @"https://github.com/account/connections/"
 
-#define urlscheme   @"quickhub"
+#define urlscheme   @"quickhubapp"
+
+#define oauthservice @"oauth"
+#define gistservice @"gist"
 
 #define growllogo   @"growl.png"
 #define notificatioName @"QuickHub";

@@ -17,6 +17,9 @@
 @implementation GistCreateWindowController
 
 @synthesize ghClient;
+@synthesize gistContent;
+@synthesize gistFileName;
+@synthesize gistDescription;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -27,9 +30,7 @@
                                                  selector:@selector(fileHasBeenDnD:)
                                                      name:GIST_DND
                                                    object:nil];
-
     }
-    
     return self;
 }
 
@@ -38,6 +39,16 @@
     [super windowDidLoad];
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+    
+    if (gistContent) {
+        [contentTextView setString:gistContent];
+    }
+    if (gistDescription) {
+        [descriptionField setStringValue:gistDescription];
+    }
+    if (gistFileName) {
+        [fileNameField setStringValue:gistFileName];
+    }
 }
 
 - (IBAction)createGist:(id)sender {

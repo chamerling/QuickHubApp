@@ -11,6 +11,9 @@
 
 @interface GistCreateWindowController : NSWindowController {
     GithubOAuthClient *ghClient;
+    NSString *gistContent;
+    NSString *gistDescription;
+    NSString *gistFileName;
     
     IBOutlet NSButton *openWebPage;
     IBOutlet NSTextField *descriptionField;
@@ -22,6 +25,9 @@
 }
 
 @property (assign) GithubOAuthClient *ghClient;
+@property (assign) NSString *gistContent;
+@property (assign) NSString *gistDescription;
+@property (assign) NSString *gistFileName;
 
 #pragma mark - actions
 - (IBAction)createGist:(id)sender;

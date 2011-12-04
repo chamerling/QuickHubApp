@@ -55,7 +55,7 @@
                 </dict>
 			<key>NSSendTypes</key>
 			<array>
-				<string>NSFilenamesPboardType</string>
+				<string>public.plain-text</string>
 			</array>
 		</dict>
         <dict>
@@ -73,7 +73,7 @@
             </dict>
 			<key>NSSendTypes</key>
 			<array>
-				<string>NSStringPboardType</string>
+				<string>public.plain-text</string>
 			</array>
 		</dict>
 	</array>

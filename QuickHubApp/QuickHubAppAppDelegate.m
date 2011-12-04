@@ -490,6 +490,7 @@
     
     //                 <string>NSFilenamesPboardType</string>
 
+    // just get file here!
     if (![[pboard types] containsObject:NSFilenamesPboardType]) {
 		NSBeep();
         NSLog(@"No good PB!");

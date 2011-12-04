@@ -39,7 +39,44 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSServices</key>
-	<array/>
+	<array>
+		<dict>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>Gist this file</string>
+			</dict>
+			<key>NSMessage</key>
+			<string>gistFileContentService</string>
+			<key>NSPortName</key>
+			<string>${PRODUCT_NAME}</string>
+            <key>NSRequiredContext</key>
+                <dict>
+                </dict>
+			<key>NSSendTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+		</dict>
+        <dict>
+			<key>NSMenuItem</key>
+			<dict>
+				<key>default</key>
+				<string>Create a Gist</string>
+			</dict>
+			<key>NSMessage</key>
+			<string>gistTextSelectionService</string>
+			<key>NSPortName</key>
+			<string>${PRODUCT_NAME}</string>
+            <key>NSRequiredContext</key>
+            <dict>
+            </dict>
+			<key>NSSendTypes</key>
+			<array>
+				<string>NSStringPboardType</string>
+			</array>
+		</dict>
+	</array>
 	<key>UTExportedTypeDeclarations</key>
 	<array/>
 	<key>UTImportedTypeDeclarations</key>

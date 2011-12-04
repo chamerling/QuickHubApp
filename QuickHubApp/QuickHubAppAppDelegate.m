@@ -39,6 +39,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    
+    [NSApp setServicesProvider:self];
+    NSLog(@"Finished registering as service");
+    
     statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
     [statusItem setMenu:statusMenu];
     NSImage *statusImage = [NSImage imageNamed:@"QuickHubAppToolbar.png"];
@@ -452,6 +456,60 @@
 - (void) followingPressed:(id) sender {
     id selectedItem = [sender representedObject];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];        
+}
+
+// Gist a text selection
+- (void)gistTextSelectionService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
+    NSLog(@"Service Gist Text called!");
+
+    NSString *pboardString = [pboard stringForType:NSPasteboardTypeString];
+
+    GistCreateWindowController *gistCreator = [[GistCreateWindowController alloc] initWithWindowNibName:@"GistCreateWindow"];
+    [gistCreator setGhClient:ghClient];
+    [gistCreator setGistContent:pboardString];
+    
+    [NSApp activateIgnoringOtherApps: YES];
+	[[gistCreator window] makeKeyWindow];
+    [gistCreator showWindow:self];
+
+}
+
+// gist a file content
+- (void)gistFileContentService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
+    NSLog(@"Service gistFileContentService called!");
+    [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Service gistFileContentService called!!!!!"] userInfo:nil];   
+    
+    // https://github.com/pieter/gitx/blob/4b11589c78f6ae78d601e5790d98b26d14797e8a/PBServicesController.m
+    // https://bitbucket.org/emonk/googletranslate/src/60ebedd0cf20/Translator.m
+    // https://github.com/nickzman/symboliclinker/blob/master/SymbolicLinkerService-Info.plist
+    // http://www.assembla.com/code/fraise/git/nodes/Info.plist
+    NSString *pboardString = [pboard stringForType:NSPasteboardTypeString];//NSFilenamesPboardType
+    NSLog(@"%@", pboardString);
+    NSLog(@"PB %@", pboard);
+    NSLog(@"UD %@", userData);
+    
+    //                 <string>NSFilenamesPboardType</string>
+
+    if (![[pboard types] containsObject:NSFilenamesPboardType]) {
+		NSBeep();
+        NSLog(@"No good PB!");
+		return;
+	}
+	
+	NSString *path = [[pboard propertyListForType:NSFilenamesPboardType] objectAtIndex:0];
+    NSLog(@"PATH : %@", path);
+    
+    //TODO : get the file content and the file name to set them in the window
+    
+    GistCreateWindowController *gistCreator = [[GistCreateWindowController alloc] initWithWindowNibName:@"GistCreateWindow"];
+    [gistCreator setGhClient:ghClient];
+    [gistCreator setGistContent:pboardString];
+    [gistCreator setGistFileName:@"FileName"];
+    
+    [NSApp activateIgnoringOtherApps: YES];
+	[[gistCreator window] makeKeyWindow];
+    [gistCreator showWindow:self];
+
 }
 
 @end

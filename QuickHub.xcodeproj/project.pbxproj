@@ -32,6 +32,7 @@
 		C98FB8A514878FFD00B7D92A /* GithubOAuthClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C98FB8A414878FFC00B7D92A /* GithubOAuthClient.m */; };
 		C98FB8AA148790EA00B7D92A /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = C98FB8A8148790EA00B7D92A /* UserPreferences.m */; };
 		C98FB8AB148790EA00B7D92A /* UserPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = C98FB8A9148790EA00B7D92A /* UserPreferences.xib */; };
+		C98FB8BF1489244500B7D92A /* NSString+JavaAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C98FB8BE1489244500B7D92A /* NSString+JavaAPI.m */; };
 		C996375A1448487900F6DB43 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637591448487900F6DB43 /* Cocoa.framework */; };
 		C99637641448487900F6DB43 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C99637621448487900F6DB43 /* InfoPlist.strings */; };
 		C99637661448487900F6DB43 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C99637651448487900F6DB43 /* main.m */; };
@@ -124,6 +125,8 @@
 		C98FB8A7148790EA00B7D92A /* UserPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPreferences.h; sourceTree = "<group>"; };
 		C98FB8A8148790EA00B7D92A /* UserPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPreferences.m; sourceTree = "<group>"; };
 		C98FB8A9148790EA00B7D92A /* UserPreferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPreferences.xib; sourceTree = "<group>"; };
+		C98FB8BD1489244500B7D92A /* NSString+JavaAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JavaAPI.h"; sourceTree = "<group>"; };
+		C98FB8BE1489244500B7D92A /* NSString+JavaAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JavaAPI.m"; sourceTree = "<group>"; };
 		C99637551448487900F6DB43 /* QuickHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C99637591448487900F6DB43 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C996375C1448487900F6DB43 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -224,6 +227,8 @@
 				C996378E144848BD00F6DB43 /* NSData+Base64.m */,
 				C9642D081456EF090013F78E /* NSWorkspaceHelper.h */,
 				C9642D091456EF090013F78E /* NSWorkspaceHelper.m */,
+				C98FB8BD1489244500B7D92A /* NSString+JavaAPI.h */,
+				C98FB8BE1489244500B7D92A /* NSString+JavaAPI.m */,
 			);
 			name = Others;
 			sourceTree = "<group>";
@@ -521,6 +526,7 @@
 				C98FB8991486CBF000B7D92A /* AboutPreferencesViewController.m in Sources */,
 				C98FB8A514878FFD00B7D92A /* GithubOAuthClient.m in Sources */,
 				C98FB8AA148790EA00B7D92A /* UserPreferences.m in Sources */,
+				C98FB8BF1489244500B7D92A /* NSString+JavaAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

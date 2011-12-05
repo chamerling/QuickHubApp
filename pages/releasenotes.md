@@ -15,9 +15,11 @@ Unplanned features and ideas, sort of wish list...
 
 # v1.3 - 2011/12/??
 
+- [NEW] OAuth support. No more Basic Auth: QuickHub does not need to know your GitHub password!
+- [NEW] OS X Service added to create Gists from Services menus (on application and on Finder)
 - [NEW] User can now create repositories from the repositories menu
 - [NEW] When Internet is down, change the 'Open GitHub...' menu to 'No Internet connection'
-- [NEW] OAuth support. No more Basic Auth: QuickHub does not need to know your GitHub password!
+- [NEW] Add option to open Gist when created
 - [IMPROVEMENT] Better preferences and main menu cleaned from 'QuickHub Help' 
 - [IMPROVEMENT] Better data loading in the background to avoid freezes
 

@@ -59,7 +59,10 @@
     } else {
         preferences = [Preferences sharedInstance];
         if ([[preferences oauthToken]length] == 0 || ![ghClient checkCredentials:nil]) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];        
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];
+            
+            [self openPreferences:nil];
+          
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub..."] userInfo:nil];   
             // TODO : To it in background thread...

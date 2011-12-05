@@ -462,6 +462,13 @@
 - (void)gistTextSelectionService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
     NSLog(@"Service Gist Text called!");
 
+    if (![[pboard types] containsObject:NSPasteboardTypeString]) {
+		NSBeep();
+        NSLog(@"No good PB, can not create a gist from that...");
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Invalid selection, can not gist it!"] userInfo:nil];
+		return;
+	}
+    
     NSString *pboardString = [pboard stringForType:NSPasteboardTypeString];
 
     GistCreateWindowController *gistCreator = [[GistCreateWindowController alloc] initWithWindowNibName:@"GistCreateWindow"];
@@ -471,46 +478,78 @@
     [NSApp activateIgnoringOtherApps: YES];
 	[[gistCreator window] makeKeyWindow];
     [gistCreator showWindow:self];
-
 }
 
 // gist a file content
-- (void)gistFileContentService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
-    NSLog(@"Service gistFileContentService called!");
-    [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Service gistFileContentService called!!!!!"] userInfo:nil];   
-    
-    // https://github.com/pieter/gitx/blob/4b11589c78f6ae78d601e5790d98b26d14797e8a/PBServicesController.m
-    // https://bitbucket.org/emonk/googletranslate/src/60ebedd0cf20/Translator.m
-    // https://github.com/nickzman/symboliclinker/blob/master/SymbolicLinkerService-Info.plist
-    // http://www.assembla.com/code/fraise/git/nodes/Info.plist
-    NSString *pboardString = [pboard stringForType:NSPasteboardTypeString];//NSFilenamesPboardType
-    NSLog(@"%@", pboardString);
-    NSLog(@"PB %@", pboard);
-    NSLog(@"UD %@", userData);
-    
-    //                 <string>NSFilenamesPboardType</string>
-
+- (void)gistFileContentService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {    
     // just get file here!
     if (![[pboard types] containsObject:NSFilenamesPboardType]) {
 		NSBeep();
-        NSLog(@"No good PB!");
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Selection is not a file, can not gist it!"] userInfo:nil];
 		return;
 	}
 	
 	NSString *path = [[pboard propertyListForType:NSFilenamesPboardType] objectAtIndex:0];
     NSLog(@"PATH : %@", path);
+    NSURL *url = [NSURL URLWithString:path];
+    CFStringRef folder = (CFStringRef) [url path];
     
-    //TODO : get the file content and the file name to set them in the window
-    
-    GistCreateWindowController *gistCreator = [[GistCreateWindowController alloc] initWithWindowNibName:@"GistCreateWindow"];
-    [gistCreator setGhClient:ghClient];
-    [gistCreator setGistContent:pboardString];
-    [gistCreator setGistFileName:@"FileName"];
-    
-    [NSApp activateIgnoringOtherApps: YES];
-	[[gistCreator window] makeKeyWindow];
-    [gistCreator showWindow:self];
+    CFStringRef folderUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, folder, NULL);
 
+    // FIXME : folder is not recognized here...
+    if (UTTypeConformsTo(folderUTI, kUTTypeFolder)) {
+        NSLog(@"It's a folder!");
+        NSBeep();
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                            object:@"Can not create a Gist from a folder!" 
+                                                          userInfo:nil];
+        return;
+    }
+    CFRelease(folderUTI);
+    
+    CFStringRef fileExtension = (CFStringRef) [path pathExtension];
+    CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, NULL);
+    
+    BOOL validFormat = NO;
+    // check UTI
+    // http://developer.apple.com/library/mac/#documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html
+    if (UTTypeConformsTo(fileUTI, kUTTypeImage)) NSLog(@"It's an image!");
+    else if (UTTypeConformsTo(fileUTI, kUTTypeMovie)) NSLog(@"It's a movie!");
+    else {
+        // other types should work...
+        validFormat = YES;
+    }
+    CFRelease(fileUTI);
+    
+    if (validFormat) {
+        NSError *error;
+        NSString *content = [[NSString alloc]
+                             initWithContentsOfFile:path
+                             encoding:NSUTF8StringEncoding
+                             error:&error];
+        
+        if (content) {
+            GistCreateWindowController *gistCreator = [[GistCreateWindowController alloc] initWithWindowNibName:@"GistCreateWindow"];
+            [gistCreator setGhClient:ghClient];
+            [gistCreator setGistContent:content];
+            [gistCreator setGistFileName:[path lastPathComponent]];
+            
+            [NSApp activateIgnoringOtherApps: YES];
+            [[gistCreator window] makeKeyWindow];
+            [gistCreator showWindow:self];
+        } else {
+            // FIXME : This is because it is probably a folder...
+            NSBeep();
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                                object:@"Can not create a Gist from this file!" 
+                                                              userInfo:nil];   
+        }
+    } else {
+        NSBeep();
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                                                            object:@"Can not create a Gist from this file!" 
+                                                          userInfo:nil];
+    }
 }
 
 @end

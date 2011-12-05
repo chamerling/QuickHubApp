@@ -375,6 +375,7 @@
     NSLog(@"Create a gist!");
     GistCreateWindowController *gistCreator = [[GistCreateWindowController alloc] initWithWindowNibName:@"GistCreateWindow"];
     [gistCreator setGhClient:ghClient];
+    [gistCreator setMenuController:menuController];
     [NSApp activateIgnoringOtherApps: YES];
 	[[gistCreator window] makeKeyWindow];
     [gistCreator showWindow:self];
@@ -384,6 +385,7 @@
     NSLog(@"Create a repository!");
     RepoCreateWindowController *creator = [[RepoCreateWindowController alloc] initWithWindowNibName:@"RepoCreateWindow"];
     [creator setGhClient:ghClient];
+    [creator setMenuController:menuController];
     [NSApp activateIgnoringOtherApps: YES];
 	[[creator window] makeKeyWindow];
     [creator showWindow:self];
@@ -473,6 +475,7 @@
 
     GistCreateWindowController *gistCreator = [[GistCreateWindowController alloc] initWithWindowNibName:@"GistCreateWindow"];
     [gistCreator setGhClient:ghClient];
+    [gistCreator setMenuController:menuController];
     [gistCreator setGistContent:pboardString];
     
     [NSApp activateIgnoringOtherApps: YES];
@@ -531,6 +534,7 @@
         if (content) {
             GistCreateWindowController *gistCreator = [[GistCreateWindowController alloc] initWithWindowNibName:@"GistCreateWindow"];
             [gistCreator setGhClient:ghClient];
+            [gistCreator setMenuController:menuController];
             [gistCreator setGistContent:content];
             [gistCreator setGistFileName:[path lastPathComponent]];
             

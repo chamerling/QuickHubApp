@@ -42,7 +42,7 @@
     if (path) {
         result = [NSString stringWithFormat:@"https://api.github.com/%@?access_token=%@", path, [[Preferences sharedInstance] oauthToken]];
     }
-    NSLog(@"URL to call = '%@'", result);
+    //NSLog(@"URL to call = '%@'", result);
     return result;
 }
 
@@ -215,8 +215,7 @@
 }
 
 #pragma mark - WRITE API Impl
-- (NSString*) createGist:(NSString*) content withDescription:(NSString*) description andFileName:(NSString *) fileName isPublic:(BOOL) pub {
-    NSString *gistId = nil;
+- (NSDictionary*) createGist:(NSString*) content withDescription:(NSString*) description andFileName:(NSString *) fileName isPublic:(BOOL) pub {
     
     NSString *payload = [NSString stringWithFormat:@"{\"description\": \"%@\", \"public\": %@, \"files\":{\"%@\": { \"content\": %@ }}}", description, pub ? @"true" : @"false", fileName, [content JSONString]];
     
@@ -229,23 +228,17 @@
     [self updateRemaining:request];
     
     NSError *error = [request error];
-    if (!error) {
+    if (!error && [request responseStatusCode] == 201) {
         NSString *response = [request responseString];
-        
-        NSDictionary* result = [response objectFromJSONString];
-        gistId = [result objectForKey:@"id"];
-        NSString *gistURL = [result objectForKey:@"html_url"];
-        
-        NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:gistId, gistURL, nil] forKeys:[NSArray arrayWithObjects:@"id", @"url", nil]];
-        
+        return [response objectFromJSONString];        
     } else {
         NSLog(@"Gist creation error %@", error);
     }
-    return gistId;
+    return nil;
 }
 
-- (NSString*) createRepository:(NSString*) name description:(NSString*)desc homepage:(NSString*) home wiki:(BOOL)wk issues:(BOOL)is downloads:(BOOL)dl isPrivate:(BOOL)privacy {
-    NSString *location = nil;
+- (NSDictionary*) createRepository:(NSString*) name description:(NSString*)desc homepage:(NSString*) home wiki:(BOOL)wk issues:(BOOL)is downloads:(BOOL)dl isPrivate:(BOOL)privacy {
+    NSDictionary *result = nil;
     
     NSString *payload = [NSString stringWithFormat:@"{\"name\": \"%@\", \"description\": \"%@\", \"homepage\": \"%@\", \"public\": %@, \"has_issues\": %@, \"has_wiki\": %@, \"has_downloads\": %@}", name, desc, home, privacy ? @"false" : @"true", wk ? @"true" : @"false", is? @"true" : @"false", dl? @"true" : @"false"];
     
@@ -263,8 +256,7 @@
         NSString *response = [request responseString];
         if (status == 201) {
             NSLog(@"Repo creation result %@", response);
-            NSDictionary* result = [response objectFromJSONString];
-            location = [result objectForKey:@"html_url"];
+            result = [response objectFromJSONString];
         } else {
             NSLog(@"Repo creation error, bad return code %d", status);
             NSLog(@"Returned message is %@", response);
@@ -272,7 +264,7 @@
     } else {
         NSLog(@"Repo creation error %@", error);
     }
-    return location;
+    return result;
 }
 
 #pragma mark - delete

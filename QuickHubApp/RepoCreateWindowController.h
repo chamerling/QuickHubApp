@@ -9,10 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 #import "GithubOAuthClient.h"
+#import "MenuController.h"
 
 @interface RepoCreateWindowController : NSWindowController {
     GithubOAuthClient *ghClient;
-
+    MenuController *menuController;
+    
     IBOutlet NSTextField *nameField;
     IBOutlet NSTextField *descriptionField;
     IBOutlet NSTextField *homePageField;
@@ -30,5 +32,6 @@
 - (IBAction)cancelAction:(id)sender;
 
 @property (assign) GithubOAuthClient *ghClient;
+@property (assign) MenuController *menuController;
 
 @end

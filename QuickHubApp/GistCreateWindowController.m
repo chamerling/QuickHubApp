@@ -17,6 +17,7 @@
 @implementation GistCreateWindowController
 
 @synthesize ghClient;
+@synthesize menuController;
 @synthesize gistContent;
 @synthesize gistFileName;
 @synthesize gistDescription;
@@ -87,14 +88,24 @@
     [createButton setEnabled:NO];
     [progressIndicator setHidden:NO];
     [progressIndicator startAnimation:nil];
-    NSString *gistURL = nil;
+    
+    NSDictionary *result = nil;
     if (ghClient) {
-        gistURL = [ghClient createGist:content withDescription:description andFileName:fileName isPublic:pub];
+        result = [ghClient createGist:content withDescription:description andFileName:fileName isPublic:pub];
     }
+        
     [progressIndicator stopAnimation:nil];
     [progressIndicator setHidden:YES];
     [createButton setEnabled:YES];
-    NSString *finalURL = [NSString stringWithFormat:@"https://gist.github.com/%@", gistURL];
+    
+    if (!result) {
+        return;
+    }
+
+    // update the menu
+    [menuController addGist:result top:YES];
+    
+    NSString *finalURL = [result valueForKey:@"html_url"];
     if ([copyURLToPasteBoard state] == 1) {
         NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
         [pasteboard clearContents];

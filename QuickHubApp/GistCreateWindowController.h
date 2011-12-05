@@ -8,9 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 #import "GithubOAuthClient.h"
+#import "MenuController.h"
 
 @interface GistCreateWindowController : NSWindowController {
     GithubOAuthClient *ghClient;
+    MenuController *menuController;
     NSString *gistContent;
     NSString *gistDescription;
     NSString *gistFileName;
@@ -25,6 +27,7 @@
 }
 
 @property (assign) GithubOAuthClient *ghClient;
+@property (assign) MenuController *menuController;
 @property (assign) NSString *gistContent;
 @property (assign) NSString *gistDescription;
 @property (assign) NSString *gistFileName;

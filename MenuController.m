@@ -10,6 +10,17 @@
 #import "QHConstants.h"
 #import <Cocoa/Cocoa.h>
 
+@interface MenuController (Private) 
+- (NSMenu*) getIssuesMenu;
+- (NSMenu*) getOrgsMenu;
+- (NSMenu*) getReposMenu;
+- (NSMenu*) getFollowingMenu;
+- (NSMenu*) getFollowersMenu;
+- (NSMenu*) getPullsMenu;
+- (NSMenu*) getGistsMenu;
+- (NSMenu*) getWatchingMenu;
+@end
+
 @implementation MenuController
 
 @synthesize statusMenu;
@@ -162,18 +173,10 @@
     // clear the existing Issues
     existingIssues = [[NSMutableSet alloc]init]; 
     
-    for (NSArray *issue in result) {
+    for (NSDictionary *issue in result) {
         [existingIssues addObject:[issue valueForKey:@"number"]];
         if (clean) {
-            NSMenuItem *issueItem = [[NSMenuItem alloc] initWithTitle:[issue valueForKey:@"title"] action:@selector(issuePressed:) keyEquivalent:@""];
-            [issueItem setRepresentedObject:[issue valueForKey:@"html_url"]];
-            
-            NSImage* iconImage = [NSImage imageNamed:@"bullet_yellow.png"];
-            [iconImage setSize:NSMakeSize(16,16)];
-            [issueItem setImage:iconImage];
-            
-            [issueItem autorelease];
-            [menu addItem:issueItem];
+            [self addIssue:issue];
         }
     }
     
@@ -240,42 +243,20 @@
     
     firstGistCall = NO;
     
-    BOOL clean = (added != 0 || added != 0); {
+    BOOL clean = (added != 0 || removed != 0);
+    if (clean) {
         [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     }
     
     // clear the existing Issues
     existingGists = [[NSMutableSet alloc]init]; 
     
-    for (NSArray *gist in result) {
+    for (NSDictionary *gist in result) {
         // cache for next time...
         [existingGists addObject:[gist valueForKey:@"id"]];
         
         if (clean) {
-            NSString *title = nil;
-            NSString *description = [gist valueForKey:@"description"];
-            if (description == (id)[NSNull null] || description.length == 0) {
-                title = [NSString stringWithFormat:@"%@", [gist valueForKey:@"id"]];
-            } else {
-                title = [NSString stringWithFormat:@"%@ : %@", [gist valueForKey:@"id"], description];
-            }
-        
-            NSMenuItem *gistItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(gistPressed:) keyEquivalent:@""];
-            
-            NSNumber *pub = [gist valueForKey:@"public"];
-            NSImage* iconImage = nil;
-            if ([pub boolValue]) {
-                iconImage = [NSImage imageNamed: @"bullet_green.png"];
-            } else {
-                iconImage = [NSImage imageNamed: @"bullet_red.png"];
-            }
-            [iconImage setSize:NSMakeSize(16,16)];
-            [gistItem setImage:iconImage];
-            
-            [gistItem setToolTip:[NSString stringWithFormat:@"Created at %@, %@ comment(s)", [gist valueForKey:@"created_at"], [gist valueForKey:@"comments"]]];
-            [gistItem setRepresentedObject:gist];
-            [gistItem autorelease];
-            [menu addItem:gistItem];
+            [self addGist:gist top:NO];
         }
     }
     
@@ -412,40 +393,12 @@
     // clear the existing repos
     existingRepos = [[NSMutableSet alloc]init]; 
     
-    for (NSArray *repo in result) {
+    for (NSDictionary *repo in result) {
         // cache for next time
         [existingRepos addObject:[repo valueForKey:@"name"]];
                 
         if (clean) {
-            NSNumber *forked = [repo valueForKey:@"fork"];
-                        
-            NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
-            [organizationItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
-            
-            [organizationItem setRepresentedObject:[repo valueForKey:@"html_url"]];
-            
-            NSNumber *priv = [repo valueForKey:@"private"];
-            NSImage* iconImage = nil;
-            
-            if ([forked boolValue]) {
-                // TODO, set a specific icon
-                iconImage = [NSImage imageNamed: @"fork.png"];
-
-            } else {
-                
-                if ([priv boolValue]) {
-                    iconImage = [NSImage imageNamed: @"bullet_red.png"];
-                } else {
-                    iconImage = [NSImage imageNamed: @"bullet_green.png"];
-                }
-            }
-            
-            [iconImage setSize:NSMakeSize(16,16)];
-            [organizationItem setImage:iconImage];
-            
-            [organizationItem setEnabled:YES];
-            [organizationItem autorelease];
-            [menu addItem:organizationItem];
+            [self addRepo:repo top:NO];
         }
     }
     if ([result count] == 0) {
@@ -525,14 +478,8 @@
     // always delete...
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
-    for (NSArray *user in result) {
-        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[user valueForKey:@"login"] action:@selector(followerPressed:) keyEquivalent:@""];
-        [item setRepresentedObject:[user valueForKey:@"login"]];
-        NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[user valueForKey:@"avatar_url"]]];
-        [iconImage setSize:NSMakeSize(18,18)];
-        [item setImage:iconImage];
-        [item autorelease];
-        [menu addItem:item];
+    for (NSDictionary *user in result) {
+        [self addFollower:user];
     }
     if ([result count] == 0) {
         // default menu item
@@ -554,15 +501,8 @@
     // always delete...
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
-    for (NSArray *user in result) {
-        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[user valueForKey:@"login"] action:@selector(followingPressed:) keyEquivalent:@""];
-        [item setRepresentedObject:[user valueForKey:@"login"]];
-        NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[user valueForKey:@"avatar_url"]]];
-        [iconImage setSize:NSMakeSize(16,16)];
-        [item setImage:iconImage];
-        [item setEnabled:YES];
-        [item autorelease];
-        [menu addItem:item];
+    for (NSDictionary *user in result) {
+        [self addFollowing:user];
     }
     if ([result count] == 0) {
         // default menu item
@@ -581,27 +521,13 @@
     // always delete...
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
-    for (NSArray *repo in result) {
+    for (NSDictionary *repo in result) {
         // get the owner
         NSArray *owner = [repo valueForKey:@"owner"];
         
         // do not display my own repositories...
         if (![[preferences login] isEqualToString:[owner valueForKey:@"login"]]) {
-            NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@/%@", [owner valueForKey:@"login"], [repo valueForKey:@"name"]] action:@selector(openURL:) keyEquivalent:@""];
-            [item setRepresentedObject:[repo valueForKey:@"html_url"]];
-            [item setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
-
-            NSNumber *priv = [repo valueForKey:@"private"];
-            NSImage* iconImage = nil;
-            if ([priv boolValue]) {
-                iconImage = [NSImage imageNamed: @"bullet_red.png"];
-            } else {
-                iconImage = [NSImage imageNamed: @"bullet_green.png"];
-            }
-            [item setImage:iconImage];
-            [item setEnabled:YES];
-            [item autorelease];
-            [menu addItem:item];
+            [self addWatched:repo];
         }
     }
     if ([result count] == 0) {
@@ -612,12 +538,156 @@
     }
 }
 
+#pragma mark - atomic
+- (void) addIssue:(NSDictionary *)issue {
+    NSMenu *menu = [self getIssuesMenu];
+    
+    NSMenuItem *issueItem = [[NSMenuItem alloc] initWithTitle:[issue valueForKey:@"title"] action:@selector(issuePressed:) keyEquivalent:@""];
+    [issueItem setRepresentedObject:[issue valueForKey:@"html_url"]];
+    
+    NSImage* iconImage = [NSImage imageNamed:@"bullet_yellow.png"];
+    [iconImage setSize:NSMakeSize(16,16)];
+    [issueItem setImage:iconImage];
+    
+    [issueItem autorelease];
+    [menu addItem:issueItem];
+}
+
+- (void) addGist:(NSDictionary *)gist top:(BOOL)top {
+    NSMenu *menu = [self getGistsMenu];
+    
+    NSString *title = nil;
+    NSString *description = [gist valueForKey:@"description"];
+    if (description == (id)[NSNull null] || description.length == 0) {
+        title = [NSString stringWithFormat:@"%@", [gist valueForKey:@"id"]];
+    } else {
+        title = [NSString stringWithFormat:@"%@ : %@", [gist valueForKey:@"id"], description];
+    }
+    
+    NSMenuItem *gistItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(gistPressed:) keyEquivalent:@""];
+    
+    NSNumber *pub = [gist valueForKey:@"public"];
+    NSImage* iconImage = nil;
+    if ([pub boolValue]) {
+        iconImage = [NSImage imageNamed: @"bullet_green.png"];
+    } else {
+        iconImage = [NSImage imageNamed: @"bullet_red.png"];
+    }
+    [iconImage setSize:NSMakeSize(16,16)];
+    [gistItem setImage:iconImage];
+    
+    [gistItem setToolTip:[NSString stringWithFormat:@"Created at %@, %@ comment(s)", [gist valueForKey:@"created_at"], [gist valueForKey:@"comments"]]];
+    [gistItem setRepresentedObject:gist];
+    [gistItem autorelease];
+    
+    if (top) {
+        NSInteger deleteItemLimit = [menu indexOfItemWithTitle:@"deletelimit"];
+        [menu insertItem:gistItem atIndex:deleteItemLimit + 1];
+    } else {
+        [menu addItem:gistItem];
+    }
+}
+
+- (void) addOrg:(NSDictionary *)org {
+    //NSMenu *menu = [self getOrgsMenu];
+
+}
+
+- (void) addRepo:(NSDictionary *)repo top:(BOOL)top{
+    NSMenu *menu = [self getReposMenu];
+    
+    NSNumber *forked = [repo valueForKey:@"fork"];
+    
+    NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
+    [organizationItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
+    
+    [organizationItem setRepresentedObject:[repo valueForKey:@"html_url"]];
+    
+    NSNumber *priv = [repo valueForKey:@"private"];
+    NSImage* iconImage = nil;
+    
+    if ([forked boolValue]) {
+        // TODO, set a specific icon
+        iconImage = [NSImage imageNamed: @"fork.png"];
+        
+    } else {
+        
+        if ([priv boolValue]) {
+            iconImage = [NSImage imageNamed: @"bullet_red.png"];
+        } else {
+            iconImage = [NSImage imageNamed: @"bullet_green.png"];
+        }
+    }
+    
+    [iconImage setSize:NSMakeSize(16,16)];
+    [organizationItem setImage:iconImage];
+    
+    [organizationItem setEnabled:YES];
+    [organizationItem autorelease];
+    
+    if (top) {
+        NSInteger deleteItemLimit = [menu indexOfItemWithTitle:@"deletelimit"];
+        [menu insertItem:organizationItem atIndex:deleteItemLimit + 1];
+    } else {
+        [menu addItem:organizationItem];
+    }
+}
+
+- (void) addFollower:(NSDictionary *)user {
+    NSMenu *menu = [self getFollowersMenu];
+    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[user valueForKey:@"login"] action:@selector(followerPressed:) keyEquivalent:@""];
+    [item setRepresentedObject:[user valueForKey:@"login"]];
+    NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[user valueForKey:@"avatar_url"]]];
+    [iconImage setSize:NSMakeSize(18,18)];
+    [item setImage:iconImage];
+    [item autorelease];
+    [menu addItem:item];
+}
+
+- (void) addFollowing:(NSDictionary *)user {
+    NSMenu *menu = [self getFollowingMenu];
+    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[user valueForKey:@"login"] action:@selector(followingPressed:) keyEquivalent:@""];
+    [item setRepresentedObject:[user valueForKey:@"login"]];
+    NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[user valueForKey:@"avatar_url"]]];
+    [iconImage setSize:NSMakeSize(16,16)];
+    [item setImage:iconImage];
+    [item setEnabled:YES];
+    [item autorelease];
+    [menu addItem:item];
+}
+
+- (void) addWatched:(NSDictionary *)repo {
+    NSMenu *menu = [self getWatchingMenu];
+    
+    NSArray *owner = [repo valueForKey:@"owner"];
+    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@/%@", [owner valueForKey:@"login"], [repo valueForKey:@"name"]] action:@selector(openURL:) keyEquivalent:@""];
+    [item setRepresentedObject:[repo valueForKey:@"html_url"]];
+    [item setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
+    
+    NSNumber *priv = [repo valueForKey:@"private"];
+    NSImage* iconImage = nil;
+    if ([priv boolValue]) {
+        iconImage = [NSImage imageNamed: @"bullet_red.png"];
+    } else {
+        iconImage = [NSImage imageNamed: @"bullet_green.png"];
+    }
+    [item setImage:iconImage];
+    [item setEnabled:YES];
+    [item autorelease];
+    [menu addItem:item];
+}
+
+- (void) addPull:(NSDictionary *)pull {
+    //NSMenu *menu = [self getPullsMenu];
+
+}
+
+# pragma mark - Actions on pressed menu items
+
 - (void) openPull:(id)sender {
     id selectedItem = [sender representedObject];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];    
 }
-
-# pragma mark - Actions on pressed menu items
 
 - (IBAction) repoPressed:(id) sender {
     id selectedItem = [sender representedObject];
@@ -669,7 +739,7 @@
 
 #pragma mark - item stuff
 - (void) deleteOldEntriesFromMenu:(NSMenu*)menu fromItemTitle:(NSString*)title {
-    NSLog(@"Delete entries from menu %@", [menu title]);
+    // NSLog(@"Delete entries from menu %@", [menu title]);
     // remove all the menu items
     NSInteger deleteItemLimit = [menu indexOfItemWithTitle:title];
     if (deleteItemLimit > 0) {
@@ -689,6 +759,53 @@
     existingRepos = [[NSMutableSet alloc]init]; 
     existingGists = [[NSMutableSet alloc]init]; 
     existingIssues = [[NSMutableSet alloc]init]; 
+}
+
+#pragma mark - private
+- (NSMenu*) getIssuesMenu {
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Issues"];
+    return [menuItem submenu];
+}
+
+- (NSMenu*) getOrgsMenu {
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Organizations"];
+    return [menuItem submenu];
+}
+
+- (NSMenu*) getReposMenu {
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Repositories"];
+    return [menuItem submenu];
+   
+}
+
+- (NSMenu*) getFollowingMenu {
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Users"];
+    NSMenu *tmp = [menuItem submenu];
+    NSMenuItem *followersItem = [tmp itemWithTitle:@"Following"];
+    return [followersItem submenu];
+}
+
+- (NSMenu*) getFollowersMenu {
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Users"];
+    NSMenu *tmp = [menuItem submenu];
+    NSMenuItem *followersItem = [tmp itemWithTitle:@"Followers"];
+    return [followersItem submenu];
+}
+
+- (NSMenu*) getPullsMenu {
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Pull Requests"];
+    return [menuItem submenu];
+}
+
+- (NSMenu*) getGistsMenu {
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Gists"];
+    return [menuItem submenu];
+}
+
+
+- (NSMenu*) getWatchingMenu {
+    NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Watching"];
+    return [menuItem submenu];
 }
 
 @end

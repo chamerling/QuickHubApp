@@ -11,6 +11,7 @@
 @implementation RepoCreateWindowController
 
 @synthesize ghClient;
+@synthesize menuController;
 
 - (id)initWithWindow:(NSWindow *)window
 {
@@ -49,22 +50,21 @@
         [progress setHidden:FALSE];
         [progress startAnimation:nil];
         
-        NSString *repoAPIURL = [ghClient createRepository:name description:description homepage:url wiki:wiki issues:issues downloads:downloads isPrivate:isPrivate];
-        
-        NSLog(@"Repo created and URL is %@", repoAPIURL);
-        
+        NSDictionary *result = [ghClient createRepository:name description:description homepage:url wiki:wiki issues:issues downloads:downloads isPrivate:isPrivate];
+                
         [progress stopAnimation:nil];
         [progress setHidden:TRUE];
         [createButton setEnabled:TRUE];
         [cancelButton setEnabled:TRUE];
         
         // TODO : catch an exception
-        if (repoAPIURL && [repoAPIURL length] > 0) {
+        if (result) {
+            [menuController addRepo:result top:YES];
             if (open) {
-                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:repoAPIURL]];
+                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[result valueForKey:@"html_url"]]];
             }
         } else {
-            NSLog(@"Creation problem, URL is nil");
+            NSLog(@"Repository creation problem");
             // diplay something somewhere...
         }
         

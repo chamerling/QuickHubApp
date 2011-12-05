@@ -61,4 +61,14 @@
 - (void) watchedReposFinished:(NSDictionary *)request;
 - (void) pullsFinished:(NSDictionary *)dictionary;
 
+#pragma mark - atomic
+- (void) addIssue:(NSDictionary *)issue;
+- (void) addGist:(NSDictionary *)gist top:(BOOL)top;
+- (void) addOrg:(NSDictionary *)org;
+- (void) addRepo:(NSDictionary *)repo top:(BOOL)top;
+- (void) addFollower:(NSDictionary *)follower;
+- (void) addFollowing:(NSDictionary *)following;
+- (void) addWatched:(NSDictionary *)watched;
+- (void) addPull:(NSDictionary *)pull;
+
 @end

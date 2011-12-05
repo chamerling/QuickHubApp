@@ -22,6 +22,7 @@ Unplanned features and ideas, sort of wish list...
 - [NEW] Add option to open Gist when created
 - [IMPROVEMENT] Better preferences and main menu cleaned from 'QuickHub Help' 
 - [IMPROVEMENT] Better data loading in the background to avoid freezes
+- [IMPROVEMENT] Better menu update support when creating things...
 
 # v1.2 - 2011/11/17
 

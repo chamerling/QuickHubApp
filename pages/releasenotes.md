@@ -13,7 +13,7 @@ Unplanned features and ideas, sort of wish list...
 - [NEW] Hot keys!
 - [NEW] Local storage in order to be able to rebuild all even if Internet is down!
 
-# v1.3 - 2011/12/??
+# v1.3 - 2011/12/06
 
 - [NEW] OAuth support. No more Basic Auth: QuickHub does not need to know your GitHub password!
 - [NEW] OS X Service added to create Gists from Services menus (on application and on Finder)

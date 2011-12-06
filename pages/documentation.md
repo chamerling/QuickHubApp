@@ -8,6 +8,13 @@ QuickHub.App is an OS X application which stands in the OS X status bar. It allo
 
 <img src="http://f.cl.ly/items/2C3w2e2N0o3B3s161b0n/quickhub-documentation.png"/>
 
+## Main Features
+- Access to repositories, organizations, issues, pull requests, gists, users and followed repositories from your OS X status menu
+- Create Gists: You can create Gists by using the Create Gist menu item or by using the Mac OS X services menu
+- Create repositories
+- OAuth support: Just autorize QuickHub to access to your GitHub data without giving any password
+- Growl enabled
+
 # Issues
 You can send bugs, feature and improvment requests (also ideas) by using the [tracker on GitHub](https://github.com/chamerling/QuickHubApp/issues).
 

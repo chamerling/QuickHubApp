@@ -12,11 +12,14 @@ I just want to thanks github support team for their reactivity on this topic. It
 <img src="http://f.cl.ly/items/3C1e2k0x1k3G1k1E071f/quickhub-oauth-first.png"/>
 
 The second feature is Gist centric. Gist is really a great tool to share snippets with the world (and in some cases, with your colleagues). In the last versions, you were able to create Gists from a QuickHub window which was also drag and drop enabled. In QuickHub 1.3, you will be able to create Gists from your OS X services menu too. It means that you can do a text selection from any application and use the operation *"Create a gist from selection"* from the context menu, or select a file and use the *"Create a Gist"* one. QuickHub will automatically fill the Gist creation window with selected stuff.
+
 **Question to Gists addicts : Do you need something where we bypass the Gist creation window and push stuff automatically to github?
 **
+
 <img src="http://f.cl.ly/items/0o2Y2L1738451v080429/quickhub-creategistservicemenu.png">
 
 Last important feature: You can now create repositories from QuickHub. There is a dedicated menu/window for that.
+
 <img src="http://f.cl.ly/items/2e2x2S0x2W1J3E2y0L2B/quickhub-repocreate.png"/>
 
 QuickHub 1.3 will probably be validated before the end of the week, just look at your Mac App Store icon or check [@chamerling](http://twitter.com/chamerling) tweets.

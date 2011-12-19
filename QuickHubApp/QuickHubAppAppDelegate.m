@@ -21,6 +21,7 @@
 #import "AboutPreferencesViewController.h"
 #import "GistViewWindowController.h"
 #import "UserPreferences.h"
+#import "OrgRepoCreateWindowController.h"
 
 #import "MASPreferencesWindowController.h"
 #import "ASIHTTPRequest.h"
@@ -387,6 +388,20 @@
 - (IBAction)createRepository:(id)sender {
     NSLog(@"Create a repository!");
     RepoCreateWindowController *creator = [[RepoCreateWindowController alloc] initWithWindowNibName:@"RepoCreateWindow"];
+    [creator setGhClient:ghClient];
+    [creator setMenuController:menuController];
+    [NSApp activateIgnoringOtherApps: YES];
+	[[creator window] makeKeyWindow];
+    [creator showWindow:self];
+}
+
+- (IBAction)createOrgRepository:(id)sender {
+    NSLog(@"Create an Org repository!");
+    id selectedItem = [sender representedObject];
+    NSLog(@"Selected Item %@", selectedItem);
+    NSString *orgName = [NSString stringWithFormat:@"%@", selectedItem];
+    OrgRepoCreateWindowController *creator = [[OrgRepoCreateWindowController alloc] initWithWindowNibName:@"OrgRepoCreateWindow"];
+    [creator setOrganisationName:orgName];
     [creator setGhClient:ghClient];
     [creator setMenuController:menuController];
     [NSApp activateIgnoringOtherApps: YES];

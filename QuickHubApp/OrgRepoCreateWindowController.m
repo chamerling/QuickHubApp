@@ -1,23 +1,24 @@
 //
-//  RepoCreateWindowController.m
+//  OrgRepoCreateWindowController.m
 //  QuickHub
 //
-//  Created by Christophe Hamerling on 24/11/11.
-//  Copyright 2011 christophehamerling.com All rights reserved.
+//  Created by Christophe Hamerling on 19/12/11.
+//  Copyright 2011 christophehamerling.com. All rights reserved.
 //
 
-#import "RepoCreateWindowController.h"
+#import "OrgRepoCreateWindowController.h"
 
-@implementation RepoCreateWindowController
+@implementation OrgRepoCreateWindowController
 
 @synthesize ghClient;
 @synthesize menuController;
+@synthesize organisationName;
 
 - (id)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
     if (self) {
-        // Initialization code here.
+        [[self window] setTitle:[NSString stringWithFormat:@"Create A New Repository for '%@'", organisationName]];
     }
     
     return self;
@@ -26,12 +27,10 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
 - (IBAction)createAction:(id)sender {
-
+    
     NSString *name = [[nameField stringValue]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *description = [[descriptionField stringValue]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *url = [[homePageField stringValue]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -49,31 +48,29 @@
         [progress setHidden:FALSE];
         [progress startAnimation:nil];
         
-        NSDictionary *result = [ghClient createRepository:name description:description homepage:url wiki:wiki issues:issues downloads:downloads isPrivate:isPrivate];
-                
+        NSDictionary *result = [ghClient createRepository:name forOrg:organisationName description:description homepage:url wiki:wiki issues:issues downloads:downloads isPrivate:isPrivate];
+        
         [progress stopAnimation:nil];
         [progress setHidden:TRUE];
         [createButton setEnabled:TRUE];
         [cancelButton setEnabled:TRUE];
         
-        // TODO : catch an exception
         if (result) {
-            [menuController addRepo:result top:YES];
+            [menuController addOrgRepo:organisationName withRepo:result top:YES];
             if (open) {
                 [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[result valueForKey:@"html_url"]]];
-            }            
+            }
+            [[self window]performClose:self];
         } else {
             NSLog(@"Repository creation problem");
-            // diplay something somewhere...
+            // display an error modal view
         }
-        
-        [[self window] close];
     }
-
+    
 }
 
 - (IBAction)cancelAction:(id)sender {
-    [[self window] close];
+    [[self window]performClose:self];
 }
 
 @end

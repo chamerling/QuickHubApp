@@ -9,6 +9,7 @@
 #import "MenuController.h"
 #import "QHConstants.h"
 #import <Cocoa/Cocoa.h>
+#import "OrgRepoCreateWindowController.h"
 
 @interface MenuController (Private) 
 - (NSMenu*) getIssuesMenu;
@@ -19,6 +20,8 @@
 - (NSMenu*) getPullsMenu;
 - (NSMenu*) getGistsMenu;
 - (NSMenu*) getWatchingMenu;
+- (NSMenu*) getReposOrgMenu:(NSString*) orgName;
+- (NSMenuItem*) createMenuItemForOrgRepo:(NSDictionary*) repository;
 @end
 
 @implementation MenuController
@@ -277,7 +280,6 @@
     
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
-    
     for (NSString *orgName in [result allKeys]) {
         NSDictionary *entry = [result valueForKey:orgName];
         NSDictionary *org = [entry valueForKey:@"org"];
@@ -296,6 +298,22 @@
         NSDictionary* repos = [entry valueForKey:@"repos"];
         
         NSMenu* repositoriesMenu = [[NSMenu alloc] init];
+        
+        // create the top items
+        NSMenuItem *openItem = [[NSMenuItem alloc] initWithTitle:@"Open..." action:@selector(organizationPressed:) keyEquivalent:@""];
+        [openItem setRepresentedObject:[org valueForKey:@"login"]];
+        [openItem autorelease];
+        [repositoriesMenu addItem:openItem];
+        
+        NSMenuItem *createItem = [[NSMenuItem alloc] initWithTitle:@"Create Repository..." action:@selector(createOrgRepository:) keyEquivalent:@""];
+        [createItem setRepresentedObject:[org valueForKey:@"login"]];
+        [createItem autorelease];
+        [repositoriesMenu addItem:createItem];
+        
+        NSMenuItem *separator = [NSMenuItem separatorItem];
+        [separator setTitle:@"deletelimit"];
+        [repositoriesMenu addItem:separator];
+        
         for (NSArray *repo in repos) {
             NSMenuItem *organizationRepoItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
             [organizationRepoItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
@@ -322,8 +340,8 @@
             
             [organizationRepoItem setEnabled:YES];
             [organizationRepoItem autorelease];
-            [repositoriesMenu addItem:organizationRepoItem];
             
+            [repositoriesMenu addItem:organizationRepoItem];
         }
         [organizationItem setSubmenu:repositoriesMenu]; 
     }
@@ -633,6 +651,22 @@
     }
 }
 
+- (void) addOrgRepo:(NSString *)orgName withRepo:(NSDictionary *)repo top:(BOOL)top {
+    NSMenu *menu = [self getReposOrgMenu:orgName];
+    if (menu) {
+        NSMenuItem *repoItem = [self createMenuItemForOrgRepo:repo];
+        
+        if (top) {
+            NSInteger deleteItemLimit = [menu indexOfItemWithTitle:@"deletelimit"];
+            [menu insertItem:repoItem atIndex:deleteItemLimit + 1];
+        } else {
+            [menu addItem:repoItem];
+        }
+    } else {
+        NSLog(@"Repo menu not found");
+    }
+}
+
 - (void) addFollower:(NSDictionary *)user {
     NSMenu *menu = [self getFollowersMenu];
     NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[user valueForKey:@"login"] action:@selector(followerPressed:) keyEquivalent:@""];
@@ -762,6 +796,38 @@
 }
 
 #pragma mark - private
+
+- (NSMenuItem*) createMenuItemForOrgRepo:(NSDictionary*) repo {
+    
+    NSMenuItem *organizationRepoItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
+    [organizationRepoItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
+    
+    //[organizationRepoItem setToolTip: @""];
+    [organizationRepoItem setRepresentedObject:[repo valueForKey:@"html_url"]];
+    
+    NSNumber *priv = [repo valueForKey:@"private"];
+    NSImage* iconImage = nil;
+    
+    NSNumber *forked = [repo valueForKey:@"fork"];
+    if ([forked boolValue]) {
+        // TODO, set a specific icon
+        iconImage = [NSImage imageNamed: @"fork.png"];
+    } else {
+        if ([priv boolValue]) {
+            iconImage = [NSImage imageNamed: @"bullet_red.png"];
+        } else {
+            iconImage = [NSImage imageNamed: @"bullet_green.png"];
+        }
+    }
+    [iconImage setSize:NSMakeSize(16,16)];
+    [organizationRepoItem setImage:iconImage];
+    
+    [organizationRepoItem setEnabled:YES];
+    [organizationRepoItem autorelease];
+    
+    return organizationRepoItem;
+}
+
 - (NSMenu*) getIssuesMenu {
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Issues"];
     return [menuItem submenu];
@@ -769,6 +835,12 @@
 
 - (NSMenu*) getOrgsMenu {
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Organizations"];
+    return [menuItem submenu];
+}
+
+- (NSMenu*) getReposOrgMenu:(NSString*) orgName {
+    NSMenu* orgs = [self getOrgsMenu];
+    NSMenuItem *menuItem = [orgs itemWithTitle:orgName];
     return [menuItem submenu];
 }
 

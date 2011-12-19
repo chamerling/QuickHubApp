@@ -65,6 +65,8 @@
 		C99E312114630C7300FA4327 /* bullet_green.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E312014630C7300FA4327 /* bullet_green.png */; };
 		C99E31231463104400FA4327 /* bug.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E31221463104400FA4327 /* bug.png */; };
 		C99E31291463E65A00FA4327 /* bullet_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E31281463E65A00FA4327 /* bullet_yellow.png */; };
+		C9C60C68149F9D0B0059CECE /* OrgRepoCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C60C67149F9D0A0059CECE /* OrgRepoCreateWindowController.m */; };
+		C9C60C6B149F9D5B0059CECE /* OrgRepoCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C60C6A149F9D5B0059CECE /* OrgRepoCreateWindow.xib */; };
 		C9D53DBE1471CD2700D0212B /* NSTextViewFileContent.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D53DBD1471CD2700D0212B /* NSTextViewFileContent.m */; };
 		C9D67A2C14852DBB00026988 /* GistViewWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9D67A2B14852DBB00026988 /* GistViewWindow.xib */; };
 		C9D67A331485336700026988 /* GistViewWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D67A321485336700026988 /* GistViewWindowController.m */; };
@@ -180,6 +182,9 @@
 		C99E312014630C7300FA4327 /* bullet_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet_green.png; sourceTree = "<group>"; };
 		C99E31221463104400FA4327 /* bug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bug.png; sourceTree = "<group>"; };
 		C99E31281463E65A00FA4327 /* bullet_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet_yellow.png; sourceTree = "<group>"; };
+		C9C60C66149F9D090059CECE /* OrgRepoCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrgRepoCreateWindowController.h; sourceTree = "<group>"; };
+		C9C60C67149F9D0A0059CECE /* OrgRepoCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrgRepoCreateWindowController.m; sourceTree = "<group>"; };
+		C9C60C6A149F9D5B0059CECE /* OrgRepoCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrgRepoCreateWindow.xib; sourceTree = "<group>"; };
 		C9D53DBC1471CD2700D0212B /* NSTextViewFileContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTextViewFileContent.h; sourceTree = "<group>"; };
 		C9D53DBD1471CD2700D0212B /* NSTextViewFileContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextViewFileContent.m; sourceTree = "<group>"; };
 		C9D67A2B14852DBB00026988 /* GistViewWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GistViewWindow.xib; sourceTree = "<group>"; };
@@ -321,6 +326,7 @@
 				C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */,
 				C96ABC6E147ED383001A2407 /* RepoCreateWindow.xib */,
 				C9D67A2B14852DBB00026988 /* GistViewWindow.xib */,
+				C9C60C6A149F9D5B0059CECE /* OrgRepoCreateWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -393,6 +399,8 @@
 				C9D53DBD1471CD2700D0212B /* NSTextViewFileContent.m */,
 				C96ABC70147ED6F9001A2407 /* RepoCreateWindowController.h */,
 				C96ABC71147ED6F9001A2407 /* RepoCreateWindowController.m */,
+				C9C60C66149F9D090059CECE /* OrgRepoCreateWindowController.h */,
+				C9C60C67149F9D0A0059CECE /* OrgRepoCreateWindowController.m */,
 				C96ABC9A14803E39001A2407 /* Context.h */,
 				C96ABC9B14803E3A001A2407 /* Context.m */,
 				C9D67A311485336700026988 /* GistViewWindowController.h */,
@@ -486,6 +494,7 @@
 				C9D67A2C14852DBB00026988 /* GistViewWindow.xib in Resources */,
 				C98FB89A1486CBF000B7D92A /* AboutPreferencesViewController.xib in Resources */,
 				C98FB8AB148790EA00B7D92A /* UserPreferences.xib in Resources */,
+				C9C60C6B149F9D5B0059CECE /* OrgRepoCreateWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +536,7 @@
 				C98FB8A514878FFD00B7D92A /* GithubOAuthClient.m in Sources */,
 				C98FB8AA148790EA00B7D92A /* UserPreferences.m in Sources */,
 				C98FB8BF1489244500B7D92A /* NSString+JavaAPI.m in Sources */,
+				C9C60C68149F9D0B0059CECE /* OrgRepoCreateWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

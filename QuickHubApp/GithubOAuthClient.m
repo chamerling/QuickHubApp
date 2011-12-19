@@ -241,9 +241,7 @@
     NSDictionary *result = nil;
     
     NSString *payload = [NSString stringWithFormat:@"{\"name\": \"%@\", \"description\": \"%@\", \"homepage\": \"%@\", \"public\": %@, \"has_issues\": %@, \"has_wiki\": %@, \"has_downloads\": %@}", name, desc, home, privacy ? @"false" : @"true", wk ? @"true" : @"false", is? @"true" : @"false", dl? @"true" : @"false"];
-    
-    NSLog(@"Outgoing Payload : %@", payload);
-    
+        
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"user/repos"]]];
     [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];
     
@@ -255,11 +253,35 @@
         int status = [request responseStatusCode];
         NSString *response = [request responseString];
         if (status == 201) {
-            NSLog(@"Repo creation result %@", response);
             result = [response objectFromJSONString];
         } else {
             NSLog(@"Repo creation error, bad return code %d", status);
-            NSLog(@"Returned message is %@", response);
+        }
+    } else {
+        NSLog(@"Repo creation error %@", error);
+    }
+    return result;
+}
+
+- (NSDictionary*) createRepository:(NSString*) name forOrg:(NSString*)orgName description:(NSString*)desc homepage:(NSString*) home wiki:(BOOL)wk issues:(BOOL)is downloads:(BOOL)dl isPrivate:(BOOL)privacy {
+    NSDictionary *result = nil;
+    
+    NSString *payload = [NSString stringWithFormat:@"{\"name\": \"%@\", \"description\": \"%@\", \"homepage\": \"%@\", \"public\": %@, \"has_issues\": %@, \"has_wiki\": %@, \"has_downloads\": %@}", name, desc, home, privacy ? @"false" : @"true", wk ? @"true" : @"false", is? @"true" : @"false", dl? @"true" : @"false"];
+        
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:[NSString stringWithFormat:@"orgs/%@/repos", orgName]]]];
+    [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [request startSynchronous];
+    [self updateRemaining:request];
+    
+    NSError *error = [request error];
+    if (!error) {
+        int status = [request responseStatusCode];
+        NSString *response = [request responseString];
+        if (status == 201) {
+            result = [response objectFromJSONString];
+        } else {
+            NSLog(@"Repo creation error, bad return code %d", status);
         }
     } else {
         NSLog(@"Repo creation error %@", error);

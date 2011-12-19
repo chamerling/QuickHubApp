@@ -61,19 +61,18 @@
             [menuController addRepo:result top:YES];
             if (open) {
                 [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[result valueForKey:@"html_url"]]];
-            }            
+            }
+            [[self window]performClose:self];
         } else {
             NSLog(@"Repository creation problem");
             // diplay something somewhere...
         }
-        
-        [[self window] close];
     }
 
 }
 
 - (IBAction)cancelAction:(id)sender {
-    [[self window] close];
+    [[self window]performClose:self];
 }
 
 @end

@@ -53,11 +53,12 @@
     // register handler for protocol
     [self registerURLHandler:nil];
     
+    preferences = [Preferences sharedInstance];
+    
     Reachability *internetDonnection = [Reachability reachabilityForInternetConnection];
     if ([internetDonnection currentReachabilityStatus] == NotReachable) {
         NSLog(@"Startup : Internet is not reachable");
     } else {
-        preferences = [Preferences sharedInstance];
         if ([[preferences oauthToken]length] == 0 || ![ghClient checkCredentials:nil]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];
             
@@ -356,7 +357,6 @@
 }
 
 #pragma mark - Github Actions
-// FIXME : Do not understand why these actions are fired instead of the MenuController ones...
 
 - (IBAction)openGitHub:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://github.com"]];

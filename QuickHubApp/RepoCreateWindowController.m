@@ -64,8 +64,12 @@
             }
             [[self window]performClose:self];
         } else {
-            NSLog(@"Repository creation problem");
-            // diplay something somewhere...
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert addButtonWithTitle:@"OK"];
+            [alert setMessageText:@"Repository Creation Problem"];
+            [alert setInformativeText:@"There was an error while creating your repository"];
+            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert beginSheetModalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];            
         }
     }
 
@@ -73,6 +77,12 @@
 
 - (IBAction)cancelAction:(id)sender {
     [[self window]performClose:self];
+}
+
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    // future work, we can detect clicked button from NSAlert sheet here!
+    if (returnCode == NSAlertFirstButtonReturn) {
+    }
 }
 
 @end

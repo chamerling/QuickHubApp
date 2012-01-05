@@ -13,6 +13,18 @@ Unplanned features and ideas, sort of wish list...
 - [NEW] Hot keys!
 - [NEW] Local storage in order to be able to rebuild all even if Internet is down!
 
+# v1.4 - 2012/01/06
+
+- [NEW] Create issues for your repositories. Description is DnD enabled.
+- [NEW] Create repositories for organizations
+- [IMPROVEMENT] Better issues display with repository name as prefix
+- [IMPROVEMENT] Issue item now have the submitter avatar as icon
+- [IMPROVEMENT] Better error display when creating repositories
+- [FIX] Bad link on 'Repositories/Open' menu item
+- [FIX] Fix windows close
+- [FIX] Fix wiki and issues choice when creating repository
+- [FIX] Regression on the number of items returned by the API call
+
 # v1.3 - 2011/12/06
 
 - [NEW] OAuth support. No more Basic Auth: QuickHub does not need to know your GitHub password!

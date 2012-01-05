@@ -64,7 +64,7 @@
 }
 
 - (NSDictionary*) loadIssues:(id) sender {
-    NSLog(@"Loading Issues...");
+    //NSLog(@"Loading Issues...");
     
     // try to get my issues with ASIHTTP and JSONKIT...
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"issues"]];
@@ -79,7 +79,7 @@
 }
 
 - (NSDictionary*) loadGists:(id) sender {
-    NSLog(@"Loaging Gists...");
+    //NSLog(@"Loaging Gists...");
     // get gists
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"gists"]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
@@ -93,7 +93,7 @@
 }
 
 - (NSDictionary*) loadOrganizations:(id) sender {
-    NSLog(@"Loading Organizations...");
+    //NSLog(@"Loading Organizations...");
     
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/orgs"]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
@@ -106,7 +106,7 @@
 }
 
 - (NSDictionary *)getReposForOrganization:(NSString *)name {
-    NSLog(@"Loading Repos for Organization %@...", name);
+    //NSLog(@"Loading Repos for Organization %@...", name);
 
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:[NSString stringWithFormat:@"orgs/%@/repos", name]]];
 
@@ -118,7 +118,7 @@
 }
 
 - (NSDictionary*) loadRepos:(id) sender {
-    NSLog(@"Loading Repositories...");
+    //NSLog(@"Loading Repositories...");
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/repos"]];
 
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
@@ -131,7 +131,7 @@
 }
 
 - (NSDictionary*)loadPulls:(id)sender {
-    NSLog(@"Loading Pulls for repositories...");
+    //NSLog(@"Loading Pulls for repositories...");
     NSMutableSet *repos = [self getRepositories:nil];
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
@@ -140,14 +140,12 @@
         if (pulls != nil && [pulls valueForKey:@"url"]) {
             [dict setValue:pulls forKey:repoName];
         }
-    }
-    NSLog(@"Got pulls!");
-    
+    }    
     return dict;   
 }
 
 - (NSMutableSet *)getRepositories:(id)sender {
-    NSLog(@"Getting Repositories...");
+    //NSLog(@"Getting Repositories...");
     NSMutableSet *result = [[NSMutableSet alloc]init];
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/repos"]];
 
@@ -183,7 +181,7 @@
 }
 
 - (NSDictionary *) loadFollowers:(id) sender {
-    NSLog(@"Loading Followers...");
+    //NSLog(@"Loading Followers...");
     
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/followers"]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
@@ -233,9 +231,7 @@
 - (NSDictionary*) createGist:(NSString*) content withDescription:(NSString*) description andFileName:(NSString *) fileName isPublic:(BOOL) pub {
     
     NSString *payload = [NSString stringWithFormat:@"{\"description\": \"%@\", \"public\": %@, \"files\":{\"%@\": { \"content\": %@ }}}", description, pub ? @"true" : @"false", fileName, [content JSONString]];
-    
-    NSLog(@"Outgoing Payload : %@", payload);
-    
+        
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"gists"]]];
     [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];
     
@@ -357,7 +353,6 @@
         int status = [request responseStatusCode];
         NSString *response = [request responseString];
         if (status == 200) {
-            NSLog(@"Get gist result %@", response);
             result = [response objectFromJSONString];
         } else {
         }
@@ -368,7 +363,7 @@
 }
 
 - (BOOL) checkCredentials:(id) sender {
-    NSLog(@"Checking credentials...");
+    //NSLog(@"Checking credentials...");
     
     Preferences *preferences = [Preferences sharedInstance];
     NSString *oauth = [preferences oauthToken];
@@ -384,9 +379,7 @@
             return NO;
         }
     }
-    
     return YES;
 }
-
 
 @end

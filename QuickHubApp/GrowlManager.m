@@ -20,9 +20,7 @@
 
 @implementation GrowlManager
 
-- (void) awakeFromNib {
-    NSLog(@"Registering notification listeners for growl");
-    
+- (void) awakeFromNib {    
     [GrowlApplicationBridge setGrowlDelegate:self];
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
@@ -49,25 +47,21 @@
 
 -(void)genericListener:(NSNotification *)aNotification {
     NSString *message = [aNotification object];
-    NSLog(@"Got a notification to growl '%@'...", message);
     [self notifyWithName:@"QuickHub" desc:message context:nil];
 }
 
 -(void)issueAdded:(NSNotification *)aNotification {
     NSString *message = [aNotification object];
-    NSLog(@"Got a issue notification to growl '%@'...", message);
     [self notifyWithName:@"QuickHub - New Issue" desc:message context:nil];
 }
 
 -(void)gistAdded:(NSNotification *)aNotification {
     NSString *message = [aNotification object];
-    NSLog(@"Got a gist notification to growl '%@'...", message);
     [self notifyWithName:@"QuickHub - New Gist" desc:message context:nil];
 }
 
 - (void)gistCreated:(NSNotification *)aNotification {
     NSDictionary *dict = [aNotification object];
-    NSLog(@"Got a gist creation to growl '%@'...", dict);
     [self notifyWithName:@"QuickHub - Gist created" desc:[NSString stringWithFormat:@"New Gist ID is %@", [dict valueForKey:@"id"]] context:dict];
 }
 
@@ -81,7 +75,6 @@
 }
 
 - (void)growlNotificationWasClicked:(id)clickContext {
-    NSLog(@"Growl notification was clicked...");
     NSDictionary *context = clickContext;
     if (context) {
         if ([context valueForKey:@"url"]) {
@@ -99,7 +92,6 @@
         return;
     }
     
-    NSLog(@"Let's really notify '%@' '%@'!", name, description);
     NSImage *image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
 
     [GrowlApplicationBridge notifyWithTitle:name

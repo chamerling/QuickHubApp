@@ -46,7 +46,7 @@
 
 // register to notifications so that the menu can be updated when data is retrieved from github...
 - (void) awakeFromNib {
-    NSLog(@"Registering notifications listeners for the menu controller");
+    //NSLog(@"Registering notifications listeners for the menu controller");
      
     // register to internet connection changes so that we can update the first entry...
     [[NSNotificationCenter defaultCenter] addObserver:self 
@@ -63,7 +63,7 @@
 }
 
 - (void)cleanMenus:(id)sender {
-    NSLog(@"Cleaning menus");
+    //NSLog(@"Cleaning menus");
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Issues"];
     NSMenu *menu = [menuItem submenu];
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
@@ -107,7 +107,7 @@
 
 #pragma mark - selectors
 - (void)notifyInternet:(NSNotification *)aNotification {
-    NSLog(@"Internet statius change on menu");
+    //NSLog(@"Internet statius change on menu");
     NSString *name = [aNotification name];
     if ([name compare:NOTIFY_INTERNET_UP] == NSOrderedSame) {
         [internetItem setTitle:@"Open GitHub..."];
@@ -120,7 +120,7 @@
 
 #pragma mark - process HTTP responses
 - (void) issuesFinished:(NSDictionary *)result {
-    NSLog(@"Issues Finished...");
+    //NSLog(@"Issues Finished...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Issues"];
     NSMenu *menu = [menuItem submenu];
@@ -192,7 +192,7 @@
 }
 
 - (void) gistFinished:(NSDictionary *)result {
-    NSLog(@"Gists Finished...");
+    //NSLog(@"Gists Finished...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Gists"];
     NSMenu *menu = [menuItem submenu];
@@ -273,7 +273,7 @@
 
 //dict = [orgname -> [repos->[dict], [org->[dict]]]]
 - (void) organizationsFinished:(NSDictionary *)result {
-    NSLog(@"Organizations Finished...");
+    //NSLog(@"Organizations Finished...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Organizations"];
     NSMenu *menu = [menuItem submenu];
@@ -356,7 +356,7 @@
 }
 
 - (void) reposFinished:(NSDictionary *)result {
-    NSLog(@"Repositories update...");
+    //NSLog(@"Repositories update...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Repositories"];
     NSMenu *menu = [menuItem submenu];
@@ -437,7 +437,7 @@
  */
 - (void)pullsFinished:(NSDictionary *)dictionary {
     
-    NSLog(@"Pulls finished...");
+    //NSLog(@"Pulls finished...");
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Pull Requests"];
     NSMenu *menu = [menuItem submenu];
     
@@ -447,7 +447,7 @@
     
     NSArray *keys = [dictionary allKeys];
     for (NSString *key in keys) {
-        NSLog(@"Processing pulls for repo '%@'", key);
+        //NSLog(@"Processing pulls for repo '%@'", key);
         NSDictionary *pulls = [dictionary valueForKey:key];
         
         // create a menu entry for the current repository
@@ -485,7 +485,7 @@
 }
 
 - (void) followersFinished:(NSDictionary *)result {
-    NSLog(@"Followers Finished...");
+    //NSLog(@"Followers Finished...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Users"];
     NSMenu *tmp = [menuItem submenu];
@@ -508,7 +508,7 @@
 }
 
 - (void) followingsFinished:(NSDictionary *)result {
-    NSLog(@"Following Finished...");
+    //NSLog(@"Following Finished...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Users"];
     NSMenu *tmp = [menuItem submenu];
@@ -531,7 +531,7 @@
 }
 
 - (void) watchedReposFinished:(NSDictionary *)result {
-    NSLog(@"Watched repos update...");
+    //NSLog(@"Watched repos update...");
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Watching"];
     NSMenu *menu = [menuItem submenu];
@@ -690,7 +690,7 @@
             [menu addItem:repoItem];
         }
     } else {
-        NSLog(@"Repo menu not found");
+        //NSLog(@"Repo menu not found");
     }
 }
 

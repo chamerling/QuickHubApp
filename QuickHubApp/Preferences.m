@@ -28,7 +28,6 @@ static Preferences *sharedInstance = nil;
 }
 
 -(void)setDefault {
-    NSLog(@"Setting initial defaults...");
     [self storeLogin:@"" withPassword:@""];
 }
 

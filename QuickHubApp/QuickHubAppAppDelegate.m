@@ -41,10 +41,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    
-    [NSApp setServicesProvider:self];
-    NSLog(@"Finished registering as service");
-    
+    [NSApp setServicesProvider:self];    
     statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
     [statusItem setMenu:statusMenu];
     NSImage *statusImage = [NSImage imageNamed:@"QuickHubAppToolbar.png"];
@@ -59,7 +56,7 @@
     
     Reachability *internetDonnection = [Reachability reachabilityForInternetConnection];
     if ([internetDonnection currentReachabilityStatus] == NotReachable) {
-        NSLog(@"Startup : Internet is not reachable");
+        //NSLog(@"Startup : Internet is not reachable");
     } else {
         if ([[preferences oauthToken]length] == 0 || ![ghClient checkCredentials:nil]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];
@@ -80,7 +77,7 @@
 {
     NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
     OSStatus httpResult = LSSetDefaultHandlerForURLScheme((CFStringRef)@"quickhubapp", (CFStringRef)bundleID);
-    NSLog(@"Result : %@", httpResult);
+    //NSLog(@"Result : %@", httpResult);
 	[[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(getUrl:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
 
@@ -88,7 +85,7 @@
 {
 	NSString *url = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
 	// Now you can parse the URL and perform whatever action is needed
-    NSLog(@"Got an URL %@", url);
+    //NSLog(@"Got an URL %@", url);
     
     if (url) {
         NSURL *callbackURL = [NSURL URLWithString:url];
@@ -96,7 +93,7 @@
         if ([url startsWith:@"quickhubapp://oauth"]) {
             // for now we do not support N operations, so 'oauth' is the only one. Will need to add more...
             NSString *query = [callbackURL query];    
-            NSLog(@"query %@", query);
+            //NSLog(@"query %@", query);
             
             if ([[[Preferences sharedInstance] oauthToken]length] > 0) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Already Authorized..."] userInfo:nil];
@@ -110,7 +107,7 @@
                     oauth = [component substringFromIndex:[@"access_token=" length]];
                 }
             }
-            NSLog(@"Save oauth '%@' !", oauth);
+            //NSLog(@"Save oauth '%@' !", oauth);
             [[Preferences sharedInstance]storeToken:oauth];
             // save the user, can be used in some payloads...
             NSDictionary *user = [ghClient loadUser:nil];
@@ -131,7 +128,7 @@
 
             [appController loadAll:nil];
         } else if ([url startsWith:@"quickhubapp://gist"]) {
-            NSLog(@"Create Gist action...");
+            //NSLog(@"Create Gist action...");
         } else {
             // ?
         }
@@ -377,7 +374,6 @@
 }
 
 - (IBAction)createGist:(id)sender {
-    NSLog(@"Create a gist!");
     GistCreateWindowController *gistCreator = [[GistCreateWindowController alloc] initWithWindowNibName:@"GistCreateWindow"];
     [gistCreator setGhClient:ghClient];
     [gistCreator setMenuController:menuController];
@@ -387,7 +383,6 @@
 }
 
 - (IBAction)createRepository:(id)sender {
-    NSLog(@"Create a repository!");
     RepoCreateWindowController *creator = [[RepoCreateWindowController alloc] initWithWindowNibName:@"RepoCreateWindow"];
     [creator setGhClient:ghClient];
     [creator setMenuController:menuController];
@@ -397,9 +392,7 @@
 }
 
 - (IBAction)createOrgRepository:(id)sender {
-    NSLog(@"Create an Org repository!");
     id selectedItem = [sender representedObject];
-    NSLog(@"Selected Item %@", selectedItem);
     NSString *orgName = [NSString stringWithFormat:@"%@", selectedItem];
     OrgRepoCreateWindowController *creator = [[OrgRepoCreateWindowController alloc] initWithWindowNibName:@"OrgRepoCreateWindow"];
     [creator setOrganisationName:orgName];
@@ -411,7 +404,6 @@
 }
 
 - (IBAction)createIssue:(id)sender {
-    NSLog(@"Create an issue!");
     IssueCreateWindowController *creator = [[IssueCreateWindowController alloc] initWithWindowNibName:@"IssueCreateWindow"];
     [creator setGhClient:ghClient];
     [creator setMenuController:menuController];
@@ -491,11 +483,8 @@
 
 // Gist a text selection
 - (void)gistTextSelectionService:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
-    NSLog(@"Service Gist Text called!");
-
     if (![[pboard types] containsObject:NSPasteboardTypeString]) {
 		NSBeep();
-        NSLog(@"No good PB, can not create a gist from that...");
         [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Invalid selection, can not gist it!"] userInfo:nil];
 		return;
 	}
@@ -522,7 +511,6 @@
 	}
 	
 	NSString *path = [[pboard propertyListForType:NSFilenamesPboardType] objectAtIndex:0];
-    NSLog(@"PATH : %@", path);
     NSURL *url = [NSURL URLWithString:path];
     CFStringRef folder = (CFStringRef) [url path];
     
@@ -530,7 +518,6 @@
 
     // FIXME : folder is not recognized here...
     if (UTTypeConformsTo(folderUTI, kUTTypeFolder)) {
-        NSLog(@"It's a folder!");
         NSBeep();
         [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
                                                             object:@"Can not create a Gist from a folder!" 

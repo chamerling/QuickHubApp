@@ -67,7 +67,8 @@
     NSLog(@"Loading Issues...");
     
     // try to get my issues with ASIHTTP and JSONKIT...
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"issues"]]];
+    NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"issues"]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request setDelegate:self];
     [request startSynchronous];
     
@@ -80,7 +81,8 @@
 - (NSDictionary*) loadGists:(id) sender {
     NSLog(@"Loaging Gists...");
     // get gists
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"gists"]]];
+    NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"gists"]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request setDelegate:self];
     [request startSynchronous];
     
@@ -93,7 +95,8 @@
 - (NSDictionary*) loadOrganizations:(id) sender {
     NSLog(@"Loading Organizations...");
     
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"user/orgs"]]];
+    NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/orgs"]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request setDelegate:self];
     [request startSynchronous];
     NSDictionary *result = [[request responseString] objectFromJSONString];
@@ -105,7 +108,9 @@
 - (NSDictionary *)getReposForOrganization:(NSString *)name {
     NSLog(@"Loading Repos for Organization %@...", name);
 
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:[NSString stringWithFormat:@"orgs/%@/repos", name]]]];
+    NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:[NSString stringWithFormat:@"orgs/%@/repos", name]]];
+
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request setDelegate:self];
     [request startSynchronous];
     
@@ -114,8 +119,9 @@
 
 - (NSDictionary*) loadRepos:(id) sender {
     NSLog(@"Loading Repositories...");
-    
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"user/repos"]]];
+    NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/repos"]];
+
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request setDelegate:self];
     [request startSynchronous];
     NSDictionary *result = [[request responseString] objectFromJSONString];
@@ -143,8 +149,9 @@
 - (NSMutableSet *)getRepositories:(id)sender {
     NSLog(@"Getting Repositories...");
     NSMutableSet *result = [[NSMutableSet alloc]init];
-    
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"user/repos"]]];    
+    NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/repos"]];
+
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];    
     [request setDelegate:self];
     [request startSynchronous];
     [self updateRemaining:request];
@@ -159,8 +166,11 @@
 
 - (NSDictionary *)getPullsForRepository:(NSString *)name {
     //NSLog(@"Get pulls for repository %@", name);
-    NSString *userName = [[Preferences sharedInstance] login];    
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:[NSString stringWithFormat:@"repos/%@/%@/pulls", userName, name]]]];
+    NSString *userName = [[Preferences sharedInstance] login];
+    
+    NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:[NSString stringWithFormat:@"repos/%@/%@/pulls", userName, name]]];
+
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request startSynchronous];
     [self updateRemaining:request];
     int status = [request responseStatusCode];
@@ -175,7 +185,8 @@
 - (NSDictionary *) loadFollowers:(id) sender {
     NSLog(@"Loading Followers...");
     
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"user/followers"]]];
+    NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/followers"]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request setDelegate:self];
     [request startSynchronous];
     NSDictionary *result = [[request responseString] objectFromJSONString];
@@ -186,7 +197,8 @@
 
 - (NSDictionary *) loadFollowings:(id) sender {
     
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"user/following"]]];
+    NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/following"]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request setDelegate:self];
     [request startSynchronous];
     NSDictionary *result = [[request responseString] objectFromJSONString];
@@ -196,7 +208,8 @@
 }
 
 - (NSDictionary *) loadWatchedRepos:(id) sender {
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"user/watched"]]];
+    NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/watched"]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request setDelegate:self];
     [request startSynchronous];   
     NSDictionary *result = [[request responseString] objectFromJSONString];

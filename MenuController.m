@@ -560,13 +560,34 @@
 - (void) addIssue:(NSDictionary *)issue top:(BOOL)top {
     NSMenu *menu = [self getIssuesMenu];
     
-    NSMenuItem *issueItem = [[NSMenuItem alloc] initWithTitle:[issue valueForKey:@"title"] action:@selector(issuePressed:) keyEquivalent:@""];
-    [issueItem setRepresentedObject:[issue valueForKey:@"html_url"]];
+    // get the repository name from the API url such as
+    // 'https://api.github.com/repos/Jug-Montpellier/play-Jug/2' or 'https://api.github.com/repos/chamerling/JugApp/issues/1'
     
-    NSImage* iconImage = [NSImage imageNamed:@"bullet_yellow.png"];
+    NSString *apiURL = [issue valueForKey:@"url"];    
+    NSString *repoName = [NSString stringWithString:[apiURL substringFromIndex:([[NSString stringWithString:@"https://api.github.com/repos/"] length])]];    
+    if ([repoName rangeOfString:[NSString stringWithFormat:@"%@/", [[Preferences sharedInstance] login]]].length > 0) {
+        repoName = [NSString stringWithString:[repoName substringFromIndex:([[NSString stringWithFormat:@"%@/", [[Preferences sharedInstance] login]] length])]];
+        repoName = [repoName substringToIndex:[repoName rangeOfString:@"/issues"].location];
+    } else {
+        repoName = [repoName substringToIndex:[repoName rangeOfString:@"/issues"].location];
+    }
+    
+    NSString *title = [NSString stringWithFormat:@"[%@] %@", repoName, [issue valueForKey:@"title"]];
+    
+    NSMenuItem *issueItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(issuePressed:) keyEquivalent:@""];
+    [issueItem setRepresentedObject:[issue valueForKey:@"html_url"]];
+    [issueItem setToolTip:[NSString stringWithFormat:@"Repository %@, State is %@, Created at %@", repoName, [issue valueForKey:@"state"], [issue valueForKey:@"created_at"]]];
+    
+    NSImage* iconImage = nil;
+    NSDictionary *user = [issue valueForKey:@"user"];
+    if (user && [user valueForKey:@"avatar_url"]) {
+        iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[user valueForKey:@"avatar_url"]]];
+    } else {
+        iconImage = [NSImage imageNamed:@"bullet_yellow.png"];
+    }
+
     [iconImage setSize:NSMakeSize(16,16)];
     [issueItem setImage:iconImage];
-    
     [issueItem autorelease];
     
     if (top) {
@@ -583,9 +604,9 @@
     NSString *title = nil;
     NSString *description = [gist valueForKey:@"description"];
     if (description == (id)[NSNull null] || description.length == 0) {
-        title = [NSString stringWithFormat:@"%@", [gist valueForKey:@"id"]];
+        title = [NSString stringWithFormat:@"[%@]", [gist valueForKey:@"id"]];
     } else {
-        title = [NSString stringWithFormat:@"%@ : %@", [gist valueForKey:@"id"], description];
+        title = [NSString stringWithFormat:@"[%@] %@", [gist valueForKey:@"id"], description];
     }
     
     NSMenuItem *gistItem = [[NSMenuItem alloc] initWithTitle:title action:@selector(gistPressed:) keyEquivalent:@""];

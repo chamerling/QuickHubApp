@@ -70,6 +70,7 @@
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"issues"]]];
     [request setDelegate:self];
     [request startSynchronous];
+    
     NSDictionary *result = [[request responseString] objectFromJSONString];
     // DO not release the request, it cause failures on the threads...
     //[request release];
@@ -134,6 +135,7 @@
             [dict setValue:pulls forKey:repoName];
         }
     }
+    NSLog(@"Got pulls!");
     
     return dict;   
 }
@@ -156,7 +158,7 @@
 }
 
 - (NSDictionary *)getPullsForRepository:(NSString *)name {
-    NSLog(@"Get pulls for repository %@", name);
+    //NSLog(@"Get pulls for repository %@", name);
     NSString *userName = [[Preferences sharedInstance] login];    
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:[NSString stringWithFormat:@"repos/%@/%@/pulls", userName, name]]]];
     [request startSynchronous];

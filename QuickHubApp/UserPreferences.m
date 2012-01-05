@@ -9,6 +9,7 @@
 #import "UserPreferences.h"
 #import "Preferences.h"
 #import "QHConstants.h"
+#import "Context.h"
 
 @interface UserPreferences (Private)
 - (void) loadUserData:(id)source;
@@ -86,8 +87,12 @@
         
         // not available for now
         //NSDictionary* auths = [client getAuthorizations:nil];
+        
         [pref storeToken:@""];
         [pref storeLogin:@"" withPassword:@""];
+        if ([Context sharedInstance]) {
+            [[Context sharedInstance] cleanAll];
+        }
         [appController stopAll:nil];
         [menuController cleanMenus:nil];
         [menuController resetCache:nil];

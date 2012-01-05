@@ -12,6 +12,7 @@
 #import "NSData+Base64.h"
 #import "ASIHTTPRequest.h"
 #import "QHConstants.h"
+#import "Context.h"
 
 @implementation AppController
 
@@ -106,8 +107,8 @@
         
         githubPolling = YES;
         
-        [gistTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:1]];
-        [repositoryTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:2]];
+        [repositoryTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:1]];
+        [gistTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:2]];
         [organizationTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:3]];
         [issueTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:4]];
         [followTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:6]];
@@ -145,6 +146,9 @@
 
 - (void)pollRepos:(id) sender {
     if (githubPolling) {
+        NSSet *repositories = [githubController getRepositories:nil];
+        [[Context sharedInstance]setRepositories:repositories];
+        
         NSDictionary *dictionary = [githubController loadRepos:nil];
         if (dictionary) {
             [menuController reposFinished:dictionary];  

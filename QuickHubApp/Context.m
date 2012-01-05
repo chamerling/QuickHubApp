@@ -13,6 +13,7 @@ static Context *sharedInstance = nil;
 @implementation Context
 
 @synthesize remainingCalls;
+@synthesize repositories;
 
 - (id)init
 {
@@ -30,6 +31,14 @@ static Context *sharedInstance = nil;
             sharedInstance = [[Context alloc] init];
     }
     return sharedInstance;
+}
+
+- (void)cleanAll {
+    [self setRemainingCalls:@"0"];
+    [self setRepositories:nil];
+}
+
+- (void)dealloc {
 }
 
 @end

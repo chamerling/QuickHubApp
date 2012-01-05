@@ -71,6 +71,7 @@
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)createRepository:(id)sender;
 - (IBAction)quit:(id)sender;
+- (IBAction)createIssue:(id)sender;
 
 # pragma mark - GH Menu pressed actions
 - (void) repoPressed:(id)sender;

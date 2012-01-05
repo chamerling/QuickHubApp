@@ -22,6 +22,7 @@
 #import "GistViewWindowController.h"
 #import "UserPreferences.h"
 #import "OrgRepoCreateWindowController.h"
+#import "IssueCreateWindowController.h"
 
 #import "MASPreferencesWindowController.h"
 #import "ASIHTTPRequest.h"
@@ -402,6 +403,16 @@
     NSString *orgName = [NSString stringWithFormat:@"%@", selectedItem];
     OrgRepoCreateWindowController *creator = [[OrgRepoCreateWindowController alloc] initWithWindowNibName:@"OrgRepoCreateWindow"];
     [creator setOrganisationName:orgName];
+    [creator setGhClient:ghClient];
+    [creator setMenuController:menuController];
+    [NSApp activateIgnoringOtherApps: YES];
+	[[creator window] makeKeyWindow];
+    [creator showWindow:self];
+}
+
+- (IBAction)createIssue:(id)sender {
+    NSLog(@"Create an issue!");
+    IssueCreateWindowController *creator = [[IssueCreateWindowController alloc] initWithWindowNibName:@"IssueCreateWindow"];
     [creator setGhClient:ghClient];
     [creator setMenuController:menuController];
     [NSApp activateIgnoringOtherApps: YES];

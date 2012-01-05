@@ -37,6 +37,8 @@
 
 - (NSDictionary*) createRepository:(NSString*) name forOrg:(NSString*)orgName description:(NSString*)desc homepage:(NSString*) home wiki:(BOOL)wk issues:(BOOL)is downloads:(BOOL)dl isPrivate:(BOOL)privacy;
 
+- (NSDictionary *) createIssue:(NSString *) repository user:(NSString *)user title:(NSString *)title boby:(NSString *)body assignee:(NSString*)assignee milestone:(NSString *) milestone labels:(NSSet*)labels;
+
 - (NSDictionary *) getGist:(NSString*)gistId;
 
 - (NSDictionary *)getPullsForRepository:(NSString *)name;

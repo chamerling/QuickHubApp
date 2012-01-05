@@ -179,7 +179,7 @@
     for (NSDictionary *issue in result) {
         [existingIssues addObject:[issue valueForKey:@"number"]];
         if (clean) {
-            [self addIssue:issue];
+            [self addIssue:issue top:NO];
         }
     }
     
@@ -557,7 +557,7 @@
 }
 
 #pragma mark - atomic
-- (void) addIssue:(NSDictionary *)issue {
+- (void) addIssue:(NSDictionary *)issue top:(BOOL)top {
     NSMenu *menu = [self getIssuesMenu];
     
     NSMenuItem *issueItem = [[NSMenuItem alloc] initWithTitle:[issue valueForKey:@"title"] action:@selector(issuePressed:) keyEquivalent:@""];
@@ -568,7 +568,13 @@
     [issueItem setImage:iconImage];
     
     [issueItem autorelease];
-    [menu addItem:issueItem];
+    
+    if (top) {
+        NSInteger deleteItemLimit = [menu indexOfItemWithTitle:@"deletelimit"];
+        [menu insertItem:issueItem atIndex:deleteItemLimit + 1];
+    } else {
+        [menu addItem:issueItem];
+    }
 }
 
 - (void) addGist:(NSDictionary *)gist top:(BOOL)top {

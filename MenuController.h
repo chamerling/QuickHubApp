@@ -62,7 +62,7 @@
 - (void) pullsFinished:(NSDictionary *)dictionary;
 
 #pragma mark - atomic
-- (void) addIssue:(NSDictionary *)issue;
+- (void) addIssue:(NSDictionary *)issue top:(BOOL)top;
 - (void) addGist:(NSDictionary *)gist top:(BOOL)top;
 - (void) addOrg:(NSDictionary *)org;
 - (void) addRepo:(NSDictionary *)repo top:(BOOL)top;

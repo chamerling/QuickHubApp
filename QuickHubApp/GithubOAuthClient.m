@@ -237,6 +237,37 @@
     return nil;
 }
 
+- (NSDictionary *) createIssue:(NSString *) repository user:(NSString *)user title:(NSString *)title boby:(NSString *)body assignee:(NSString*)assignee milestone:(NSString *) milestone labels:(NSSet*)labels {
+    
+    NSDictionary *result = nil;
+    NSString *payload = nil;
+    if (assignee) {
+        payload = [NSString stringWithFormat:@"{\"title\": %@, \"body\": %@, \"assignee\": \"%@\"}", [title JSONString], [body JSONString], assignee];    
+    } else {
+        payload = [NSString stringWithFormat:@"{\"title\": %@, \"body\": %@}", [title JSONString], [body JSONString]];
+    }
+        
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:[NSString stringWithFormat:@"repos/%@/%@/issues", user, repository]]]];
+    [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [request startSynchronous];
+    [self updateRemaining:request];
+    
+    NSError *error = [request error];
+    if (!error) {
+        int status = [request responseStatusCode];
+        NSString *response = [request responseString];
+        if (status == 201) {
+            result = [response objectFromJSONString];
+        } else {
+            NSLog(@"Issue creation error, bad return code %d", status);
+        }
+    } else {
+        NSLog(@"Issue creation error %@", error);
+    }
+    return result;
+}
+
 - (NSDictionary*) createRepository:(NSString*) name description:(NSString*)desc homepage:(NSString*) home wiki:(BOOL)wk issues:(BOOL)is downloads:(BOOL)dl isPrivate:(BOOL)privacy {
     NSDictionary *result = nil;
     

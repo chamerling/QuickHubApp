@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C91879D414B39F300096922B /* IssueCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91879D314B39F300096922B /* IssueCreateWindow.xib */; };
+		C91879D714B3A3920096922B /* IssueCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91879D614B3A3920096922B /* IssueCreateWindowController.m */; };
 		C93B5A3414728161003D6A7F /* fork.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A3314728161003D6A7F /* fork.png */; };
 		C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D091456EF090013F78E /* NSWorkspaceHelper.m */; };
 		C9642D101456F1530013F78E /* GrowlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D0F1456F1530013F78E /* GrowlManager.m */; };
@@ -88,6 +90,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C91879D314B39F300096922B /* IssueCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueCreateWindow.xib; sourceTree = "<group>"; };
+		C91879D514B3A3920096922B /* IssueCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueCreateWindowController.h; sourceTree = "<group>"; };
+		C91879D614B3A3920096922B /* IssueCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCreateWindowController.m; sourceTree = "<group>"; };
 		C93B5A3314728161003D6A7F /* fork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fork.png; sourceTree = "<group>"; };
 		C9642D081456EF090013F78E /* NSWorkspaceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWorkspaceHelper.h; sourceTree = "<group>"; };
 		C9642D091456EF090013F78E /* NSWorkspaceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWorkspaceHelper.m; sourceTree = "<group>"; };
@@ -327,6 +332,7 @@
 				C96ABC6E147ED383001A2407 /* RepoCreateWindow.xib */,
 				C9D67A2B14852DBB00026988 /* GistViewWindow.xib */,
 				C9C60C6A149F9D5B0059CECE /* OrgRepoCreateWindow.xib */,
+				C91879D314B39F300096922B /* IssueCreateWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -401,6 +407,8 @@
 				C96ABC71147ED6F9001A2407 /* RepoCreateWindowController.m */,
 				C9C60C66149F9D090059CECE /* OrgRepoCreateWindowController.h */,
 				C9C60C67149F9D0A0059CECE /* OrgRepoCreateWindowController.m */,
+				C91879D514B3A3920096922B /* IssueCreateWindowController.h */,
+				C91879D614B3A3920096922B /* IssueCreateWindowController.m */,
 				C96ABC9A14803E39001A2407 /* Context.h */,
 				C96ABC9B14803E3A001A2407 /* Context.m */,
 				C9D67A311485336700026988 /* GistViewWindowController.h */,
@@ -495,6 +503,7 @@
 				C98FB89A1486CBF000B7D92A /* AboutPreferencesViewController.xib in Resources */,
 				C98FB8AB148790EA00B7D92A /* UserPreferences.xib in Resources */,
 				C9C60C6B149F9D5B0059CECE /* OrgRepoCreateWindow.xib in Resources */,
+				C91879D414B39F300096922B /* IssueCreateWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +546,7 @@
 				C98FB8AA148790EA00B7D92A /* UserPreferences.m in Sources */,
 				C98FB8BF1489244500B7D92A /* NSString+JavaAPI.m in Sources */,
 				C9C60C68149F9D0B0059CECE /* OrgRepoCreateWindowController.m in Sources */,
+				C91879D714B3A3920096922B /* IssueCreateWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

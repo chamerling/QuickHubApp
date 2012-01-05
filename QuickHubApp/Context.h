@@ -11,10 +11,13 @@
 @interface Context : NSObject
 {
     NSString *remainingCalls;
+    NSSet *repositories;
 }
     
 + (Context *)sharedInstance;
+- (void) cleanAll;
 
 @property (nonatomic, assign) NSString *remainingCalls;
+@property (nonatomic, assign) NSSet *repositories;
 
 @end

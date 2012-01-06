@@ -14,6 +14,18 @@
 #import "QHConstants.h"
 #import "Context.h"
 
+@interface AppController (Private)
+- (void) updateGistUI:(NSDictionary *) dictionary;
+- (void) updateReposUI:(NSDictionary *) dictionary;
+- (void) updateOrgsUI:(NSDictionary *) dictionary;
+- (void) updateIssuesUI:(NSDictionary *) dictionary;
+- (void) updatePullsUI:(NSDictionary *) dictionary;
+- (void) updateWatchingUI:(NSDictionary *) dictionary;
+- (void) updateFollowersUI:(NSDictionary *) dictionary;
+- (void) updateFollowingUI:(NSDictionary *) dictionary;
+- (void) doLoadAll:(id) sender;
+@end
+
 @implementation AppController
 
 - (id)init
@@ -50,12 +62,14 @@
                                                object:nil];
     
     // load gists when a gist is created!
+    // FIXME : Chck that this is not used
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(pollGists:)
                                                  name:GITHUB_NOTIFICATION_GIST_CREATED
                                                object:nil];
 
     // load repos when a repo is created!
+    // FIXME : check that this is not used since we add them by hand
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(pollRepos:)
                                                  name:GITHUB_NOTIFICATION_REPO_CREATED
@@ -70,58 +84,64 @@
         if ([[preferences oauthToken]length] == 0 || ![githubController checkCredentials:nil]) {
             return;
         }
-
-        //NSLog(@"Load all and start polling things");
-        // data is no more loaded on first call, the timers are initialized with a fire date which is close to the creation.
-        //[githubController loadGHData:nil];
-
-        gistTimer = [NSTimer scheduledTimerWithTimeInterval:120 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
-        //[gistTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.1]];
         
-        repositoryTimer = [NSTimer scheduledTimerWithTimeInterval:130 target:self selector:@selector(pollRepos:) userInfo:nil repeats:YES];
-        //[repositoryTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.2]];
-
-        organizationTimer = [NSTimer scheduledTimerWithTimeInterval:600 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
-        //[organizationTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.3]];
-
-        issueTimer = [NSTimer scheduledTimerWithTimeInterval:125 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
-        //[issueTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.4]];
-        
-        followTimer = [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(pollFollow:) userInfo:nil repeats:YES];
-        //[followTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.5]];
-        
-        watchingTimer = [NSTimer scheduledTimerWithTimeInterval:1800 target:self selector:@selector(pollWatching:) userInfo:nil repeats:YES];
-        //[watchingTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.6]];
-        
-        pullTimer = [NSTimer scheduledTimerWithTimeInterval:1200 target:self selector:@selector(pollPulls:) userInfo:nil repeats:YES];
-
-        // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
-        // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input
-        [[NSRunLoop currentRunLoop] addTimer:gistTimer forMode:NSRunLoopCommonModes];
-        [[NSRunLoop currentRunLoop] addTimer:repositoryTimer forMode:NSRunLoopCommonModes];
-        [[NSRunLoop currentRunLoop] addTimer:organizationTimer forMode:NSRunLoopCommonModes];
-        [[NSRunLoop currentRunLoop] addTimer:issueTimer forMode:NSRunLoopCommonModes];
-        [[NSRunLoop currentRunLoop] addTimer:followTimer forMode:NSRunLoopCommonModes];
-        [[NSRunLoop currentRunLoop] addTimer:watchingTimer forMode:NSRunLoopCommonModes];
-        [[NSRunLoop currentRunLoop] addTimer:pullTimer forMode:NSRunLoopCommonModes];
-        
-        githubPolling = YES;
-        
-        [repositoryTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:1]];
-        [gistTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:2]];
-        [organizationTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:3]];
-        [issueTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:4]];
-        [followTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:6]];
-        [watchingTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:7]];
-        [pullTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:10]];
+        [self performSelectorInBackground:@selector(doLoadAll:) withObject:nil];        
 
     } else {
         //NSLog(@"Can not start all since we are already polling...");
     }
 }
 
+- (void) doLoadAll:(id) sender {
+    //NSLog(@"Load all and start polling things");
+    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
+    
+    gistTimer = [NSTimer scheduledTimerWithTimeInterval:240 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
+    //[gistTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.1]];
+    
+    repositoryTimer = [NSTimer scheduledTimerWithTimeInterval:310 target:self selector:@selector(pollRepos:) userInfo:nil repeats:YES];
+    //[repositoryTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.2]];
+    
+    organizationTimer = [NSTimer scheduledTimerWithTimeInterval:603 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
+    //[organizationTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.3]];
+    
+    issueTimer = [NSTimer scheduledTimerWithTimeInterval:125 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
+    //[issueTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.4]];
+    
+    followTimer = [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(pollFollow:) userInfo:nil repeats:YES];
+    //[followTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.5]];
+    
+    watchingTimer = [NSTimer scheduledTimerWithTimeInterval:1802 target:self selector:@selector(pollWatching:) userInfo:nil repeats:YES];
+    //[watchingTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.6]];
+    
+    pullTimer = [NSTimer scheduledTimerWithTimeInterval:1203 target:self selector:@selector(pollPulls:) userInfo:nil repeats:YES];
+    
+    // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
+    // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input
+    [[NSRunLoop currentRunLoop] addTimer:gistTimer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] addTimer:repositoryTimer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] addTimer:organizationTimer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] addTimer:issueTimer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] addTimer:followTimer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] addTimer:watchingTimer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] addTimer:pullTimer forMode:NSRunLoopCommonModes];
+    
+    githubPolling = YES;
+    
+    [repositoryTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:1]];
+    [gistTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:2]];
+    [organizationTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:3]];
+    [issueTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:4]];
+    [followTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:6]];
+    [watchingTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:7]];
+    [pullTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:10]];
+    
+    [runLoop run];
+    [pool release];
+}
+
 - (void) stopAll:(id)sender {
-    //NSLog(@"Stop polling all GH stuff...");
     if (githubPolling) {
         [gistTimer invalidate];
         [repositoryTimer invalidate];
@@ -132,6 +152,8 @@
         [pullTimer invalidate];
     }
     githubPolling = NO;
+    
+    // FIXME : how to kill the background thread? Is it garbaged when there is nothing more in the run loop?
     //NSLog(@"Stopped!");
 }
 
@@ -139,6 +161,7 @@
     if (githubPolling) {
         NSDictionary *dictionary = [githubController loadGists:nil];
         if (dictionary) {
+            //[self performSelectorOnMainThread:@selector(updateGistUI:) withObject:dictionary waitUntilDone:NO];
             [menuController gistFinished:dictionary];  
         }
     }
@@ -151,6 +174,7 @@
         
         NSDictionary *dictionary = [githubController loadRepos:nil];
         if (dictionary) {
+            //[self performSelectorOnMainThread:@selector(updateReposUI:) withObject:dictionary waitUntilDone:NO];
             [menuController reposFinished:dictionary];  
         }
     }
@@ -171,6 +195,8 @@
                 [dict setValue:orgDictionary forKey:[org valueForKey:@"login"]];
             }
             //dict = [orgname -> [repos->[dict], [org->[dict]]]]
+            
+            //[self performSelectorOnMainThread:@selector(updateOrgsUI:) withObject:dict waitUntilDone:NO];
             [menuController organizationsFinished:dict];  
         }
     }
@@ -180,6 +206,7 @@
     if (githubPolling) {
         NSDictionary *dictionary = [githubController loadIssues:nil];
         if (dictionary) {
+            //[self performSelectorOnMainThread:@selector(updateIssuesUI:) withObject:dictionary waitUntilDone:NO];
             [menuController issuesFinished:dictionary];  
         }
     }
@@ -188,11 +215,13 @@
 - (void) pollFollow:(id) sender {
     if (githubPolling) {
         NSDictionary *dictionary = [githubController loadFollowers:nil];
+        NSDictionary *dictionary2 = [githubController loadFollowings:nil];
         if (dictionary) {
+            //[self performSelectorOnMainThread:@selector(updateFollowersUI:) withObject:dictionary waitUntilDone:NO];
             [menuController followersFinished:dictionary];  
         }
-        NSDictionary *dictionary2 = [githubController loadFollowings:nil];
         if (dictionary2) {
+            //[self performSelectorOnMainThread:@selector(updateFollowingUI:) withObject:dictionary2 waitUntilDone:NO];
             [menuController followingsFinished:dictionary2];  
         }
     }
@@ -202,6 +231,7 @@
     if (githubPolling) {
         NSDictionary *dictionary = [githubController loadWatchedRepos:nil];
         if (dictionary) {
+            //[self performSelectorOnMainThread:@selector(updateWatchingUI:) withObject:dictionary waitUntilDone:NO];
             [menuController watchedReposFinished:dictionary];  
         }
     }  
@@ -211,9 +241,43 @@
     if (githubPolling) {
         NSDictionary *dictionary = [githubController loadPulls:nil];
         if (dictionary) {
+            //[self performSelectorOnMainThread:@selector(updatePullsUI:) withObject:dictionary waitUntilDone:NO];
             [menuController pullsFinished:dictionary];  
         }
     }  
+}
+
+- (void) updateGistUI:(NSDictionary *) dictionary
+{
+    [menuController gistFinished:dictionary];  
+}
+
+- (void) updateReposUI:(NSDictionary *) dictionary {
+    [menuController reposFinished:dictionary];  
+}
+
+- (void) updateOrgsUI:(NSDictionary *) dictionary {
+    [menuController organizationsFinished:dictionary];  
+}
+
+- (void) updateIssuesUI:(NSDictionary *) dictionary {
+    [menuController issuesFinished:dictionary];  
+}
+
+- (void) updatePullsUI:(NSDictionary *) dictionary {
+    [menuController pullsFinished:dictionary];  
+}
+
+- (void) updateWatchingUI:(NSDictionary *) dictionary {
+    [menuController watchedReposFinished:dictionary];  
+}
+
+- (void) updateFollowersUI:(NSDictionary *) dictionary {
+    [menuController followersFinished:dictionary];  
+}
+
+- (void) updateFollowingUI:(NSDictionary *) dictionary {
+    [menuController followingsFinished:dictionary];  
 }
 
 #pragma mark - reachability

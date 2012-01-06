@@ -22,6 +22,19 @@
 - (NSMenu*) getWatchingMenu;
 - (NSMenu*) getReposOrgMenu:(NSString*) orgName;
 - (NSMenuItem*) createMenuItemForOrgRepo:(NSDictionary*) repository;
+
+- (void) addItemOnMainUIThread:(NSMenuItem *)item to:(NSMenu*)menu;
+- (void) addItemOnMainUIThread:(NSMenuItem *)item to:(NSMenu*)menu at:(NSInteger)index;
+- (void) addTopItemOnMainUIThread:(NSMenuItem *)item to:(NSMenu*)menu;
+
+- (void) addItem:(NSMenuItem *)item to:(NSMenu*)menu top:(Boolean)top;
+
+- (void) addItemAt:(NSDictionary *)dict;
+- (void) addItem:(NSDictionary *)dict;
+- (void) addTopItem:(NSDictionary *)dict;
+
+- (void) deleteItemWithName:(NSString*)name fromMenu:(NSMenu*)menu;
+
 @end
 
 @implementation MenuController
@@ -168,8 +181,9 @@
     }
     
     firstIssueCall = NO;
-    BOOL clean = (addedIssues != 0 || removedIssues != 0);
+    BOOL clean = ([addedIssues count] != 0 || [removedIssues count] != 0);
     if (clean) {
+        // TODO : Remove just the right ones...
         [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     }
     
@@ -187,7 +201,8 @@
         // default menu item
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No issues" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
-        [menu addItem:defaultItem];
+        //[menu addItem:defaultItem];
+        [self addItem:defaultItem to:menu top:FALSE];
     }
 }
 
@@ -245,10 +260,10 @@
     }
     
     firstGistCall = NO;
-    
-    BOOL clean = (added != 0 || removed != 0);
+    BOOL clean = ([added count] != 0 || [removed count] != 0);
     if (clean) {
         [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+        // TODO : delete only the removed... need to put gist ids as menu items ids
     }
     
     // clear the existing Issues
@@ -267,7 +282,8 @@
         // default menu item
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No gists" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
-        [menu addItem:defaultItem];
+        //[menu addItem:defaultItem];
+        [self addItem:defaultItem to:menu top:FALSE];
     }
 }
 
@@ -294,7 +310,8 @@
         [organizationItem setEnabled:YES];
         [organizationItem autorelease];
         [menu addItem:organizationItem];
-        
+        //[self addItem:organizationItem to:menu top:FALSE];
+
         NSDictionary* repos = [entry valueForKey:@"repos"];
         
         NSMenu* repositoriesMenu = [[NSMenu alloc] init];
@@ -304,15 +321,18 @@
         [openItem setRepresentedObject:[org valueForKey:@"login"]];
         [openItem autorelease];
         [repositoriesMenu addItem:openItem];
+        //[self addItem:openItem to:repositoriesMenu top:FALSE];
         
         NSMenuItem *createItem = [[NSMenuItem alloc] initWithTitle:@"Create Repository..." action:@selector(createOrgRepository:) keyEquivalent:@""];
         [createItem setRepresentedObject:[org valueForKey:@"login"]];
         [createItem autorelease];
         [repositoriesMenu addItem:createItem];
+        //[self addItem:createItem to:repositoriesMenu top:FALSE];
         
         NSMenuItem *separator = [NSMenuItem separatorItem];
         [separator setTitle:@"deletelimit"];
         [repositoriesMenu addItem:separator];
+        //[self addItem:separator to:repositoriesMenu top:FALSE];
         
         for (NSArray *repo in repos) {
             NSMenuItem *organizationRepoItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
@@ -342,6 +362,8 @@
             [organizationRepoItem autorelease];
             
             [repositoriesMenu addItem:organizationRepoItem];
+            //[self addItem:organizationRepoItem to:repositoriesMenu top:FALSE];
+
         }
         [organizationItem setSubmenu:repositoriesMenu]; 
     }
@@ -351,6 +373,7 @@
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No orgnizations" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         [menu addItem:defaultItem];
+        //[self addItem:defaultItem to:menu top:FALSE];
     }
     
 }
@@ -401,9 +424,9 @@
             }
         }
     }
+    
     firstRepositoryCall = NO;
-    BOOL clean = (added != 0 || added != 0);
-
+    BOOL clean = ([added count] != 0 || [removed count] != 0);
     if (clean) {
         [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     }
@@ -423,7 +446,8 @@
         // default menu item
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No repositories" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
-        [menu addItem:defaultItem];
+        [self addItem:defaultItem to:menu top:FALSE];
+        //[menu addItem:defaultItem];
     }
 }
 
@@ -454,14 +478,14 @@
         NSMenuItem *item = [[NSMenuItem alloc]initWithTitle:[NSString stringWithFormat:@"%@/%@", [preferences login], key] action:@selector(openURL:) keyEquivalent:@""];
         [item setRepresentedObject:[NSString stringWithFormat:@"https://github.com/%@/%@/pulls", [preferences login], key]];
         
-        // TODO : image from the repository type and privacy
         NSImage* iconImage = [NSImage imageNamed:@"bullet_yellow.png"];
         [iconImage setSize:NSMakeSize(16,16)];
         [item setImage:iconImage];
         
         [item autorelease];
         [menu addItem:item];
-        
+        //[self addItem:item to:menu top:FALSE];
+
         // add submenus and item for each pull
         NSMenu* pullsMenu = [[NSMenu alloc] init];
         for (NSArray *pull in pulls) {
@@ -472,6 +496,8 @@
             
             [pullItem autorelease];
             [pullsMenu addItem:pullItem];
+            //[self addItem:pullItem to:pullsMenu top:FALSE];
+
         }
         [item setSubmenu:pullsMenu];
     }
@@ -480,6 +506,7 @@
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No pull requests" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         [menu addItem:defaultItem];
+        //[self addItem:defaultItem to:menu top:FALSE];
     }
     
 }
@@ -494,6 +521,7 @@
     NSMenu *menu = [followersItem submenu];
     
     // always delete...
+    // FIXME = just add or delete the diff...
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
     for (NSDictionary *user in result) {
@@ -503,7 +531,8 @@
         // default menu item
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No followers" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
-        [menu addItem:defaultItem];
+        //[menu addItem:defaultItem];
+        [self addItem:defaultItem to:menu top:FALSE];
     }  
 }
 
@@ -517,16 +546,19 @@
     NSMenu *menu = [followingsItem submenu];
         
     // always delete...
+    // FIXME = just add or delete the diff
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
     for (NSDictionary *user in result) {
         [self addFollowing:user];
     }
+    
     if ([result count] == 0) {
         // default menu item
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"Nobody" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
-        [menu addItem:defaultItem];
+        //[menu addItem:defaultItem];
+        [self addItem:defaultItem to:menu top:FALSE];
     }
 }
 
@@ -537,6 +569,7 @@
     NSMenu *menu = [menuItem submenu];
         
     // always delete...
+    // FIXME : just delete or add the diff
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
     for (NSDictionary *repo in result) {
@@ -552,7 +585,8 @@
         // default menu item
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"Nothing to watch" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
-        [menu addItem:defaultItem];
+        //[menu addItem:defaultItem];
+        [self addItem:defaultItem to:menu top:FALSE];
     }
 }
 
@@ -590,12 +624,7 @@
     [issueItem setImage:iconImage];
     [issueItem autorelease];
     
-    if (top) {
-        NSInteger deleteItemLimit = [menu indexOfItemWithTitle:@"deletelimit"];
-        [menu insertItem:issueItem atIndex:deleteItemLimit + 1];
-    } else {
-        [menu addItem:issueItem];
-    }
+    [self addItem:issueItem to:menu top:top];
 }
 
 - (void) addGist:(NSDictionary *)gist top:(BOOL)top {
@@ -625,12 +654,7 @@
     [gistItem setRepresentedObject:gist];
     [gistItem autorelease];
     
-    if (top) {
-        NSInteger deleteItemLimit = [menu indexOfItemWithTitle:@"deletelimit"];
-        [menu insertItem:gistItem atIndex:deleteItemLimit + 1];
-    } else {
-        [menu addItem:gistItem];
-    }
+    [self addItem:gistItem to:menu top:top];
 }
 
 - (void) addOrg:(NSDictionary *)org {
@@ -670,25 +694,16 @@
     [organizationItem setEnabled:YES];
     [organizationItem autorelease];
     
-    if (top) {
-        NSInteger deleteItemLimit = [menu indexOfItemWithTitle:@"deletelimit"];
-        [menu insertItem:organizationItem atIndex:deleteItemLimit + 1];
-    } else {
-        [menu addItem:organizationItem];
-    }
+    [self addItem:organizationItem to:menu top:top];
+
 }
 
 - (void) addOrgRepo:(NSString *)orgName withRepo:(NSDictionary *)repo top:(BOOL)top {
     NSMenu *menu = [self getReposOrgMenu:orgName];
     if (menu) {
         NSMenuItem *repoItem = [self createMenuItemForOrgRepo:repo];
-        
-        if (top) {
-            NSInteger deleteItemLimit = [menu indexOfItemWithTitle:@"deletelimit"];
-            [menu insertItem:repoItem atIndex:deleteItemLimit + 1];
-        } else {
-            [menu addItem:repoItem];
-        }
+        [self addItem:repoItem to:menu top:top];
+
     } else {
         //NSLog(@"Repo menu not found");
     }
@@ -702,7 +717,8 @@
     [iconImage setSize:NSMakeSize(18,18)];
     [item setImage:iconImage];
     [item autorelease];
-    [menu addItem:item];
+    
+    [self addItem:item to:menu top:FALSE];
 }
 
 - (void) addFollowing:(NSDictionary *)user {
@@ -714,7 +730,8 @@
     [item setImage:iconImage];
     [item setEnabled:YES];
     [item autorelease];
-    [menu addItem:item];
+
+    [self addItem:item to:menu top:FALSE];
 }
 
 - (void) addWatched:(NSDictionary *)repo {
@@ -735,7 +752,8 @@
     [item setImage:iconImage];
     [item setEnabled:YES];
     [item autorelease];
-    [menu addItem:item];
+    
+    [self addItem:item to:menu top:FALSE];
 }
 
 - (void) addPull:(NSDictionary *)pull {
@@ -809,6 +827,13 @@
             // delete all the items at the deleteItemLimit +1 since deleting shift items...
             [menu removeItemAtIndex:deleteItemLimit + 1];
         }
+    }
+}
+
+- (void) deleteItemWithName:(NSString*)name fromMenu:(NSMenu*)menu {
+    NSMenuItem *item = [menu itemWithTitle:name];
+    if (item) {
+        [menu removeItem:item];
     }
 }
 
@@ -905,6 +930,76 @@
 - (NSMenu*) getWatchingMenu {
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Watching"];
     return [menuItem submenu];
+}
+
+#pragma mark - UI update
+
+// initial method to be called by the ones which want to update the menus
+- (void) addItem:(NSMenuItem *)item to:(NSMenu*)menu top:(Boolean)top {
+    if (top) {
+        //NSInteger deleteItemLimit = [menu indexOfItemWithTitle:@"deletelimit"];
+        //[self addItemOnMainUIThread:item to:menu at:(deleteItemLimit + 1)];
+        [self addTopItemOnMainUIThread:item to:menu];
+    } else {
+        [self addItemOnMainUIThread:item to:menu];
+    }
+}
+
+// will add in the main thread
+- (void) addItemOnMainUIThread:(NSMenuItem *)item to:(NSMenu*)menu {
+    NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:item, menu, nil] forKeys:[NSArray arrayWithObjects:@"item", @"menu", nil]];
+    [self performSelectorOnMainThread:@selector(addItem:) withObject:dict waitUntilDone:NO];
+}
+
+- (void) addTopItemOnMainUIThread:(NSMenuItem *)item to:(NSMenu*)menu {
+    NSDictionary *dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:item, menu, nil] forKeys:[NSArray arrayWithObjects:@"item", @"menu", nil]];
+    [self performSelectorOnMainThread:@selector(addTopItem:) withObject:dict waitUntilDone:NO];
+}
+
+// will add in the main thread
+- (void) addItemOnMainUIThread:(NSMenuItem *)item to:(NSMenu*)menu at:(NSInteger)index {
+    NSDictionary *dict = nil;
+    
+    NSString *string = [NSString stringWithFormat:@"%d", index];
+    NSLog(@"String %@", string);
+        
+    if (index && index >=0) {
+        dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:item, menu, string, nil] forKeys:[NSArray arrayWithObjects:@"item", @"menu", "index", nil]];
+    } else {
+    }
+    
+    [self performSelectorOnMainThread:@selector(addItemAt:) withObject:dict waitUntilDone:NO];
+}
+
+// do it in the main thread
+- (void) addItem:(NSDictionary *)dict {
+    NSMenu *menu = [dict valueForKey:@"menu"];
+    NSMenuItem *item = [dict valueForKey:@"item"];
+    
+    if (menu && item) {
+        [menu addItem:item];
+    }
+}
+
+// do it in the main thread!
+- (void) addItemAt:(NSDictionary *)dict {
+    NSMenu *menu = [dict valueForKey:@"menu"];
+    NSMenuItem *item = [dict valueForKey:@"item"];
+    NSString *index = [dict valueForKey:@"index"];
+    
+    if (menu && item && index) {
+        [menu insertItem:item atIndex:[index doubleValue]];
+    }
+}
+
+- (void) addTopItem:(NSDictionary *)dict {
+    NSMenu *menu = [dict valueForKey:@"menu"];
+    NSMenuItem *item = [dict valueForKey:@"item"];
+    
+    if (menu && item) {
+        NSInteger deleteItemLimit = [menu indexOfItemWithTitle:@"deletelimit"];
+        [menu insertItem:item atIndex:(deleteItemLimit + 1)];
+    }
 }
 
 @end

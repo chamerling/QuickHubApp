@@ -20,6 +20,7 @@ Unplanned features and ideas, sort of wish list...
 - [IMPROVEMENT] Better issues display with repository name as prefix
 - [IMPROVEMENT] Issue item now have the submitter avatar as icon
 - [IMPROVEMENT] Better error display when creating repositories
+- [IMPROVEMENT] Data is loaded in the background...
 - [FIX] Bad link on 'Repositories/Open' menu item
 - [FIX] Fix windows close
 - [FIX] Fix wiki and issues choice when creating repository

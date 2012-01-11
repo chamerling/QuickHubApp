@@ -19,9 +19,9 @@ One more time, there are many fixes, improvments and two new features which have
 - [FIX] Fix wiki and issues choice when creating repository
 - [FIX] Regression on the number of items returned by the API call
 
-All comments are welcome here. I will be pleased to reploy to them. There are some on the Mac App Store but it does not provide any way to reply, which is annoying when some users are giving bad review. But bad reviews also give motivation to enhance!
+All comments are welcome. I will be pleased to reply to them. There are some on the Mac App Store but it does not provide any way to reply, which is annoying when some users are giving bad review. But bad reviews also give motivation to enhance QuickHub and the current version is just the proof!
 
-Do not hesitate to send me your ideas for QuickHub, I already added some in the last releases, so thanks!
+Do not hesitate to send me your ideas for QuickHub, I already added some in the last releases, so thanks all for that!
 
 Finally, note that there are still some promo code available to get QuickHub for free, more information on [my tech blog
 ](http://chamerling.org "C.Hamerling").

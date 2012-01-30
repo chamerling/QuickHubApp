@@ -393,16 +393,10 @@
     NSMutableSet* removed = [NSMutableSet setWithSet:existingRepos];
     [removed minusSet:justGet];
     if ([removed count] > 0 && !firstRepositoryCall) {
-        NSString *title = nil;
-        if ([removed count] > 1) {
-            title = [NSString stringWithFormat:@"OMG, %d less repositories!?", [removed count]];
-        } else {
-            // TODO get the name from the set
-            title = [NSString stringWithString:@"RIP little repository..."];
+        for (NSString *repo in removed) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+                object:[NSString stringWithFormat:@"RIP repository '%@'", repo] userInfo:nil];
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                            object:title 
-                                                          userInfo:nil];       
     }
     
     NSMutableSet* added = [NSMutableSet setWithSet:justGet];
@@ -418,7 +412,7 @@
                     if ([[issue valueForKey:@"name"] isEqual:key]) {
                         NSString *title = [issue valueForKey:@"name"];
                         [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                                            object:[NSString stringWithFormat:@"%@ is your new repository", title]                                                             userInfo:nil];                
+                                                                            object:[NSString stringWithFormat:@"New repository '%@'", title]                                                             userInfo:nil];                
                     }
                 }
             }

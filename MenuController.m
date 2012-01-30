@@ -294,9 +294,17 @@
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Organizations"];
     NSMenu *menu = [menuItem submenu];
     
+    // delete all...
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
-    for (NSString *orgName in [result allKeys]) {
+    // order
+    NSArray *orderedOrgs = [[NSMutableArray arrayWithArray:[result allKeys]] sortedArrayUsingComparator:^(id a, id b) {
+        NSString *first = (NSString*)a;
+        NSString *second = (NSString*)b;
+        return [[first lowercaseString] compare:[second lowercaseString]];
+    }];
+    
+    for (NSString *orgName in orderedOrgs) {
         NSDictionary *entry = [result valueForKey:orgName];
         NSDictionary *org = [entry valueForKey:@"org"];
         

@@ -388,7 +388,7 @@
     
     if ([result count] == 0) {
         // default menu item
-        NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No orgnizations" action:nil keyEquivalent:@""];
+        NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No organizations" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         [menu addItem:defaultItem];
         //[self addItem:defaultItem to:menu top:FALSE];

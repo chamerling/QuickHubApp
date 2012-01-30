@@ -352,36 +352,42 @@
             return [[first lowercaseString] compare:[second lowercaseString]];
         }];
         
-        for (NSArray *repo in sorted) {
-            NSMenuItem *organizationRepoItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
-            [organizationRepoItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
+        if (sorted.count == 0) {
+            NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No repository" action:nil keyEquivalent:@""];
+            [defaultItem autorelease];
+            [repositoriesMenu addItem:defaultItem];
+        } else {
+            for (NSArray *repo in sorted) {
+                NSMenuItem *organizationRepoItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
+                [organizationRepoItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
 
-            //[organizationRepoItem setToolTip: @""];
-            [organizationRepoItem setRepresentedObject:[repo valueForKey:@"html_url"]];
-            
-            NSNumber *priv = [repo valueForKey:@"private"];
-            NSImage* iconImage = nil;
-            
-            NSNumber *forked = [repo valueForKey:@"fork"];
-            if ([forked boolValue]) {
-                // TODO, set a specific icon
-                iconImage = [NSImage imageNamed: @"fork.png"];
-            } else {
-                if ([priv boolValue]) {
-                    iconImage = [NSImage imageNamed: @"bullet_red.png"];
+                //[organizationRepoItem setToolTip: @""];
+                [organizationRepoItem setRepresentedObject:[repo valueForKey:@"html_url"]];
+                
+                NSNumber *priv = [repo valueForKey:@"private"];
+                NSImage* iconImage = nil;
+                
+                NSNumber *forked = [repo valueForKey:@"fork"];
+                if ([forked boolValue]) {
+                    // TODO, set a specific icon
+                    iconImage = [NSImage imageNamed: @"fork.png"];
                 } else {
-                    iconImage = [NSImage imageNamed: @"bullet_green.png"];
+                    if ([priv boolValue]) {
+                        iconImage = [NSImage imageNamed: @"bullet_red.png"];
+                    } else {
+                        iconImage = [NSImage imageNamed: @"bullet_green.png"];
+                    }
                 }
-            }
-            [iconImage setSize:NSMakeSize(16,16)];
-            [organizationRepoItem setImage:iconImage];
-            
-            [organizationRepoItem setEnabled:YES];
-            [organizationRepoItem autorelease];
-            
-            [repositoriesMenu addItem:organizationRepoItem];
-            //[self addItem:organizationRepoItem to:repositoriesMenu top:FALSE];
+                [iconImage setSize:NSMakeSize(16,16)];
+                [organizationRepoItem setImage:iconImage];
+                
+                [organizationRepoItem setEnabled:YES];
+                [organizationRepoItem autorelease];
+                
+                [repositoriesMenu addItem:organizationRepoItem];
+                //[self addItem:organizationRepoItem to:repositoriesMenu top:FALSE];
 
+            }
         }
         [organizationItem setSubmenu:repositoriesMenu]; 
     }

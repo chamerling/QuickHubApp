@@ -429,14 +429,6 @@
         }
     }
     
-    // reorder the repositories by name, better than the github order...
-    /*NSArray *orderedArray = [[NSMutableArray arrayWithArray:[justGet allObjects]] sortedArrayUsingComparator:^(id a, id b) {
-        NSString *first = (NSString*)a;
-        NSString *second = (NSString*)b;
-        return [[first lowercaseString] compare:[second lowercaseString]];
-    }];
-     */
-    
     firstRepositoryCall = NO;
     BOOL clean = ([added count] != 0 || [removed count] != 0);
     if (clean) {

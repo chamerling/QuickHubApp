@@ -98,22 +98,16 @@
     NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
     
     gistTimer = [NSTimer scheduledTimerWithTimeInterval:240 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
-    //[gistTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.1]];
     
     repositoryTimer = [NSTimer scheduledTimerWithTimeInterval:310 target:self selector:@selector(pollRepos:) userInfo:nil repeats:YES];
-    //[repositoryTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.2]];
     
     organizationTimer = [NSTimer scheduledTimerWithTimeInterval:603 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
-    //[organizationTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.3]];
     
     issueTimer = [NSTimer scheduledTimerWithTimeInterval:125 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
-    //[issueTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.4]];
     
     followTimer = [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(pollFollow:) userInfo:nil repeats:YES];
-    //[followTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.5]];
     
     watchingTimer = [NSTimer scheduledTimerWithTimeInterval:1802 target:self selector:@selector(pollWatching:) userInfo:nil repeats:YES];
-    //[watchingTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:0.6]];
     
     pullTimer = [NSTimer scheduledTimerWithTimeInterval:1203 target:self selector:@selector(pollPulls:) userInfo:nil repeats:YES];
     

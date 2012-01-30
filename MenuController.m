@@ -334,7 +334,17 @@
         [repositoriesMenu addItem:separator];
         //[self addItem:separator to:repositoriesMenu top:FALSE];
         
-        for (NSArray *repo in repos) {
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        for (NSDictionary *repo in repos) {
+            [array addObject:repo];
+        }
+        NSArray *sorted = [[NSMutableArray arrayWithArray:array] sortedArrayUsingComparator:^(id a, id b) {
+            NSString *first = [a objectForKey:@"name"];
+            NSString *second = [b objectForKey:@"name"];
+            return [[first lowercaseString] compare:[second lowercaseString]];
+        }];
+        
+        for (NSArray *repo in sorted) {
             NSMenuItem *organizationRepoItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
             [organizationRepoItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
 
@@ -419,6 +429,14 @@
         }
     }
     
+    // reorder the repositories by name, better than the github order...
+    /*NSArray *orderedArray = [[NSMutableArray arrayWithArray:[justGet allObjects]] sortedArrayUsingComparator:^(id a, id b) {
+        NSString *first = (NSString*)a;
+        NSString *second = (NSString*)b;
+        return [[first lowercaseString] compare:[second lowercaseString]];
+    }];
+     */
+    
     firstRepositoryCall = NO;
     BOOL clean = ([added count] != 0 || [removed count] != 0);
     if (clean) {
@@ -428,20 +446,30 @@
     // clear the existing repos
     existingRepos = [[NSMutableSet alloc]init]; 
     
+    // create an array from the JKArray in order to be able to sort it...
+    // to be removed and updated the day JSONKit is no more used
+    NSMutableArray *array = [[NSMutableArray alloc] init];
     for (NSDictionary *repo in result) {
-        // cache for next time
-        [existingRepos addObject:[repo valueForKey:@"name"]];
-                
+        [array addObject:repo];
+    }
+    NSArray *sorted = [[NSMutableArray arrayWithArray:array] sortedArrayUsingComparator:^(id a, id b) {
+        NSString *first = [a objectForKey:@"name"];
+        NSString *second = [b objectForKey:@"name"];
+        return [[first lowercaseString] compare:[second lowercaseString]];
+    }];
+    
+    for (NSDictionary *repo in sorted) {
+        [existingRepos addObject:[repo valueForKey:@"name"]];                
         if (clean) {
             [self addRepo:repo top:NO];
         }
     }
+    
     if ([result count] == 0) {
         // default menu item
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No repositories" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         [self addItem:defaultItem to:menu top:FALSE];
-        //[menu addItem:defaultItem];
     }
 }
 
@@ -518,7 +546,18 @@
     // FIXME = just add or delete the diff...
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
+    // order the list by name
+    NSMutableArray *array = [[NSMutableArray alloc] init];
     for (NSDictionary *user in result) {
+        [array addObject:user];
+    }
+    NSArray *sorted = [[NSMutableArray arrayWithArray:array] sortedArrayUsingComparator:^(id a, id b) {
+        NSString *first = [a objectForKey:@"login"];
+        NSString *second = [b objectForKey:@"login"];
+        return [[first lowercaseString] compare:[second lowercaseString]];
+    }];
+    
+    for (NSDictionary *user in sorted) {
         [self addFollower:user];
     }
     if ([result count] == 0) {
@@ -543,7 +582,18 @@
     // FIXME = just add or delete the diff
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
+    // order the list by name
+    NSMutableArray *array = [[NSMutableArray alloc] init];
     for (NSDictionary *user in result) {
+        [array addObject:user];
+    }
+    NSArray *sorted = [[NSMutableArray arrayWithArray:array] sortedArrayUsingComparator:^(id a, id b) {
+        NSString *first = [a objectForKey:@"login"];
+        NSString *second = [b objectForKey:@"login"];
+        return [[first lowercaseString] compare:[second lowercaseString]];
+    }];
+    
+    for (NSDictionary *user in sorted) {
         [self addFollowing:user];
     }
     
@@ -566,7 +616,19 @@
     // FIXME : just delete or add the diff
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
-    for (NSDictionary *repo in result) {
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (NSDictionary *user in result) {
+        [array addObject:user];
+    }
+    NSArray *sorted = [[NSMutableArray arrayWithArray:array] sortedArrayUsingComparator:^(id a, id b) {
+        NSArray *ownerA = [a valueForKey:@"owner"];
+        NSArray *ownerB = [b valueForKey:@"owner"];
+        NSString *first = [NSString stringWithFormat:@"%@/%@", [ownerA valueForKey:@"login"], [a valueForKey:@"name"]];
+        NSString *second = [NSString stringWithFormat:@"%@/%@", [ownerB valueForKey:@"login"], [b valueForKey:@"name"]];
+        return [[first lowercaseString] compare:[second lowercaseString]];
+    }];
+    
+    for (NSDictionary *repo in sorted) {
         // get the owner
         NSArray *owner = [repo valueForKey:@"owner"];
         

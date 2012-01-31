@@ -4,7 +4,7 @@ title: "QH - Release Notes"
 ---
 
 # v1.x
-Unplanned features and ideas, sort of wish list...
+Unplanned features and ideas, wish list...
 
 - [NEW] Configure polling periods for all tasks
 - [NEW] Click on notifications brings user to the right Github page
@@ -13,9 +13,16 @@ Unplanned features and ideas, sort of wish list...
 - [NEW] Hot keys!
 - [NEW] Local storage in order to be able to rebuild all even if Internet is down!
 
+# v1.4.1 - 2012/01/30
+
+- [IMPROVEMENT] The menu items are now listed in alphabetical order for repositories, organizations and users
+- [IMPROVEMENT] Better Growl messages
+- [FIX] Some Growl notifications are lost
+- [FIX] Several typos
+
 # v1.4 - 2012/01/06
 
-- [NEW] Create issues for your repositories. Description is DnD enabled.
+- [NEW] Create issues for your repositories. Description is DnD enabled
 - [NEW] Create repositories for organizations
 - [IMPROVEMENT] Better issues display with repository name as prefix
 - [IMPROVEMENT] Issue item now have the submitter avatar as icon

@@ -197,8 +197,9 @@
         }
     }
     
-    if ([result count] == 0) {
+    if (!result || [result count] == 0) {
         // default menu item
+        [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No issues" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         //[menu addItem:defaultItem];
@@ -261,6 +262,7 @@
     
     firstGistCall = NO;
     BOOL clean = ([added count] != 0 || [removed count] != 0);
+    // FIXME : Clean should not always be called if there is no response in the dictionary
     if (clean) {
         [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
         // TODO : delete only the removed... need to put gist ids as menu items ids
@@ -278,7 +280,9 @@
         }
     }
     
-    if ([result count] == 0) {
+    if (!result || [result count] == 0) {
+        // delete all so that we do not add gists indefinitely...
+        [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
         // default menu item
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No gists" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
@@ -392,8 +396,9 @@
         [organizationItem setSubmenu:repositoriesMenu]; 
     }
     
-    if ([result count] == 0) {
+    if (!result || [result count] == 0) {
         // default menu item
+        [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No organizations" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         [menu addItem:defaultItem];
@@ -471,8 +476,9 @@
         }
     }
     
-    if ([result count] == 0) {
+    if (!result || [result count] == 0) {
         // default menu item
+        [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No repositories" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         [self addItem:defaultItem to:menu top:FALSE];
@@ -529,8 +535,10 @@
         }
         [item setSubmenu:pullsMenu];
     }
-    if ([keys count] == 0) {
+    if (!keys || [keys count] == 0) {
         // default menu item
+        [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No pull requests" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         [menu addItem:defaultItem];
@@ -566,8 +574,10 @@
     for (NSDictionary *user in sorted) {
         [self addFollower:user];
     }
-    if ([result count] == 0) {
+    
+    if (!result || [result count] == 0) {
         // default menu item
+        [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No followers" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         //[menu addItem:defaultItem];
@@ -603,8 +613,9 @@
         [self addFollowing:user];
     }
     
-    if ([result count] == 0) {
+    if (!result || [result count] == 0) {
         // default menu item
+        [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"Nobody" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         //[menu addItem:defaultItem];
@@ -643,8 +654,10 @@
             [self addWatched:repo];
         }
     }
-    if ([result count] == 0) {
+    
+    if (!result || [result count] == 0) {
         // default menu item
+        [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"Nothing to watch" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         //[menu addItem:defaultItem];

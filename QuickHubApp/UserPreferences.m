@@ -67,9 +67,25 @@
 }
 
 - (void)updateUI:(NSDictionary*) userData {
-    [lastName setStringValue:[NSString stringWithFormat:@"%@", [userData valueForKey:@"name"]]];
-    [location setStringValue:[NSString stringWithFormat:@"%@", [userData valueForKey:@"location"]]];
-    [company setStringValue:[NSString stringWithFormat:@"%@", [userData valueForKey:@"company"]]];
+
+    NSString *ghUserName = [userData valueForKey:@"name"];
+    if (ghUserName == nil || ghUserName.length == 0) {
+        ghUserName = @"";
+    }
+    
+    NSString *ghLocation = [userData valueForKey:@"location"];
+    if (ghLocation == nil || ghLocation.length == 0) {
+        ghLocation = @"";
+    }
+    
+    NSString *ghCompany = [userData valueForKey:@"company"];
+    if (ghCompany == nil || ghCompany.length == 0) {
+        ghCompany = @"";
+    }
+    
+    [lastName setStringValue:ghUserName];
+    [location setStringValue:ghLocation];
+    [company setStringValue:ghCompany];
     
     NSImage *image = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", [userData valueForKey:@"avatar_url"]]]];
     [image setSize:NSMakeSize(100,100)];

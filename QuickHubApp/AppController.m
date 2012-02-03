@@ -103,13 +103,13 @@
     
     organizationTimer = [NSTimer scheduledTimerWithTimeInterval:603 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
     
-    issueTimer = [NSTimer scheduledTimerWithTimeInterval:125 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
+    issueTimer = [NSTimer scheduledTimerWithTimeInterval:145 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
     
     followTimer = [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(pollFollow:) userInfo:nil repeats:YES];
     
     watchingTimer = [NSTimer scheduledTimerWithTimeInterval:1802 target:self selector:@selector(pollWatching:) userInfo:nil repeats:YES];
     
-    pullTimer = [NSTimer scheduledTimerWithTimeInterval:1203 target:self selector:@selector(pollPulls:) userInfo:nil repeats:YES];
+    pullTimer = [NSTimer scheduledTimerWithTimeInterval:701 target:self selector:@selector(pollPulls:) userInfo:nil repeats:YES];
     
     // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
     // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input

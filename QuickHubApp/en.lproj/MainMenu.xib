@@ -2255,7 +2255,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">709</int>
+			<int key="maxID">711</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2419,6 +2419,7 @@
 							<string>createGist:</string>
 							<string>createIssue:</string>
 							<string>createRepository:</string>
+							<string>gistExplorerAction:</string>
 							<string>openGists:</string>
 							<string>openGitHub:</string>
 							<string>openIssues:</string>
@@ -2445,6 +2446,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -2454,6 +2456,7 @@
 							<string>createGist:</string>
 							<string>createIssue:</string>
 							<string>createRepository:</string>
+							<string>gistExplorerAction:</string>
 							<string>openGists:</string>
 							<string>openGitHub:</string>
 							<string>openIssues:</string>
@@ -2477,6 +2480,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">createRepository:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">gistExplorerAction:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

@@ -13,6 +13,11 @@ Unplanned features and ideas, wish list...
 - [NEW] Hot keys!
 - [NEW] Local storage in order to be able to rebuild all even if Internet is down!
 
+# v1.4.2 - 2012/02/03
+
+- [FIX] Bad menu items when no data is available
+- [FIX] Bad profile display when user has not filled its profile on github
+
 # v1.4.1 - 2012/01/30
 
 - [IMPROVEMENT] The menu items are now listed in alphabetical order for repositories, organizations and users

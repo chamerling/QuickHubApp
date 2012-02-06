@@ -10,6 +10,7 @@
 #import "QHConstants.h"
 #import <Cocoa/Cocoa.h>
 #import "OrgRepoCreateWindowController.h"
+#import "RepositoryDetailsViewController.h"
 
 @interface MenuController (Private) 
 - (NSMenu*) getIssuesMenu;
@@ -743,7 +744,7 @@
     NSNumber *forked = [repo valueForKey:@"fork"];
     
     NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
-    [organizationItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
+    //[organizationItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
     
     [organizationItem setRepresentedObject:[repo valueForKey:@"html_url"]];
     
@@ -768,6 +769,18 @@
     
     [organizationItem setEnabled:YES];
     [organizationItem autorelease];
+    
+    // description
+    RepositoryDetailsViewController *details = [[RepositoryDetailsViewController alloc] initWithNibName:@"RepositoryDetailsViewController" bundle:nil];
+    [details setRepositoryData:repo];
+    
+    NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
+    [popoverMenuItem setView:[details view]];
+    [popoverMenuItem autorelease];
+    
+    NSMenu *foomenu = [[NSMenu alloc] init];    
+    [foomenu addItem:popoverMenuItem];
+    [organizationItem setSubmenu:foomenu];
     
     [self addItem:organizationItem to:menu top:top];
 

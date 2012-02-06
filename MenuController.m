@@ -830,6 +830,18 @@
     [item setImage:iconImage];
     [item setEnabled:YES];
     [item autorelease];
+    
+    // ID CARD
+    UserDetailsViewController *details = [[UserDetailsViewController alloc] initWithNibName:@"UserDetailsViewController" bundle:nil];
+    [details setUserData:user];
+    
+    NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
+    [popoverMenuItem setView:[details view]];
+    [popoverMenuItem autorelease];
+    
+    NSMenu *foomenu = [[NSMenu alloc] init];    
+    [foomenu addItem:popoverMenuItem];
+    [item setSubmenu:foomenu];
 
     [self addItem:item to:menu top:FALSE];
 }

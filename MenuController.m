@@ -744,7 +744,6 @@
     NSNumber *forked = [repo valueForKey:@"fork"];
     
     NSMenuItem *organizationItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
-    //[organizationItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
     
     [organizationItem setRepresentedObject:[repo valueForKey:@"html_url"]];
     
@@ -828,7 +827,6 @@
     NSArray *owner = [repo valueForKey:@"owner"];
     NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@/%@", [owner valueForKey:@"login"], [repo valueForKey:@"name"]] action:@selector(openURL:) keyEquivalent:@""];
     [item setRepresentedObject:[repo valueForKey:@"html_url"]];
-    [item setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
     
     NSNumber *priv = [repo valueForKey:@"private"];
     NSImage* iconImage = nil;
@@ -840,6 +838,18 @@
     [item setImage:iconImage];
     [item setEnabled:YES];
     [item autorelease];
+    
+    // ID Card
+    RepositoryDetailsViewController *details = [[RepositoryDetailsViewController alloc] initWithNibName:@"RepositoryDetailsViewController" bundle:nil];
+    [details setRepositoryData:repo];
+    
+    NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
+    [popoverMenuItem setView:[details view]];
+    [popoverMenuItem autorelease];
+    
+    NSMenu *foomenu = [[NSMenu alloc] init];    
+    [foomenu addItem:popoverMenuItem];
+    [item setSubmenu:foomenu];
     
     [self addItem:item to:menu top:FALSE];
 }

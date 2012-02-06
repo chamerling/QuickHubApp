@@ -11,6 +11,7 @@
 #import <Cocoa/Cocoa.h>
 #import "OrgRepoCreateWindowController.h"
 #import "RepositoryDetailsViewController.h"
+#import "UserDetailsViewController.h"
 
 @interface MenuController (Private) 
 - (NSMenu*) getIssuesMenu;
@@ -804,6 +805,18 @@
     [iconImage setSize:NSMakeSize(18,18)];
     [item setImage:iconImage];
     [item autorelease];
+    
+    // ID CARD
+    UserDetailsViewController *details = [[UserDetailsViewController alloc] initWithNibName:@"UserDetailsViewController" bundle:nil];
+    [details setUserData:user];
+    
+    NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
+    [popoverMenuItem setView:[details view]];
+    [popoverMenuItem autorelease];
+    
+    NSMenu *foomenu = [[NSMenu alloc] init];    
+    [foomenu addItem:popoverMenuItem];
+    [item setSubmenu:foomenu];
     
     [self addItem:item to:menu top:FALSE];
 }

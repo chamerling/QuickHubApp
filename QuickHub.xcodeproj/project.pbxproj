@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C9097B3114E092C500949C3B /* UserDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9097B3014E092C500949C3B /* UserDetailsViewController.xib */; };
+		C9097B3514E092EB00949C3B /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9097B3414E092EB00949C3B /* UserDetailsViewController.m */; };
 		C91879D414B39F300096922B /* IssueCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91879D314B39F300096922B /* IssueCreateWindow.xib */; };
 		C91879D714B3A3920096922B /* IssueCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91879D614B3A3920096922B /* IssueCreateWindowController.m */; };
 		C93B5A3414728161003D6A7F /* fork.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A3314728161003D6A7F /* fork.png */; };
@@ -92,6 +94,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C9097B3014E092C500949C3B /* UserDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserDetailsViewController.xib; sourceTree = "<group>"; };
+		C9097B3314E092EB00949C3B /* UserDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsViewController.h; sourceTree = "<group>"; };
+		C9097B3414E092EB00949C3B /* UserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsViewController.m; sourceTree = "<group>"; };
 		C91879D314B39F300096922B /* IssueCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueCreateWindow.xib; sourceTree = "<group>"; };
 		C91879D514B3A3920096922B /* IssueCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueCreateWindowController.h; sourceTree = "<group>"; };
 		C91879D614B3A3920096922B /* IssueCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCreateWindowController.m; sourceTree = "<group>"; };
@@ -222,6 +227,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C9097B3A14E09A9700949C3B /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Browser;
+			sourceTree = "<group>";
+		};
 		C92D63F91459D59C002F3FA9 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +398,7 @@
 		C996375F1448487900F6DB43 /* QuickHubApp */ = {
 			isa = PBXGroup;
 			children = (
+				C9097B3A14E09A9700949C3B /* Browser */,
 				C9E7C83314DF42190038AEFC /* ItemDetails */,
 				C96ABC7C147EF479001A2407 /* Preferences */,
 				C92D63F91459D59C002F3FA9 /* Dependencies */,
@@ -440,6 +453,9 @@
 				C9E7C83714DF43F00038AEFC /* RepositoryDetailsViewController.h */,
 				C9E7C83814DF43F00038AEFC /* RepositoryDetailsViewController.m */,
 				C9E7C83914DF43F00038AEFC /* RepositoryDetailsViewController.xib */,
+				C9097B3314E092EB00949C3B /* UserDetailsViewController.h */,
+				C9097B3414E092EB00949C3B /* UserDetailsViewController.m */,
+				C9097B3014E092C500949C3B /* UserDetailsViewController.xib */,
 			);
 			name = ItemDetails;
 			sourceTree = "<group>";
@@ -521,6 +537,7 @@
 				C9C60C6B149F9D5B0059CECE /* OrgRepoCreateWindow.xib in Resources */,
 				C91879D414B39F300096922B /* IssueCreateWindow.xib in Resources */,
 				C9E7C83B14DF43F00038AEFC /* RepositoryDetailsViewController.xib in Resources */,
+				C9097B3114E092C500949C3B /* UserDetailsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +582,7 @@
 				C9C60C68149F9D0B0059CECE /* OrgRepoCreateWindowController.m in Sources */,
 				C91879D714B3A3920096922B /* IssueCreateWindowController.m in Sources */,
 				C9E7C83A14DF43F00038AEFC /* RepositoryDetailsViewController.m in Sources */,
+				C9097B3514E092EB00949C3B /* UserDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

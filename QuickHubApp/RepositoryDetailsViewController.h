@@ -17,21 +17,22 @@
     NSTextField *repositoryLabel;
     NSImageView *publicPrivateImage;
     NSImageView *forkImage;
-    NSTextField *urlLabel;
     NSTextField *statsLabel;
+    IBOutlet NSButton *urlButton;
+    NSButton *repoNameButton;
 }
+@property (assign) IBOutlet NSButton *repoNameButton;
 @property (nonatomic, retain) NSDictionary *repositoryData;
 @property (assign) IBOutlet NSTextField *createdAtLabel;
 @property (assign) IBOutlet NSTextField *pushedAtField;
 
-@property (nonatomic, retain) IBOutlet NSTextField *urlLabel;
 @property (nonatomic, retain) IBOutlet NSTextField *statsLabel;
 @property (nonatomic, retain) IBOutlet NSTextField *repositoryLabel;
 @property (assign) IBOutlet NSImageView *publicPrivateImage;
 @property (assign) IBOutlet NSImageView *forkImage;
 
+- (IBAction)openURL:(id)sender;
+- (IBAction)openRepository:(id)sender;
 - (IBAction)cloneAction:(id)sender;
-- (IBAction) openHome:(id)sender;
-- (IBAction)debug:(id)sender;
 
 @end

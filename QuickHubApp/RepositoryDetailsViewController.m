@@ -9,10 +9,10 @@
 #import "RepositoryDetailsViewController.h"
 
 @implementation RepositoryDetailsViewController
-@synthesize urlLabel;
 @synthesize repositoryLabel;
 @synthesize publicPrivateImage;
 @synthesize forkImage;
+@synthesize repoNameButton;
 @synthesize repositoryData;
 @synthesize createdAtLabel;
 @synthesize pushedAtField;
@@ -31,6 +31,8 @@
 - (void) loadView {
     [super loadView];
     [repositoryLabel setStringValue:[repositoryData valueForKey:@"name"]];
+    
+    [repoNameButton setTitle:[repositoryData valueForKey:@"name"]];
 
     NSNumber *forks = [repositoryData valueForKey:@"forks"];
     NSNumber *watchers = [repositoryData valueForKey:@"watchers"];
@@ -60,23 +62,23 @@
     
     NSString *url = [repositoryData valueForKey:@"homepage"];
     if (url == (id)[NSNull null] || (url.length == 0)) {
-        [urlLabel setHidden:YES];
+        [urlButton setHidden:YES];
     } else {
-        [urlLabel setStringValue:url];
+        [urlButton setTitle:url];
     }
 
+}
+
+- (IBAction)openURL:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[repositoryData valueForKey:@"homepage"]]];
 }
 
 - (IBAction)cloneAction:(id)sender {       
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"github-mac://openRepo/%@", [repositoryData valueForKey:@"html_url"]]]];
 }
 
-- (IBAction) openHome:(id)sender {
-    NSLog(@"Open home");
-}
-
-- (IBAction)debug:(id)sender {
-    NSLog(@"%@", repositoryData);
+- (IBAction)openRepository:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[repositoryData valueForKey:@"html_url"]]];
 }
 
 @end

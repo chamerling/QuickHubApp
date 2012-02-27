@@ -226,7 +226,7 @@
     if ([removed count] > 0 && !firstGistCall) {
         NSString *title = nil;
         if ([removed count] > 1) {
-            title = [NSString stringWithFormat:@"OMG, %d less gists", [removed count]];
+            title = [NSString stringWithFormat:@"OMG, %d fewer gists", [removed count]];
         } else {
             title = [NSString stringWithString:@"RIP gist #"];
         }

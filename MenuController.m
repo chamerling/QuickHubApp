@@ -363,11 +363,10 @@
             [defaultItem autorelease];
             [repositoriesMenu addItem:defaultItem];
         } else {
-            for (NSArray *repo in sorted) {
+            // HERE
+            for (NSDictionary *repo in sorted) {
                 NSMenuItem *organizationRepoItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
-                [organizationRepoItem setToolTip: [NSString stringWithFormat:@"Description : %@, Forks: %@, Watchers: %@", [repo valueForKey:@"description"], [repo valueForKey:@"forks"], [repo valueForKey:@"watchers"]]];
 
-                //[organizationRepoItem setToolTip: @""];
                 [organizationRepoItem setRepresentedObject:[repo valueForKey:@"html_url"]];
                 
                 NSNumber *priv = [repo valueForKey:@"private"];
@@ -390,9 +389,19 @@
                 [organizationRepoItem setEnabled:YES];
                 [organizationRepoItem autorelease];
                 
+                // ID CARD
+                RepositoryDetailsViewController *details = [[RepositoryDetailsViewController alloc] initWithNibName:@"RepositoryDetailsViewController" bundle:nil];
+                [details setRepositoryData:repo];
+                
+                NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
+                [popoverMenuItem setView:[details view]];
+                [popoverMenuItem autorelease];
+                
+                NSMenu *foomenu = [[NSMenu alloc] init];    
+                [foomenu addItem:popoverMenuItem];
+                [organizationRepoItem setSubmenu:foomenu];
+                
                 [repositoriesMenu addItem:organizationRepoItem];
-                //[self addItem:organizationRepoItem to:repositoriesMenu top:FALSE];
-
             }
         }
         [organizationItem setSubmenu:repositoriesMenu]; 
@@ -1005,6 +1014,7 @@
     [organizationRepoItem autorelease];
     
     // ID Card
+    /*
     RepositoryDetailsViewController *details = [[RepositoryDetailsViewController alloc] initWithNibName:@"RepositoryDetailsViewController" bundle:nil];
     [details setRepositoryData:repo];
     
@@ -1015,6 +1025,7 @@
     NSMenu *foomenu = [[NSMenu alloc] init];    
     [foomenu addItem:popoverMenuItem];
     [organizationRepoItem setSubmenu:foomenu];
+     */
     
     return organizationRepoItem;
 }

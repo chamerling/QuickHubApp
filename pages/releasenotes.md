@@ -13,6 +13,11 @@ Unplanned features and ideas, wish list...
 - [NEW] Hot keys!
 - [NEW] Local storage in order to be able to rebuild all even if Internet is down!
 
+# v1.5 - 2012/03/01
+- [NEW] ID Cards for repositories
+- [IMPROVMENT] Better data handling...
+- [FIX] Typos
+
 # v1.4.2 - 2012/02/03
 
 - [FIX] Bad menu items when no data is available

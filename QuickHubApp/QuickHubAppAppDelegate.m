@@ -19,6 +19,7 @@
 #import "LocalPreferencesViewController.h"
 #import "AccountPreferencesViewController.h"
 #import "AboutPreferencesViewController.h"
+#import "EventPreferencesViewController.h"
 #import "GistViewWindowController.h"
 #import "UserPreferences.h"
 #import "OrgRepoCreateWindowController.h"
@@ -337,11 +338,14 @@
         [userPreferences setAppController:appController];
         [userPreferences setMenuController:menuController];
         
-        NSArray *controllers = [[NSArray alloc] initWithObjects:accountViewController, userPreferences, /*localViewController,*/ aboutViewController, nil];
+        EventPreferencesViewController *eventPreferences = [[EventPreferencesViewController alloc] init];
+        
+        NSArray *controllers = [[NSArray alloc] initWithObjects:accountViewController, userPreferences, eventPreferences, /*localViewController,*/ aboutViewController, nil];
         
         [accountViewController release];
         [aboutViewController release];
         [userPreferences release];
+        [eventPreferences release];
         //[localViewController release];
         
         NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");

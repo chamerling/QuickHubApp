@@ -15,6 +15,8 @@
 		C9241D05153E141D000E2814 /* octocat-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C9241D02153E141D000E2814 /* octocat-128.png */; };
 		C9241D06153E141D000E2814 /* octocat-512.png in Resources */ = {isa = PBXBuildFile; fileRef = C9241D03153E141D000E2814 /* octocat-512.png */; };
 		C9241D07153E141D000E2814 /* octocat-256.png in Resources */ = {isa = PBXBuildFile; fileRef = C9241D04153E141D000E2814 /* octocat-256.png */; };
+		C9241D09153E1DF8000E2814 /* EventPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9241D08153E1DF8000E2814 /* EventPreferencesViewController.xib */; };
+		C9241D0C153E1E1A000E2814 /* EventPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9241D0B153E1E1A000E2814 /* EventPreferencesViewController.m */; };
 		C93B5A3414728161003D6A7F /* fork.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A3314728161003D6A7F /* fork.png */; };
 		C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D091456EF090013F78E /* NSWorkspaceHelper.m */; };
 		C9642D101456F1530013F78E /* GrowlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D0F1456F1530013F78E /* GrowlManager.m */; };
@@ -109,6 +111,9 @@
 		C9241D02153E141D000E2814 /* octocat-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "octocat-128.png"; sourceTree = "<group>"; };
 		C9241D03153E141D000E2814 /* octocat-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "octocat-512.png"; sourceTree = "<group>"; };
 		C9241D04153E141D000E2814 /* octocat-256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "octocat-256.png"; sourceTree = "<group>"; };
+		C9241D08153E1DF8000E2814 /* EventPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventPreferencesViewController.xib; sourceTree = "<group>"; };
+		C9241D0A153E1E1A000E2814 /* EventPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventPreferencesViewController.h; sourceTree = "<group>"; };
+		C9241D0B153E1E1A000E2814 /* EventPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventPreferencesViewController.m; sourceTree = "<group>"; };
 		C93B5A3314728161003D6A7F /* fork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fork.png; sourceTree = "<group>"; };
 		C9642D081456EF090013F78E /* NSWorkspaceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWorkspaceHelper.h; sourceTree = "<group>"; };
 		C9642D091456EF090013F78E /* NSWorkspaceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWorkspaceHelper.m; sourceTree = "<group>"; };
@@ -278,6 +283,9 @@
 				C96ABC88147EF5F7001A2407 /* AccountPreferencesViewController.h */,
 				C96ABC89147EF5F7001A2407 /* AccountPreferencesViewController.m */,
 				C96ABC8A147EF5F7001A2407 /* AccountPreferencesViewController.xib */,
+				C9241D08153E1DF8000E2814 /* EventPreferencesViewController.xib */,
+				C9241D0A153E1E1A000E2814 /* EventPreferencesViewController.h */,
+				C9241D0B153E1E1A000E2814 /* EventPreferencesViewController.m */,
 				C96ABC8D147EF624001A2407 /* LocalPreferencesViewController.h */,
 				C96ABC8E147EF624001A2407 /* LocalPreferencesViewController.m */,
 				C96ABC8F147EF624001A2407 /* LocalPreferencesViewController.xib */,
@@ -555,6 +563,7 @@
 				C9241D05153E141D000E2814 /* octocat-128.png in Resources */,
 				C9241D06153E141D000E2814 /* octocat-512.png in Resources */,
 				C9241D07153E141D000E2814 /* octocat-256.png in Resources */,
+				C9241D09153E1DF8000E2814 /* EventPreferencesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +610,7 @@
 				C9E7C83A14DF43F00038AEFC /* RepositoryDetailsViewController.m in Sources */,
 				C9097B3514E092EB00949C3B /* UserDetailsViewController.m in Sources */,
 				C9241CFC153B6704000E2814 /* EventsManager.m in Sources */,
+				C9241D0C153E1E1A000E2814 /* EventPreferencesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

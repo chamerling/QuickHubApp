@@ -13,6 +13,7 @@
 //
 
 #import "Preferences.h"
+#import "QHConstants.h"
 
 static Preferences *sharedInstance = nil;
 
@@ -75,6 +76,21 @@ static Preferences *sharedInstance = nil;
     [prefs setObject:token forKey:@"oauth"];
 }
 
+- (void) put:(NSString *) key value:(id) value {
+    if (!key) {
+        return;
+    }
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:value forKey:[NSString stringWithFormat:@"%@.%@", APP_PREFIX, key]];
+}
+
+- (id) get:(NSString *) key {
+    if (!key) {
+        return nil;
+    }
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs valueForKey:[NSString stringWithFormat:@"%@.%@", APP_PREFIX, key]];    
+}
 
 + (Preferences *)sharedInstance {
     @synchronized(self) {

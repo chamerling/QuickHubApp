@@ -31,6 +31,9 @@
 - (void) deleteOldPreferences;
 - (void) storeToken:(NSString*)token;
 
+- (void) put:(NSString *) key value:(id) value;
+- (id) get:(NSString *) key;
+
 + (Preferences *)sharedInstance;
 
 @end

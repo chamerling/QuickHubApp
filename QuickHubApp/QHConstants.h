@@ -13,6 +13,8 @@
 #ifndef QH_Constants_h
 #define QH_Constants_h
 
+#define APP_PREFIX @"org.chamerling.quickhubapp"
+
 #define appsite     @"http://quickhubapp.com"
 #define oauthsite   @"http://quickhubapp.com/oauth.html"
 #define revokeurl   @"https://github.com/account/connections/"
@@ -69,6 +71,26 @@
 #define HTTP_200 200;
 #define HTTP_201 201;
 
+#pragma mark - Events
+
+#define CommitCommentEvent @"CommitCommentEvent"
+#define CreateEvent @"CreateEvent"
+#define DeleteEvent @"DeleteEvent"
+#define DownloadEvent @"DownloadEvent"
+#define FollowEvent @"FollowEvent"
+#define ForkEvent @"ForkEvent"
+#define ForkApplyEvent @"ForkApplyEvent"
+#define GistEvent @"GistEvent"
+#define GollumEvent @"GollumEvent"
+#define IssueCommentEvent @"IssueCommentEvent"
+#define IssuesEvent @"IssuesEvent"
+#define MemberEvent @"MemberEvent"
+#define PublicEvent @"PublicEvent"
+#define PullRequestEvent @"PullRequestEvent"
+#define PullRequestReviewCommentEvent @"PullRequestReviewCommentEvent"
+#define PushEvent @"PushEvent"
+#define TeamAddEvent @"TeamAddEvent"
+#define WatchEvent @"WatchEvent"
 
 #endif
 

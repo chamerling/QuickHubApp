@@ -110,6 +110,7 @@
             [[Context sharedInstance] cleanAll];
         }
         [appController stopAll:nil];
+        [appController cleanCache:nil];
         [menuController cleanMenus:nil];
         [menuController resetCache:nil];
         [lastName setStringValue:@""];

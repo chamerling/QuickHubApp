@@ -113,7 +113,7 @@
     
     pullTimer = [NSTimer scheduledTimerWithTimeInterval:701 target:self selector:@selector(pollPulls:) userInfo:nil repeats:YES];
     
-    eventTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(pollEvents:) userInfo:nil repeats:YES];
+    eventTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(pollEvents:) userInfo:nil repeats:YES];
     
     // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
     // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input
@@ -151,12 +151,15 @@
         [watchingTimer invalidate];
         [pullTimer invalidate];
         [eventTimer invalidate];
-        
     }
     githubPolling = NO;
     
     // FIXME : how to kill the background thread? Is it garbaged when there is nothing more in the run loop?
     //NSLog(@"Stopped!");
+}
+
+- (void) cleanCache:(id)sender {
+    [eventsManager clearEvents];
 }
 
 - (void)pollGists:(id) sender {

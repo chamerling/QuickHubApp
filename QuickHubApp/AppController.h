@@ -55,6 +55,7 @@
 
 - (void) loadAll:(id)sender;
 - (void) stopAll:(id)sender;
+- (void) cleanCache:(id)sender;
 
 - (void) checkNetworkStatus:(NSNotification *)notice;
 

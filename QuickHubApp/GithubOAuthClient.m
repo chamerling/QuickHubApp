@@ -216,6 +216,34 @@
     return result;
 }
 
+- (NSDictionary*) loadUserEvents:(id) sender {
+    NSString *userName = [[Preferences sharedInstance] login];
+
+    NSString *url = [NSString stringWithFormat:@"%@", [self getOAuthURL:[NSString stringWithFormat:@"users/%@/events", userName]]];
+    NSLog(@"%@", url);
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setDelegate:self];
+    [request startSynchronous];   
+    NSDictionary *result = [[request responseString] objectFromJSONString];
+    // DO not release the request, it cause failures on the threads...
+    //[request release];
+    return result;    
+}
+
+- (NSDictionary*) loadReceivedEvents:(id) sender {
+    NSString *userName = [[Preferences sharedInstance] login];
+    
+    NSString *url = [NSString stringWithFormat:@"%@", [self getOAuthURL:[NSString stringWithFormat:@"users/%@/received_events", userName]]];
+    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setDelegate:self];
+    [request startSynchronous];   
+    NSDictionary *result = [[request responseString] objectFromJSONString];
+    // DO not release the request, it cause failures on the threads...
+    //[request release];
+    return result;
+}
+
 // Note : this is not available with oauth!
 - (NSDictionary *) getAuthorizations:(id) sender {
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"authorizations"]]];

@@ -35,6 +35,8 @@
         // Initialization code here.
         githubController = [[GithubOAuthClient alloc]init];
         
+        eventsManager = [[EventsManager alloc] init];
+        
         //reachability
         // check for internet connection
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
@@ -111,6 +113,8 @@
     
     pullTimer = [NSTimer scheduledTimerWithTimeInterval:701 target:self selector:@selector(pollPulls:) userInfo:nil repeats:YES];
     
+    eventTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(pollEvents:) userInfo:nil repeats:YES];
+    
     // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
     // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input
     [[NSRunLoop currentRunLoop] addTimer:gistTimer forMode:NSRunLoopCommonModes];
@@ -120,6 +124,7 @@
     [[NSRunLoop currentRunLoop] addTimer:followTimer forMode:NSRunLoopCommonModes];
     [[NSRunLoop currentRunLoop] addTimer:watchingTimer forMode:NSRunLoopCommonModes];
     [[NSRunLoop currentRunLoop] addTimer:pullTimer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] addTimer:eventTimer forMode:NSRunLoopCommonModes];
     
     githubPolling = YES;
     
@@ -130,6 +135,7 @@
     [followTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:6]];
     [watchingTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:7]];
     [pullTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:10]];
+    [eventTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:5]];
     
     [runLoop run];
     [pool release];
@@ -144,6 +150,8 @@
         [followTimer invalidate];
         [watchingTimer invalidate];
         [pullTimer invalidate];
+        [eventTimer invalidate];
+        
     }
     githubPolling = NO;
     
@@ -241,6 +249,15 @@
     }  
 }
 
+- (void) pollEvents:(id) sender {
+    if (githubPolling) {
+        NSDictionary *dictionary = [githubController loadReceivedEvents:nil];
+        if (dictionary) {
+            [eventsManager addEventsFromDictionary:dictionary];
+        }
+    }      
+}
+
 - (void) updateGistUI:(NSDictionary *) dictionary
 {
     [menuController gistFinished:dictionary];  
@@ -328,6 +345,7 @@
 }
 
 - (void)dealloc {
+    [eventsManager release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

@@ -28,6 +28,8 @@
 - (NSDictionary*) loadFollowers:(id) sender;
 - (NSDictionary*) loadFollowings:(id) sender;
 - (NSDictionary*) loadWatchedRepos:(id) sender;
+- (NSDictionary*) loadUserEvents:(id) sender;
+- (NSDictionary*) loadReceivedEvents:(id) sender;
 - (NSDictionary *) getAuthorizations:(id) sender;
 
 # pragma mark - Write API

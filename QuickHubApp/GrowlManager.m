@@ -11,6 +11,8 @@
 #import "GrowlManager.h"
 #import "QHConstants.h"
 
+static GrowlManager *sharedInstance = nil;
+
 @interface GrowlManager (Private)
 - (void)genericListener:(NSNotification *)aNotification;
 - (void)issueAdded:(NSNotification *)aNotification;
@@ -19,6 +21,23 @@
 @end
 
 @implementation GrowlManager
+
++ (GrowlManager *)get {
+    @synchronized(self) {
+        if (sharedInstance == nil)
+            sharedInstance = [[GrowlManager alloc] init];
+    }
+    return sharedInstance;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [GrowlApplicationBridge setGrowlDelegate:self];
+    }
+    return self;
+}
 
 - (void) awakeFromNib {    
     [GrowlApplicationBridge setGrowlDelegate:self];
@@ -67,7 +86,7 @@
 
 #pragma mark - growl delegate
 - (NSDictionary *)registrationDictionaryForGrowl {
-    NSArray *notifications = [NSArray arrayWithObject: @"QuickHub"];
+    NSArray *notifications = [NSArray arrayWithObjects: @"QuickHub", @"Github", @"GitHub", nil];
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           notifications, GROWL_NOTIFICATIONS_ALL,
                           notifications, GROWL_NOTIFICATIONS_DEFAULT, nil];
@@ -78,14 +97,13 @@
     NSDictionary *context = clickContext;
     if (context) {
         if ([context valueForKey:@"url"]) {
-            NSLog(@"Let's open...");
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[context valueForKey:@"url"]]];
 
         }
     }
-    
 }
 
+#pragma mark - implementation
 - (void) notifyWithName:(NSString *)name desc:(NSString *)description context:(NSDictionary*)context {
     if (![GrowlApplicationBridge isGrowlRunning]) {
         // return now if growl is not installed not running, looks like it can cause problems...
@@ -101,6 +119,73 @@
 								   priority:0
 								   isSticky:NO
 							   clickContext:context];    
+}
+
+- (void)notifyWithName:(NSString*)name desc:(NSString*)description url:(NSString *)urlToOpen icon:(NSURL *) iconURL {
+    if (![GrowlApplicationBridge isGrowlRunning]) {
+        // return now if growl is not installed not running, looks like it can cause problems...
+        return;
+    }
+    
+    NSImage *image = nil;
+    if (iconURL) {
+        image = [[[NSImage alloc] initWithContentsOfURL:iconURL] autorelease];
+        
+    } else {
+        image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
+    }
+    
+    NSDictionary *context = nil;
+    if (urlToOpen) {
+        context = [[NSMutableDictionary alloc] init];
+        [context setValue:urlToOpen forKey:@"url"];
+    }
+    
+    NSString *notificationName = @"QuickHub";
+    if (name) {
+        notificationName = name;
+    }
+    
+    [GrowlApplicationBridge notifyWithTitle:notificationName
+								description:description
+						   notificationName:@"QuickHub"
+								   iconData:[image TIFFRepresentation]
+								   priority:0
+								   isSticky:NO
+							   clickContext:context];
+}
+
+- (void)notifyWithName:(NSString*)name desc:(NSString*)description url:(NSString *)urlToOpen iconName:(NSString *) iconName {
+    if (![GrowlApplicationBridge isGrowlRunning]) {
+        // return now if growl is not installed not running, looks like it can cause problems...
+        return;
+    }
+    
+    NSImage *image = nil;
+    if (iconName && [[NSBundle mainBundle] URLForImageResource:iconName]) {
+      image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:iconName]] autorelease];        
+    } else {
+        image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
+    }
+    
+    NSDictionary *context = nil;
+    if (urlToOpen) {
+        context = [[NSMutableDictionary alloc] init];
+        [context setValue:urlToOpen forKey:@"url"];
+    }
+    
+    NSString *notificationName = @"QuickHub";
+    if (name) {
+        notificationName = name;
+    }
+    
+    [GrowlApplicationBridge notifyWithTitle:notificationName
+								description:description
+						   notificationName:@"QuickHub"
+								   iconData:[image TIFFRepresentation]
+								   priority:0
+								   isSticky:NO
+							   clickContext:context];
 }
 
 @end

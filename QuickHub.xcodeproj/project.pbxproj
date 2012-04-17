@@ -11,6 +11,10 @@
 		C9097B3514E092EB00949C3B /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9097B3414E092EB00949C3B /* UserDetailsViewController.m */; };
 		C91879D414B39F300096922B /* IssueCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91879D314B39F300096922B /* IssueCreateWindow.xib */; };
 		C91879D714B3A3920096922B /* IssueCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91879D614B3A3920096922B /* IssueCreateWindowController.m */; };
+		C9241CFC153B6704000E2814 /* EventsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9241CFB153B6704000E2814 /* EventsManager.m */; };
+		C9241D05153E141D000E2814 /* octocat-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C9241D02153E141D000E2814 /* octocat-128.png */; };
+		C9241D06153E141D000E2814 /* octocat-512.png in Resources */ = {isa = PBXBuildFile; fileRef = C9241D03153E141D000E2814 /* octocat-512.png */; };
+		C9241D07153E141D000E2814 /* octocat-256.png in Resources */ = {isa = PBXBuildFile; fileRef = C9241D04153E141D000E2814 /* octocat-256.png */; };
 		C93B5A3414728161003D6A7F /* fork.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A3314728161003D6A7F /* fork.png */; };
 		C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D091456EF090013F78E /* NSWorkspaceHelper.m */; };
 		C9642D101456F1530013F78E /* GrowlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D0F1456F1530013F78E /* GrowlManager.m */; };
@@ -100,6 +104,11 @@
 		C91879D314B39F300096922B /* IssueCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueCreateWindow.xib; sourceTree = "<group>"; };
 		C91879D514B3A3920096922B /* IssueCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueCreateWindowController.h; sourceTree = "<group>"; };
 		C91879D614B3A3920096922B /* IssueCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCreateWindowController.m; sourceTree = "<group>"; };
+		C9241CFA153B6704000E2814 /* EventsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsManager.h; sourceTree = "<group>"; };
+		C9241CFB153B6704000E2814 /* EventsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsManager.m; sourceTree = "<group>"; };
+		C9241D02153E141D000E2814 /* octocat-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "octocat-128.png"; sourceTree = "<group>"; };
+		C9241D03153E141D000E2814 /* octocat-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "octocat-512.png"; sourceTree = "<group>"; };
+		C9241D04153E141D000E2814 /* octocat-256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "octocat-256.png"; sourceTree = "<group>"; };
 		C93B5A3314728161003D6A7F /* fork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fork.png; sourceTree = "<group>"; };
 		C9642D081456EF090013F78E /* NSWorkspaceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWorkspaceHelper.h; sourceTree = "<group>"; };
 		C9642D091456EF090013F78E /* NSWorkspaceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWorkspaceHelper.m; sourceTree = "<group>"; };
@@ -327,6 +336,9 @@
 		C990068B1455B14700744317 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9241D02153E141D000E2814 /* octocat-128.png */,
+				C9241D03153E141D000E2814 /* octocat-512.png */,
+				C9241D04153E141D000E2814 /* octocat-256.png */,
 				C96509B614754DFA00F80846 /* growl.png */,
 				C96509AE14754DD100F80846 /* QH-128.png */,
 				C96509AF14754DD100F80846 /* QH-256.png */,
@@ -434,6 +446,8 @@
 				C9D67A321485336700026988 /* GistViewWindowController.m */,
 				C98FB8A314878FFC00B7D92A /* GithubOAuthClient.h */,
 				C98FB8A414878FFC00B7D92A /* GithubOAuthClient.m */,
+				C9241CFA153B6704000E2814 /* EventsManager.h */,
+				C9241CFB153B6704000E2814 /* EventsManager.m */,
 			);
 			path = QuickHubApp;
 			sourceTree = "<group>";
@@ -538,6 +552,9 @@
 				C91879D414B39F300096922B /* IssueCreateWindow.xib in Resources */,
 				C9E7C83B14DF43F00038AEFC /* RepositoryDetailsViewController.xib in Resources */,
 				C9097B3114E092C500949C3B /* UserDetailsViewController.xib in Resources */,
+				C9241D05153E141D000E2814 /* octocat-128.png in Resources */,
+				C9241D06153E141D000E2814 /* octocat-512.png in Resources */,
+				C9241D07153E141D000E2814 /* octocat-256.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +600,7 @@
 				C91879D714B3A3920096922B /* IssueCreateWindowController.m in Sources */,
 				C9E7C83A14DF43F00038AEFC /* RepositoryDetailsViewController.m in Sources */,
 				C9097B3514E092EB00949C3B /* UserDetailsViewController.m in Sources */,
+				C9241CFC153B6704000E2814 /* EventsManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

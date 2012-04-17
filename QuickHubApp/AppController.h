@@ -14,11 +14,13 @@
 #import "Preferences.h"
 #import "GithubOAuthClient.h"
 #import "MenuController.h"
+#import "EventsManager.h"
 
 @class Reachability;
 @interface AppController : NSObject {
     
     GithubOAuthClient *githubController;
+    EventsManager *eventsManager;
     IBOutlet MenuController *menuController;
     
     // update timers
@@ -29,6 +31,7 @@
     NSTimer* followTimer;
     NSTimer* watchingTimer;
     NSTimer* pullTimer;
+    NSTimer* eventTimer;
     
     // misc.
     BOOL githubPolling;
@@ -46,6 +49,7 @@
 - (void) pollFollow:(id) sender;
 - (void) pollWatching:(id) sender;
 - (void) pollPulls:(id) sender;
+- (void) pollEvents:(id) sender;
 
 //- (void) pollPulls:(id) sender;
 

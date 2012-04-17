@@ -92,6 +92,25 @@
 #define TeamAddEvent @"TeamAddEvent"
 #define WatchEvent @"WatchEvent"
 
+#define EnableCommitCommentEvent @"EnableCommitCommentEvent"
+#define EnableCreateEvent @"EnableCreateEvent"
+#define EnableDeleteEvent @"EnableDeleteEvent"
+#define EnableDownloadEvent @"EnableDownloadEvent"
+#define EnableFollowEvent @"EnableFollowEvent"
+#define EnableForkEvent @"EnableForkEvent"
+#define EnableForkApplyEvent @"EnableForkApplyEvent"
+#define EnableGistEvent @"EnableGistEvent"
+#define EnableGollumEvent @"EnableGollumEvent"
+#define EnableIssueCommentEvent @"EnableIssueCommentEvent"
+#define EnableIssuesEvent @"EnableIssuesEvent"
+#define EnableMemberEvent @"EnableMemberEvent"
+#define EnablePublicEvent @"EnablePublicEvent"
+#define EnablePullRequestEvent @"EnablePullRequestEvent"
+#define EnablePullRequestReviewCommentEvent @"EnablePullRequestReviewCommentEvent"
+#define EnablePushEvent @"EnablePushEvent"
+#define EnableTeamAddEvent @"EnableTeamAddEvent"
+#define EnableWatchEvent @"EnableWatchEvent"
+
 #endif
 
 @end

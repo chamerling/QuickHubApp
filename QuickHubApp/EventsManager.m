@@ -124,6 +124,14 @@
 
     } else if ([FollowEvent isEqualToString:type]) {
         
+        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+        NSString *target = [[[event valueForKey:@"payload"] valueForKey:@"target"] valueForKey:@"login"];
+        NSString *message = [NSString stringWithFormat:@"%@ started following %@", actorLogin, target];
+        
+        if ([self notificationActive:GHFollowEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+        }
+        
     } else if ([ForkEvent isEqualToString:type]) {
         
         NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];

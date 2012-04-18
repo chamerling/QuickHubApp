@@ -1,0 +1,42 @@
+{
+    "type": "FollowEvent",
+    "payload": {
+        "target": {
+            "created_at": "2010-05-04T10:11:58Z",
+            "company": "PetalsLink",
+            "id": 264403,
+            "html_url": "https://github.com/chamerling",
+            "following": 33,
+            "email": null,
+            "type": "User",
+            "bio": "Christophe Hamerling is Research Engineer on Service Oriented Architecture Projects at PetalsLink, a French Open Source SOA Software Editor and active OW2 member.\r\n\r\nChristophe is currently working on European Research projects such as Play and SOA4All as main Developer and Architect of the large scale distributed SOA infrastructure involving OW2 based middleware technology such as OW2-Petals Enterprise Service Bus and OW2-ProActive Framework. Christophe is also OW2-Petals SOA product family core commiter and focus his technology interests on Distributed/Cloud Computing, Open Source and Java stuff.\r\n\r\nHis next challenge : Leading PetalsLink Cloud activity to enable SOA in the Cloud.\r\n\r\nChristophe shares his technology life (and more) on http://chamerling.org and on http://twitter.com/chamerling",
+            "login": "chamerling",
+            "url": "https://api.github.com/users/chamerling",
+            "public_repos": 43,
+            "gravatar_id": "b6c497af6bc43da74f94095683908ca7",
+            "followers": 13,
+            "hireable": true,
+            "public_gists": 64,
+            "location": "Montpellier, France",
+            "name": "Christophe Hamerling",
+            "blog": "http://chamerling.org",
+            "avatar_url": "https://secure.gravatar.com/avatar/b6c497af6bc43da74f94095683908ca7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
+        }
+    },
+    "public": true,
+    "repo": {
+        "url": "https://api.github.com/repos//",
+        "name": "/"
+    },
+    "created_at": "2012-04-18T21:29:32Z",
+    "org": {
+        "url": "https://api.github.com/orgs/"
+    },
+    "id": "1542932739",
+    "actor": {
+        "id": 1171679,
+        "url": "https://api.github.com/users/quickhubtest",
+        "login": "quickhubtest",
+        "gravatar_id": "4df4b583bfb65e317b7f8e29da605fec"
+    }
+}

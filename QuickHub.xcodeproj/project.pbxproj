@@ -224,6 +224,7 @@
 		C9E7C83814DF43F00038AEFC /* RepositoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryDetailsViewController.m; sourceTree = "<group>"; };
 		C9E7C83914DF43F00038AEFC /* RepositoryDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryDetailsViewController.xib; sourceTree = "<group>"; };
 		C9ECD208153F65E9009259D5 /* notification-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification-128.png"; sourceTree = "<group>"; };
+		C9ECD20C153F6A3E009259D5 /* followevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = followevent.json; path = samples/followevent.json; sourceTree = "<group>"; };
 		C9F190711458B21000648538 /* QHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -346,6 +347,7 @@
 		C990068B1455B14700744317 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9ECD20B153F69DE009259D5 /* Sample */,
 				C9ECD208153F65E9009259D5 /* notification-128.png */,
 				C9241D02153E141D000E2814 /* octocat-128.png */,
 				C9241D03153E141D000E2814 /* octocat-512.png */,
@@ -483,6 +485,14 @@
 				C9097B3014E092C500949C3B /* UserDetailsViewController.xib */,
 			);
 			name = ItemDetails;
+			sourceTree = "<group>";
+		};
+		C9ECD20B153F69DE009259D5 /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				C9ECD20C153F6A3E009259D5 /* followevent.json */,
+			);
+			name = Sample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

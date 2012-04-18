@@ -121,6 +121,15 @@
     } else if ([DeleteEvent isEqualToString:type]) {
         
     } else if ([DownloadEvent isEqualToString:type]) {
+        
+        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+        NSString *filename = [[[event valueForKey:@"payload"] valueForKey:@"download"] valueForKey:@"name"];
+        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+        NSString *message = [NSString stringWithFormat:@"%@ uploaded %@ to %@", actorLogin, filename, repository];
+        
+        if ([self notificationActive:GHDownloadEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+        }
 
     } else if ([FollowEvent isEqualToString:type]) {
         

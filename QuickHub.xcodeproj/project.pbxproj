@@ -85,6 +85,7 @@
 		C9E7C83A14DF43F00038AEFC /* RepositoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7C83814DF43F00038AEFC /* RepositoryDetailsViewController.m */; };
 		C9E7C83B14DF43F00038AEFC /* RepositoryDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E7C83914DF43F00038AEFC /* RepositoryDetailsViewController.xib */; };
 		C9ECD209153F65E9009259D5 /* notification-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C9ECD208153F65E9009259D5 /* notification-128.png */; };
+		C9ECD20F153F6BB5009259D5 /* downloadevent.json in Resources */ = {isa = PBXBuildFile; fileRef = C9ECD20E153F6BB5009259D5 /* downloadevent.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -225,6 +226,7 @@
 		C9E7C83914DF43F00038AEFC /* RepositoryDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryDetailsViewController.xib; sourceTree = "<group>"; };
 		C9ECD208153F65E9009259D5 /* notification-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification-128.png"; sourceTree = "<group>"; };
 		C9ECD20C153F6A3E009259D5 /* followevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = followevent.json; path = samples/followevent.json; sourceTree = "<group>"; };
+		C9ECD20E153F6BB5009259D5 /* downloadevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = downloadevent.json; path = samples/downloadevent.json; sourceTree = "<group>"; };
 		C9F190711458B21000648538 /* QHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -491,6 +493,7 @@
 			isa = PBXGroup;
 			children = (
 				C9ECD20C153F6A3E009259D5 /* followevent.json */,
+				C9ECD20E153F6BB5009259D5 /* downloadevent.json */,
 			);
 			name = Sample;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 				C9241D07153E141D000E2814 /* octocat-256.png in Resources */,
 				C9241D09153E1DF8000E2814 /* EventPreferencesViewController.xib in Resources */,
 				C9ECD209153F65E9009259D5 /* notification-128.png in Resources */,
+				C9ECD20F153F6BB5009259D5 /* downloadevent.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,39 @@
+/* Message on github:
+ *
+ * quickhubtest uploaded a file to quickhubtest/christophehamerling.com just now
+ * "avatar.jpg" is at quickhubtest/christophehamerling.com/downloads
+ */
+
+{
+    "org": {
+        "url": "https://api.github.com/orgs/"
+    },
+    "type": "DownloadEvent",
+    "actor": {
+        "gravatar_id": "4df4b583bfb65e317b7f8e29da605fec",
+        "id": 1171679,
+        "url": "https://api.github.com/users/quickhubtest",
+        "login": "quickhubtest"
+    },
+    "created_at": "2012-04-18T21:42:14Z",
+    "public": true,
+    "payload": {
+        "download": {
+            "name": "avatar.jpg",
+            "created_at": "2012-04-18T21:42:14Z",
+            "size": 4096,
+            "content_type": "image/jpeg",
+            "url": "https://api.github.com/repos/quickhubtest/christophehamerling.com/downloads/222565",
+            "download_count": 0,
+            "id": 222565,
+            "description": "",
+            "html_url": "https://github.com/downloads/quickhubtest/christophehamerling.com/avatar.jpg"
+        }
+    },
+    "repo": {
+        "id": 4052849,
+        "url": "https://api.github.com/repos/quickhubtest/christophehamerling.com",
+        "name": "quickhubtest/christophehamerling.com"
+    },
+    "id": "1542938119"
+}

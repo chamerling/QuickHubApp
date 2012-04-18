@@ -58,7 +58,6 @@
     
     Reachability *internetDonnection = [Reachability reachabilityForInternetConnection];
     if ([internetDonnection currentReachabilityStatus] == NotReachable) {
-        //NSLog(@"Startup : Internet is not reachable");
     } else {
         if ([[preferences oauthToken]length] == 0 || ![ghClient checkCredentials:nil]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:@"Unable to connect, check preferences" userInfo:nil];
@@ -67,8 +66,6 @@
           
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION object:[NSString stringWithFormat:@"Connecting to GitHub..."] userInfo:nil];   
-            // TODO : To it in background thread...
-            
             [appController loadAll:nil];    
         }
     }
@@ -79,7 +76,6 @@
 {
     NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
     OSStatus httpResult = LSSetDefaultHandlerForURLScheme((CFStringRef)@"quickhubapp", (CFStringRef)bundleID);
-    //NSLog(@"Result : %@", httpResult);
 	[[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(getUrl:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
 

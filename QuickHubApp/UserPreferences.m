@@ -135,7 +135,7 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:NSImageNameUser];
+    return [NSImage imageNamed:@"octocat-128"];
 }
 
 - (NSString *)toolbarItemLabel

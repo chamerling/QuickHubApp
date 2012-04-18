@@ -11,6 +11,9 @@
 
 @interface EventPreferencesViewController : NSViewController<MASPreferencesViewController,NSWindowDelegate> {
     
+    
 }
+
+- (IBAction)toggleEvent:(id)sender;
 
 @end

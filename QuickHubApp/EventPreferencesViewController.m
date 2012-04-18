@@ -7,6 +7,7 @@
 //
 
 #import "EventPreferencesViewController.h"
+#import "Preferences.h"
 
 @implementation EventPreferencesViewController
 
@@ -25,6 +26,12 @@
     return [super initWithNibName:@"EventPreferencesViewController" bundle:nil];
 }
 
+- (IBAction)toggleEvent:(id)sender {
+    // persist modification when checkbox state is modified
+    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
+    [userdefaults synchronize];    
+}
+
 #pragma mark -
 #pragma mark MASPreferencesViewController
 
@@ -35,12 +42,12 @@
 
 - (NSImage *)toolbarItemImage
 {
-    return [NSImage imageNamed:NSImageNameAdvanced];
+    return [NSImage imageNamed:@"notification-128"];
 }
 
 - (NSString *)toolbarItemLabel
 {
-    return NSLocalizedString(@"Events", @"Toolbar item name for the Events preference pane");
+    return NSLocalizedString(@"Notifications", @"Toolbar item name for the Events preference pane");
 }
 
 @end

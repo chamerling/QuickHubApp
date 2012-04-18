@@ -52,8 +52,9 @@
     
     // register handler for protocol
     [self registerURLHandler:nil];
-    
+        
     preferences = [Preferences sharedInstance];
+    [preferences setStandardUserDefault];
     
     Reachability *internetDonnection = [Reachability reachabilityForInternetConnection];
     if ([internetDonnection currentReachabilityStatus] == NotReachable) {

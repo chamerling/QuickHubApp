@@ -13,6 +13,7 @@
 
 @interface EventsManager (Private)
 - (void) notifyNewEvent:(NSDictionary *) event;
+- (BOOL) notificationActive:(NSString *) eventType;
 @end
 
 @implementation EventsManager
@@ -93,7 +94,7 @@
     if (!type) {
         return;
     }
-    
+        
     if ([CommitCommentEvent isEqualToString:type]) {
         
         NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
@@ -101,7 +102,9 @@
         NSString *message = [NSString stringWithFormat:@"%@ commented on %@", actorLogin, repository];
         NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"html_url"];
         
-        [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url icon:nil];
+        if ([self notificationActive:GHCommitCommentEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url icon:nil];
+        }
         
     } else if ([CreateEvent isEqualToString:type]) {
                 
@@ -109,9 +112,10 @@
         NSNumber *refType = [[event valueForKey:@"payload"] valueForKey:@"ref_type"];
         NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
         NSString *message = [NSString stringWithFormat:@"%@ created %@ %@", actorLogin, refType, repository];
-                
-        [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
-        
+         
+        if ([self notificationActive:GHCreateEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+        }
         // TODO check message format for repository, branch and tag. This one works for repository
         
     } else if ([DeleteEvent isEqualToString:type]) {
@@ -126,7 +130,9 @@
         NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
         NSString *message = [NSString stringWithFormat:@"%@ forked %@", actorLogin, repository];
         
-        [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+        if ([self notificationActive:GHForkEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+        }
         
     } else if ([ForkApplyEvent isEqualToString:type]) {
         // TODO
@@ -139,7 +145,9 @@
         NSString *message = [NSString stringWithFormat:@"%@ %@d gist %@", actorLogin, action, gistId];
         NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"gist"] valueForKey:@"html_url"];
         
-        [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
+        if ([self notificationActive:GHGistEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
+        }
         
     } else if ([GollumEvent isEqualToString:type]) {
         
@@ -152,7 +160,9 @@
         NSString *message = [NSString stringWithFormat:@"%@ %@ comment on issue %@ on %@", actorLogin, action, issueId, repository];
         NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"html_url"];
         
-        [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
+        if ([self notificationActive:GHIssueCommentEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
+        }
         
     } else if ([IssuesEvent isEqualToString:type]) {
         
@@ -163,7 +173,9 @@
         NSString *message = [NSString stringWithFormat:@"%@ %@ issue %@ on %@", actorLogin, action, issueId, repository];
         NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"html_url"];
         
-        [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
+        if ([self notificationActive:GHIssuesEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
+        }
         
     } else if ([MemberEvent isEqualToString:type]) {
 
@@ -178,8 +190,10 @@
         NSString *message = [NSString stringWithFormat:@"%@ %@ on pull request %@ on %@", actorLogin, action, pullrequestId, repository];
         NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"pull_request"] valueForKey:@"html_url"];
         
-        [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
-        
+        if ([self notificationActive:GHPullRequestEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
+        }
+            
     } else if ([PullRequestReviewCommentEvent isEqualToString:type]) {
 
     } else if ([PushEvent isEqualToString:type]) {
@@ -189,8 +203,10 @@
         NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
         NSString *message = [NSString stringWithFormat:@"%@ pushed to %@ at %@", actorLogin, branch, repository];
         
-        [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
-
+        if ([self notificationActive:GHPushEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+        }
+        
     } else if ([TeamAddEvent isEqualToString:type]) {
 
     } else if ([WatchEvent isEqualToString:type]) {
@@ -200,15 +216,29 @@
         NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
         NSString *message = [NSString stringWithFormat:@"%@ %@ watching %@", actorLogin, action, repository];
         
-        [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
-
+        if ([self notificationActive:GHWatchEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+        }
+        
     } else {
         // NOP
     }
 }
 
-- (void)dealloc {
+- (BOOL) notificationActive:(NSString *) eventType {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL result = YES;
     
+    if ([defaults valueForKey:eventType]) {
+        result = [defaults boolForKey:eventType];
+    } else {
+        // if not found, let's say that the notification is active...
+        result = YES;
+    }
+    return result;
+}
+
+- (void)dealloc {
     [super dealloc];
 }
 

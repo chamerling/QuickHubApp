@@ -32,6 +32,36 @@ static Preferences *sharedInstance = nil;
     [self storeLogin:@"" withPassword:@""];
 }
 
+- (void) setStandardUserDefault {
+    
+    // Set some default values for preferences. The framework will use them if they are not already set.
+    // If they are, they will be ignored.
+    
+    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSMutableDictionary * states = [NSMutableDictionary dictionaryWithCapacity:18];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHCommitCommentEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHCreateEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHDeleteEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHDownloadEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHFollowEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHForkApplyEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHForkEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHGistEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHGollumEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHIssueCommentEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHIssuesEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHMemberEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHPublicEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHPullRequestEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHPullRequestReviewCommentEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHPushEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHTeamAddEvent];
+    [states setObject:[NSNumber numberWithBool:YES] forKey:GHWatchEvent];
+
+    [userdefaults registerDefaults:states];
+}
+
 - (NSString *)login {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *result = [prefs stringForKey:@"userID"];

@@ -84,6 +84,7 @@
 		C9E07B20145EF8BF004A94A7 /* GistCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */; };
 		C9E7C83A14DF43F00038AEFC /* RepositoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7C83814DF43F00038AEFC /* RepositoryDetailsViewController.m */; };
 		C9E7C83B14DF43F00038AEFC /* RepositoryDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E7C83914DF43F00038AEFC /* RepositoryDetailsViewController.xib */; };
+		C9ECD209153F65E9009259D5 /* notification-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C9ECD208153F65E9009259D5 /* notification-128.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -222,6 +223,7 @@
 		C9E7C83714DF43F00038AEFC /* RepositoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryDetailsViewController.h; sourceTree = "<group>"; };
 		C9E7C83814DF43F00038AEFC /* RepositoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryDetailsViewController.m; sourceTree = "<group>"; };
 		C9E7C83914DF43F00038AEFC /* RepositoryDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryDetailsViewController.xib; sourceTree = "<group>"; };
+		C9ECD208153F65E9009259D5 /* notification-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification-128.png"; sourceTree = "<group>"; };
 		C9F190711458B21000648538 /* QHConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -344,6 +346,7 @@
 		C990068B1455B14700744317 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9ECD208153F65E9009259D5 /* notification-128.png */,
 				C9241D02153E141D000E2814 /* octocat-128.png */,
 				C9241D03153E141D000E2814 /* octocat-512.png */,
 				C9241D04153E141D000E2814 /* octocat-256.png */,
@@ -564,6 +567,7 @@
 				C9241D06153E141D000E2814 /* octocat-512.png in Resources */,
 				C9241D07153E141D000E2814 /* octocat-256.png in Resources */,
 				C9241D09153E1DF8000E2814 /* EventPreferencesViewController.xib in Resources */,
+				C9ECD209153F65E9009259D5 /* notification-128.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

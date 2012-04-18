@@ -19,6 +19,7 @@
 }
 
 - (void) setDefault;
+- (void) setStandardUserDefault;
 
 // deprecated
 - (NSString *) login;

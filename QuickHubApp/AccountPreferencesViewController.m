@@ -39,7 +39,6 @@
 
 # pragma mark - Actions
 - (IBAction)openAtStartup:(id)sender {
-    NSLog(@"Open at startup called");
     
     // get the current state and save to workspace to open at startup...
     NSWorkspace *workspace = [NSWorkspace sharedWorkspace];

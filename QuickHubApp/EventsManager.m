@@ -14,6 +14,7 @@
 @interface EventsManager (Private)
 - (void) notifyNewEvent:(NSDictionary *) event;
 - (BOOL) notificationActive:(NSString *) eventType;
+- (BOOL) isNotificationsActive;
 @end
 
 @implementation EventsManager
@@ -51,9 +52,8 @@
         [events addObject:[arrangedEvents objectForKey:eventId]];
     }
     
-    if ([newEvents count] > 0) {
+    if ([newEvents count] > 0 && [self isNotificationsActive]) {
         // send some notifications...
-        // TODO = set it in preferences
         
         int nbEvents = 10;
         if ([newEvents count] >= nbEvents) {
@@ -120,6 +120,15 @@
         
     } else if ([DeleteEvent isEqualToString:type]) {
         
+        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+        NSNumber *refType = [[event valueForKey:@"payload"] valueForKey:@"ref_type"];
+        NSString *ref = [[event valueForKey:@"payload"] valueForKey:@"ref"];
+        NSString *message = [NSString stringWithFormat:@"%@ deleted %@ from %@", actorLogin, refType, ref];
+        
+        if ([self notificationActive:GHDeleteEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+        }
+        
     } else if ([DownloadEvent isEqualToString:type]) {
         
         NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
@@ -152,7 +161,18 @@
         }
         
     } else if ([ForkApplyEvent isEqualToString:type]) {
-        // TODO
+        
+        // tested but can not find when it happens
+        // forked and merged, nothing...
+        /*
+        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+        NSString *message = [NSString stringWithFormat:@"%@ applied fork %@", actorLogin, repository];
+        
+        if ([self notificationActive:GHForkApplyEvent]) {
+            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+        }
+         */
         
     } else if ([GistEvent isEqualToString:type]) {
         
@@ -167,6 +187,30 @@
         }
         
     } else if ([GollumEvent isEqualToString:type]) {
+        
+        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+        NSArray *pages = [[event valueForKey:@"payload"] valueForKey:@"pages"];
+        
+        if ([pages count] > 1) {
+            NSString *message = [NSString stringWithFormat:@"%@ modified %d pages in the %@ wiki", actorLogin, [pages count], repository];
+            
+            if ([self notificationActive:GHGollumEvent]) {
+                [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+            }
+
+        } else {
+            
+            for (NSDictionary *page in pages) {
+                NSString *pageName = [page valueForKey:@"page_name"];
+                NSString *action = [page valueForKey:@"action"];
+                NSString *message = [NSString stringWithFormat:@"%@ %@ the %@ wiki page %@", actorLogin, action, repository, pageName];
+                
+                if ([self notificationActive:GHGollumEvent]) {
+                    [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+                }
+            }
+        }
         
     } else if ([IssueCommentEvent isEqualToString:type]) {
         
@@ -253,6 +297,19 @@
         result = YES;
     }
     return result;
+}
+
+- (BOOL) isNotificationsActive {
+    BOOL result = YES;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults valueForKey:GHEventActive]) {
+        result = [defaults boolForKey:GHEventActive];
+    } else {
+        // if not found, let's say that the notification is active...
+        result = YES;
+    }
+    return result;    
 }
 
 - (void)dealloc {

@@ -147,6 +147,7 @@
 		C96ABC8F147EF624001A2407 /* LocalPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocalPreferencesViewController.xib; sourceTree = "<group>"; };
 		C96ABC9A14803E39001A2407 /* Context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Context.h; sourceTree = "<group>"; };
 		C96ABC9B14803E3A001A2407 /* Context.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Context.m; sourceTree = "<group>"; };
+		C98E1A751541DDA700030F49 /* gollumevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = gollumevent.json; path = samples/gollumevent.json; sourceTree = "<group>"; };
 		C98FB8961486CBF000B7D92A /* AboutPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutPreferencesViewController.h; sourceTree = "<group>"; };
 		C98FB8971486CBF000B7D92A /* AboutPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutPreferencesViewController.m; sourceTree = "<group>"; };
 		C98FB8981486CBF000B7D92A /* AboutPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutPreferencesViewController.xib; sourceTree = "<group>"; };
@@ -494,6 +495,7 @@
 			children = (
 				C9ECD20C153F6A3E009259D5 /* followevent.json */,
 				C9ECD20E153F6BB5009259D5 /* downloadevent.json */,
+				C98E1A751541DDA700030F49 /* gollumevent.json */,
 			);
 			name = Sample;
 			sourceTree = "<group>";

@@ -12,7 +12,12 @@
 @interface EventPreferencesViewController : NSViewController<MASPreferencesViewController,NSWindowDelegate> {
     
     
+    NSButton *switchNotificationButton;
+    NSTextField *notificationLabel;
 }
+@property (assign) IBOutlet NSTextField *notificationLabel;
+@property (assign) IBOutlet NSButton *switchNotificationButton;
+- (IBAction)switchNotification:(id)sender;
 
 - (IBAction)toggleEvent:(id)sender;
 

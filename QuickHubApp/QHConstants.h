@@ -92,6 +92,8 @@
 #define TeamAddEvent @"TeamAddEvent"
 #define WatchEvent @"WatchEvent"
 
+#define GHEventActive @"GHEventActive"
+
 #define GHCommitCommentEvent @"GHCommitCommentEvent"
 #define GHCreateEvent @"GHCreateEvent"
 #define GHDeleteEvent @"GHDeleteEvent"

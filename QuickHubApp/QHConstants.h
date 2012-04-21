@@ -71,6 +71,10 @@
 #define HTTP_200 200;
 #define HTTP_201 201;
 
+#pragma mark - Preferences
+
+#define PREF_SHOW_ACTIONS @"GHPreferencesShowActions"
+
 #pragma mark - Events
 
 #define CommitCommentEvent @"CommitCommentEvent"

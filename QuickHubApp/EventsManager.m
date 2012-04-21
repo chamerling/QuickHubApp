@@ -31,7 +31,6 @@
 }
 
 - (void) addEventsFromDictionary:(NSDictionary *) dict {
-    
     BOOL firstCall = ([events count] == 0);
     
     NSMutableDictionary *arrangedEvents = [[NSMutableDictionary alloc] init];

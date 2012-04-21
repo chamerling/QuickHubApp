@@ -145,7 +145,7 @@ static GrowlManager *sharedInstance = nil;
     if (name) {
         notificationName = name;
     }
-    
+        
     [GrowlApplicationBridge notifyWithTitle:notificationName
 								description:description
 						   notificationName:@"QuickHub"

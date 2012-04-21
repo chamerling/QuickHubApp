@@ -60,7 +60,8 @@ static Preferences *sharedInstance = nil;
     [states setObject:[NSNumber numberWithBool:YES] forKey:GHWatchEvent];
     
     [states setObject:[NSNumber numberWithBool:YES] forKey:GHEventActive];
-    
+
+    [states setObject:[NSNumber numberWithBool:YES] forKey:PREF_SHOW_ACTIONS];
 
     [userdefaults registerDefaults:states];
 }

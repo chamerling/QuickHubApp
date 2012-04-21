@@ -15,8 +15,11 @@
 
 @interface AccountPreferencesViewController : NSViewController<MASPreferencesViewController,NSWindowDelegate> {
     IBOutlet NSButton *openAtStartupButton;
+    NSButton *showActionsButton;
 }
+@property (assign) IBOutlet NSButton *showActionsButton;
 
 - (IBAction)openAtStartup:(id)sender;
+- (IBAction)showActions:(id)sender;
 
 @end

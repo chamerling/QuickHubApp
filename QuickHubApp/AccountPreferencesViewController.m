@@ -8,8 +8,10 @@
 
 #import "AccountPreferencesViewController.h"
 #import "NSWorkspaceHelper.h"
+#import "QHConstants.h"
 
 @implementation AccountPreferencesViewController
+@synthesize showActionsButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +37,9 @@
         state = 1;
     }
     [openAtStartupButton setState:state];
+    
+    BOOL showPref = [defaults boolForKey:PREF_SHOW_ACTIONS];
+    [showActionsButton setState:showPref ? 1 : 0];
 }
 
 # pragma mark - Actions
@@ -52,6 +57,12 @@
 		[workspace unregisterLoginLaunchBundle:bundle];
 		[defaults setBool:NO forKey:@"openAtLogin"];
 	}
+}
+
+- (IBAction)showActions:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:[sender state] forKey:PREF_SHOW_ACTIONS];
+    [defaults synchronize];
 }
 
 #pragma mark -

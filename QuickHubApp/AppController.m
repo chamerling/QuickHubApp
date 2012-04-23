@@ -32,11 +32,8 @@
 {
     self = [super init];
     if (self) {
-        // Initialization code here.
         githubController = [[GithubOAuthClient alloc]init];
-        
-        eventsManager = [[EventsManager alloc] init];
-        
+
         //reachability
         // check for internet connection
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
@@ -52,6 +49,9 @@
 }
 
 - (void)awakeFromNib {
+    eventsManager = [[EventsManager alloc] init];
+    [eventsManager setMenuController:menuController];
+    
     // register listeners to start and stop polling...
     [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(loadAll:)

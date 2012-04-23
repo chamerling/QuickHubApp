@@ -81,6 +81,7 @@
 - (void) pullPressed:(id) sender;
 - (void) followerPressed:(id) sender;
 - (void) followingPressed:(id) sender;
+- (void) eventPressed:(id) sender;
 
 - (void)getUrl:(NSAppleEventDescriptor *)event;
 - (void) registerURLHandler:(id) sender;

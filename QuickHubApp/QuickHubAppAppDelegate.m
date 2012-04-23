@@ -479,7 +479,17 @@
 
 - (void) followingPressed:(id) sender {
     id selectedItem = [sender representedObject];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];        
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];        
+}
+
+- (void) eventPressed:(id) sender {
+    id selectedItem = [sender representedObject];
+    
+    if (!selectedItem) {
+        // NOP
+    } else {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]]; 
+    }
 }
 
 // Gist a text selection

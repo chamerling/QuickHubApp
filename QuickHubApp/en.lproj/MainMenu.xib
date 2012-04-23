@@ -990,8 +990,6 @@
 					</object>
 					<object class="NSMenuItem" id="561257629">
 						<reference key="NSMenu" ref="109402426"/>
-						<bool key="NSIsDisabled">YES</bool>
-						<bool key="NSIsHidden">YES</bool>
 						<string key="NSTitle">Events</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -1002,23 +1000,12 @@
 							<string key="NSTitle">Events</string>
 							<object class="NSMutableArray" key="NSMenuItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSMenuItem" id="395526774">
-									<reference key="NSMenu" ref="737017040"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<string key="NSTitle">Item</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="700618366"/>
-									<reference key="NSMixedImage" ref="264426624"/>
-								</object>
 							</object>
 						</object>
 					</object>
 					<object class="NSMenuItem" id="1008373956">
 						<reference key="NSMenu" ref="109402426"/>
-						<bool key="NSIsDisabled">YES</bool>
 						<bool key="NSIsSeparator">YES</bool>
-						<bool key="NSIsHidden">YES</bool>
 						<string key="NSTitle"/>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -1339,6 +1326,30 @@
 						</object>
 					</object>
 					<int key="connectionID">735</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">eventsMenu</string>
+						<reference key="source" ref="189135458"/>
+						<reference key="destination" ref="737017040"/>
+					</object>
+					<int key="connectionID">736</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">eventsMenuItem</string>
+						<reference key="source" ref="189135458"/>
+						<reference key="destination" ref="561257629"/>
+					</object>
+					<int key="connectionID">737</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">eventsSeparatorItem</string>
+						<reference key="source" ref="189135458"/>
+						<reference key="destination" ref="1008373956"/>
+					</object>
+					<int key="connectionID">738</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2181,14 +2192,8 @@
 						<reference key="object" ref="737017040"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="395526774"/>
 						</object>
 						<reference key="parent" ref="561257629"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">715</int>
-						<reference key="object" ref="395526774"/>
-						<reference key="parent" ref="737017040"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">716</int>
@@ -2358,7 +2363,6 @@
 					<string>712.IBPluginDependency</string>
 					<string>713.IBPluginDependency</string>
 					<string>714.IBPluginDependency</string>
-					<string>715.IBPluginDependency</string>
 					<string>716.IBPluginDependency</string>
 					<string>717.IBPluginDependency</string>
 					<string>718.IBPluginDependency</string>
@@ -2369,7 +2373,6 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2508,7 +2511,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">735</int>
+			<int key="maxID">738</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2629,11 +2632,17 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>eventsMenu</string>
+							<string>eventsMenuItem</string>
+							<string>eventsSeparatorItem</string>
 							<string>internetItem</string>
 							<string>statusMenu</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSMenu</string>
+							<string>NSMenuItem</string>
+							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenu</string>
 						</object>
@@ -2642,11 +2651,26 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>eventsMenu</string>
+							<string>eventsMenuItem</string>
+							<string>eventsSeparatorItem</string>
 							<string>internetItem</string>
 							<string>statusMenu</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">eventsMenu</string>
+								<string key="candidateClassName">NSMenu</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">eventsMenuItem</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">eventsSeparatorItem</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">internetItem</string>
 								<string key="candidateClassName">NSMenuItem</string>

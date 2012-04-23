@@ -114,6 +114,8 @@
     menu = [followersItem submenu];
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     
+    [eventsMenu removeAllItems];
+    
     firstGistCall = YES;
     firstIssueCall = YES;
     firstOrganizationCall = YES;
@@ -892,6 +894,22 @@
     [self addItem:item to:menu top:FALSE];
 }
 
+- (void) addEvent:(NSDictionary *)event top:(BOOL)top {
+    NSMenuItem *eventItem = [[NSMenuItem alloc] initWithTitle:[event valueForKey:@"message"] action:@selector(eventPressed:) keyEquivalent:@""];
+    
+    [eventItem setRepresentedObject:[event valueForKey:@"url"]];
+    [eventItem setEnabled:YES];
+    [eventItem autorelease];
+
+    // TODO : Set the size by configuration
+    NSInteger eventMenuSize = 30;
+    if ([eventsMenu numberOfItems] == eventMenuSize) {
+        [eventsMenu removeItemAtIndex:eventMenuSize - 1];
+    }
+        
+    [self addItem:eventItem to:eventsMenu top:top];    
+}
+
 - (void) addPull:(NSDictionary *)pull {
     //NSMenu *menu = [self getPullsMenu];
 
@@ -938,6 +956,12 @@
 - (void) followingPressed:(id) sender {
     id selectedItem = [sender representedObject];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];        
+}
+
+- (void) eventPressed:(id) sender {
+    NSLog(@"Event pressed");
+    id selectedItem = [sender representedObject];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];            
 }
 
 - (IBAction)openFollowings:(id)sender {

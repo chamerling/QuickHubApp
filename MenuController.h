@@ -29,6 +29,10 @@
     NSMenuItem *followingPressed;
     
     IBOutlet NSMenuItem *internetItem;
+    
+    IBOutlet NSMenuItem *eventsMenuItem;
+    IBOutlet NSMenu *eventsMenu;
+    IBOutlet NSMenuItem *eventsSeparatorItem;
 }
 
 @property (nonatomic, retain) IBOutlet NSMenu *statusMenu;
@@ -45,6 +49,7 @@
 - (IBAction) pullPressed:(id) sender;
 - (void) followerPressed:(id) sender;
 - (void) followingPressed:(id) sender;
+- (void) eventPressed:(id) sender;
 
 #pragma mark - UI management
 - (void) deleteOldEntriesFromMenu:(NSMenu*)menu fromItemTitle:(NSString*)title;
@@ -71,5 +76,7 @@
 - (void) addFollowing:(NSDictionary *)following;
 - (void) addWatched:(NSDictionary *)watched;
 - (void) addPull:(NSDictionary *)pull;
+
+- (void) addEvent:(NSDictionary *)event top:(BOOL)top;
 
 @end

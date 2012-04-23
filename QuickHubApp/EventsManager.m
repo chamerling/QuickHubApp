@@ -15,9 +15,32 @@
 - (void) notifyNewEvent:(NSDictionary *) event;
 - (BOOL) notificationActive:(NSString *) eventType;
 - (BOOL) isNotificationsActive;
+
+- (NSDictionary *) getCommit:(NSDictionary *)event;
+- (NSDictionary *) getCreate:(NSDictionary *)event;
+- (NSDictionary *) getDelete:(NSDictionary *)event;
+- (NSDictionary *) getDownload:(NSDictionary *)event;
+- (NSDictionary *) getFollow:(NSDictionary *)event;
+- (NSDictionary *) getFork:(NSDictionary *)event;
+- (NSDictionary *) getGist:(NSDictionary *)event;
+- (NSDictionary *) getGollum:(NSDictionary *)event;
+- (NSDictionary *) getIssueComment:(NSDictionary *)event;
+- (NSDictionary *) getIssue:(NSDictionary *)event;
+- (NSDictionary *) getMember:(NSDictionary *)event;
+- (NSDictionary *) getPublic:(NSDictionary *)event;
+- (NSDictionary *) getPull:(NSDictionary *)event;
+- (NSDictionary *) getPullReview:(NSDictionary *)event;
+- (NSDictionary *) getPush:(NSDictionary *)event;
+- (NSDictionary *) getTeam:(NSDictionary *)event;
+- (NSDictionary *) getWatch:(NSDictionary *)event;
+
+- (void) updateEventMenu:(NSDictionary *)event;
+
 @end
 
 @implementation EventsManager
+
+@synthesize menuController;
 
 - (id)init
 {
@@ -44,18 +67,35 @@
     // diff events with the already cached ones
     NSMutableSet* newEvents = [NSMutableSet setWithSet:justGet];
     [newEvents minusSet:eventIds];
-        
+    
     // cache new events
     for (id eventId in newEvents) {
         [eventIds addObject:eventId];
         [events addObject:[arrangedEvents objectForKey:eventId]];
     }
     
-    if ([newEvents count] > 0 && [self isNotificationsActive]) {
+    // TODO : Check if there is something to create array from set
+    NSMutableArray *newEventsArray = [NSMutableArray arrayWithCapacity:[newEvents count]];
+    for (id eventId in newEvents) {
+        [newEventsArray addObject:[arrangedEvents objectForKey:eventId]];
+    }
+    
+    // create an array with the new events and order them by date...
+    NSArray *sorted = [[NSMutableArray arrayWithArray:newEventsArray] sortedArrayUsingComparator:^(id a, id b) {
+        NSString *first = [a objectForKey:@"created_at"];
+        NSString *second = [b objectForKey:@"created_at"];
+        return [[first lowercaseString] compare:[second lowercaseString]];
+    }];
+        
+    for (id event in sorted) {
+        [self updateEventMenu:event];
+    }
+    
+    if ([sorted count] > 0 && [self isNotificationsActive]) {
         // send some notifications...
         
         int nbEvents = 10;
-        if ([newEvents count] >= nbEvents) {
+        if ([sorted count] >= nbEvents) {
             // limit the number of events per configuration...
             
             if (!firstCall) {
@@ -64,11 +104,8 @@
         } else {
             // loop...
             // TODO : need to order events by date with the "created_at" element
-            for (id eventId in newEvents) {
-                NSDictionary *event = [arrangedEvents objectForKey:eventId];
-                if (event) {
-                    [self notifyNewEvent:event];
-                }
+            for (id event in sorted) {
+                [self notifyNewEvent:event];
             }
         }
     }
@@ -310,6 +347,293 @@
     }
     return result;    
 }
+
+#pragma mark - Events transformation
+- (NSDictionary *) getCommit:(NSDictionary *)event {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+    
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    NSString *message = [NSString stringWithFormat:@"%@ commented on %@", actorLogin, repository];
+    NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"html_url"];
+
+    [dict setValue:message forKey:@"message"];
+    [dict setValue:url forKey:@"url"];
+    
+    return dict;
+}
+
+- (NSDictionary *) getCreate:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+        
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSNumber *refType = [[event valueForKey:@"payload"] valueForKey:@"ref_type"];
+    NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    NSString *message = [NSString stringWithFormat:@"%@ created %@ %@", actorLogin, refType, repository];
+    
+    [dict setValue:message forKey:@"message"];
+    
+    return dict;    
+}
+
+- (NSDictionary *) getDelete:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+    
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSNumber *refType = [[event valueForKey:@"payload"] valueForKey:@"ref_type"];
+    NSString *ref = [[event valueForKey:@"payload"] valueForKey:@"ref"];
+    NSString *message = [NSString stringWithFormat:@"%@ deleted %@ from %@", actorLogin, refType, ref];
+    
+    [dict setValue:message forKey:@"message"];
+    
+    return dict;
+}
+
+- (NSDictionary *) getDownload:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+    
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSString *filename = [[[event valueForKey:@"payload"] valueForKey:@"download"] valueForKey:@"name"];
+    NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    NSString *message = [NSString stringWithFormat:@"%@ uploaded %@ to %@", actorLogin, filename, repository];
+    
+    [dict setValue:message forKey:@"message"];
+    
+    return dict;
+}
+
+- (NSDictionary *) getFollow:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+    
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSString *target = [[[event valueForKey:@"payload"] valueForKey:@"target"] valueForKey:@"login"];
+    NSString *message = [NSString stringWithFormat:@"%@ started following %@", actorLogin, target];
+    
+    [dict setValue:message forKey:@"message"];
+    
+    return dict;
+}
+
+- (NSDictionary *) getFork:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+        
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    NSString *message = [NSString stringWithFormat:@"%@ forked %@", actorLogin, repository]; 
+    
+    [dict setValue:message forKey:@"message"];
+    
+    return dict;
+}
+
+- (NSDictionary *) getGist:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+    
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSString *action = [[event valueForKey:@"payload"] valueForKey:@"action"];
+    NSNumber *gistId = [[[event valueForKey:@"payload"] valueForKey:@"gist"] valueForKey:@"id"];
+    NSString *message = [NSString stringWithFormat:@"%@ %@d gist %@", actorLogin, action, gistId];
+    NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"gist"] valueForKey:@"html_url"];
+    
+    [dict setValue:message forKey:@"message"];
+    [dict setValue:url forKey:@"url"];
+    
+    return dict;
+}
+
+- (NSDictionary *) getGollum:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+    
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    NSArray *pages = [[event valueForKey:@"payload"] valueForKey:@"pages"];
+    
+    NSString *message = nil;
+    
+    if ([pages count] > 1) {
+        message = [NSString stringWithFormat:@"%@ modified %d pages in the %@ wiki", actorLogin, [pages count], repository];
+        
+    } else {
+        
+        for (NSDictionary *page in pages) {
+            NSString *pageName = [page valueForKey:@"page_name"];
+            NSString *action = [page valueForKey:@"action"];
+            message = [NSString stringWithFormat:@"%@ %@ the %@ wiki page %@", actorLogin, action, repository, pageName];
+        }
+    }
+    
+    [dict setValue:message forKey:@"message"];
+    
+    return dict;
+}
+
+- (NSDictionary *) getIssueComment:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+    
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSString *action = [[event valueForKey:@"payload"] valueForKey:@"action"];
+    NSNumber *issueId = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"number"];
+    NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    NSString *message = [NSString stringWithFormat:@"%@ %@ comment on issue %@ on %@", actorLogin, action, issueId, repository];
+    NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"html_url"];
+    
+    [dict setValue:message forKey:@"message"];
+    [dict setValue:url forKey:@"url"];
+    
+    return dict;
+}
+
+- (NSDictionary *) getIssue:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+    
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSString *action = [[event valueForKey:@"payload"] valueForKey:@"action"];
+    NSNumber *issueId = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"number"];
+    NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    NSString *message = [NSString stringWithFormat:@"%@ %@ issue %@ on %@", actorLogin, action, issueId, repository];
+    NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"html_url"];
+    
+    [dict setValue:message forKey:@"message"];
+    [dict setValue:url forKey:@"url"];
+    
+    return dict;
+}
+
+- (NSDictionary *) getMember:(NSDictionary *)event{
+    return [NSMutableDictionary dictionary];
+}
+
+- (NSDictionary *) getPublic:(NSDictionary *)event{
+    return [NSMutableDictionary dictionary];    
+}
+
+- (NSDictionary *) getPull:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+    
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSString *action = [[event valueForKey:@"payload"] valueForKey:@"action"];
+    NSNumber *pullrequestId = [[event valueForKey:@"payload"] valueForKey:@"number"];
+    NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    NSString *message = [NSString stringWithFormat:@"%@ %@ on pull request %@ on %@", actorLogin, action, pullrequestId, repository];
+    NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"pull_request"] valueForKey:@"html_url"];
+    
+    [dict setValue:message forKey:@"message"];
+    [dict setValue:url forKey:@"url"];
+    
+    return dict;    
+}
+
+- (NSDictionary *) getPullReview:(NSDictionary *)event{
+    return [NSMutableDictionary dictionary];    
+}
+
+- (NSDictionary *) getPush:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+    
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSNumber *branch = [[event valueForKey:@"payload"] valueForKey:@"ref"];
+    NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    NSString *message = [NSString stringWithFormat:@"%@ pushed to %@ at %@", actorLogin, branch, repository];
+    
+    [dict setValue:message forKey:@"message"];
+    
+    return dict;    
+}
+
+- (NSDictionary *) getTeam:(NSDictionary *)event{
+    return [NSMutableDictionary dictionary];    
+}
+
+- (NSDictionary *) getWatch:(NSDictionary *)event{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+        
+    NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
+    NSString *action = [[event valueForKey:@"payload"] valueForKey:@"action"];
+    NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    NSString *message = [NSString stringWithFormat:@"%@ %@ watching %@", actorLogin, action, repository];
+    
+    [dict setValue:message forKey:@"message"];
+    
+    return dict;    
+}
+
+- (void) updateEventMenu:(NSDictionary *) event {
+    if (!event) {
+        return;
+    }
+    
+    NSString *type = [event valueForKey:@"type"];
+    
+    if (!type) {
+        return;
+    }
+        
+    if ([CommitCommentEvent isEqualToString:type]) {
+        [menuController addEvent:[self getCommit:event] top:YES];
+        
+    } else if ([CreateEvent isEqualToString:type]) {
+        
+        [menuController addEvent:[self getCreate:event] top:YES];
+        
+    } else if ([DeleteEvent isEqualToString:type]) {
+        
+        [menuController addEvent:[self getDelete:event] top:YES];
+        
+    } else if ([DownloadEvent isEqualToString:type]) {
+        
+        [menuController addEvent:[self getDownload:event] top:YES];
+        
+    } else if ([FollowEvent isEqualToString:type]) {
+        
+        [menuController addEvent:[self getFollow:event] top:YES];
+        
+    } else if ([ForkEvent isEqualToString:type]) {
+        
+        [menuController addEvent:[self getFork:event] top:YES];
+        
+    } else if ([ForkApplyEvent isEqualToString:type]) {
+        
+    } else if ([GistEvent isEqualToString:type]) {
+        
+        [menuController addEvent:[self getGist:event] top:YES];
+        
+    } else if ([GollumEvent isEqualToString:type]) {
+        
+        [menuController addEvent:[self getGollum:event] top:YES];
+        
+    } else if ([IssueCommentEvent isEqualToString:type]) {
+        
+        [menuController addEvent:[self getIssueComment:event] top:YES];
+        
+    } else if ([IssuesEvent isEqualToString:type]) {
+        
+        [menuController addEvent: [self getIssue:event] top:YES];
+        
+    } else if ([MemberEvent isEqualToString:type]) {
+        
+    } else if ([PublicEvent isEqualToString:type]) {
+        
+    } else if ([PullRequestEvent isEqualToString:type]) {
+        
+        [menuController addEvent:[self getPull:event] top:YES];
+        
+    } else if ([PullRequestReviewCommentEvent isEqualToString:type]) {
+        
+    } else if ([PushEvent isEqualToString:type]) {
+        
+       [menuController addEvent:[self getPush:event] top:YES];
+        
+    } else if ([TeamAddEvent isEqualToString:type]) {
+        
+    } else if ([WatchEvent isEqualToString:type]) {
+        
+        [menuController addEvent:[self getWatch:event] top:YES];
+        
+    } else {
+        // NOP
+    }
+}
+
 
 - (void)dealloc {
     [super dealloc];

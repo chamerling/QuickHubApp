@@ -12,6 +12,8 @@
 #import "OrgRepoCreateWindowController.h"
 #import "RepositoryDetailsViewController.h"
 #import "UserDetailsViewController.h"
+#import "EventMenuItemController.h"
+#import "EventMenuItemView.h"
 
 @interface MenuController (Private) 
 - (NSMenu*) getIssuesMenu;
@@ -895,14 +897,28 @@
 }
 
 - (void) addEvent:(NSDictionary *)event top:(BOOL)top {
-    NSMenuItem *eventItem = [[NSMenuItem alloc] initWithTitle:[event valueForKey:@"message"] action:@selector(eventPressed:) keyEquivalent:@""];
+    /*NSMenuItem *eventItem = [[NSMenuItem alloc] initWithTitle:[event valueForKey:@"message"] action:@selector(eventPressed:) keyEquivalent:@""];
     
     [eventItem setRepresentedObject:[event valueForKey:@"url"]];
     [eventItem setEnabled:YES];
     [eventItem autorelease];
+    */
+    
+  
+    NSMenuItem *eventItem = [[NSMenuItem alloc] initWithTitle:[event valueForKey:@"message"] action:@selector(eventPressed:) keyEquivalent:@""];
+    EventMenuItemController *controller = [[EventMenuItemController alloc] initWithNibName:@"EventMenuItemController" bundle:nil];
+    [controller setEvent:event];
+    [eventItem setView:[controller view]];
+    
+    [eventItem setAction:@selector(eventPressed:)];
+    [eventItem setTarget:self];
+    [eventItem setRepresentedObject:[event valueForKey:@"url"]];
+    [eventItem setEnabled:YES];
+    [eventItem setState:NSMixedState];
+    [eventItem autorelease];
+    
 
-    // TODO : Set the size by configuration
-    NSInteger eventMenuSize = 25;
+    NSInteger eventMenuSize = 20;
     if ([eventsMenu numberOfItems] >= eventMenuSize) {
         [eventsMenu removeItemAtIndex:eventMenuSize - 1];
     }

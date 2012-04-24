@@ -18,6 +18,9 @@
 		C9241D09153E1DF8000E2814 /* EventPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9241D08153E1DF8000E2814 /* EventPreferencesViewController.xib */; };
 		C9241D0C153E1E1A000E2814 /* EventPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9241D0B153E1E1A000E2814 /* EventPreferencesViewController.m */; };
 		C93B5A3414728161003D6A7F /* fork.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A3314728161003D6A7F /* fork.png */; };
+		C960F039154757C900319DA8 /* EventMenuItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = C960F037154757C900319DA8 /* EventMenuItemController.m */; };
+		C960F03A154757C900319DA8 /* EventMenuItemController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C960F038154757C900319DA8 /* EventMenuItemController.xib */; };
+		C960F03D154759C200319DA8 /* EventMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = C960F03C154759C200319DA8 /* EventMenuItemView.m */; };
 		C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D091456EF090013F78E /* NSWorkspaceHelper.m */; };
 		C9642D101456F1530013F78E /* GrowlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D0F1456F1530013F78E /* GrowlManager.m */; };
 		C9642D13145700D10013F78E /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D12145700D10013F78E /* AppController.m */; };
@@ -117,6 +120,11 @@
 		C9241D0A153E1E1A000E2814 /* EventPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventPreferencesViewController.h; sourceTree = "<group>"; };
 		C9241D0B153E1E1A000E2814 /* EventPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventPreferencesViewController.m; sourceTree = "<group>"; };
 		C93B5A3314728161003D6A7F /* fork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fork.png; sourceTree = "<group>"; };
+		C960F036154757C900319DA8 /* EventMenuItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventMenuItemController.h; sourceTree = "<group>"; };
+		C960F037154757C900319DA8 /* EventMenuItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventMenuItemController.m; sourceTree = "<group>"; };
+		C960F038154757C900319DA8 /* EventMenuItemController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventMenuItemController.xib; sourceTree = "<group>"; };
+		C960F03B154759C200319DA8 /* EventMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventMenuItemView.h; sourceTree = "<group>"; };
+		C960F03C154759C200319DA8 /* EventMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventMenuItemView.m; sourceTree = "<group>"; };
 		C9642D081456EF090013F78E /* NSWorkspaceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWorkspaceHelper.h; sourceTree = "<group>"; };
 		C9642D091456EF090013F78E /* NSWorkspaceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWorkspaceHelper.m; sourceTree = "<group>"; };
 		C9642D0E1456F1530013F78E /* GrowlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowlManager.h; sourceTree = "<group>"; };
@@ -263,6 +271,20 @@
 				C99006841455B04A00744317 /* ASIHTTP */,
 			);
 			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		C960F035154757A900319DA8 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				C9241CFA153B6704000E2814 /* EventsManager.h */,
+				C9241CFB153B6704000E2814 /* EventsManager.m */,
+				C960F036154757C900319DA8 /* EventMenuItemController.h */,
+				C960F037154757C900319DA8 /* EventMenuItemController.m */,
+				C960F038154757C900319DA8 /* EventMenuItemController.xib */,
+				C960F03B154759C200319DA8 /* EventMenuItemView.h */,
+				C960F03C154759C200319DA8 /* EventMenuItemView.m */,
+			);
+			name = Events;
 			sourceTree = "<group>";
 		};
 		C9642D0D1456EF1D0013F78E /* Others */ = {
@@ -462,8 +484,7 @@
 				C9D67A321485336700026988 /* GistViewWindowController.m */,
 				C98FB8A314878FFC00B7D92A /* GithubOAuthClient.h */,
 				C98FB8A414878FFC00B7D92A /* GithubOAuthClient.m */,
-				C9241CFA153B6704000E2814 /* EventsManager.h */,
-				C9241CFB153B6704000E2814 /* EventsManager.m */,
+				C960F035154757A900319DA8 /* Events */,
 			);
 			path = QuickHubApp;
 			sourceTree = "<group>";
@@ -584,6 +605,7 @@
 				C9241D09153E1DF8000E2814 /* EventPreferencesViewController.xib in Resources */,
 				C9ECD209153F65E9009259D5 /* notification-128.png in Resources */,
 				C9ECD20F153F6BB5009259D5 /* downloadevent.json in Resources */,
+				C960F03A154757C900319DA8 /* EventMenuItemController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +653,8 @@
 				C9097B3514E092EB00949C3B /* UserDetailsViewController.m in Sources */,
 				C9241CFC153B6704000E2814 /* EventsManager.m in Sources */,
 				C9241D0C153E1E1A000E2814 /* EventPreferencesViewController.m in Sources */,
+				C960F039154757C900319DA8 /* EventMenuItemController.m in Sources */,
+				C960F03D154759C200319DA8 /* EventMenuItemView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

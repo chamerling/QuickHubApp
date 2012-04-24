@@ -354,11 +354,13 @@
     
     NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
     NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
-    NSString *message = [NSString stringWithFormat:@"%@ commented on %@", actorLogin, repository];
+    NSString *message = [NSString stringWithFormat:@"%@ commented commit on %@", actorLogin, repository];
     NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"html_url"];
+    NSString *details = [NSString stringWithFormat:@"Comment on L%@: %@", [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"line"], [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"body"]];
 
     [dict setValue:message forKey:@"message"];
     [dict setValue:url forKey:@"url"];
+    [dict setValue:details forKey:@"details"];
     
     return dict;
 }
@@ -476,9 +478,11 @@
     NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
     NSString *message = [NSString stringWithFormat:@"%@ %@ comment on issue %@ on %@", actorLogin, action, issueId, repository];
     NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"html_url"];
+    NSString *details = [NSString stringWithFormat:@"%@", [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"body"]];
     
     [dict setValue:message forKey:@"message"];
     [dict setValue:url forKey:@"url"];
+    [dict setValue:details forKey:@"details"];
     
     return dict;
 }
@@ -492,9 +496,11 @@
     NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
     NSString *message = [NSString stringWithFormat:@"%@ %@ issue %@ on %@", actorLogin, action, issueId, repository];
     NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"html_url"];
+    NSString *details = [NSString stringWithFormat:@"%@", [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"title"]];
     
     [dict setValue:message forKey:@"message"];
     [dict setValue:url forKey:@"url"];
+    [dict setValue:details forKey:@"details"];
     
     return dict;
 }
@@ -517,8 +523,11 @@
     NSString *message = [NSString stringWithFormat:@"%@ %@ on pull request %@ on %@", actorLogin, action, pullrequestId, repository];
     NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"pull_request"] valueForKey:@"html_url"];
     
+    NSString *details = [[[event valueForKey:@"payload"] valueForKey:@"pull_request"] valueForKey:@"title"];
+    
     [dict setValue:message forKey:@"message"];
     [dict setValue:url forKey:@"url"];
+    [dict setValue:details forKey:@"details"];
     
     return dict;    
 }
@@ -535,7 +544,15 @@
     NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
     NSString *message = [NSString stringWithFormat:@"%@ pushed to %@ at %@", actorLogin, branch, repository];
     
+    NSNumber *size = [[event valueForKey:@"payload"] valueForKey:@"size"];
+    NSString *commit = @"commit";
+    if ([size intValue] > 1) {
+        commit = @"commits";
+    }
+    NSString *details = [NSString stringWithFormat:@"%@ new %@", size, commit];
+    
     [dict setValue:message forKey:@"message"];
+    [dict setValue:details forKey:@"details"];
     
     return dict;    
 }

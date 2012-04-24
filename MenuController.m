@@ -902,8 +902,8 @@
     [eventItem autorelease];
 
     // TODO : Set the size by configuration
-    NSInteger eventMenuSize = 30;
-    if ([eventsMenu numberOfItems] == eventMenuSize) {
+    NSInteger eventMenuSize = 25;
+    if ([eventsMenu numberOfItems] >= eventMenuSize) {
         [eventsMenu removeItemAtIndex:eventMenuSize - 1];
     }
         

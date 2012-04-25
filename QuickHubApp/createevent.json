@@ -1,0 +1,63 @@
+/*
+ quickhubtest created repository CreateRepoEvent a minute ago
+ New repository is at quickhubtest/CreateRepoEvent
+ 
+ */
+
+{
+    "type": "CreateEvent",
+    "repo": {
+        "id": 4135950,
+        "name": "quickhubtest/CreateRepoEvent",
+        "url": "https://api.github.com/repos/quickhubtest/CreateRepoEvent"
+    },
+    "public": true,
+    "org": {
+        "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+        "gravatar_id": "4df4b583bfb65e317b7f8e29da605fec",
+        "id": 1171679,
+        "login": "quickhubtest",
+        "url": "https://api.github.com/users/quickhubtest"
+    },
+    "created_at": "2012-04-25T11:46:55Z",
+    "id": "1545359902",
+    "payload": {
+        "master_branch": "master",
+        "description": "",
+        "ref_type": "repository",
+        "ref": null
+    }
+},
+
+aheritier created tag 1.1 at exoplatform/developer.exoplatform.org
+{
+    "type": "CreateEvent",
+    "repo": {
+        "id": 3779737,
+        "name": "exoplatform/developer.exoplatform.org",
+        "url": "https://api.github.com/repos/exoplatform/developer.exoplatform.org"
+    },
+    "public": true,
+    "org": {
+        "gravatar_id": "1fbe56162da8d58d79c14d41ae509de2",
+        "id": 259384,
+        "login": "exoplatform",
+        "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+        "gravatar_id": "9dec3dd95fe76a6719fae939b368d1a5",
+        "id": 174600,
+        "login": "aheritier",
+        "url": "https://api.github.com/users/aheritier"
+    },
+    "created_at": "2012-04-25T11:41:05Z",
+    "id": "1545358250",
+    "payload": {
+        "master_branch": "master",
+        "description": "developer.exoplatform.org",
+        "ref_type": "tag",
+        "ref": "1.1"
+    }
+},

@@ -369,11 +369,33 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
         
     NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-    NSNumber *refType = [[event valueForKey:@"payload"] valueForKey:@"ref_type"];
+    NSString *refType = [[event valueForKey:@"payload"] valueForKey:@"ref_type"];
     NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    
+    // default format
     NSString *message = [NSString stringWithFormat:@"%@ created %@ %@", actorLogin, refType, repository];
+    NSString *details = nil;
+    NSString *url = [NSString stringWithFormat:@"https://github.com/%@", repository];
+    
+    if ([refType isEqualToString:@"repository"]) {
+        message = [NSString stringWithFormat:@"%@ created %@ %@", actorLogin, refType, repository];
+        details = [NSString stringWithFormat:@"New repository is at %@", repository];
+        url = [NSString stringWithFormat:@"https://github.com/%@", repository];
+        
+    } else if ([refType isEqualToString:@"tag"]) {
+        NSString *ref = [[event valueForKey:@"payload"] valueForKey:@"ref"];
+        message = [NSString stringWithFormat:@"%@ created %@ %@ at %@", actorLogin, refType, ref, repository];
+        url = [NSString stringWithFormat:@"https://github.com/%@/tree/%@", repository, ref];
+
+    } else if ([refType isEqualToString:@"branch"]) {
+        NSString *ref = [[event valueForKey:@"payload"] valueForKey:@"ref"];
+        message = [NSString stringWithFormat:@"%@ created %@ %@ at %@", actorLogin, refType, ref, repository];
+        url = [NSString stringWithFormat:@"https://github.com/%@/tree/%@", repository, ref];
+    }
     
     [dict setValue:message forKey:@"message"];
+    [dict setValue:details forKey:@"details"];
+    [dict setValue:url forKey:@"url"];
     
     return dict;    
 }
@@ -398,8 +420,10 @@
     NSString *filename = [[[event valueForKey:@"payload"] valueForKey:@"download"] valueForKey:@"name"];
     NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
     NSString *message = [NSString stringWithFormat:@"%@ uploaded %@ to %@", actorLogin, filename, repository];
+    NSString *url = [NSString stringWithFormat:@"https://github.com/%@/downloads/", repository];
     
     [dict setValue:message forKey:@"message"];
+    [dict setValue:url forKey:@"url"];
     
     return dict;
 }
@@ -410,8 +434,14 @@
     NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
     NSString *target = [[[event valueForKey:@"payload"] valueForKey:@"target"] valueForKey:@"login"];
     NSString *message = [NSString stringWithFormat:@"%@ started following %@", actorLogin, target];
+    NSNumber *nbRepos = [[[event valueForKey:@"payload"] valueForKey:@"target"] valueForKey:@"public_repos"];
+    NSNumber *nbFollowers = [[[event valueForKey:@"payload"] valueForKey:@"target"] valueForKey:@"followers"];
+    NSString *details = [NSString stringWithFormat:@"%@ has %ld repositories and %ld followers", target, [nbRepos intValue], [nbFollowers intValue]];
+    NSString *url = [NSString stringWithFormat:@"https://github.com/%@", target];
     
     [dict setValue:message forKey:@"message"];
+    [dict setValue:details forKey:@"details"];
+    [dict setValue:url forKey:@"url"];
     
     return dict;
 }
@@ -455,9 +485,11 @@
     NSArray *pages = [[event valueForKey:@"payload"] valueForKey:@"pages"];
     
     NSString *message = nil;
+    NSString *url = nil;
     
     if ([pages count] > 1) {
         message = [NSString stringWithFormat:@"%@ modified %d pages in the %@ wiki", actorLogin, [pages count], repository];
+        url = [NSString stringWithFormat:@"https://github.com/%@/wiki/", repository];
         
     } else {
         
@@ -465,10 +497,12 @@
             NSString *pageName = [page valueForKey:@"page_name"];
             NSString *action = [page valueForKey:@"action"];
             message = [NSString stringWithFormat:@"%@ %@ the %@ wiki page %@", actorLogin, action, repository, pageName];
+            url = [page valueForKey:@"html_url"];
         }
     }
     
     [dict setValue:message forKey:@"message"];
+    [dict setValue:url forKey:@"url"];
     
     return dict;
 }
@@ -554,9 +588,16 @@
         commit = @"commits";
     }
     NSString *details = [NSString stringWithFormat:@"%@ new %@", size, commit];
+    NSString *url = [NSString stringWithFormat:@"https://github.com/%@/commits/", repository];
+    
+    NSArray *commits = [[event valueForKey:@"payload"] valueForKey:@"commits"];
+    if (commits && [commits count] == 1) {
+        url = [NSString stringWithFormat:@"https://github.com/%@/commit/%@", repository, [[commits objectAtIndex:0] valueForKey:@"sha"]];
+    }
     
     [dict setValue:message forKey:@"message"];
     [dict setValue:details forKey:@"details"];
+    [dict setValue:url forKey:@"url"];
     
     return dict;    
 }
@@ -572,12 +613,15 @@
     NSString *action = [[event valueForKey:@"payload"] valueForKey:@"action"];
     NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
     NSString *message = [NSString stringWithFormat:@"%@ %@ watching %@", actorLogin, action, repository];
+    NSString *url = [NSString stringWithFormat:@"https://github.com/%@", repository];
     
     [dict setValue:message forKey:@"message"];
+    [dict setValue:url forKey:@"url"];
     
     return dict;    
 }
 
+#pragma mark - menulet manipulation
 - (void) updateEventMenu:(NSDictionary *) event {
     if (!event) {
         return;

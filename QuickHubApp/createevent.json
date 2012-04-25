@@ -31,7 +31,7 @@
     }
 },
 
-aheritier created tag 1.1 at exoplatform/developer.exoplatform.org
+/*aheritier created tag 1.1 at exoplatform/developer.exoplatform.org*/
 {
     "type": "CreateEvent",
     "repo": {
@@ -59,5 +59,43 @@ aheritier created tag 1.1 at exoplatform/developer.exoplatform.org
         "description": "developer.exoplatform.org",
         "ref_type": "tag",
         "ref": "1.1"
+    }
+},
+
+/*
+ 
+ msavy created branch BGBUILD-353 at boxgrinder/boxgrinder-build just now
+ New branch is at /boxgrinder/boxgrinder-build/tree/BGBUILD-353 
+ Compare BGBUILD-353 branch with master (https://github.com/boxgrinder/boxgrinder-build/compare/BGBUILD-353) »
+ 
+ */
+
+{
+    "type": "CreateEvent",
+    "repo": {
+        "id": 1034498,
+        "name": "boxgrinder/boxgrinder-build",
+        "url": "https://api.github.com/repos/boxgrinder/boxgrinder-build"
+    },
+    "public": true,
+    "org": {
+        "gravatar_id": "2f8761cb7150381d4389c17e18d2f9da",
+        "id": 235486,
+        "login": "boxgrinder",
+        "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+        "gravatar_id": "cd6f4fdcfb03ecb19baf4b50cac94838",
+        "id": 423513,
+        "login": "msavy",
+        "url": "https://api.github.com/users/msavy"
+    },
+    "created_at": "2012-04-25T14:10:14Z",
+    "id": "1545411435",
+    "payload": {
+        "master_branch": "master",
+        "description": "BoxGrinder Build is a command line tool to build appliances",
+        "ref_type": "branch",
+        "ref": "BGBUILD-353"
     }
 },

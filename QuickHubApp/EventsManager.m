@@ -391,6 +391,7 @@
         NSString *ref = [[event valueForKey:@"payload"] valueForKey:@"ref"];
         message = [NSString stringWithFormat:@"%@ created %@ %@ at %@", actorLogin, refType, ref, repository];
         url = [NSString stringWithFormat:@"https://github.com/%@/tree/%@", repository, ref];
+        details = [NSString stringWithFormat:@"New branch is at %@/tree/%@", repository, ref];
     }
     
     [dict setValue:message forKey:@"message"];

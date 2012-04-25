@@ -132,69 +132,53 @@
     }
         
     if ([CommitCommentEvent isEqualToString:type]) {
-        
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
-        NSString *message = [NSString stringWithFormat:@"%@ commented on %@", actorLogin, repository];
-        NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"html_url"];
-        
-        if ([self notificationActive:GHCommitCommentEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url icon:nil];
+        if (![self notificationActive:GHCommitCommentEvent]) {
+            return;
         }
+        
+        NSDictionary *dict = [self getCommit:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];
         
     } else if ([CreateEvent isEqualToString:type]) {
+        if (![self notificationActive:GHCreateEvent]) {
+            return;
+        }
                 
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSNumber *refType = [[event valueForKey:@"payload"] valueForKey:@"ref_type"];
-        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
-        NSString *message = [NSString stringWithFormat:@"%@ created %@ %@", actorLogin, refType, repository];
+        NSDictionary *dict = [self getCreate:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];
          
-        if ([self notificationActive:GHCreateEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
-        }
-        // TODO check message format for repository, branch and tag. This one works for repository
-        
     } else if ([DeleteEvent isEqualToString:type]) {
-        
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSNumber *refType = [[event valueForKey:@"payload"] valueForKey:@"ref_type"];
-        NSString *ref = [[event valueForKey:@"payload"] valueForKey:@"ref"];
-        NSString *message = [NSString stringWithFormat:@"%@ deleted %@ from %@", actorLogin, refType, ref];
-        
-        if ([self notificationActive:GHDeleteEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+        if (![self notificationActive:GHDeleteEvent]) {
+            return;
         }
+        
+        NSDictionary *dict = [self getDelete:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:nil iconName:@"octocat-128"];
         
     } else if ([DownloadEvent isEqualToString:type]) {
-        
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSString *filename = [[[event valueForKey:@"payload"] valueForKey:@"download"] valueForKey:@"name"];
-        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
-        NSString *message = [NSString stringWithFormat:@"%@ uploaded %@ to %@", actorLogin, filename, repository];
-        
         if ([self notificationActive:GHDownloadEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+            return;
         }
+        
+        NSDictionary *dict = [self getDownload:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];
 
     } else if ([FollowEvent isEqualToString:type]) {
         
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSString *target = [[[event valueForKey:@"payload"] valueForKey:@"target"] valueForKey:@"login"];
-        NSString *message = [NSString stringWithFormat:@"%@ started following %@", actorLogin, target];
-        
         if ([self notificationActive:GHFollowEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+            return;
         }
+        
+        NSDictionary *dict = [self getFollow:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];
         
     } else if ([ForkEvent isEqualToString:type]) {
-        
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
-        NSString *message = [NSString stringWithFormat:@"%@ forked %@", actorLogin, repository];
-        
         if ([self notificationActive:GHForkEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+            return;
         }
+        
+        NSDictionary *dict = [self getFork:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];
         
     } else if ([ForkApplyEvent isEqualToString:type]) {
         
@@ -212,67 +196,39 @@
         
     } else if ([GistEvent isEqualToString:type]) {
         
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSString *action = [[event valueForKey:@"payload"] valueForKey:@"action"];
-        NSNumber *gistId = [[[event valueForKey:@"payload"] valueForKey:@"gist"] valueForKey:@"id"];
-        NSString *message = [NSString stringWithFormat:@"%@ %@d gist %@", actorLogin, action, gistId];
-        NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"gist"] valueForKey:@"html_url"];
-        
         if ([self notificationActive:GHGistEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
+            return;
         }
+        
+        NSDictionary *dict = [self getGist:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];  
         
     } else if ([GollumEvent isEqualToString:type]) {
         
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
-        NSArray *pages = [[event valueForKey:@"payload"] valueForKey:@"pages"];
-        
-        if ([pages count] > 1) {
-            NSString *message = [NSString stringWithFormat:@"%@ modified %d pages in the %@ wiki", actorLogin, [pages count], repository];
-            
-            if ([self notificationActive:GHGollumEvent]) {
-                [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
-            }
-
-        } else {
-            
-            for (NSDictionary *page in pages) {
-                NSString *pageName = [page valueForKey:@"page_name"];
-                NSString *action = [page valueForKey:@"action"];
-                NSString *message = [NSString stringWithFormat:@"%@ %@ the %@ wiki page %@", actorLogin, action, repository, pageName];
-                
-                if ([self notificationActive:GHGollumEvent]) {
-                    [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
-                }
-            }
+        if ([self notificationActive:GHGollumEvent]) {
+            return;
         }
+        
+        NSDictionary *dict = [self getGollum:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];
         
     } else if ([IssueCommentEvent isEqualToString:type]) {
         
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSString *action = [[event valueForKey:@"payload"] valueForKey:@"action"];
-        NSNumber *issueId = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"number"];
-        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
-        NSString *message = [NSString stringWithFormat:@"%@ %@ comment on issue %@ on %@", actorLogin, action, issueId, repository];
-        NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"html_url"];
-        
         if ([self notificationActive:GHIssueCommentEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
+            return;
         }
+        
+        NSDictionary *dict = [self getIssueComment:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];
         
     } else if ([IssuesEvent isEqualToString:type]) {
         
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSString *action = [[event valueForKey:@"payload"] valueForKey:@"action"];
-        NSNumber *issueId = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"number"];
-        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
-        NSString *message = [NSString stringWithFormat:@"%@ %@ issue %@ on %@", actorLogin, action, issueId, repository];
-        NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"issue"] valueForKey:@"html_url"];
-        
         if ([self notificationActive:GHIssuesEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
+            return;
         }
+        
+        NSDictionary *dict = [self getIssue:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];
         
     } else if ([MemberEvent isEqualToString:type]) {
 
@@ -280,42 +236,34 @@
         
     } else if ([PullRequestEvent isEqualToString:type]) {
         
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSString *action = [[event valueForKey:@"payload"] valueForKey:@"action"];
-        NSNumber *pullrequestId = [[event valueForKey:@"payload"] valueForKey:@"number"];
-        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
-        NSString *message = [NSString stringWithFormat:@"%@ %@ on pull request %@ on %@", actorLogin, action, pullrequestId, repository];
-        NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"pull_request"] valueForKey:@"html_url"];
-        
         if ([self notificationActive:GHPullRequestEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:url iconName:@"octocat-128"];
+            return;
         }
+        
+        NSDictionary *dict = [self getPull:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];
             
     } else if ([PullRequestReviewCommentEvent isEqualToString:type]) {
 
     } else if ([PushEvent isEqualToString:type]) {
         
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSNumber *branch = [[event valueForKey:@"payload"] valueForKey:@"ref"];
-        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
-        NSString *message = [NSString stringWithFormat:@"%@ pushed to %@ at %@", actorLogin, branch, repository];
-        
         if ([self notificationActive:GHPushEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+            return;
         }
+        
+        NSDictionary *dict = [self getPush:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];
         
     } else if ([TeamAddEvent isEqualToString:type]) {
 
     } else if ([WatchEvent isEqualToString:type]) {
         
-        NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-        NSString *action = [[event valueForKey:@"payload"] valueForKey:@"action"];
-        NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
-        NSString *message = [NSString stringWithFormat:@"%@ %@ watching %@", actorLogin, action, repository];
-        
         if ([self notificationActive:GHWatchEvent]) {
-            [[GrowlManager get] notifyWithName:@"GitHub" desc:message url:nil iconName:@"octocat-128"];
+            return;
         }
+        
+        NSDictionary *dict = [self getWatch:event];
+        [[GrowlManager get] notifyWithName:@"GitHub" desc:[dict valueForKey:@"message"] url:[dict valueForKey:@"url"] iconName:@"octocat-128"];
         
     } else {
         // NOP

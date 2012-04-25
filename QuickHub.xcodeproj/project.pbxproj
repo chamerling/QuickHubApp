@@ -23,6 +23,7 @@
 		C960F03D154759C200319DA8 /* EventMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = C960F03C154759C200319DA8 /* EventMenuItemView.m */; };
 		C960F03F154815DA00319DA8 /* commitevent.json in Resources */ = {isa = PBXBuildFile; fileRef = C960F03E154815DA00319DA8 /* commitevent.json */; };
 		C960F04115481BD800319DA8 /* createevent.json in Resources */ = {isa = PBXBuildFile; fileRef = C960F04015481BD800319DA8 /* createevent.json */; };
+		C960F04315484C9B00319DA8 /* deleteevent.json in Resources */ = {isa = PBXBuildFile; fileRef = C960F04215484C9A00319DA8 /* deleteevent.json */; };
 		C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D091456EF090013F78E /* NSWorkspaceHelper.m */; };
 		C9642D101456F1530013F78E /* GrowlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D0F1456F1530013F78E /* GrowlManager.m */; };
 		C9642D13145700D10013F78E /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D12145700D10013F78E /* AppController.m */; };
@@ -129,6 +130,7 @@
 		C960F03C154759C200319DA8 /* EventMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventMenuItemView.m; sourceTree = "<group>"; };
 		C960F03E154815DA00319DA8 /* commitevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = commitevent.json; sourceTree = "<group>"; };
 		C960F04015481BD800319DA8 /* createevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = createevent.json; sourceTree = "<group>"; };
+		C960F04215484C9A00319DA8 /* deleteevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = deleteevent.json; sourceTree = "<group>"; };
 		C9642D081456EF090013F78E /* NSWorkspaceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWorkspaceHelper.h; sourceTree = "<group>"; };
 		C9642D091456EF090013F78E /* NSWorkspaceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWorkspaceHelper.m; sourceTree = "<group>"; };
 		C9642D0E1456F1530013F78E /* GrowlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrowlManager.h; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 				C98E1A751541DDA700030F49 /* gollumevent.json */,
 				C960F03E154815DA00319DA8 /* commitevent.json */,
 				C960F04015481BD800319DA8 /* createevent.json */,
+				C960F04215484C9A00319DA8 /* deleteevent.json */,
 			);
 			name = Sample;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				C960F03A154757C900319DA8 /* EventMenuItemController.xib in Resources */,
 				C960F03F154815DA00319DA8 /* commitevent.json in Resources */,
 				C960F04115481BD800319DA8 /* createevent.json in Resources */,
+				C960F04315484C9B00319DA8 /* deleteevent.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

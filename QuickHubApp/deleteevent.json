@@ -1,0 +1,32 @@
+/*
+ imcleod deleted branch feature/plugins_builder_bugfix at aeolusproject/imagefactory 3 minutes ago
+ Deleted branch was at /aeolusproject/imagefactory/tree/feature/plugins_builder_bugfix
+ */
+
+{
+    "type": "DeleteEvent",
+    "repo": {
+        "id": 1242526,
+        "name": "aeolusproject/imagefactory",
+        "url": "https://api.github.com/repos/aeolusproject/imagefactory"
+    },
+    "public": true,
+    "org": {
+        "gravatar_id": "5a54f259182abfb6742e9bf07df8edee",
+        "id": 557878,
+        "login": "aeolusproject",
+        "url": "https://api.github.com/orgs/"
+    },
+    "actor": {
+        "gravatar_id": "4caa9e7acb68ef91f055edf3fc7e10f6",
+        "id": 488536,
+        "login": "imcleod",
+        "url": "https://api.github.com/users/imcleod"
+    },
+    "created_at": "2012-04-25T15:12:51Z",
+    "id": "1545441007",
+    "payload": {
+        "ref_type": "branch",
+        "ref": "feature/plugins_builder_bugfix"
+    }
+},

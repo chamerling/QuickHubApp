@@ -353,11 +353,25 @@
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
     
     NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
-    NSNumber *refType = [[event valueForKey:@"payload"] valueForKey:@"ref_type"];
+    NSString *repo = [[event valueForKey:@"repo"] valueForKey:@"name"];
+    NSString *refType = [[event valueForKey:@"payload"] valueForKey:@"ref_type"];
     NSString *ref = [[event valueForKey:@"payload"] valueForKey:@"ref"];
-    NSString *message = [NSString stringWithFormat:@"%@ deleted %@ from %@", actorLogin, refType, ref];
+    NSString *message = [NSString stringWithFormat:@"%@ deleted %@ at %@", actorLogin, refType, ref];
+    NSString *url = [NSString stringWithFormat:@"https://github.com/%@", repo];
+    NSString *details = nil;
+    
+    if ([refType isEqualToString:@"branch"]) {
+        details = [NSString stringWithFormat:@"Deleted %@ was at %@/tree/%@", refType, repo, ref];
+        
+    } else if ([refType isEqualToString:@"tag"]) {
+        details = [NSString stringWithFormat:@"Deleted %@ was at %@/tree/%@", refType, repo, ref];
+    } else if ([refType isEqualToString:@"repository"]) {
+        details = @"...";
+    }
     
     [dict setValue:message forKey:@"message"];
+    [dict setValue:details forKey:@"details"];
+    [dict setValue:url forKey:@"url"];
     
     return dict;
 }

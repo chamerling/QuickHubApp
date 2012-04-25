@@ -422,8 +422,12 @@
     NSString *actorLogin = [[event valueForKey:@"actor"] valueForKey:@"login"];
     NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
     NSString *message = [NSString stringWithFormat:@"%@ forked %@", actorLogin, repository]; 
+    NSString *details = [NSString stringWithFormat:@"Forked repository is at %@", [[[event valueForKey:@"payload"] valueForKey:@"forkee"] valueForKey:@"name"]];
+    NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"forkee"] valueForKey:@"html_url"];
     
     [dict setValue:message forKey:@"message"];
+    [dict setValue:details forKey:@"details"];
+    [dict setValue:url forKey:@"url"];
     
     return dict;
 }

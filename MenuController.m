@@ -975,7 +975,6 @@
 }
 
 - (void) eventPressed:(id) sender {
-    NSLog(@"Event pressed");
     id selectedItem = [sender representedObject];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];            
 }

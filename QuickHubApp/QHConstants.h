@@ -24,7 +24,7 @@
 #define oauthservice @"oauth"
 #define gistservice @"gist"
 
-#define growllogo   @"growl.png"
+#define growllogo   @"octocat-128.png"
 #define notificatioName @"QuickHub";
 #define eventDatePattern  @"yyyy-MM-dd"
 

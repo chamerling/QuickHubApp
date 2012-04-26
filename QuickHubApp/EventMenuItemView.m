@@ -34,8 +34,8 @@
         [messageField setTextColor:[NSColor blackColor]];
         [detailsField setTextColor:[NSColor headerColor]];
         
-        [super drawRect: rect];
     }
+    [super drawRect: rect];
 }
 
 - (void)mouseDown:(NSEvent *)event {

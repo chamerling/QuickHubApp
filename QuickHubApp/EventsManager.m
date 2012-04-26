@@ -121,6 +121,7 @@
 }
 
 - (void) notifyNewEvent:(NSDictionary *) event {
+        
     if (!event) {
         return;
     }
@@ -304,8 +305,16 @@
     NSString *repository = [[event valueForKey:@"repo"] valueForKey:@"name"];
     NSString *message = [NSString stringWithFormat:@"%@ commented commit on %@", actorLogin, repository];
     NSString *url = [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"html_url"];
-    NSString *details = [NSString stringWithFormat:@"Comment on L%@: %@", [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"line"], [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"body"]];
-
+    
+    NSString *details = nil;
+    id line = [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"line"];
+    if (line == [NSNull null] || [@"<null>" isEqualToString:[line stringValue]]) {
+        NSString *commitId = [[[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"commit_id"] substringToIndex:10];
+         details = [NSString stringWithFormat:@"Comment on %@: %@", commitId, [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"body"]];
+    } else {
+        details = [NSString stringWithFormat:@"Comment on L%@: %@", line, [[[event valueForKey:@"payload"] valueForKey:@"comment"] valueForKey:@"body"]];        
+    }
+    
     [dict setValue:message forKey:@"message"];
     [dict setValue:url forKey:@"url"];
     [dict setValue:details forKey:@"details"];

@@ -9,11 +9,12 @@ QuickHub.App is an OS X application which stands in the OS X status bar. It allo
 <img src="http://f.cl.ly/items/2C3w2e2N0o3B3s161b0n/quickhub-documentation.png"/>
 
 ## Main Features
-- Access to repositories, organizations, issues, pull requests, gists, users and followed repositories from your OS X status menu
+- Access to repositories, organizations, issues, pull requests, gists, users, events and followed repositories from your OS X status menu
 - Create Gists: You can create Gists by using the Create Gist menu item or by using the Mac OS X services menu
 - Create repositories
+- Create issues
 - OAuth support: Just autorize QuickHub to access to your GitHub data without giving any password
-- Growl enabled
+- Growl enabled: **Recommended** for better user experience
 
 # Issues
 You can send bugs, feature and improvment requests (also ideas) by using the [tracker on GitHub](https://github.com/chamerling/QuickHubApp/issues).
@@ -24,4 +25,4 @@ There is no mailing list available for the project but you can send feedback dir
 # Who is behind QuickHub?
 My name is Christophe Hamerling, I am a software engineer at [PetalsLink](http://petalslink.com/), a french Open Source company delivering SOA tools. I am a big lover of OS X, Growl and GitHub and that's why I started to developed QuickHub to be able to be always connected to GitHub.
 
-You can follow me at [@chamerling](http://twitter.com/chamerling) and have a look to my [software blog](http://chamerling.org/).
+You can follow me at [@chamerling](http://twitter.com/chamerling) and have a look to my [tech blog](http://chamerling.org/).

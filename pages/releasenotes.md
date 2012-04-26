@@ -13,7 +13,15 @@ Unplanned features and ideas, wish list...
 - [NEW] Hot keys!
 - [NEW] Local storage in order to be able to rebuild all even if Internet is down!
 
+# v1.6 - 2012/04/26
+
+- [NEW] Handle events for followed repositories, users, ...
+- [NEW] New events creates Growl notifications
+- [NEW] Add a top level action menu with all the useful Github operations
+- [IMPROVMENT] Change the default notification icon
+
 # v1.5 - 2012/03/01
+
 - [NEW] ID Cards for repositories
 - [IMPROVMENT] Better data handling...
 - [FIX] Typos

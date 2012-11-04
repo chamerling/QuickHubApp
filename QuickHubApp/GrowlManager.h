@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Growl/GrowlApplicationBridge.h>
 
-@interface GrowlManager : NSObject<GrowlApplicationBridgeDelegate>
+@interface GrowlManager : NSObject<GrowlApplicationBridgeDelegate, NSUserNotificationCenterDelegate>
 
 - (void)notifyWithName:(NSString*)name desc:(NSString*)description context:(NSDictionary*)context;
 - (void)notifyWithName:(NSString*)name desc:(NSString*)description url:(NSString *)urlToOpen icon:(NSURL *) iconURL;
@@ -23,6 +23,8 @@
 - (BOOL) notificationCenterEnabled:(id) sender;
 - (BOOL) notificationCenterAvailable:(id) sender;
 
+// All notifications status
+- (BOOL) notificationsEnabled:(id) sender;
 
 + (GrowlManager *)get;
 

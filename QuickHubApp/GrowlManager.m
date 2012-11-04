@@ -36,6 +36,7 @@ static GrowlManager *sharedInstance = nil;
     self = [super init];
     if (self) {
         [GrowlApplicationBridge setGrowlDelegate:self];
+        [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
     }
     return self;
 }
@@ -72,17 +73,17 @@ static GrowlManager *sharedInstance = nil;
 
 -(void)issueAdded:(NSNotification *)aNotification {
     NSString *message = [aNotification object];
-    [self notifyWithName:@"QuickHub - New Issue" desc:message context:nil];
+    [self notifyWithName:@"New Issue" desc:message context:nil];
 }
 
 -(void)gistAdded:(NSNotification *)aNotification {
     NSString *message = [aNotification object];
-    [self notifyWithName:@"QuickHub - New Gist" desc:message context:nil];
+    [self notifyWithName:@"New Gist" desc:message context:nil];
 }
 
 - (void)gistCreated:(NSNotification *)aNotification {
     NSDictionary *dict = [aNotification object];
-    [self notifyWithName:@"QuickHub - Gist created" desc:[NSString stringWithFormat:@"New Gist ID is %@", [dict valueForKey:@"id"]] context:dict];
+    [self notifyWithName:@"Gist created" desc:[NSString stringWithFormat:@"New Gist ID is %@", [dict valueForKey:@"id"]] context:dict];
 }
 
 #pragma mark - growl delegate
@@ -107,6 +108,10 @@ static GrowlManager *sharedInstance = nil;
 #pragma mark - implementation
 - (void) notifyWithName:(NSString *)name desc:(NSString *)description context:(NSDictionary*)context {
     
+    if (![self notificationsEnabled:nil]) {
+        return;
+    }
+    
     if ([self growlAvailable:nil] && [self growlEnabled:nil]) {
         NSImage *image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
         
@@ -130,6 +135,10 @@ static GrowlManager *sharedInstance = nil;
 }
 
 - (void)notifyWithName:(NSString*)name desc:(NSString*)description url:(NSString *)urlToOpen icon:(NSURL *) iconURL {
+    
+    if (![self notificationsEnabled:nil]) {
+        return;
+    }
     
     if ([self growlAvailable:nil] && [self growlEnabled:nil]) {
         NSImage *image = nil;
@@ -164,11 +173,16 @@ static GrowlManager *sharedInstance = nil;
         NSMutableDictionary *notificationDetails = [[NSMutableDictionary alloc] init];
         notificationDetails[@"name"] = name;
         notificationDetails[@"description"] = description;
+        notificationDetails[@"url"] = urlToOpen;
         [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]];
     }
 }
 
 - (void)notifyWithName:(NSString*)name desc:(NSString*)description url:(NSString *)urlToOpen iconName:(NSString *) iconName {
+    
+    if (![self notificationsEnabled:nil]) {
+        return;
+    }
     
     if ([self growlAvailable:nil] && [self growlEnabled:nil]) {
         NSImage *image = nil;
@@ -202,11 +216,12 @@ static GrowlManager *sharedInstance = nil;
         NSMutableDictionary *notificationDetails = [[NSMutableDictionary alloc] init];
         notificationDetails[@"name"] = name;
         notificationDetails[@"description"] = description;
+        notificationDetails[@"url"] = urlToOpen;
         [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]];
     }
 }
 
-#pragma mark - Utils
+#pragma mark - Notifiers checking
 
 - (BOOL) growlAvailable:(id)sender {
     return [GrowlApplicationBridge isGrowlRunning];
@@ -232,7 +247,12 @@ static GrowlManager *sharedInstance = nil;
 
 #pragma mark - private methods
 
-- (void)displayNotificationUsingNotificationCenterWithDetails:(NSDictionary *)details{
+- (void)displayNotificationUsingNotificationCenterWithDetails:(NSDictionary *)details
+{    
+    if (![self notificationsEnabled:nil]) {
+        return;
+    }
+    
     BOOL scheduledNotification = NO;
     
     NSUserNotification *notification = [[NSUserNotification alloc] init];
@@ -248,8 +268,12 @@ static GrowlManager *sharedInstance = nil;
     if(details[@"subtitle"])
         notification.subtitle = details[@"subtitle"];
     
-    if(details[@"sound"])
+    if(details[@"sound"]) {
         notification.soundName = details[@"sound"];
+    } else {
+        // get the sound to play from the preferences
+        // (if selected)
+    }
     
     if(details[@"actionbutton"])
         notification.hasActionButton = [details[@"actionbutton"] boolValue];
@@ -262,34 +286,39 @@ static GrowlManager *sharedInstance = nil;
         scheduledNotification = YES;
     }
     
-    // Build the userInfo dictionary.
-    /*
-    NSMutableDictionary *userInfo;
-    
-    if(!details[SCNotificationCenterNotificationUserInfo]){
-        userInfo = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
+    if(details[@"url"]) {
+        userInfo[@"url"] = details[@"url"];
     }
-    else{
-        userInfo = [details[SCNotificationCenterNotificationUserInfo] mutableCopy];
-    }
-    
-    if(details[SCNotificationCenterNotificationClickContext])
-        userInfo[SCNotificationCenterNotificationClickContext] = details[SCNotificationCenterNotificationClickContext];
-    
-    if(details[SCNotificationCenterNotificationIdentifier])
-        userInfo[SCNotificationCenterGrowlNotificationIdentifier] = details[SCNotificationCenterNotificationIdentifier];
-    
-    else if(details[SCNotificationCenterGrowlNotificationIdentifier])
-        userInfo[SCNotificationCenterGrowlNotificationIdentifier] = details[SCNotificationCenterGrowlNotificationIdentifier];
     
     notification.userInfo = [userInfo copy];
-     */
-    
-    if(scheduledNotification)
+
+    if(scheduledNotification) {
         [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
-    else
+    } else {
         [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+    }
 }
 
+- (BOOL) notificationsEnabled:(id) sender {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:QUICKHUB_NOTIFICATION_ACTIVE];
+}
+
+#pragma mark - NSNotification delegate
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
+{
+    NSLog(@"Notification clicked!");
+    // get the URL from the dictionary and open it if any
+    if ([notification userInfo] && [[notification userInfo] valueForKey:@"url"]) {
+        // open the URL
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[[notification userInfo] valueForKey:@"url"]]];
+    }
+}
+
+// RTFM
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification
+{
+    return YES;
+}
 
 @end

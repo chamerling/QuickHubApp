@@ -86,6 +86,8 @@
 		C9D53DBE1471CD2700D0212B /* NSTextViewFileContent.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D53DBD1471CD2700D0212B /* NSTextViewFileContent.m */; };
 		C9D67A2C14852DBB00026988 /* GistViewWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9D67A2B14852DBB00026988 /* GistViewWindow.xib */; };
 		C9D67A331485336700026988 /* GistViewWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D67A321485336700026988 /* GistViewWindowController.m */; };
+		C9DF59CB1644618700D56BAD /* NotificationPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DF59C91644618700D56BAD /* NotificationPreferencesViewController.m */; };
+		C9DF59CC1644618700D56BAD /* NotificationPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9DF59CA1644618700D56BAD /* NotificationPreferencesViewController.xib */; };
 		C9E07B1A145EF6B9004A94A7 /* GistCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */; };
 		C9E07B20145EF8BF004A94A7 /* GistCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */; };
 		C9E7C83A14DF43F00038AEFC /* RepositoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7C83814DF43F00038AEFC /* RepositoryDetailsViewController.m */; };
@@ -233,6 +235,9 @@
 		C9D67A2B14852DBB00026988 /* GistViewWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GistViewWindow.xib; sourceTree = "<group>"; };
 		C9D67A311485336700026988 /* GistViewWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistViewWindowController.h; sourceTree = "<group>"; };
 		C9D67A321485336700026988 /* GistViewWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistViewWindowController.m; sourceTree = "<group>"; };
+		C9DF59C81644618700D56BAD /* NotificationPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationPreferencesViewController.h; sourceTree = "<group>"; };
+		C9DF59C91644618700D56BAD /* NotificationPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationPreferencesViewController.m; sourceTree = "<group>"; };
+		C9DF59CA1644618700D56BAD /* NotificationPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationPreferencesViewController.xib; sourceTree = "<group>"; };
 		C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GistCreateWindow.xib; sourceTree = "<group>"; };
 		C9E07B1E145EF8BF004A94A7 /* GistCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistCreateWindowController.h; sourceTree = "<group>"; };
 		C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistCreateWindowController.m; sourceTree = "<group>"; };
@@ -326,6 +331,9 @@
 				C98FB8A7148790EA00B7D92A /* UserPreferences.h */,
 				C98FB8A8148790EA00B7D92A /* UserPreferences.m */,
 				C98FB8A9148790EA00B7D92A /* UserPreferences.xib */,
+				C9DF59C81644618700D56BAD /* NotificationPreferencesViewController.h */,
+				C9DF59C91644618700D56BAD /* NotificationPreferencesViewController.m */,
+				C9DF59CA1644618700D56BAD /* NotificationPreferencesViewController.xib */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -618,6 +626,7 @@
 				C960F03F154815DA00319DA8 /* commitevent.json in Resources */,
 				C960F04115481BD800319DA8 /* createevent.json in Resources */,
 				C960F04315484C9B00319DA8 /* deleteevent.json in Resources */,
+				C9DF59CC1644618700D56BAD /* NotificationPreferencesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +676,7 @@
 				C9241D0C153E1E1A000E2814 /* EventPreferencesViewController.m in Sources */,
 				C960F039154757C900319DA8 /* EventMenuItemController.m in Sources */,
 				C960F03D154759C200319DA8 /* EventMenuItemView.m in Sources */,
+				C9DF59CB1644618700D56BAD /* NotificationPreferencesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,7 +715,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -725,7 +735,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -734,7 +744,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -746,7 +756,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

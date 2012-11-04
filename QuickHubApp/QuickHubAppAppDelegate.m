@@ -20,6 +20,7 @@
 #import "AccountPreferencesViewController.h"
 #import "AboutPreferencesViewController.h"
 #import "EventPreferencesViewController.h"
+#import "NotificationPreferencesViewController.h"
 #import "GistViewWindowController.h"
 #import "UserPreferences.h"
 #import "OrgRepoCreateWindowController.h"
@@ -337,11 +338,14 @@
         
         EventPreferencesViewController *eventPreferences = [[EventPreferencesViewController alloc] init];
         
-        NSArray *controllers = [[NSArray alloc] initWithObjects:accountViewController, userPreferences, eventPreferences, /*localViewController,*/ aboutViewController, nil];
+        NotificationPreferencesViewController *notificationPreferences = [[NotificationPreferencesViewController alloc] init];
+        
+        NSArray *controllers = [[NSArray alloc] initWithObjects:accountViewController, userPreferences, notificationPreferences, eventPreferences, /*localViewController,*/ aboutViewController, nil];
         
         [accountViewController release];
         [aboutViewController release];
         [userPreferences release];
+        [notificationPreferences release];
         [eventPreferences release];
         //[localViewController release];
         

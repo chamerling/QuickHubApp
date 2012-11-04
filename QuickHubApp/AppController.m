@@ -43,7 +43,6 @@
         
         hostReach = [[Reachability reachabilityWithHostName: @"api.github.com"] retain];
         [hostReach startNotifier];
-
     }
     return self;
 }
@@ -76,6 +75,8 @@
                                              selector:@selector(pollRepos:)
                                                  name:GITHUB_NOTIFICATION_REPO_CREATED
                                                object:nil];
+    
+    
 }
 
 #pragma mark - Github Actions

@@ -29,14 +29,24 @@
 #define eventDatePattern  @"yyyy-MM-dd"
 
 #pragma mark - Configuration
+
 #define QH_CONF_USER @"userID";
 #define QH_CONF_PASSWORD @"password";
 #define QH_CONF_STARTUP @"openAtStartup";
 
+#pragma mark - Notification choice
+
+#define NOTIFICATION_OSX @"Notification_OSX"
+#define NOTIFICATION_GROWL @"Notification_Growl"
+
 #pragma mark - GITHUB Notification events
+
 #define GITHUB_NOTIFICATION_REPOSITORIES_ADDED   @"Repository Added"
+
 #define GITHUB_NOTIFICATION_REPOSITORIES_REMOVED @"Repository Removed"
+
 #define GITHUB_NOTIFICATION_COMMITS_PUSHED @"New Push"
+
 #define GITHUB_NOTIFICATION_WATCHERS_ADDED @"New Watchers Added"
 
 #define GITHUB_NOTIFICATION_REPOS @"GetRepos"
@@ -55,6 +65,25 @@
 #define GITHUB_NOTIFICATION_GIST_REMOVED @"GistRemoved"
 #define GITHUB_NOTIFICATION_GIST_CREATED @"GistCreated"
 #define GITHUB_NOTIFICATION_REPO_CREATED @"RepoCreated"
+
+#pragma mark - activate notification preferences
+
+#define GITHUB_NOTIFICATION_REPOS_KEY @"GetReposNotifyStateKey"
+#define GITHUB_NOTIFICATION_GISTS_KEY @"GetGistsNotifyStateKey"
+#define GITHUB_NOTIFICATION_ORGS_KEY @"GetOrgsNotifyStateKey"
+#define GITHUB_NOTIFICATION_ISSUES_KEY @"GetIssuesNotifyStateKey"
+#define GITHUB_NOTIFICATION_PULLS_KEY @"GetPullsNotifyStateKey"
+#define GITHUB_NOTIFICATION_FOLLOWINGS_KEY @"GetFollowingsNotifyStateKey"
+#define GITHUB_NOTIFICATION_FOLLOWERS_KEY @"GetFollowersNotifyStateKey"
+#define GITHUB_NOTIFICATION_WATCHEDREPO_KEY @"GetWatchedReposNotifyStateKey"
+
+#define GITHUB_NOTIFICATION_ISSUE_ADDED_KEY @"IssueAddedNotifyStateKey"
+#define GITHUB_NOTIFICATION_ISSUE_REMOVED_KEY @"IssueRemovedNotifyStateKey"
+
+#define GITHUB_NOTIFICATION_GIST_ADDED_KEY @"GistAddedNotifyStateKey"
+#define GITHUB_NOTIFICATION_GIST_REMOVED_KEY @"GistRemovedNotifyStateKey"
+#define GITHUB_NOTIFICATION_GIST_CREATED_KEY @"GistCreatedNotifyStateKey"
+#define GITHUB_NOTIFICATION_REPO_CREATED_KEY @"RepoCreatedNotifyStateKey"
 
 #define HTTP_NOTIFICATION_FAILURE @"HTTPFailure"
 

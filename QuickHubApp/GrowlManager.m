@@ -18,6 +18,7 @@ static GrowlManager *sharedInstance = nil;
 - (void)issueAdded:(NSNotification *)aNotification;
 - (void)gistAdded:(NSNotification *)aNotification;
 - (void)gistCreated:(NSNotification *)aNotification;
+- (void)displayNotificationUsingNotificationCenterWithDetails:(NSDictionary *)details;
 @end
 
 @implementation GrowlManager
@@ -105,87 +106,190 @@ static GrowlManager *sharedInstance = nil;
 
 #pragma mark - implementation
 - (void) notifyWithName:(NSString *)name desc:(NSString *)description context:(NSDictionary*)context {
-    if (![GrowlApplicationBridge isGrowlRunning]) {
-        // return now if growl is not installed not running, looks like it can cause problems...
-        return;
+    
+    if ([self growlAvailable:nil] && [self growlEnabled:nil]) {
+        NSImage *image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
+        
+        [GrowlApplicationBridge notifyWithTitle:name
+                                    description:description
+                               notificationName:@"QuickHub"
+                                       iconData:[image TIFFRepresentation]
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:context];
     }
     
-    NSImage *image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
-
-    [GrowlApplicationBridge notifyWithTitle:name
-								description:description
-						   notificationName:@"QuickHub"
-								   iconData:[image TIFFRepresentation]
-								   priority:0
-								   isSticky:NO
-							   clickContext:context];    
+    if ([self notificationCenterAvailable:nil] && [self notificationCenterEnabled:nil]) {
+        NSMutableDictionary *notificationDetails = [[NSMutableDictionary alloc] init];
+        notificationDetails[@"name"] = name;
+        notificationDetails[@"description"] = description;
+        [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]]; 
+    } else {
+        
+    }
 }
 
 - (void)notifyWithName:(NSString*)name desc:(NSString*)description url:(NSString *)urlToOpen icon:(NSURL *) iconURL {
-    if (![GrowlApplicationBridge isGrowlRunning]) {
-        // return now if growl is not installed not running, looks like it can cause problems...
-        return;
-    }
     
-    NSImage *image = nil;
-    if (iconURL) {
-        image = [[[NSImage alloc] initWithContentsOfURL:iconURL] autorelease];
+    if ([self growlAvailable:nil] && [self growlEnabled:nil]) {
+        NSImage *image = nil;
+        if (iconURL) {
+            image = [[[NSImage alloc] initWithContentsOfURL:iconURL] autorelease];
+            
+        } else {
+            image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
+        }
         
-    } else {
-        image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
-    }
-    
-    NSDictionary *context = nil;
-    if (urlToOpen) {
-        context = [[NSMutableDictionary alloc] init];
-        [context setValue:urlToOpen forKey:@"url"];
-    }
-    
-    NSString *notificationName = @"QuickHub";
-    if (name) {
-        notificationName = name;
-    }
+        NSDictionary *context = nil;
+        if (urlToOpen) {
+            context = [[NSMutableDictionary alloc] init];
+            [context setValue:urlToOpen forKey:@"url"];
+        }
         
-    [GrowlApplicationBridge notifyWithTitle:notificationName
-								description:description
-						   notificationName:@"QuickHub"
-								   iconData:[image TIFFRepresentation]
-								   priority:0
-								   isSticky:NO
-							   clickContext:context];
+        NSString *notificationName = @"QuickHub";
+        if (name) {
+            notificationName = name;
+        }
+        
+        [GrowlApplicationBridge notifyWithTitle:notificationName
+                                    description:description
+                               notificationName:@"QuickHub"
+                                       iconData:[image TIFFRepresentation]
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:context];
+    }
+    
+    if ([self notificationCenterAvailable:nil] && [self notificationCenterEnabled:nil]) {
+        NSMutableDictionary *notificationDetails = [[NSMutableDictionary alloc] init];
+        notificationDetails[@"name"] = name;
+        notificationDetails[@"description"] = description;
+        [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]];
+    }
 }
 
 - (void)notifyWithName:(NSString*)name desc:(NSString*)description url:(NSString *)urlToOpen iconName:(NSString *) iconName {
-    if (![GrowlApplicationBridge isGrowlRunning]) {
-        // return now if growl is not installed not running, looks like it can cause problems...
-        return;
+    
+    if ([self growlAvailable:nil] && [self growlEnabled:nil]) {
+        NSImage *image = nil;
+        if (iconName && [[NSBundle mainBundle] URLForImageResource:iconName]) {
+            image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:iconName]] autorelease];
+        } else {
+            image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
+        }
+        
+        NSDictionary *context = nil;
+        if (urlToOpen) {
+            context = [[NSMutableDictionary alloc] init];
+            [context setValue:urlToOpen forKey:@"url"];
+        }
+        
+        NSString *notificationName = @"QuickHub";
+        if (name) {
+            notificationName = name;
+        }
+        
+        [GrowlApplicationBridge notifyWithTitle:notificationName
+                                    description:description
+                               notificationName:@"QuickHub"
+                                       iconData:[image TIFFRepresentation]
+                                       priority:0
+                                       isSticky:NO
+                                   clickContext:context];
     }
     
-    NSImage *image = nil;
-    if (iconName && [[NSBundle mainBundle] URLForImageResource:iconName]) {
-      image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:iconName]] autorelease];        
-    } else {
-        image = [[[NSImage alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForImageResource:growllogo]] autorelease];
+    if ([self notificationCenterAvailable:nil] && [self notificationCenterEnabled:nil]) {
+        NSMutableDictionary *notificationDetails = [[NSMutableDictionary alloc] init];
+        notificationDetails[@"name"] = name;
+        notificationDetails[@"description"] = description;
+        [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]];
     }
-    
-    NSDictionary *context = nil;
-    if (urlToOpen) {
-        context = [[NSMutableDictionary alloc] init];
-        [context setValue:urlToOpen forKey:@"url"];
-    }
-    
-    NSString *notificationName = @"QuickHub";
-    if (name) {
-        notificationName = name;
-    }
-    
-    [GrowlApplicationBridge notifyWithTitle:notificationName
-								description:description
-						   notificationName:@"QuickHub"
-								   iconData:[image TIFFRepresentation]
-								   priority:0
-								   isSticky:NO
-							   clickContext:context];
 }
+
+#pragma mark - Utils
+
+- (BOOL) growlAvailable:(id)sender {
+    return [GrowlApplicationBridge isGrowlRunning];
+}
+
+- (BOOL) growlEnabled:(id)sender {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:NOTIFICATION_GROWL];
+}
+
+- (BOOL) notificationCenterEnabled:(id) sender {
+    BOOL centerEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:NOTIFICATION_OSX];
+    return centerEnabled;
+}
+
+- (BOOL) notificationCenterAvailable:(id) sender {
+    Class notificationCenterClass = NSClassFromString(@"NSUserNotificationCenter");
+    if(!notificationCenterClass) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+#pragma mark - private methods
+
+- (void)displayNotificationUsingNotificationCenterWithDetails:(NSDictionary *)details{
+    BOOL scheduledNotification = NO;
+    
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    if(details[@"title"]) {
+        notification.title = details[@"title"];
+    } else {
+        notification.title = @"QuickHub";
+    }
+    
+    if(details[@"description"])
+        notification.informativeText = details[@"description"];
+    
+    if(details[@"subtitle"])
+        notification.subtitle = details[@"subtitle"];
+    
+    if(details[@"sound"])
+        notification.soundName = details[@"sound"];
+    
+    if(details[@"actionbutton"])
+        notification.hasActionButton = [details[@"actionbutton"] boolValue];
+    
+    if(details[@"actionbuttontitle"])
+        notification.actionButtonTitle = details[@"actionbuttontitle"];
+    
+    if(details[@"deliverydate"]){
+        notification.deliveryDate = details[@"deliverydate"];
+        scheduledNotification = YES;
+    }
+    
+    // Build the userInfo dictionary.
+    /*
+    NSMutableDictionary *userInfo;
+    
+    if(!details[SCNotificationCenterNotificationUserInfo]){
+        userInfo = [[NSMutableDictionary alloc] init];
+    }
+    else{
+        userInfo = [details[SCNotificationCenterNotificationUserInfo] mutableCopy];
+    }
+    
+    if(details[SCNotificationCenterNotificationClickContext])
+        userInfo[SCNotificationCenterNotificationClickContext] = details[SCNotificationCenterNotificationClickContext];
+    
+    if(details[SCNotificationCenterNotificationIdentifier])
+        userInfo[SCNotificationCenterGrowlNotificationIdentifier] = details[SCNotificationCenterNotificationIdentifier];
+    
+    else if(details[SCNotificationCenterGrowlNotificationIdentifier])
+        userInfo[SCNotificationCenterGrowlNotificationIdentifier] = details[SCNotificationCenterGrowlNotificationIdentifier];
+    
+    notification.userInfo = [userInfo copy];
+     */
+    
+    if(scheduledNotification)
+        [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
+    else
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+}
+
 
 @end

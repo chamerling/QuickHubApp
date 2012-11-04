@@ -15,6 +15,15 @@
 - (void)notifyWithName:(NSString*)name desc:(NSString*)description url:(NSString *)urlToOpen icon:(NSURL *) iconURL;
 - (void)notifyWithName:(NSString*)name desc:(NSString*)description url:(NSString *)urlToOpen iconName:(NSString *) iconName;
 
+// growl can be enabled but not available (not installed or not running)
+- (BOOL) growlEnabled:(id) sender;
+- (BOOL) growlAvailable:(id) sender;
+
+// notification center is available
+- (BOOL) notificationCenterEnabled:(id) sender;
+- (BOOL) notificationCenterAvailable:(id) sender;
+
+
 + (GrowlManager *)get;
 
 @end

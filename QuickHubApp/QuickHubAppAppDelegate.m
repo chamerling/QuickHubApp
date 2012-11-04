@@ -336,17 +336,17 @@
         [userPreferences setAppController:appController];
         [userPreferences setMenuController:menuController];
         
-        EventPreferencesViewController *eventPreferences = [[EventPreferencesViewController alloc] init];
+        //EventPreferencesViewController *eventPreferences = [[EventPreferencesViewController alloc] init];
         
         NotificationPreferencesViewController *notificationPreferences = [[NotificationPreferencesViewController alloc] init];
         
-        NSArray *controllers = [[NSArray alloc] initWithObjects:accountViewController, userPreferences, notificationPreferences, eventPreferences, /*localViewController,*/ aboutViewController, nil];
+        NSArray *controllers = [[NSArray alloc] initWithObjects:accountViewController, userPreferences, notificationPreferences, /*eventPreferences,*/ /*localViewController,*/ aboutViewController, nil];
         
         [accountViewController release];
         [aboutViewController release];
         [userPreferences release];
         [notificationPreferences release];
-        [eventPreferences release];
+        //[eventPreferences release];
         //[localViewController release];
         
         NSString *title = NSLocalizedString(@"Preferences", @"Common title for Preferences window");

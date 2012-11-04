@@ -66,7 +66,22 @@
 #define GITHUB_NOTIFICATION_GIST_CREATED @"GistCreated"
 #define GITHUB_NOTIFICATION_REPO_CREATED @"RepoCreated"
 
-#pragma mark - activate notification preferences
+
+#pragma mark - application notifications
+
+#define QUICKHUB_NOTIFICATION_ACTIVE @"AppNotificationActive"
+
+#define QUICKHUB_NOTIFICATION_REPOS @"AppNotificationRepos"
+#define QUICKHUB_NOTIFICATION_GISTS @"AppNotificationGists"
+#define QUICKHUB_NOTIFICATION_ORGS @"AppNotificationOrgs"
+#define QUICKHUB_NOTIFICATION_ISSUES @"AppNotificationIssues"
+#define QUICKHUB_NOTIFICATION_PULLS @"AppNotificationPulls"
+#define QUICKHUB_NOTIFICATION_FOLLOWINGS @"AppNotificationFollowings"
+#define QUICKHUB_NOTIFICATION_FOLLOWERS @"AppNotificationFollowers"
+#define QUICKHUB_NOTIFICATION_WATCHEDREPO @"AppNotificationWatchedRepos"
+#define QUICKHUB_NOTIFICATION_NOTIFICATION @"AppNotificationNotifications"
+
+#pragma mark - activate notification preferences for the github events API
 
 #define GITHUB_NOTIFICATION_REPOS_KEY @"GetReposNotifyStateKey"
 #define GITHUB_NOTIFICATION_GISTS_KEY @"GetGistsNotifyStateKey"

@@ -5,3 +5,17 @@
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
 #endif
+
+// define DEVMODE, can be set in project properties to avoid file changes...
+// To be removed on release
+#define DEVMODE
+
+// Log only in dev mode
+#ifdef DEVMODE
+#    define DLog(...) NSLog(__VA_ARGS__)
+#else
+#    define DLog(...) /* */
+#endif
+
+// Log always!
+#define ALog(...) NSLog(__VA_ARGS__)

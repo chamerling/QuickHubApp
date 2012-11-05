@@ -22,6 +22,7 @@
     IBOutlet NSButton *wikiBox;
     IBOutlet NSButton *privateBox;
     IBOutlet NSButton *openBox;
+    IBOutlet NSButton *autoInitBox;
     IBOutlet NSProgressIndicator *progress;
     IBOutlet NSButton *createButton;
     IBOutlet NSButton *cancelButton;

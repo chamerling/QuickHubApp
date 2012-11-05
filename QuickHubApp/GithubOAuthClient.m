@@ -67,6 +67,7 @@
     //NSLog(@"Loading Issues...");
     
     // try to get my issues with ASIHTTP and JSONKIT...
+    // FIXME : Add all param cf http://developer.github.com/v3/issues/#list-issues
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"issues"]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request setDelegate:self];
@@ -307,10 +308,10 @@
     return result;
 }
 
-- (NSDictionary*) createRepository:(NSString*) name description:(NSString*)desc homepage:(NSString*) home wiki:(BOOL)wk issues:(BOOL)is downloads:(BOOL)dl isPrivate:(BOOL)privacy {
+- (NSDictionary*) createRepository:(NSString*) name description:(NSString*)desc homepage:(NSString*) home wiki:(BOOL)wk issues:(BOOL)is downloads:(BOOL)dl isPrivate:(BOOL)privacy autoInit:(BOOL)init {
     NSDictionary *result = nil;
     
-    NSString *payload = [NSString stringWithFormat:@"{\"name\": \"%@\", \"description\": \"%@\", \"homepage\": \"%@\", \"public\": %@, \"has_issues\": %@, \"has_wiki\": %@, \"has_downloads\": %@}", name, desc, home, privacy ? @"false" : @"true", is ? @"true" : @"false", wk? @"true" : @"false", dl? @"true" : @"false"];
+    NSString *payload = [NSString stringWithFormat:@"{\"name\": \"%@\", \"description\": \"%@\", \"homepage\": \"%@\", \"public\": %@, \"has_issues\": %@, \"has_wiki\": %@, \"has_downloads\": %@, \"auto_init\": %@}", name, desc, home, privacy ? @"false" : @"true", is ? @"true" : @"false", wk? @"true" : @"false", dl? @"true" : @"false", init? @"true" : @"false"];
         
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"user/repos"]]];
     [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];
@@ -333,10 +334,10 @@
     return result;
 }
 
-- (NSDictionary*) createRepository:(NSString*) name forOrg:(NSString*)orgName description:(NSString*)desc homepage:(NSString*) home wiki:(BOOL)wk issues:(BOOL)is downloads:(BOOL)dl isPrivate:(BOOL)privacy {
+- (NSDictionary*) createRepository:(NSString*) name forOrg:(NSString*)orgName description:(NSString*)desc homepage:(NSString*) home wiki:(BOOL)wk issues:(BOOL)is downloads:(BOOL)dl isPrivate:(BOOL)privacy autoInit:(BOOL)init{
     NSDictionary *result = nil;
     
-    NSString *payload = [NSString stringWithFormat:@"{\"name\": \"%@\", \"description\": \"%@\", \"homepage\": \"%@\", \"public\": %@, \"has_issues\": %@, \"has_wiki\": %@, \"has_downloads\": %@}", name, desc, home, privacy ? @"false" : @"true", is ? @"true" : @"false", wk? @"true" : @"false", dl? @"true" : @"false"];
+    NSString *payload = [NSString stringWithFormat:@"{\"name\": \"%@\", \"description\": \"%@\", \"homepage\": \"%@\", \"public\": %@, \"has_issues\": %@, \"has_wiki\": %@, \"has_downloads\": %@, \"auto_init\": %@}", name, desc, home, privacy ? @"false" : @"true", is ? @"true" : @"false", wk? @"true" : @"false", dl? @"true" : @"false", init? @"true" : @"false"];
         
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:[NSString stringWithFormat:@"orgs/%@/repos", orgName]]]];
     [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];

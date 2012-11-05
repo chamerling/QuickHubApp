@@ -39,6 +39,7 @@
     BOOL downloads = ([downloadBox state] == 1) ? TRUE : FALSE;
     BOOL isPrivate = ([privateBox state] == 1) ? TRUE : FALSE;
     BOOL open = ([openBox state] == 1) ? TRUE : FALSE;
+    BOOL init = ([autoInitBox state]) ? TRUE : FALSE;
     
     if (!name || [name length] == 0) {
         NSBeep();
@@ -48,7 +49,7 @@
         [progress setHidden:FALSE];
         [progress startAnimation:nil];
         
-        NSDictionary *result = [ghClient createRepository:name forOrg:organisationName description:description homepage:url wiki:wiki issues:issues downloads:downloads isPrivate:isPrivate];
+        NSDictionary *result = [ghClient createRepository:name forOrg:organisationName description:description homepage:url wiki:wiki issues:issues downloads:downloads isPrivate:isPrivate autoInit:init];
         
         [progress stopAnimation:nil];
         [progress setHidden:TRUE];

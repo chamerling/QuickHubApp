@@ -27,8 +27,6 @@
 		C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D091456EF090013F78E /* NSWorkspaceHelper.m */; };
 		C9642D101456F1530013F78E /* GrowlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D0F1456F1530013F78E /* GrowlManager.m */; };
 		C9642D13145700D10013F78E /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D12145700D10013F78E /* AppController.m */; };
-		C9642D1A145707EB0013F78E /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D19145707EB0013F78E /* MenuController.m */; };
-		C9642D1E14570F5F0013F78E /* GitHubController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9642D1D14570F5F0013F78E /* GitHubController.m */; };
 		C96509B114754DD100F80846 /* QH-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C96509AE14754DD100F80846 /* QH-128.png */; };
 		C96509B214754DD100F80846 /* QH-256.png in Resources */ = {isa = PBXBuildFile; fileRef = C96509AF14754DD100F80846 /* QH-256.png */; };
 		C96509B314754DD100F80846 /* QH-512.png in Resources */ = {isa = PBXBuildFile; fileRef = C96509B014754DD100F80846 /* QH-512.png */; };
@@ -141,10 +139,6 @@
 		C9642D0F1456F1530013F78E /* GrowlManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GrowlManager.m; sourceTree = "<group>"; };
 		C9642D11145700D10013F78E /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C9642D12145700D10013F78E /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C9642D18145707EB0013F78E /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuController.h; path = ../MenuController.h; sourceTree = "<group>"; };
-		C9642D19145707EB0013F78E /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuController.m; path = ../MenuController.m; sourceTree = "<group>"; };
-		C9642D1C14570F5F0013F78E /* GitHubController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GitHubController.h; path = ../GitHubController.h; sourceTree = "<group>"; };
-		C9642D1D14570F5F0013F78E /* GitHubController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GitHubController.m; path = ../GitHubController.m; sourceTree = "<group>"; };
 		C96509AE14754DD100F80846 /* QH-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-128.png"; sourceTree = "<group>"; };
 		C96509AF14754DD100F80846 /* QH-256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-256.png"; sourceTree = "<group>"; };
 		C96509B014754DD100F80846 /* QH-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QH-512.png"; sourceTree = "<group>"; };
@@ -482,10 +476,6 @@
 				C99AF83E183562DB0007E9AA /* MenuController.m */,
 				C99AF840183563760007E9AA /* GitHubController.h */,
 				C99AF841183563770007E9AA /* GitHubController.m */,
-				C9642D18145707EB0013F78E /* MenuController.h */,
-				C9642D19145707EB0013F78E /* MenuController.m */,
-				C9642D1C14570F5F0013F78E /* GitHubController.h */,
-				C9642D1D14570F5F0013F78E /* GitHubController.m */,
 				C996378F144848BD00F6DB43 /* Preferences.h */,
 				C9963790144848BD00F6DB43 /* Preferences.m */,
 				C9642D0E1456F1530013F78E /* GrowlManager.h */,
@@ -663,8 +653,6 @@
 				C9642D0A1456EF090013F78E /* NSWorkspaceHelper.m in Sources */,
 				C9642D101456F1530013F78E /* GrowlManager.m in Sources */,
 				C9642D13145700D10013F78E /* AppController.m in Sources */,
-				C9642D1A145707EB0013F78E /* MenuController.m in Sources */,
-				C9642D1E14570F5F0013F78E /* GitHubController.m in Sources */,
 				C9E07B20145EF8BF004A94A7 /* GistCreateWindowController.m in Sources */,
 				C99E310C146287F900FA4327 /* Reachability.m in Sources */,
 				C9D53DBE1471CD2700D0212B /* NSTextViewFileContent.m in Sources */,

@@ -1,5 +1,0 @@
-h1. <span>2011-10-24</span> Release 0.1.0
-
-h2. Initial release
-
-Yay! First release.

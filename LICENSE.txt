@@ -1,24 +1,3 @@
-# QuickHub.App
-
-QuickHub.App is an OS X application to access your @github ressources from the status bar.
-
-## The origin...
-
-I originally launched QuickHub as a paid application on the Mac App Store in the late 2011. As of today (11/2013), the application has been downloaded hundreds of times and git great feedback from users and some github employees.
-
-To be honest, I originally started to learn Objective-C for fun by coding QuickHub since I am a big fan of github so there are probably lots of bugs, bad patterns, and obviously memory leaks (come on guys I am a Java developer ;) ).
-
-Today I have other challenges and no more time to work on the application so I decided to open source it.
-
-Let's bring quickhub to a new level : Fork it and send your pull requests!
-
-## Contributors
-
-- Christophe Hamerling
-- You!
-
-## License
-
 (The MIT License)
 
 Copyright (c) 2013 QuickhubApp.com &lt;hello@quickhubapp.com&gt;

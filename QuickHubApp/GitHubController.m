@@ -69,7 +69,7 @@
 - (void) loadUser:(id) sender {
     NSLog(@"Load user...");
                 
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/user?access_token=2736c4fc084dbb25156b6bb4635275048e5415ef"]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"https://api.github.com/user?access_token=XXX"]];
     [request setDelegate:self];
     [request startSynchronous];
     [self updateRemaining:request];

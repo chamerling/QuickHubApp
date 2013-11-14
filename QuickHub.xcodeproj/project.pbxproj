@@ -73,6 +73,7 @@
 		C99637A914484AB300F6DB43 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637A814484AB300F6DB43 /* SystemConfiguration.framework */; };
 		C99637AB14484AC500F6DB43 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99637AA14484AC500F6DB43 /* Security.framework */; };
 		C99637AD14484B7E00F6DB43 /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C996379B144848E200F6DB43 /* Growl.framework */; };
+		C99AF83F183562DD0007E9AA /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C99AF83E183562DB0007E9AA /* MenuController.m */; };
 		C99E310C146287F900FA4327 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = C99E310B146287F900FA4327 /* Reachability.m */; };
 		C99E311A1462E7B600FA4327 /* red-circle-16.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E31181462E7B600FA4327 /* red-circle-16.png */; };
 		C99E311B1462E7B600FA4327 /* green-circle-16.png in Resources */ = {isa = PBXBuildFile; fileRef = C99E31191462E7B600FA4327 /* green-circle-16.png */; };
@@ -218,6 +219,8 @@
 		C99637A614484AAB00F6DB43 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C99637A814484AB300F6DB43 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C99637AA14484AC500F6DB43 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C99AF83D183562DA0007E9AA /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
+		C99AF83E183562DB0007E9AA /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
 		C99E310A146287F900FA4327 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		C99E310B146287F900FA4327 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		C99E31181462E7B600FA4327 /* red-circle-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-circle-16.png"; sourceTree = "<group>"; };
@@ -472,6 +475,8 @@
 				C996376B1448487900F6DB43 /* QuickHubAppAppDelegate.h */,
 				C996376C1448487900F6DB43 /* QuickHubAppAppDelegate.m */,
 				C9F190711458B21000648538 /* QHConstants.h */,
+				C99AF83D183562DA0007E9AA /* MenuController.h */,
+				C99AF83E183562DB0007E9AA /* MenuController.m */,
 				C9642D18145707EB0013F78E /* MenuController.h */,
 				C9642D19145707EB0013F78E /* MenuController.m */,
 				C9642D1C14570F5F0013F78E /* GitHubController.h */,
@@ -677,6 +682,7 @@
 				C960F039154757C900319DA8 /* EventMenuItemController.m in Sources */,
 				C960F03D154759C200319DA8 /* EventMenuItemView.m in Sources */,
 				C9DF59CB1644618700D56BAD /* NotificationPreferencesViewController.m in Sources */,
+				C99AF83F183562DD0007E9AA /* MenuController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

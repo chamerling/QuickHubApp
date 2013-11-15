@@ -1,5 +1,5 @@
 # QuickHubApp
 
-GitHub from your OS X status bar!
+Web site for http://quickhubapp.com using the awesome [jekyll](http://jekyllrb.com/).
 
 @chamerling

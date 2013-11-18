@@ -2,6 +2,8 @@
 
 QuickHub.App is an OS X application to access your @github ressources from the status bar.
 
+![QuickHub](http://dl.dropboxusercontent.com/u/73785/quickhub/16/qh16-repos.png)
+
 ## The origin...
 
 I originally launched QuickHub as a paid application on the Mac App Store in the late 2011. As of today (11/2013), the application has been downloaded hundreds of times and git great feedback from users and some github employees.

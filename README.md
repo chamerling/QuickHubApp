@@ -12,6 +12,14 @@ Today I have other challenges and no more time to work on the application so I d
 
 Let's bring quickhub to a new level : Fork it and send your pull requests!
 
+## Howto
+
+Clone me...
+
+    git clone https://github.com/chamerling/QuickHubApp.git
+
+Then open project in XCode to run and build it... 
+
 ## Contributors
 
 - Christophe Hamerling
@@ -21,7 +29,7 @@ Let's bring quickhub to a new level : Fork it and send your pull requests!
 
 (The MIT License)
 
-Copyright (c) 2013 QuickhubApp.com &lt;hello@quickhubapp.com&gt;
+Copyright (c) 2013 Christophe Hamerling <christophe.hamerling@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

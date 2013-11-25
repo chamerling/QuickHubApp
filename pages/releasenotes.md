@@ -13,6 +13,14 @@ Unplanned features and ideas, wish list...
 - [NEW] Hot keys!
 - [NEW] Local storage in order to be able to rebuild all even if Internet is down!
 
+# v1.7-beta1 - 2013/11/25
+
+- [NEW] OS X Notification Center support
+- [NEW] Init repository in create
+- [NEW] New events an filters
+- [NEW] MIT!
+- [FIX] Various stuff
+
 # v1.6 - 2012/04/26
 
 - [NEW] Handle events for followed repositories, users, ...

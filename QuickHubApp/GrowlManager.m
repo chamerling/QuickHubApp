@@ -54,25 +54,25 @@ static GrowlManager *sharedInstance = nil;
     return self;
 }
 
-- (void) awakeFromNib {    
+- (void) awakeFromNib {
     [GrowlApplicationBridge setGrowlDelegate:self];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self 
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(genericListener:)
                                                  name:GENERIC_NOTIFICATION
                                                object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self 
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(issueAdded:)
                                                  name:GITHUB_NOTIFICATION_ISSUE_ADDED
                                                object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self 
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gistAdded:)
                                                  name:GITHUB_NOTIFICATION_GIST_ADDED
                                                object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self 
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gistCreated:)
                                                  name:GITHUB_NOTIFICATION_GIST_CREATED
                                                object:nil];
@@ -113,7 +113,7 @@ static GrowlManager *sharedInstance = nil;
     if (context) {
         if ([context valueForKey:@"url"]) {
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[context valueForKey:@"url"]]];
-
+            
         }
     }
 }
@@ -138,10 +138,8 @@ static GrowlManager *sharedInstance = nil;
     }
     
     if ([self notificationCenterAvailable:nil] && [self notificationCenterEnabled:nil]) {
-        NSMutableDictionary *notificationDetails = [[NSMutableDictionary alloc] init];
-        notificationDetails[@"name"] = name;
-        notificationDetails[@"description"] = description;
-        [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]]; 
+        NSMutableDictionary *notificationDetails = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"name", name, @"description", description, nil];
+        [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]];
     } else {
         
     }
@@ -183,10 +181,7 @@ static GrowlManager *sharedInstance = nil;
     }
     
     if ([self notificationCenterAvailable:nil] && [self notificationCenterEnabled:nil]) {
-        NSMutableDictionary *notificationDetails = [[NSMutableDictionary alloc] init];
-        notificationDetails[@"name"] = name;
-        notificationDetails[@"description"] = description;
-        notificationDetails[@"url"] = urlToOpen;
+        NSMutableDictionary *notificationDetails = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"name", name, @"description", description, @"url", urlToOpen, nil];
         [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]];
     }
 }
@@ -226,10 +221,7 @@ static GrowlManager *sharedInstance = nil;
     }
     
     if ([self notificationCenterAvailable:nil] && [self notificationCenterEnabled:nil]) {
-        NSMutableDictionary *notificationDetails = [[NSMutableDictionary alloc] init];
-        notificationDetails[@"name"] = name;
-        notificationDetails[@"description"] = description;
-        notificationDetails[@"url"] = urlToOpen;
+        NSMutableDictionary *notificationDetails = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"name", name, @"description", description, @"url", urlToOpen, nil];
         [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]];
     }
 }
@@ -261,7 +253,7 @@ static GrowlManager *sharedInstance = nil;
 #pragma mark - private methods
 
 - (void)displayNotificationUsingNotificationCenterWithDetails:(NSDictionary *)details
-{    
+{
     if (![self notificationsEnabled:nil]) {
         return;
     }
@@ -269,43 +261,43 @@ static GrowlManager *sharedInstance = nil;
     BOOL scheduledNotification = NO;
     
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    if(details[@"title"]) {
-        notification.title = details[@"title"];
+    if([details valueForKey:@"title"]) {
+        notification.title = [details valueForKey:@"title"];
     } else {
         notification.title = @"QuickHub";
     }
     
-    if(details[@"description"])
-        notification.informativeText = details[@"description"];
+    if([details valueForKey:@"description"])
+        notification.informativeText = [details valueForKey:@"description"];
     
-    if(details[@"subtitle"])
-        notification.subtitle = details[@"subtitle"];
+    if([details valueForKey:@"subtitle"])
+        notification.subtitle = [details valueForKey:@"subtitle"];
     
-    if(details[@"sound"]) {
-        notification.soundName = details[@"sound"];
+    if([details valueForKey:@"sound"]) {
+        notification.soundName = [details valueForKey:@"sound"];
     } else {
         // get the sound to play from the preferences
         // (if selected)
     }
     
-    if(details[@"actionbutton"])
-        notification.hasActionButton = [details[@"actionbutton"] boolValue];
+    if([details valueForKey:@"actionbutton"])
+        notification.hasActionButton = [[details valueForKey:@"actionbutton"] boolValue];
     
-    if(details[@"actionbuttontitle"])
-        notification.actionButtonTitle = details[@"actionbuttontitle"];
+    if([details valueForKey:@"actionbuttontitle"])
+        notification.actionButtonTitle = [details valueForKey:@"actionbuttontitle"];
     
-    if(details[@"deliverydate"]){
-        notification.deliveryDate = details[@"deliverydate"];
+    if([details valueForKey:@"deliverydate"]){
+        notification.deliveryDate = [details valueForKey:@"deliverydate"];
         scheduledNotification = YES;
     }
     
     NSMutableDictionary *userInfo = [[NSMutableDictionary alloc] init];
-    if(details[@"url"]) {
-        userInfo[@"url"] = details[@"url"];
+    if([details valueForKey:@"url"]) {
+        [userInfo setValue:[details valueForKey:@"url"] forKey:@"url"];
     }
     
     notification.userInfo = [userInfo copy];
-
+    
     if(scheduledNotification) {
         [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
     } else {

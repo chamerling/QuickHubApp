@@ -31,6 +31,9 @@
     
     NSButton *switchApplicationNotificationButton;
     NSTextField *applicationNotificationLabel;
+    
+    BOOL growl;
+    BOOL notificationCenter;
 }
 
 @property (assign) BOOL growl;

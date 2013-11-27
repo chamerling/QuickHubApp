@@ -14,7 +14,13 @@ Today I have other challenges and no more time to work on the application so I d
 
 Let's bring quickhub to a new level : Fork it and send your pull requests!
 
-## Howto
+## Install
+
+### From binary
+
+The .app is available for download on the release section. Last version is at https://github.com/chamerling/QuickHubApp/releases/download/1.7-beta1/QuickHub-1.7-beta1.zip
+
+### From sources
 
 Clone me...
 

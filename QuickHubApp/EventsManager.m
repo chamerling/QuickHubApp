@@ -68,12 +68,13 @@
     return self;
 }
 
-- (void) addEventsFromDictionary:(NSDictionary *) dict {
+- (void) addEventsFromDictionary:(NSDictionary *) dict
+{
     BOOL firstCall = ([events count] == 0);
     
     NSMutableDictionary *arrangedEvents = [[NSMutableDictionary alloc] init];
 
-    NSMutableSet* justGet = [[[NSMutableSet alloc] init] autorelease];
+    NSMutableSet* justGet = [[NSMutableSet alloc] init];
     for (NSDictionary *event in dict) {
         [justGet addObject:[event valueForKey:@"id"]];
         [arrangedEvents setObject:event forKey:[event valueForKey:@"id"]];
@@ -82,6 +83,7 @@
     // diff events with the already cached ones
     NSMutableSet* newEvents = [NSMutableSet setWithSet:justGet];
     [newEvents minusSet:eventIds];
+    [justGet release];
     
     // cache new events
     for (id eventId in newEvents) {
@@ -95,6 +97,8 @@
         [newEventsArray addObject:[arrangedEvents objectForKey:eventId]];
     }
     
+    [arrangedEvents release];
+    
     // create an array with the new events and order them by date...
     NSArray *sorted = [[NSMutableArray arrayWithArray:newEventsArray] sortedArrayUsingComparator:^(id a, id b) {
         NSString *first = [a objectForKey:@"created_at"];
@@ -103,7 +107,9 @@
     }];
         
     for (id event in sorted) {
-        [self updateEventMenu:event];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateEventMenu:event];
+        });
     }
     
     if ([sorted count] > 0 && [self isNotificationsActive]) {
@@ -114,13 +120,17 @@
             // limit the number of events per configuration...
             
             if (!firstCall) {
-                [[GrowlManager get] notifyWithName:@"GitHub Event" desc:[NSString stringWithFormat:@"%d new events...", [newEvents count]] url:nil icon:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[GrowlManager get] notifyWithName:@"GitHub Event" desc:[NSString stringWithFormat:@"%lu new events...", (unsigned long)[newEvents count]] url:nil icon:nil];
+                });
             }
         } else {
             // loop...
             // TODO : need to order events by date with the "created_at" element
             for (id event in sorted) {
-                [self notifyNewEvent:event];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self notifyNewEvent:event];
+                });
             }
         }
     }
@@ -131,6 +141,8 @@
 }
 
 - (void) clearEvents {
+    [events release];
+    [eventIds release];
     events = [[NSMutableArray alloc] init];
     eventIds = [[NSMutableSet alloc] init];
 }
@@ -423,7 +435,7 @@
     NSString *message = [NSString stringWithFormat:@"%@ started following %@", actorLogin, target];
     NSNumber *nbRepos = [[[event valueForKey:@"payload"] valueForKey:@"target"] valueForKey:@"public_repos"];
     NSNumber *nbFollowers = [[[event valueForKey:@"payload"] valueForKey:@"target"] valueForKey:@"followers"];
-    NSString *details = [NSString stringWithFormat:@"%@ has %ld repositories and %ld followers", target, [nbRepos intValue], [nbFollowers intValue]];
+    NSString *details = [NSString stringWithFormat:@"%@ has %d repositories and %d followers", target, [nbRepos intValue], [nbFollowers intValue]];
     NSString *url = [NSString stringWithFormat:@"https://github.com/%@", target];
     
     [dict setValue:message forKey:@"message"];
@@ -475,7 +487,7 @@
     NSString *url = nil;
     
     if ([pages count] > 1) {
-        message = [NSString stringWithFormat:@"%@ modified %d pages in the %@ wiki", actorLogin, [pages count], repository];
+        message = [NSString stringWithFormat:@"%@ modified %lu pages in the %@ wiki", actorLogin, (unsigned long)[pages count], repository];
         url = [NSString stringWithFormat:@"https://github.com/%@/wiki/", repository];
         
     } else {
@@ -687,8 +699,12 @@
 }
 
 
-- (void)dealloc {
+- (void)dealloc
+{
     [super dealloc];
+    [menuController release];
+    [eventIds release];
+    [events release];
 }
 
 @end

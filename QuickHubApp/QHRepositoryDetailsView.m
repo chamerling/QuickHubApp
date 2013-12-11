@@ -22,10 +22,10 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-#import "RepositoryDetailsViewController.h"
+#import "QHRepositoryDetailsView.h"
 
-@implementation RepositoryDetailsViewController
-@synthesize repositoryLabel;
+@implementation QHRepositoryDetailsView
+
 @synthesize publicPrivateImage;
 @synthesize forkImage;
 @synthesize repoNameButton;
@@ -33,22 +33,23 @@
 @synthesize createdAtLabel;
 @synthesize pushedAtField;
 @synthesize statsLabel;
+@synthesize urlButton;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void)awakeFromNib
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
+    [super awakeFromNib];
 }
 
-- (void) loadView {
-    [super loadView];
-    [repositoryLabel setStringValue:[repositoryData valueForKey:@"name"]];
+- (void)setRepositoryData:(NSDictionary *)repositoryDataIn
+{
+    repositoryData = repositoryDataIn;
     
-    [repoNameButton setTitle:[repositoryData valueForKey:@"name"]];
+    [self updateUI];
+}
+
+- (void)updateUI
+{
+   [repoNameButton setTitle:[repositoryData valueForKey:@"name"]];
 
     NSNumber *forks = [repositoryData valueForKey:@"forks"];
     NSNumber *watchers = [repositoryData valueForKey:@"watchers"];
@@ -95,6 +96,12 @@
 
 - (IBAction)openRepository:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[repositoryData valueForKey:@"html_url"]]];
+}
+
+- (void)dealloc
+{
+    [super dealloc];
+    [repositoryData release];
 }
 
 @end

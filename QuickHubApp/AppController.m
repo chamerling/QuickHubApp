@@ -23,9 +23,12 @@
 
 #import "AppController.h"
 #import "NSData+Base64.h"
-#import "ASIHTTPRequest.h"
 #import "QHConstants.h"
 #import "Context.h"
+#import "EventsManager.h"
+#import "GithubOAuthClient.h"
+#import "Reachability.h"
+#import "Preferences.h"
 
 @interface AppController (Private)
 - (void) updateGistUI:(NSDictionary *) dictionary;
@@ -45,7 +48,7 @@
 {
     self = [super init];
     if (self) {
-        githubController = [[GithubOAuthClient alloc]init];
+        githubController = [[GithubOAuthClient alloc] init];
 
         //reachability
         // check for internet connection
@@ -94,43 +97,44 @@
 
 #pragma mark - Github Actions
 
-- (void) loadAll:(id)sender {
+- (void)loadAll:(id)sender
+{
     if (!githubPolling) {
         Preferences *preferences = [Preferences sharedInstance];
         if ([[preferences oauthToken]length] == 0 || ![githubController checkCredentials:nil]) {
             return;
         }
         
-        [self performSelectorInBackground:@selector(doLoadAll:) withObject:nil];        
-
+        githubPolling = YES;
+        [self performSelectorInBackground:@selector(doLoadAll:) withObject:nil];
     } else {
-        //NSLog(@"Can not start all since we are already polling...");
+        NSLog(@"Can not start all since we are already polling...");
     }
 }
 
-- (void) doLoadAll:(id) sender {
+- (void) doLoadAll:(id) sender
+{
     //NSLog(@"Load all and start polling things");
     NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-    NSRunLoop* runLoop = [NSRunLoop currentRunLoop];
     
     gistTimer = [NSTimer scheduledTimerWithTimeInterval:240 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
-    
+
     repositoryTimer = [NSTimer scheduledTimerWithTimeInterval:310 target:self selector:@selector(pollRepos:) userInfo:nil repeats:YES];
-    
+
     organizationTimer = [NSTimer scheduledTimerWithTimeInterval:603 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
-    
+//
     issueTimer = [NSTimer scheduledTimerWithTimeInterval:145 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
-    
+//    
     followTimer = [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(pollFollow:) userInfo:nil repeats:YES];
-    
+//    
     watchingTimer = [NSTimer scheduledTimerWithTimeInterval:1802 target:self selector:@selector(pollWatching:) userInfo:nil repeats:YES];
-    
+//    
     pullTimer = [NSTimer scheduledTimerWithTimeInterval:701 target:self selector:@selector(pollPulls:) userInfo:nil repeats:YES];
-    
-    eventTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(pollEvents:) userInfo:nil repeats:YES];
-    
-    // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
-    // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input
+//    
+    //eventTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(pollEvents:) userInfo:nil repeats:YES];
+//    
+//    // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
+//    // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input
     [[NSRunLoop currentRunLoop] addTimer:gistTimer forMode:NSRunLoopCommonModes];
     [[NSRunLoop currentRunLoop] addTimer:repositoryTimer forMode:NSRunLoopCommonModes];
     [[NSRunLoop currentRunLoop] addTimer:organizationTimer forMode:NSRunLoopCommonModes];
@@ -138,25 +142,25 @@
     [[NSRunLoop currentRunLoop] addTimer:followTimer forMode:NSRunLoopCommonModes];
     [[NSRunLoop currentRunLoop] addTimer:watchingTimer forMode:NSRunLoopCommonModes];
     [[NSRunLoop currentRunLoop] addTimer:pullTimer forMode:NSRunLoopCommonModes];
-    [[NSRunLoop currentRunLoop] addTimer:eventTimer forMode:NSRunLoopCommonModes];
-    
-    githubPolling = YES;
-    
+    //[[NSRunLoop currentRunLoop] addTimer:eventTimer forMode:NSRunLoopCommonModes];
+//    
     [repositoryTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:1]];
     [gistTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:2]];
     [organizationTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:3]];
     [issueTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:4]];
+    //[eventTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:5]];
     [followTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:6]];
     [watchingTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:7]];
     [pullTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:10]];
-    [eventTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:5]];
     
-    [runLoop run];
+    
+    [[NSRunLoop currentRunLoop] run];
     [pool release];
 }
 
 - (void) stopAll:(id)sender {
     if (githubPolling) {
+        githubPolling = NO;
         [gistTimer invalidate];
         [repositoryTimer invalidate];
         [organizationTimer invalidate];
@@ -166,10 +170,9 @@
         [pullTimer invalidate];
         [eventTimer invalidate];
     }
-    githubPolling = NO;
     
     // FIXME : how to kill the background thread? Is it garbaged when there is nothing more in the run loop?
-    //NSLog(@"Stopped!");
+    NSLog(@"Stopped!");
 }
 
 - (void) cleanCache:(id)sender {
@@ -204,19 +207,21 @@
         NSDictionary *dictionary = [githubController loadOrganizations:nil];
         // get all repository for each organization
         if (dictionary) {
-            NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 
             for (NSArray *org in dictionary) {
-                NSMutableDictionary *orgDictionary = [[NSMutableDictionary alloc]init];
+                NSMutableDictionary *orgDictionary = [[NSMutableDictionary alloc] init];
                 NSDictionary *repoDictionary = [githubController getReposForOrganization:[org valueForKey:@"login"]];
                 [orgDictionary setValue:repoDictionary forKey:@"repos"];
                 [orgDictionary setValue:org forKey:@"org"];
                 [dict setValue:orgDictionary forKey:[org valueForKey:@"login"]];
+                [orgDictionary release];
             }
             //dict = [orgname -> [repos->[dict], [org->[dict]]]]
             
             //[self performSelectorOnMainThread:@selector(updateOrgsUI:) withObject:dict waitUntilDone:NO];
-            [menuController organizationsFinished:dict];  
+            [menuController organizationsFinished:dict];
+            [dict release];
         }
     }
 }
@@ -317,7 +322,6 @@
    
         NetworkStatus internetStatus = [internetReachable currentReachabilityStatus];
         switch (internetStatus)
-    
         {
             case NotReachable:
             {
@@ -361,10 +365,15 @@
     }
 }
 
-- (void)dealloc {
-    [eventsManager release];
+- (void)dealloc
+{
+    [super dealloc];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [githubController release];
+    [internetReachable release];
+    [hostReach release];
+    [menuController release];
+    [eventsManager release];
 }
-
 
 @end

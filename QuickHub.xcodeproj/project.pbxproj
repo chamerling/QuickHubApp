@@ -90,8 +90,8 @@
 		C9DF59CC1644618700D56BAD /* NotificationPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9DF59CA1644618700D56BAD /* NotificationPreferencesViewController.xib */; };
 		C9E07B1A145EF6B9004A94A7 /* GistCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */; };
 		C9E07B20145EF8BF004A94A7 /* GistCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */; };
-		C9E7C83A14DF43F00038AEFC /* RepositoryDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7C83814DF43F00038AEFC /* RepositoryDetailsViewController.m */; };
-		C9E7C83B14DF43F00038AEFC /* RepositoryDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E7C83914DF43F00038AEFC /* RepositoryDetailsViewController.xib */; };
+		C9E7C83A14DF43F00038AEFC /* QHRepositoryDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7C83814DF43F00038AEFC /* QHRepositoryDetailsView.m */; };
+		C9E7C83B14DF43F00038AEFC /* QHRepositoryDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E7C83914DF43F00038AEFC /* QHRepositoryDetailsView.xib */; };
 		C9ECD209153F65E9009259D5 /* notification-128.png in Resources */ = {isa = PBXBuildFile; fileRef = C9ECD208153F65E9009259D5 /* notification-128.png */; };
 		C9ECD20F153F6BB5009259D5 /* downloadevent.json in Resources */ = {isa = PBXBuildFile; fileRef = C9ECD20E153F6BB5009259D5 /* downloadevent.json */; };
 /* End PBXBuildFile section */
@@ -241,9 +241,9 @@
 		C9E07B19145EF6B9004A94A7 /* GistCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GistCreateWindow.xib; sourceTree = "<group>"; };
 		C9E07B1E145EF8BF004A94A7 /* GistCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistCreateWindowController.h; sourceTree = "<group>"; };
 		C9E07B1F145EF8BF004A94A7 /* GistCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistCreateWindowController.m; sourceTree = "<group>"; };
-		C9E7C83714DF43F00038AEFC /* RepositoryDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryDetailsViewController.h; sourceTree = "<group>"; };
-		C9E7C83814DF43F00038AEFC /* RepositoryDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryDetailsViewController.m; sourceTree = "<group>"; };
-		C9E7C83914DF43F00038AEFC /* RepositoryDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RepositoryDetailsViewController.xib; sourceTree = "<group>"; };
+		C9E7C83714DF43F00038AEFC /* QHRepositoryDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHRepositoryDetailsView.h; sourceTree = "<group>"; };
+		C9E7C83814DF43F00038AEFC /* QHRepositoryDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHRepositoryDetailsView.m; sourceTree = "<group>"; };
+		C9E7C83914DF43F00038AEFC /* QHRepositoryDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QHRepositoryDetailsView.xib; sourceTree = "<group>"; };
 		C9ECD208153F65E9009259D5 /* notification-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification-128.png"; sourceTree = "<group>"; };
 		C9ECD20C153F6A3E009259D5 /* followevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = followevent.json; path = samples/followevent.json; sourceTree = "<group>"; };
 		C9ECD20E153F6BB5009259D5 /* downloadevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = downloadevent.json; path = samples/downloadevent.json; sourceTree = "<group>"; };
@@ -515,9 +515,9 @@
 		C9E7C83314DF42190038AEFC /* ItemDetails */ = {
 			isa = PBXGroup;
 			children = (
-				C9E7C83714DF43F00038AEFC /* RepositoryDetailsViewController.h */,
-				C9E7C83814DF43F00038AEFC /* RepositoryDetailsViewController.m */,
-				C9E7C83914DF43F00038AEFC /* RepositoryDetailsViewController.xib */,
+				C9E7C83714DF43F00038AEFC /* QHRepositoryDetailsView.h */,
+				C9E7C83814DF43F00038AEFC /* QHRepositoryDetailsView.m */,
+				C9E7C83914DF43F00038AEFC /* QHRepositoryDetailsView.xib */,
 				C9097B3314E092EB00949C3B /* UserDetailsViewController.h */,
 				C9097B3414E092EB00949C3B /* UserDetailsViewController.m */,
 				C9097B3014E092C500949C3B /* UserDetailsViewController.xib */,
@@ -564,6 +564,9 @@
 /* Begin PBXProject section */
 		C996374C1448487900F6DB43 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+			};
 			buildConfigurationList = C996374F1448487900F6DB43 /* Build configuration list for PBXProject "QuickHub" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -614,7 +617,7 @@
 				C98FB8AB148790EA00B7D92A /* UserPreferences.xib in Resources */,
 				C9C60C6B149F9D5B0059CECE /* OrgRepoCreateWindow.xib in Resources */,
 				C91879D414B39F300096922B /* IssueCreateWindow.xib in Resources */,
-				C9E7C83B14DF43F00038AEFC /* RepositoryDetailsViewController.xib in Resources */,
+				C9E7C83B14DF43F00038AEFC /* QHRepositoryDetailsView.xib in Resources */,
 				C9097B3114E092C500949C3B /* UserDetailsViewController.xib in Resources */,
 				C9241D05153E141D000E2814 /* octocat-128.png in Resources */,
 				C9241D06153E141D000E2814 /* octocat-512.png in Resources */,
@@ -668,7 +671,7 @@
 				C98FB8BF1489244500B7D92A /* NSString+JavaAPI.m in Sources */,
 				C9C60C68149F9D0B0059CECE /* OrgRepoCreateWindowController.m in Sources */,
 				C91879D714B3A3920096922B /* IssueCreateWindowController.m in Sources */,
-				C9E7C83A14DF43F00038AEFC /* RepositoryDetailsViewController.m in Sources */,
+				C9E7C83A14DF43F00038AEFC /* QHRepositoryDetailsView.m in Sources */,
 				C9097B3514E092EB00949C3B /* UserDetailsViewController.m in Sources */,
 				C9241CFC153B6704000E2814 /* EventsManager.m in Sources */,
 				C9241D0C153E1E1A000E2814 /* EventPreferencesViewController.m in Sources */,
@@ -714,7 +717,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -731,6 +739,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
@@ -742,7 +753,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -752,6 +768,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
@@ -761,6 +780,7 @@
 		C99637771448487900F6DB43 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/QuickHubApp\"",
@@ -776,6 +796,7 @@
 		C99637781448487900F6DB43 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/QuickHubApp\"",

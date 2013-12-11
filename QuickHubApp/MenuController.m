@@ -25,7 +25,7 @@
 #import "QHConstants.h"
 #import <Cocoa/Cocoa.h>
 #import "OrgRepoCreateWindowController.h"
-#import "RepositoryDetailsViewController.h"
+#import "QHRepositoryDetailsView.h"
 #import "UserDetailsViewController.h"
 #import "EventMenuItemController.h"
 #import "EventMenuItemView.h"
@@ -171,22 +171,23 @@
     [removedIssues minusSet:justGetIssues];
     if ([removedIssues count] > 0 && !firstIssueCall) {
         // for now we do not cache the issue title, so we just say that we removed some...
-        NSString *title = [NSString stringWithString:@"Yeah! One less issue!"];
+        NSString *title = @"Yeah! One less issue!";
         if ([removedIssues count] > 1) {
-            title = [NSString stringWithFormat:@"OMG, %d less issues", [removedIssues count]];
+            title = [NSString stringWithFormat:@"OMG, %lu less issues", (unsigned long)[removedIssues count]];
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION
                                                             object:title 
                                                           userInfo:nil];
     }
     
     NSMutableSet* addedIssues = [NSMutableSet setWithSet:justGetIssues];
+    [justGetIssues release];
     [addedIssues minusSet:existingIssues];
     
     if ([addedIssues count] > 0 && !firstIssueCall) {
         if ([addedIssues count] > 3) {
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                                object:[NSString stringWithFormat:@"%d new issues...", [addedIssues count]] 
+                                                                object:[NSString stringWithFormat:@"%lu new issues...", (unsigned long)[addedIssues count]] 
                                                               userInfo:nil];
         } else {
             for (NSString *key in addedIssues) {
@@ -206,6 +207,11 @@
     if (clean) {
         // TODO : Remove just the right ones...
         [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
+    }
+    
+    if (existingIssues) {
+        [existingIssues release];
+        existingIssues = nil;
     }
     
     // clear the existing Issues
@@ -245,9 +251,9 @@
     if ([removed count] > 0 && !firstGistCall) {
         NSString *title = nil;
         if ([removed count] > 1) {
-            title = [NSString stringWithFormat:@"OMG, %d fewer gists", [removed count]];
+            title = [NSString stringWithFormat:@"OMG, %lu fewer gists", (unsigned long)[removed count]];
         } else {
-            title = [NSString stringWithString:@"RIP gist #"];
+            title = @"RIP gist #";
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
                                                             object:title 
@@ -255,12 +261,13 @@
     }
     
     NSMutableSet* added = [NSMutableSet setWithSet:justGet];
+    [justGet release];
     [added minusSet:existingGists];
     
     if ([added count] > 0 && !firstGistCall) {
         if ([added count] > 3) {
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                                object:[NSString stringWithFormat:@"%d new gists!", [added count]] 
+                                                                object:[NSString stringWithFormat:@"%lu new gists!", (unsigned long)[added count]] 
                                                               userInfo:nil];
         } else {
             for (NSString *key in added) {
@@ -287,6 +294,11 @@
     if (clean) {
         [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
         // TODO : delete only the removed... need to put gist ids as menu items ids
+    }
+    
+    if (existingGists) {
+        [existingGists release];
+        existingGists = nil;
     }
     
     // clear the existing Issues
@@ -339,10 +351,11 @@
         NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[org valueForKey:@"avatar_url"]]];
         [iconImage setSize:NSMakeSize(16,16)];
         [organizationItem setImage:iconImage];
+        [iconImage release];
         
         [organizationItem setEnabled:YES];
-        [organizationItem autorelease];
         [menu addItem:organizationItem];
+        [organizationItem release];
         //[self addItem:organizationItem to:menu top:FALSE];
 
         NSDictionary* repos = [entry valueForKey:@"repos"];
@@ -352,14 +365,14 @@
         // create the top items
         NSMenuItem *openItem = [[NSMenuItem alloc] initWithTitle:@"Open..." action:@selector(organizationPressed:) keyEquivalent:@""];
         [openItem setRepresentedObject:[org valueForKey:@"login"]];
-        [openItem autorelease];
         [repositoriesMenu addItem:openItem];
+        [openItem release];
         //[self addItem:openItem to:repositoriesMenu top:FALSE];
         
         NSMenuItem *createItem = [[NSMenuItem alloc] initWithTitle:@"Create Repository..." action:@selector(createOrgRepository:) keyEquivalent:@""];
         [createItem setRepresentedObject:[org valueForKey:@"login"]];
-        [createItem autorelease];
         [repositoriesMenu addItem:createItem];
+        [createItem release];
         //[self addItem:createItem to:repositoriesMenu top:FALSE];
         
         NSMenuItem *separator = [NSMenuItem separatorItem];
@@ -377,10 +390,12 @@
             return [[first lowercaseString] compare:[second lowercaseString]];
         }];
         
+        [array release];
+        
         if (sorted.count == 0) {
             NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No repository" action:nil keyEquivalent:@""];
-            [defaultItem autorelease];
             [repositoriesMenu addItem:defaultItem];
+            [defaultItem release];
         } else {
             // HERE
             for (NSDictionary *repo in sorted) {
@@ -409,15 +424,25 @@
                 [organizationRepoItem autorelease];
                 
                 // ID CARD
-                RepositoryDetailsViewController *details = [[RepositoryDetailsViewController alloc] initWithNibName:@"RepositoryDetailsViewController" bundle:nil];
-                [details setRepositoryData:repo];
+                NSNib *nib = [[[NSNib alloc] initWithNibNamed:NSStringFromClass([QHRepositoryDetailsView class]) bundle:nil] autorelease];
+                NSArray *topLevelObjects;
+                if (![nib instantiateWithOwner:self topLevelObjects:&topLevelObjects]) NSLog(@"Error");// error
+                
+                QHRepositoryDetailsView *myView = nil;
+                for (id topLevelObject in topLevelObjects) {
+                    if ([topLevelObject isKindOfClass:[QHRepositoryDetailsView class]]) {
+                        myView = topLevelObject;
+                        break;
+                    }
+                }
+                [myView setRepositoryData:repo];                
                 
                 NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
-                [popoverMenuItem setView:[details view]];
-                [popoverMenuItem autorelease];
+                [popoverMenuItem setView:myView];
                 
-                NSMenu *foomenu = [[NSMenu alloc] init];    
+                NSMenu *foomenu = [[NSMenu alloc] init];
                 [foomenu addItem:popoverMenuItem];
+                [popoverMenuItem release];
                 [organizationRepoItem setSubmenu:foomenu];
                 
                 [repositoriesMenu addItem:organizationRepoItem];
@@ -459,11 +484,12 @@
     }
     
     NSMutableSet* added = [NSMutableSet setWithSet:justGet];
+    [justGet release];
     [added minusSet:existingRepos];
     if ([added count] > 0 && !firstRepositoryCall) {
         if ([added count] > 3) {
             [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                                object:[NSString stringWithFormat:@"%d new repositories! Take coffee and code!", [added count]] 
+                                                                object:[NSString stringWithFormat:@"%lu new repositories! Take coffee and code!", (unsigned long)[added count]] 
                                                               userInfo:nil];
         } else {
             for (NSString *key in added) {
@@ -484,8 +510,12 @@
         [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
     }
     
+    if (existingRepos) {
+        [existingRepos release];
+        existingRepos = nil;
+    }
     // clear the existing repos
-    existingRepos = [[NSMutableSet alloc]init]; 
+    existingRepos = [[NSMutableSet alloc] init];
     
     // create an array from the JKArray in order to be able to sort it...
     // to be removed and updated the day JSONKit is no more used
@@ -499,6 +529,8 @@
         return [[first lowercaseString] compare:[second lowercaseString]];
     }];
     
+    [array release];
+    
     for (NSDictionary *repo in sorted) {
         [existingRepos addObject:[repo valueForKey:@"name"]];                
         if (clean) {
@@ -510,8 +542,8 @@
         // default menu item
         [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No repositories" action:nil keyEquivalent:@""];
-        [defaultItem autorelease];
         [self addItem:defaultItem to:menu top:FALSE];
+        [defaultItem release];
     }
 }
 
@@ -564,6 +596,7 @@
 
         }
         [item setSubmenu:pullsMenu];
+        [pullsMenu release];
     }
     if (!keys || [keys count] == 0) {
         // default menu item
@@ -601,6 +634,7 @@
         return [[first lowercaseString] compare:[second lowercaseString]];
     }];
     
+    [array release];
     for (NSDictionary *user in sorted) {
         [self addFollower:user];
     }
@@ -639,6 +673,8 @@
         return [[first lowercaseString] compare:[second lowercaseString]];
     }];
     
+    [array release];
+    
     for (NSDictionary *user in sorted) {
         [self addFollowing:user];
     }
@@ -675,6 +711,8 @@
         return [[first lowercaseString] compare:[second lowercaseString]];
     }];
     
+    [array release];
+    
     for (NSDictionary *repo in sorted) {
         // get the owner
         NSArray *owner = [repo valueForKey:@"owner"];
@@ -703,7 +741,7 @@
     // 'https://api.github.com/repos/Jug-Montpellier/play-Jug/2' or 'https://api.github.com/repos/chamerling/JugApp/issues/1'
     
     NSString *apiURL = [issue valueForKey:@"url"];    
-    NSString *repoName = [NSString stringWithString:[apiURL substringFromIndex:([[NSString stringWithString:@"https://api.github.com/repos/"] length])]];    
+    NSString *repoName = [NSString stringWithString:[apiURL substringFromIndex:([@"https://api.github.com/repos/" length])]];    
     if ([repoName rangeOfString:[NSString stringWithFormat:@"%@/", [[Preferences sharedInstance] login]]].length > 0) {
         repoName = [NSString stringWithString:[repoName substringFromIndex:([[NSString stringWithFormat:@"%@/", [[Preferences sharedInstance] login]] length])]];
         repoName = [repoName substringToIndex:[repoName rangeOfString:@"/issues"].location];
@@ -799,15 +837,25 @@
     [organizationItem autorelease];
     
     // ID CARD
-    RepositoryDetailsViewController *details = [[RepositoryDetailsViewController alloc] initWithNibName:@"RepositoryDetailsViewController" bundle:nil];
-    [details setRepositoryData:repo];
+    NSNib *nib = [[[NSNib alloc] initWithNibNamed:NSStringFromClass([QHRepositoryDetailsView class]) bundle:nil] autorelease];
+    NSArray *topLevelObjects;
+    if (![nib instantiateWithOwner:self topLevelObjects:&topLevelObjects]) NSLog(@"Error");// error
+        
+    QHRepositoryDetailsView *myView = nil;
+    for (id topLevelObject in topLevelObjects) {
+        if ([topLevelObject isKindOfClass:[QHRepositoryDetailsView class]]) {
+            myView = topLevelObject;
+            break;
+        }
+    }
+    [myView setRepositoryData:repo];
     
     NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
-    [popoverMenuItem setView:[details view]];
-    [popoverMenuItem autorelease];
+    [popoverMenuItem setView:myView];
     
     NSMenu *foomenu = [[NSMenu alloc] init];    
     [foomenu addItem:popoverMenuItem];
+    [popoverMenuItem release];
     [organizationItem setSubmenu:foomenu];
     
     [self addItem:organizationItem to:menu top:top];
@@ -897,7 +945,7 @@
     [item autorelease];
     
     // ID Card
-    RepositoryDetailsViewController *details = [[RepositoryDetailsViewController alloc] initWithNibName:@"RepositoryDetailsViewController" bundle:nil];
+    QHRepositoryDetailsView *details = [[QHRepositoryDetailsView alloc] initWithNibName:@"RepositoryDetailsViewController" bundle:nil];
     [details setRepositoryData:repo];
     
     NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
@@ -924,13 +972,13 @@
     EventMenuItemController *controller = [[EventMenuItemController alloc] initWithNibName:@"EventMenuItemController" bundle:nil];
     [controller setEvent:event];
     [eventItem setView:[controller view]];
+    [controller release];
     
     [eventItem setAction:@selector(eventPressed:)];
     [eventItem setTarget:self];
     [eventItem setRepresentedObject:[event valueForKey:@"url"]];
     [eventItem setEnabled:YES];
     [eventItem setState:NSMixedState];
-    [eventItem autorelease];
     
 
     NSInteger eventMenuSize = 20;
@@ -938,7 +986,8 @@
         [eventsMenu removeItemAtIndex:eventMenuSize - 1];
     }
         
-    [self addItem:eventItem to:eventsMenu top:top];    
+    [self addItem:eventItem to:eventsMenu top:top];
+    [eventItem release];
 }
 
 - (void) addPull:(NSDictionary *)pull {
@@ -1164,7 +1213,7 @@
 - (void) addItemOnMainUIThread:(NSMenuItem *)item to:(NSMenu*)menu at:(NSInteger)index {
     NSDictionary *dict = nil;
     
-    NSString *string = [NSString stringWithFormat:@"%d", index];
+    NSString *string = [NSString stringWithFormat:@"%ld", (long)index];
     NSLog(@"String %@", string);
         
     if (index && index >=0) {

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment defaultVersion="1060" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <customView id="1" customClass="QHRepositoryDetailsView">
+            <rect key="frame" x="0.0" y="0.0" width="280" height="140"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" id="19">
+                    <rect key="frame" x="10" y="95" width="273" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="10 issues, 8 forks, 208 watchers" id="20">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="33">
+                    <rect key="frame" x="10" y="80" width="273" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Created at" id="34">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="35">
+                    <rect key="frame" x="10" y="65" width="273" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pushed at" id="36">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" id="11">
+                    <rect key="frame" x="220" y="10" width="50" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundTextured" title="Clone" bezelStyle="texturedRounded" alignment="center" borderStyle="border" inset="2" id="12">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system" size="10"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="cloneAction:" target="1" id="DeG-js-tzo"/>
+                    </connections>
+                </button>
+                <imageView id="23" userLabel="Image Well - public private">
+                    <rect key="frame" x="257" y="118" width="18" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="bullet_green" id="24"/>
+                </imageView>
+                <imageView id="25" userLabel="Image View - fork">
+                    <rect key="frame" x="242" y="118" width="18" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="fork" id="26"/>
+                </imageView>
+                <button id="44">
+                    <rect key="frame" x="11" y="8" width="203" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="bevel" title="URL Button" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" imageScaling="proportionallyDown" inset="2" id="45">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="smallSystem"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="openURL:" target="1" id="ug5-Bq-1Ru"/>
+                    </connections>
+                </button>
+                <button id="48">
+                    <rect key="frame" x="11" y="110" width="225" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="bevel" title="Repository Name" bezelStyle="regularSquare" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="49">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="system" size="14"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="openRepository:" target="1" id="nPf-pn-fbo"/>
+                    </connections>
+                </button>
+            </subviews>
+            <connections>
+                <outlet property="createdAtLabel" destination="33" id="Zms-Zv-CS7"/>
+                <outlet property="forkImage" destination="25" id="zc8-0Q-rVr"/>
+                <outlet property="publicPrivateImage" destination="23" id="jHp-68-cgx"/>
+                <outlet property="pushedAtField" destination="35" id="Iwo-qs-RDk"/>
+                <outlet property="repoNameButton" destination="48" id="epy-Op-VgU"/>
+                <outlet property="statsLabel" destination="19" id="Rmc-uc-eas"/>
+                <outlet property="urlButton" destination="44" id="t2j-EN-UDq"/>
+            </connections>
+        </customView>
+    </objects>
+    <resources>
+        <image name="bullet_green" width="32" height="32"/>
+        <image name="fork" width="16" height="16"/>
+    </resources>
+</document>

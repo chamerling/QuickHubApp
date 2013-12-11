@@ -121,6 +121,8 @@ static GrowlManager *sharedInstance = nil;
 #pragma mark - implementation
 - (void) notifyWithName:(NSString *)name desc:(NSString *)description context:(NSDictionary*)context {
     
+    NSAssert([NSThread isMainThread], @"Should be on main thread");
+    
     if (![self notificationsEnabled:nil]) {
         return;
     }
@@ -146,6 +148,8 @@ static GrowlManager *sharedInstance = nil;
 }
 
 - (void)notifyWithName:(NSString*)name desc:(NSString*)description url:(NSString *)urlToOpen icon:(NSURL *) iconURL {
+    
+    NSAssert([NSThread isMainThread], @"Should be on main thread");
     
     if (![self notificationsEnabled:nil]) {
         return;
@@ -254,6 +258,8 @@ static GrowlManager *sharedInstance = nil;
 
 - (void)displayNotificationUsingNotificationCenterWithDetails:(NSDictionary *)details
 {
+    NSAssert([NSThread isMainThread], @"Should be on main thread");
+    
     if (![self notificationsEnabled:nil]) {
         return;
     }

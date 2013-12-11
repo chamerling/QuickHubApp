@@ -23,28 +23,19 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface RepositoryDetailsViewController : NSViewController {
+@interface QHRepositoryDetailsView : NSView
 
-    NSDictionary *repositoryData;
-    NSTextField *createdAtLabel;
-    NSTextField *pushedAtField;
-    
-    NSTextField *repositoryLabel;
-    NSImageView *publicPrivateImage;
-    NSImageView *forkImage;
-    NSTextField *statsLabel;
-    IBOutlet NSButton *urlButton;
-    NSButton *repoNameButton;
-}
-@property (assign) IBOutlet NSButton *repoNameButton;
-@property (nonatomic, retain) NSDictionary *repositoryData;
+@property (assign) IBOutlet NSButton    *repoNameButton;
+@property (assign) IBOutlet NSButton    *urlButton;
 @property (assign) IBOutlet NSTextField *createdAtLabel;
 @property (assign) IBOutlet NSTextField *pushedAtField;
+@property (assign) IBOutlet NSTextField *statsLabel;
 
-@property (nonatomic, retain) IBOutlet NSTextField *statsLabel;
-@property (nonatomic, retain) IBOutlet NSTextField *repositoryLabel;
 @property (assign) IBOutlet NSImageView *publicPrivateImage;
 @property (assign) IBOutlet NSImageView *forkImage;
+
+@property (nonatomic, retain) NSDictionary *repositoryData;
+
 
 - (IBAction)openURL:(id)sender;
 - (IBAction)openRepository:(id)sender;

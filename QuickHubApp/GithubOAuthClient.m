@@ -73,8 +73,6 @@
     [request setDelegate:self];
     [request startSynchronous];
     NSDictionary *result = [[request responseString] objectFromJSONString];
-    // DO not release the request, it cause failures on the threads...
-    //[request release];
     return result;
 }
 
@@ -89,8 +87,7 @@
     [request startSynchronous];
     
     NSDictionary *result = [[request responseString] objectFromJSONString];
-    // DO not release the request, it cause failures on the threads...
-    //[request release];
+
     return result;
 }
 
@@ -103,8 +100,7 @@
     [request startSynchronous];
     
     NSDictionary *result = [[request responseString] objectFromJSONString];
-    // DO not release the request, it cause failures on the threads...
-    //[request release];
+
     return result;
 }
 
@@ -115,10 +111,8 @@
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request setDelegate:self];
     [request startSynchronous];
-    NSDictionary *result = [[request responseString] objectFromJSONString];
-    // DO not release the request, it cause failures on the threads...
-    //[request release];
-    return result;
+
+    return [[request responseString] objectFromJSONString];
 }
 
 - (NSDictionary *)getReposForOrganization:(NSString *)name {
@@ -141,8 +135,7 @@
     [request setDelegate:self];
     [request startSynchronous];
     NSDictionary *result = [[request responseString] objectFromJSONString];
-    // DO not release the request, it cause failures on the threads...
-    //[request release];
+
     return result;
 }
 
@@ -150,14 +143,14 @@
     //NSLog(@"Loading Pulls for repositories...");
     NSMutableSet *repos = [self getRepositories:nil];
     
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     for (NSString *repoName in repos) {
         NSDictionary *pulls = [self getPullsForRepository:repoName];
         if (pulls != nil && [pulls valueForKey:@"url"]) {
             [dict setValue:pulls forKey:repoName];
         }
     }    
-    return dict;   
+    return [dict autorelease];
 }
 
 - (NSMutableSet *)getRepositories:(id)sender {
@@ -175,7 +168,7 @@
     for (NSArray *repo in dict) {
         [result addObject:[repo valueForKey:@"name"]];
     }  
-    return result;
+    return [result autorelease];
 }
 
 - (NSDictionary *)getPullsForRepository:(NSString *)name {
@@ -204,8 +197,7 @@
     [request setDelegate:self];
     [request startSynchronous];
     NSDictionary *result = [[request responseString] objectFromJSONString];
-    // DO not release the request, it cause failures on the threads...
-    //[request release];
+
     return result;
 }
 
@@ -216,8 +208,7 @@
     [request setDelegate:self];
     [request startSynchronous];
     NSDictionary *result = [[request responseString] objectFromJSONString];
-    // DO not release the request, it cause failures on the threads...
-    //[request release];
+
     return result;
 }
 
@@ -227,8 +218,7 @@
     [request setDelegate:self];
     [request startSynchronous];   
     NSDictionary *result = [[request responseString] objectFromJSONString];
-    // DO not release the request, it cause failures on the threads...
-    //[request release];
+
     return result;
 }
 
@@ -241,8 +231,7 @@
     [request setDelegate:self];
     [request startSynchronous];   
     NSDictionary *result = [[request responseString] objectFromJSONString];
-    // DO not release the request, it cause failures on the threads...
-    //[request release];
+
     return result;    
 }
 
@@ -255,8 +244,7 @@
     [request setDelegate:self];
     [request startSynchronous];   
     NSDictionary *result = [[request responseString] objectFromJSONString];
-    // DO not release the request, it cause failures on the threads...
-    //[request release];
+
     return result;
 }
 
@@ -266,8 +254,7 @@
     [request setDelegate:self];
     [request startSynchronous];   
     NSDictionary *result = [[request responseString] objectFromJSONString];
-    // DO not release the request, it cause failures on the threads...
-    //[request release];
+
     return result;
 }
 

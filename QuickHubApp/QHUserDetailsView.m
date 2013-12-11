@@ -21,17 +21,33 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#import "QHUserDetailsView.h"
 
-#import <Cocoa/Cocoa.h>
+@implementation QHUserDetailsView
 
-@interface UserDetailsViewController : NSViewController {
-    NSTextField *nameLabel;
-    NSImageView *iconImageView;
-    NSDictionary *userData;
+@synthesize iconImageView = _iconImageView;
+@synthesize nameLabel = _nameLabel;
+@synthesize userData = _userData;
+
+
+- (void)setUserData:(NSDictionary *)userData
+{
+    if (![_userData isEqualToDictionary:userData]) {
+        _userData = userData;
+    }
+    
+    [self updateUI];
 }
-@property (nonatomic, retain) NSDictionary *userData;
 
-@property (assign) IBOutlet NSImageView *iconImageView;
-@property (assign) IBOutlet NSTextField *nameLabel;
+#pragma mark - Private -
+
+- (void)updateUI
+{
+    [_nameLabel setStringValue:[_userData valueForKey:@"login"]];
+    NSImage *iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[_userData valueForKey:@"avatar_url"]]];
+    [iconImage setSize:NSMakeSize(72,72)];
+    [_iconImageView setImage:iconImage];
+    [iconImage release];
+}
 
 @end

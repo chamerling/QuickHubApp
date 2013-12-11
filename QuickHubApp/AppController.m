@@ -114,27 +114,20 @@
 
 - (void) doLoadAll:(id) sender
 {
-    //NSLog(@"Load all and start polling things");
-    NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+    NSLog(@"Load all and start polling things");
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
-    gistTimer = [NSTimer scheduledTimerWithTimeInterval:240 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
-
-    repositoryTimer = [NSTimer scheduledTimerWithTimeInterval:310 target:self selector:@selector(pollRepos:) userInfo:nil repeats:YES];
-
-    organizationTimer = [NSTimer scheduledTimerWithTimeInterval:603 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
-//
-    issueTimer = [NSTimer scheduledTimerWithTimeInterval:145 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
-//    
-    followTimer = [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(pollFollow:) userInfo:nil repeats:YES];
-//    
-    watchingTimer = [NSTimer scheduledTimerWithTimeInterval:1802 target:self selector:@selector(pollWatching:) userInfo:nil repeats:YES];
-//    
-    pullTimer = [NSTimer scheduledTimerWithTimeInterval:701 target:self selector:@selector(pollPulls:) userInfo:nil repeats:YES];
-//    
-    //eventTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(pollEvents:) userInfo:nil repeats:YES];
-//    
-//    // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
-//    // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input
+    gistTimer           = [NSTimer scheduledTimerWithTimeInterval:240 target:self selector:@selector(pollGists:) userInfo:nil repeats:YES];
+    repositoryTimer     = [NSTimer scheduledTimerWithTimeInterval:310 target:self selector:@selector(pollRepos:) userInfo:nil repeats:YES];
+    organizationTimer   = [NSTimer scheduledTimerWithTimeInterval:603 target:self selector:@selector(pollOrgs:) userInfo:nil repeats:YES];
+    issueTimer          = [NSTimer scheduledTimerWithTimeInterval:145 target:self selector:@selector(pollIssues:) userInfo:nil repeats:YES];
+    followTimer         = [NSTimer scheduledTimerWithTimeInterval:3600 target:self selector:@selector(pollFollow:) userInfo:nil repeats:YES];
+    watchingTimer       = [NSTimer scheduledTimerWithTimeInterval:1802 target:self selector:@selector(pollWatching:) userInfo:nil repeats:YES];
+    pullTimer           = [NSTimer scheduledTimerWithTimeInterval:701 target:self selector:@selector(pollPulls:) userInfo:nil repeats:YES];
+    eventTimer          = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(pollEvents:) userInfo:nil repeats:YES];
+    
+    // add the timer to the common run loop mode so that it does not freezes when the user clicks on menu
+    // cf http://stackoverflow.com/questions/4622684/nsrunloop-freezes-with-nstimer-and-any-input
     [[NSRunLoop currentRunLoop] addTimer:gistTimer forMode:NSRunLoopCommonModes];
     [[NSRunLoop currentRunLoop] addTimer:repositoryTimer forMode:NSRunLoopCommonModes];
     [[NSRunLoop currentRunLoop] addTimer:organizationTimer forMode:NSRunLoopCommonModes];
@@ -142,17 +135,16 @@
     [[NSRunLoop currentRunLoop] addTimer:followTimer forMode:NSRunLoopCommonModes];
     [[NSRunLoop currentRunLoop] addTimer:watchingTimer forMode:NSRunLoopCommonModes];
     [[NSRunLoop currentRunLoop] addTimer:pullTimer forMode:NSRunLoopCommonModes];
-    //[[NSRunLoop currentRunLoop] addTimer:eventTimer forMode:NSRunLoopCommonModes];
-//    
-    [repositoryTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:1]];
-    [gistTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:2]];
-    [organizationTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:3]];
-    [issueTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:4]];
-    //[eventTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:5]];
-    [followTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:6]];
-    [watchingTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:7]];
-    [pullTimer setFireDate: [NSDate dateWithTimeIntervalSinceNow:10]];
+    [[NSRunLoop currentRunLoop] addTimer:eventTimer forMode:NSRunLoopCommonModes];
     
+    [repositoryTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    [gistTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:2]];
+    [organizationTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:3]];
+    [issueTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:4]];
+    [eventTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:5]];
+    [followTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:6]];
+    [watchingTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:7]];
+    [pullTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:10]];
     
     [[NSRunLoop currentRunLoop] run];
     [pool release];

@@ -79,7 +79,7 @@ static Preferences *sharedInstance = nil;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *result = [prefs stringForKey:@"userID"];
     if (!result) {
-        result = [NSString stringWithString:@""];
+        result = @"";
     }
     return result;
 }
@@ -89,7 +89,7 @@ static Preferences *sharedInstance = nil;
     NSString *result = [prefs stringForKey:@"pwd"];
 
     if (!result) {
-        result = [NSString stringWithString:@""];
+        result = @"";
     }
     return result;
 }
@@ -99,7 +99,7 @@ static Preferences *sharedInstance = nil;
     NSString *result = [prefs stringForKey:@"oauth"];
     
     if (!result) {
-        result = [NSString stringWithString:@""];
+        result = @"";
     }
     return result;
 }

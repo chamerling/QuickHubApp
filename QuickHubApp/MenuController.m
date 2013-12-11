@@ -26,7 +26,7 @@
 #import <Cocoa/Cocoa.h>
 #import "OrgRepoCreateWindowController.h"
 #import "QHRepositoryDetailsView.h"
-#import "UserDetailsViewController.h"
+#import "QHUserDetailsView.h"
 #import "EventMenuItemController.h"
 #import "EventMenuItemView.h"
 

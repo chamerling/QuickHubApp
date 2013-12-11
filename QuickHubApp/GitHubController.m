@@ -504,8 +504,10 @@
     return result;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     // TODO
+    [super dealloc];
 }
 
 @end

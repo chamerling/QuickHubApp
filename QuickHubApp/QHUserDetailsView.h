@@ -21,30 +21,14 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "UserDetailsViewController.h"
 
-@implementation UserDetailsViewController
-@synthesize iconImageView;
-@synthesize nameLabel;
-@synthesize userData;
+#import <Cocoa/Cocoa.h>
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
-}
+@interface QHUserDetailsView : NSView
 
--(void)loadView {
-    [super loadView];
-    [nameLabel setStringValue:[userData valueForKey:@"login"]];
-    NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[userData valueForKey:@"avatar_url"]]];
-    [iconImage setSize:NSMakeSize(72,72)];
-    [iconImageView setImage:iconImage];
-}
+@property (nonatomic, retain) NSDictionary *userData;
 
+@property (assign) IBOutlet NSImageView *iconImageView;
+@property (assign) IBOutlet NSTextField *nameLabel;
 
 @end

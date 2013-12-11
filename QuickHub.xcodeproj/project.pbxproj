@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C9097B3114E092C500949C3B /* UserDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9097B3014E092C500949C3B /* UserDetailsViewController.xib */; };
-		C9097B3514E092EB00949C3B /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9097B3414E092EB00949C3B /* UserDetailsViewController.m */; };
+		C9097B3114E092C500949C3B /* QHUserDetailsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9097B3014E092C500949C3B /* QHUserDetailsView.xib */; };
+		C9097B3514E092EB00949C3B /* QHUserDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9097B3414E092EB00949C3B /* QHUserDetailsView.m */; };
 		C91879D414B39F300096922B /* IssueCreateWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91879D314B39F300096922B /* IssueCreateWindow.xib */; };
 		C91879D714B3A3920096922B /* IssueCreateWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91879D614B3A3920096922B /* IssueCreateWindowController.m */; };
 		C9241CFC153B6704000E2814 /* EventsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9241CFB153B6704000E2814 /* EventsManager.m */; };
@@ -110,9 +110,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C9097B3014E092C500949C3B /* UserDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserDetailsViewController.xib; sourceTree = "<group>"; };
-		C9097B3314E092EB00949C3B /* UserDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsViewController.h; sourceTree = "<group>"; };
-		C9097B3414E092EB00949C3B /* UserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsViewController.m; sourceTree = "<group>"; };
+		C9097B3014E092C500949C3B /* QHUserDetailsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QHUserDetailsView.xib; sourceTree = "<group>"; };
+		C9097B3314E092EB00949C3B /* QHUserDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHUserDetailsView.h; sourceTree = "<group>"; };
+		C9097B3414E092EB00949C3B /* QHUserDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHUserDetailsView.m; sourceTree = "<group>"; };
 		C91879D314B39F300096922B /* IssueCreateWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueCreateWindow.xib; sourceTree = "<group>"; };
 		C91879D514B3A3920096922B /* IssueCreateWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueCreateWindowController.h; sourceTree = "<group>"; };
 		C91879D614B3A3920096922B /* IssueCreateWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCreateWindowController.m; sourceTree = "<group>"; };
@@ -518,9 +518,9 @@
 				C9E7C83714DF43F00038AEFC /* QHRepositoryDetailsView.h */,
 				C9E7C83814DF43F00038AEFC /* QHRepositoryDetailsView.m */,
 				C9E7C83914DF43F00038AEFC /* QHRepositoryDetailsView.xib */,
-				C9097B3314E092EB00949C3B /* UserDetailsViewController.h */,
-				C9097B3414E092EB00949C3B /* UserDetailsViewController.m */,
-				C9097B3014E092C500949C3B /* UserDetailsViewController.xib */,
+				C9097B3314E092EB00949C3B /* QHUserDetailsView.h */,
+				C9097B3414E092EB00949C3B /* QHUserDetailsView.m */,
+				C9097B3014E092C500949C3B /* QHUserDetailsView.xib */,
 			);
 			name = ItemDetails;
 			sourceTree = "<group>";
@@ -618,7 +618,7 @@
 				C9C60C6B149F9D5B0059CECE /* OrgRepoCreateWindow.xib in Resources */,
 				C91879D414B39F300096922B /* IssueCreateWindow.xib in Resources */,
 				C9E7C83B14DF43F00038AEFC /* QHRepositoryDetailsView.xib in Resources */,
-				C9097B3114E092C500949C3B /* UserDetailsViewController.xib in Resources */,
+				C9097B3114E092C500949C3B /* QHUserDetailsView.xib in Resources */,
 				C9241D05153E141D000E2814 /* octocat-128.png in Resources */,
 				C9241D06153E141D000E2814 /* octocat-512.png in Resources */,
 				C9241D07153E141D000E2814 /* octocat-256.png in Resources */,
@@ -672,7 +672,7 @@
 				C9C60C68149F9D0B0059CECE /* OrgRepoCreateWindowController.m in Sources */,
 				C91879D714B3A3920096922B /* IssueCreateWindowController.m in Sources */,
 				C9E7C83A14DF43F00038AEFC /* QHRepositoryDetailsView.m in Sources */,
-				C9097B3514E092EB00949C3B /* UserDetailsViewController.m in Sources */,
+				C9097B3514E092EB00949C3B /* QHUserDetailsView.m in Sources */,
 				C9241CFC153B6704000E2814 /* EventsManager.m in Sources */,
 				C9241D0C153E1E1A000E2814 /* EventPreferencesViewController.m in Sources */,
 				C960F039154757C900319DA8 /* EventMenuItemController.m in Sources */,

@@ -62,8 +62,6 @@
 
 - (NSDictionary *)getReposForOrganization:(NSString *)name;
 
-- (NSDictionary *)getReposForOrganization:(NSString *)name;
-
 - (NSMutableSet *)getRepositories:(id)sender;
 
 # pragma mark - delete API

@@ -836,22 +836,8 @@
     [organizationItem setEnabled:YES];
     [organizationItem autorelease];
     
-    // ID CARD
-    NSNib *nib = [[[NSNib alloc] initWithNibNamed:NSStringFromClass([QHRepositoryDetailsView class]) bundle:nil] autorelease];
-    NSArray *topLevelObjects;
-    if (![nib instantiateWithOwner:self topLevelObjects:&topLevelObjects]) NSLog(@"Error");// error
-        
-    QHRepositoryDetailsView *myView = nil;
-    for (id topLevelObject in topLevelObjects) {
-        if ([topLevelObject isKindOfClass:[QHRepositoryDetailsView class]]) {
-            myView = topLevelObject;
-            break;
-        }
-    }
-    [myView setRepositoryData:repo];
-    
-    NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
-    [popoverMenuItem setView:myView];
+    NSMenuItem *popoverMenuItem;
+    popoverMenuItem = [self createRepositoryDetailsViewMenuItemWithRepoData:repo];
     
     NSMenu *foomenu = [[NSMenu alloc] init];    
     [foomenu addItem:popoverMenuItem];
@@ -945,12 +931,7 @@
     [item autorelease];
     
     // ID Card
-    QHRepositoryDetailsView *details = [[QHRepositoryDetailsView alloc] initWithNibName:@"RepositoryDetailsViewController" bundle:nil];
-    [details setRepositoryData:repo];
-    
-    NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
-    [popoverMenuItem setView:[details view]];
-    [popoverMenuItem autorelease];
+    NSMenuItem *popoverMenuItem = [self createRepositoryDetailsViewMenuItemWithRepoData:repo];
     
     NSMenu *foomenu = [[NSMenu alloc] init];    
     [foomenu addItem:popoverMenuItem];
@@ -1081,9 +1062,15 @@
     firstIssueCall = YES;
     firstOrganizationCall = YES;
     firstRepositoryCall = YES;
-    existingRepos = [[NSMutableSet alloc]init]; 
-    existingGists = [[NSMutableSet alloc]init]; 
-    existingIssues = [[NSMutableSet alloc]init]; 
+    [existingGists release];
+    existingGists = nil;
+    [existingIssues release];
+    existingIssues = nil;
+    [existingRepos release];
+    existingRepos = nil;
+    existingRepos = [[NSMutableSet alloc] init];
+    existingGists = [[NSMutableSet alloc] init];
+    existingIssues = [[NSMutableSet alloc] init];
 }
 
 #pragma mark - private
@@ -1131,6 +1118,26 @@
      */
     
     return organizationRepoItem;
+}
+
+- (NSMenuItem *)createRepositoryDetailsViewMenuItemWithRepoData:(NSDictionary *)repoData {
+    // ID CARD
+    NSNib *nib = [[[NSNib alloc] initWithNibNamed:NSStringFromClass([QHRepositoryDetailsView class]) bundle:nil] autorelease];
+    NSArray *topLevelObjects;
+    if (![nib instantiateWithOwner:self topLevelObjects:&topLevelObjects]) NSLog(@"Error");// error
+    
+    QHRepositoryDetailsView *myView = nil;
+    for (id topLevelObject in topLevelObjects) {
+        if ([topLevelObject isKindOfClass:[QHRepositoryDetailsView class]]) {
+            myView = topLevelObject;
+            break;
+        }
+    }
+    [myView setRepositoryData:repoData];
+    
+    NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
+    [popoverMenuItem setView:myView];
+    return popoverMenuItem;
 }
 
 - (NSMenu*) getIssuesMenu {

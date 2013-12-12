@@ -140,8 +140,8 @@ static GrowlManager *sharedInstance = nil;
     }
     
     if ([self notificationCenterAvailable:nil] && [self notificationCenterEnabled:nil]) {
-        NSMutableDictionary *notificationDetails = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"name", name, @"description", description, nil];
-        [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]];
+        NSMutableDictionary *notificationDetails = [NSMutableDictionary dictionaryWithObjectsAndKeys:name, @"name", description, @"description", nil];
+        [self displayNotificationUsingNotificationCenterWithDetails:notificationDetails];
     } else {
         
     }
@@ -185,8 +185,8 @@ static GrowlManager *sharedInstance = nil;
     }
     
     if ([self notificationCenterAvailable:nil] && [self notificationCenterEnabled:nil]) {
-        NSMutableDictionary *notificationDetails = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"name", name, @"description", description, @"url", urlToOpen, nil];
-        [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]];
+        NSMutableDictionary *notificationDetails = [NSMutableDictionary dictionaryWithObjectsAndKeys:name, @"name", description, @"description", urlToOpen, @"url", nil];
+        [self displayNotificationUsingNotificationCenterWithDetails:notificationDetails];
     }
 }
 
@@ -225,8 +225,8 @@ static GrowlManager *sharedInstance = nil;
     }
     
     if ([self notificationCenterAvailable:nil] && [self notificationCenterEnabled:nil]) {
-        NSMutableDictionary *notificationDetails = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"name", name, @"description", description, @"url", urlToOpen, nil];
-        [self displayNotificationUsingNotificationCenterWithDetails:[notificationDetails copy]];
+        NSMutableDictionary *notificationDetails = [NSMutableDictionary dictionaryWithObjectsAndKeys:name, @"name", description, @"description", urlToOpen, @"url", nil];
+        [self displayNotificationUsingNotificationCenterWithDetails:notificationDetails];
     }
 }
 
@@ -302,13 +302,16 @@ static GrowlManager *sharedInstance = nil;
         [userInfo setValue:[details valueForKey:@"url"] forKey:@"url"];
     }
     
-    notification.userInfo = [userInfo copy];
+    notification.userInfo = userInfo;
+    [userInfo release];
     
     if(scheduledNotification) {
         [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
     } else {
         [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
     }
+    
+    [notification release];
 }
 
 - (BOOL) notificationsEnabled:(id) sender {

@@ -53,7 +53,11 @@ static Context *sharedInstance = nil;
     [self setRepositories:nil];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
+    [super dealloc];
+    [repositories release];
+    [remainingCalls release];
 }
 
 @end

@@ -21,24 +21,43 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "EventMenuItemView.h"
+#import "QHEventMenuItemView.h"
 
-#define menuItem ([self enclosingMenuItem])
+@implementation QHEventMenuItemView
 
-@implementation EventMenuItemView
+@synthesize messageField;
+@synthesize detailsField;
+@synthesize event = _event;
 
-- (id)initWithFrame:(NSRect)frame
+- (void)setEvent:(NSDictionary *)event
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code here.
+    if (![_event isEqualToDictionary:event]) {
+        _event = event;
     }
     
-    return self;
+    [self updateUI];
 }
 
-- (void) drawRect: (NSRect) rect {
-    BOOL isHighlighted = [menuItem isHighlighted];
+- (void)updateUI
+{
+    // set data
+    NSString *title = [_event objectForKey:@"message"];
+    if(!title || [title length] == 0) {
+        title = @"(no message)";
+    }
+    [messageField setStringValue:title];
+    
+    NSString *details = [_event objectForKey:@"details"];
+    if(!details || [details length] == 0) {
+        details = @"-";
+    }
+    [detailsField setStringValue:details];
+
+}
+
+- (void)drawRect:(NSRect)rect
+{
+    BOOL isHighlighted = [[self enclosingMenuItem] isHighlighted];
     if (isHighlighted) {
         [[NSColor selectedMenuItemColor] set];
         [NSBezierPath fillRect:rect];
@@ -53,11 +72,11 @@
     [super drawRect: rect];
 }
 
-- (void)mouseDown:(NSEvent *)event {
+- (void)mouseDown:(NSEvent *)event
+{
     // TODO : Check http://cocoatricks.com/2010/07/a-label-color-picker-menu-item-2/ for blink selection
-    
-    NSMenuItem* mitem = [self enclosingMenuItem];
-    NSMenu* m = [mitem menu];
+    NSMenuItem *mitem = [self enclosingMenuItem];
+    NSMenu *m = [mitem menu];
     
     [m cancelTracking];
     [m performActionForItemAtIndex: [m indexOfItem: mitem]];
@@ -66,6 +85,14 @@
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
 {
     return YES;
+}
+
+- (void)dealloc
+{
+    [messageField release];
+    [detailsField release];
+    [_event release];
+    [super dealloc];
 }
 
 @end

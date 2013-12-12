@@ -32,7 +32,7 @@
 + (Context *)sharedInstance;
 - (void) cleanAll;
 
-@property (nonatomic, assign) NSString *remainingCalls;
-@property (nonatomic, assign) NSSet *repositories;
+@property (nonatomic, retain) NSString *remainingCalls;
+@property (nonatomic, retain) NSSet *repositories;
 
 @end

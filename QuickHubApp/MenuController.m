@@ -27,8 +27,7 @@
 #import "OrgRepoCreateWindowController.h"
 #import "QHRepositoryDetailsView.h"
 #import "QHUserDetailsView.h"
-#import "EventMenuItemController.h"
-#import "EventMenuItemView.h"
+#import "QHEventMenuItemView.h"
 
 @interface MenuController (Private) 
 - (NSMenu*) getIssuesMenu;
@@ -852,7 +851,10 @@
     NSImage* iconImage = [[NSImage alloc] initWithContentsOfURL:[NSURL URLWithString:[user valueForKey:@"avatar_url"]]];
     [iconImage setSize:NSMakeSize(18,18)];
     [item setImage:iconImage];
-    [item autorelease];
+    [iconImage release];
+    
+    [self addItem:item to:menu top:FALSE];
+    [item release];
     
     // ID CARD
     /*
@@ -867,8 +869,6 @@
     [foomenu addItem:popoverMenuItem];
     [item setSubmenu:foomenu];
     */
-    
-    [self addItem:item to:menu top:FALSE];
 }
 
 - (void) addFollowing:(NSDictionary *)user {
@@ -879,7 +879,10 @@
     [iconImage setSize:NSMakeSize(16,16)];
     [item setImage:iconImage];
     [item setEnabled:YES];
-    [item autorelease];
+    [iconImage release];
+    
+    [self addItem:item to:menu top:FALSE];
+    [item release];
     
     // ID CARD
     /*
@@ -894,8 +897,6 @@
     [foomenu addItem:popoverMenuItem];
     [item setSubmenu:foomenu];
      */
-
-    [self addItem:item to:menu top:FALSE];
 }
 
 - (void) addWatched:(NSDictionary *)repo {
@@ -914,7 +915,6 @@
     }
     [item setImage:iconImage];
     [item setEnabled:YES];
-    [item autorelease];
     
     // ID Card
     NSMenuItem *popoverMenuItem = [self createRepositoryDetailsViewMenuItemWithRepoData:repo];
@@ -922,31 +922,15 @@
     NSMenu *foomenu = [[NSMenu alloc] init];    
     [foomenu addItem:popoverMenuItem];
     [item setSubmenu:foomenu];
+    [foomenu release];
     
     [self addItem:item to:menu top:FALSE];
+    [item release];
 }
 
-- (void) addEvent:(NSDictionary *)event top:(BOOL)top {
-    /*NSMenuItem *eventItem = [[NSMenuItem alloc] initWithTitle:[event valueForKey:@"message"] action:@selector(eventPressed:) keyEquivalent:@""];
-    
-    [eventItem setRepresentedObject:[event valueForKey:@"url"]];
-    [eventItem setEnabled:YES];
-    [eventItem autorelease];
-    */
-    
-  
-    NSMenuItem *eventItem = [[NSMenuItem alloc] initWithTitle:[event valueForKey:@"message"] action:@selector(eventPressed:) keyEquivalent:@""];
-    EventMenuItemController *controller = [[EventMenuItemController alloc] initWithNibName:@"EventMenuItemController" bundle:nil];
-    [controller setEvent:event];
-    [eventItem setView:[controller view]];
-    [controller release];
-    
-    [eventItem setAction:@selector(eventPressed:)];
-    [eventItem setTarget:self];
-    [eventItem setRepresentedObject:[event valueForKey:@"url"]];
-    [eventItem setEnabled:YES];
-    [eventItem setState:NSMixedState];
-    
+- (void)addEvent:(NSDictionary *)event top:(BOOL)top
+{
+    NSMenuItem *eventItem = [self createEventViewMenuItemWithEvent:event];
 
     NSInteger eventMenuSize = 20;
     if ([eventsMenu numberOfItems] >= eventMenuSize) {
@@ -955,6 +939,32 @@
         
     [self addItem:eventItem to:eventsMenu top:top];
     [eventItem release];
+}
+
+- (NSMenuItem *)createEventViewMenuItemWithEvent:(NSDictionary *)event {
+    // ID CARD
+    NSNib *nib = [[[NSNib alloc] initWithNibNamed:NSStringFromClass([QHEventMenuItemView class]) bundle:nil] autorelease];
+    NSArray *topLevelObjects;
+    if (![nib instantiateWithOwner:self topLevelObjects:&topLevelObjects]) NSLog(@"Error");// error
+    
+    QHEventMenuItemView *myView = nil;
+    for (id topLevelObject in topLevelObjects) {
+        if ([topLevelObject isKindOfClass:[QHEventMenuItemView class]]) {
+            myView = topLevelObject;
+            break;
+        }
+    }
+    [myView setEvent:event];
+    
+    NSMenuItem *eventItem = [[NSMenuItem alloc] initWithTitle:[event valueForKey:@"message"] action:@selector(eventPressed:) keyEquivalent:@""];
+    [eventItem setView:myView];
+    [eventItem setAction:@selector(eventPressed:)];
+    [eventItem setTarget:self];
+    [eventItem setRepresentedObject:[event valueForKey:@"url"]];
+    [eventItem setEnabled:YES];
+    [eventItem setState:NSMixedState];
+
+    return eventItem;
 }
 
 - (void) addPull:(NSDictionary *)pull {

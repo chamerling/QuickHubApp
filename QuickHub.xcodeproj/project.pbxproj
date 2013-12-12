@@ -18,9 +18,8 @@
 		C9241D09153E1DF8000E2814 /* EventPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9241D08153E1DF8000E2814 /* EventPreferencesViewController.xib */; };
 		C9241D0C153E1E1A000E2814 /* EventPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9241D0B153E1E1A000E2814 /* EventPreferencesViewController.m */; };
 		C93B5A3414728161003D6A7F /* fork.png in Resources */ = {isa = PBXBuildFile; fileRef = C93B5A3314728161003D6A7F /* fork.png */; };
-		C960F039154757C900319DA8 /* EventMenuItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = C960F037154757C900319DA8 /* EventMenuItemController.m */; };
-		C960F03A154757C900319DA8 /* EventMenuItemController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C960F038154757C900319DA8 /* EventMenuItemController.xib */; };
-		C960F03D154759C200319DA8 /* EventMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = C960F03C154759C200319DA8 /* EventMenuItemView.m */; };
+		C960F039154757C900319DA8 /* QHEventMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = C960F037154757C900319DA8 /* QHEventMenuItemView.m */; };
+		C960F03A154757C900319DA8 /* QHEventMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C960F038154757C900319DA8 /* QHEventMenuItemView.xib */; };
 		C960F03F154815DA00319DA8 /* commitevent.json in Resources */ = {isa = PBXBuildFile; fileRef = C960F03E154815DA00319DA8 /* commitevent.json */; };
 		C960F04115481BD800319DA8 /* createevent.json in Resources */ = {isa = PBXBuildFile; fileRef = C960F04015481BD800319DA8 /* createevent.json */; };
 		C960F04315484C9B00319DA8 /* deleteevent.json in Resources */ = {isa = PBXBuildFile; fileRef = C960F04215484C9A00319DA8 /* deleteevent.json */; };
@@ -125,11 +124,9 @@
 		C9241D0A153E1E1A000E2814 /* EventPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventPreferencesViewController.h; sourceTree = "<group>"; };
 		C9241D0B153E1E1A000E2814 /* EventPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventPreferencesViewController.m; sourceTree = "<group>"; };
 		C93B5A3314728161003D6A7F /* fork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fork.png; sourceTree = "<group>"; };
-		C960F036154757C900319DA8 /* EventMenuItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventMenuItemController.h; sourceTree = "<group>"; };
-		C960F037154757C900319DA8 /* EventMenuItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventMenuItemController.m; sourceTree = "<group>"; };
-		C960F038154757C900319DA8 /* EventMenuItemController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventMenuItemController.xib; sourceTree = "<group>"; };
-		C960F03B154759C200319DA8 /* EventMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventMenuItemView.h; sourceTree = "<group>"; };
-		C960F03C154759C200319DA8 /* EventMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventMenuItemView.m; sourceTree = "<group>"; };
+		C960F036154757C900319DA8 /* QHEventMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHEventMenuItemView.h; sourceTree = "<group>"; };
+		C960F037154757C900319DA8 /* QHEventMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHEventMenuItemView.m; sourceTree = "<group>"; };
+		C960F038154757C900319DA8 /* QHEventMenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QHEventMenuItemView.xib; sourceTree = "<group>"; };
 		C960F03E154815DA00319DA8 /* commitevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = commitevent.json; sourceTree = "<group>"; };
 		C960F04015481BD800319DA8 /* createevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = createevent.json; sourceTree = "<group>"; };
 		C960F04215484C9A00319DA8 /* deleteevent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = deleteevent.json; sourceTree = "<group>"; };
@@ -289,11 +286,9 @@
 			children = (
 				C9241CFA153B6704000E2814 /* EventsManager.h */,
 				C9241CFB153B6704000E2814 /* EventsManager.m */,
-				C960F036154757C900319DA8 /* EventMenuItemController.h */,
-				C960F037154757C900319DA8 /* EventMenuItemController.m */,
-				C960F038154757C900319DA8 /* EventMenuItemController.xib */,
-				C960F03B154759C200319DA8 /* EventMenuItemView.h */,
-				C960F03C154759C200319DA8 /* EventMenuItemView.m */,
+				C960F036154757C900319DA8 /* QHEventMenuItemView.h */,
+				C960F037154757C900319DA8 /* QHEventMenuItemView.m */,
+				C960F038154757C900319DA8 /* QHEventMenuItemView.xib */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -625,7 +620,7 @@
 				C9241D09153E1DF8000E2814 /* EventPreferencesViewController.xib in Resources */,
 				C9ECD209153F65E9009259D5 /* notification-128.png in Resources */,
 				C9ECD20F153F6BB5009259D5 /* downloadevent.json in Resources */,
-				C960F03A154757C900319DA8 /* EventMenuItemController.xib in Resources */,
+				C960F03A154757C900319DA8 /* QHEventMenuItemView.xib in Resources */,
 				C960F03F154815DA00319DA8 /* commitevent.json in Resources */,
 				C960F04115481BD800319DA8 /* createevent.json in Resources */,
 				C960F04315484C9B00319DA8 /* deleteevent.json in Resources */,
@@ -675,8 +670,7 @@
 				C9097B3514E092EB00949C3B /* QHUserDetailsView.m in Sources */,
 				C9241CFC153B6704000E2814 /* EventsManager.m in Sources */,
 				C9241D0C153E1E1A000E2814 /* EventPreferencesViewController.m in Sources */,
-				C960F039154757C900319DA8 /* EventMenuItemController.m in Sources */,
-				C960F03D154759C200319DA8 /* EventMenuItemView.m in Sources */,
+				C960F039154757C900319DA8 /* QHEventMenuItemView.m in Sources */,
 				C9DF59CB1644618700D56BAD /* NotificationPreferencesViewController.m in Sources */,
 				C99AF83F183562DD0007E9AA /* MenuController.m in Sources */,
 				C99AF842183563790007E9AA /* GitHubController.m in Sources */,

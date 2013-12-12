@@ -21,50 +21,13 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "EventMenuItemController.h"
+#import <Cocoa/Cocoa.h>
 
-@implementation EventMenuItemController
+@interface QHEventMenuItemView : NSView 
 
-@synthesize messageLabel;
-@synthesize detailsLabel;
-@synthesize event;
+@property (assign) IBOutlet NSTextField *messageField;
+@property (assign) IBOutlet NSTextField *detailsField;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
-}
-
-- (void) loadView {
-    [super loadView];
-    
-    // set data
-    NSString *title = [event objectForKey:@"message"];
-    if(!title || [title length] == 0) {
-        title = @"(no message)";
-    }
-    [messageLabel setStringValue:title];
-    
-    NSString *details = [event objectForKey:@"details"];
-    if(!details || [details length] == 0) {
-        details = @"-";
-    }
-    [detailsLabel setStringValue:details];
-}
-
-- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
-{
-    return YES;
-}
-
-- (void)dealloc {
-    [messageLabel release];
-    [detailsLabel release];
-    [super dealloc];
-}
+@property (nonatomic, retain) NSDictionary *event;
 
 @end

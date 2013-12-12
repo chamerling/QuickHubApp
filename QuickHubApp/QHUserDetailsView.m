@@ -33,7 +33,9 @@
 - (void)setUserData:(NSDictionary *)userData
 {
     if (![_userData isEqualToDictionary:userData]) {
-        _userData = userData;
+        [_userData release];
+        _userData = nil;
+        _userData = [userData retain];
     }
     
     [self updateUI];

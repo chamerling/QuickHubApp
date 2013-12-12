@@ -43,6 +43,8 @@
 - (void)setRepositoryData:(NSDictionary *)repositoryData
 {
     if (![_repositoryData isEqualToDictionary:repositoryData]) {
+        [_repositoryData release];
+        _repositoryData = nil;
         _repositoryData = [repositoryData retain];
     }
     

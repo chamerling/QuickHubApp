@@ -127,7 +127,7 @@
         } else {
             // loop...
             // TODO : need to order events by date with the "created_at" element
-            for (id event in sorted) {
+            for (__block id event in sorted) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self notifyNewEvent:event];
                 });

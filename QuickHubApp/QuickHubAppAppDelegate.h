@@ -63,7 +63,6 @@
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 
-- (IBAction)saveAction:(id)sender;
 
 #pragma mark - GH
 

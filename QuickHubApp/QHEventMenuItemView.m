@@ -32,7 +32,10 @@
 - (void)setEvent:(NSDictionary *)event
 {
     if (![_event isEqualToDictionary:event]) {
-        _event = event;
+        [_event release];
+        _event = nil;
+        
+        _event = [event retain];
     }
     
     [self updateUI];
@@ -89,8 +92,6 @@
 
 - (void)dealloc
 {
-    [messageField release];
-    [detailsField release];
     [_event release];
     [super dealloc];
 }

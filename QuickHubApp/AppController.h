@@ -22,18 +22,14 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-
-#import "ASIHTTPRequest.h"
-#import "Reachability.h"
-
-#import "Preferences.h"
-#import "GithubOAuthClient.h"
 #import "MenuController.h"
-#import "EventsManager.h"
 
 @class Reachability;
-@interface AppController : NSObject {
-    
+@class EventsManager;
+@class GithubOAuthClient;
+
+@interface AppController : NSObject
+{
     GithubOAuthClient *githubController;
     EventsManager *eventsManager;
     IBOutlet MenuController *menuController;
@@ -55,6 +51,7 @@
     Reachability* hostReach;
     Reachability* internetReachable;
     
+    dispatch_semaphore_t runloopSemaphore;
 }
 
 - (void) pollIssues:(id) sender;

@@ -23,6 +23,7 @@
 
 #import "GithubOAuthClient.h"
 #import "ASIHTTPRequest.h"
+#import "ASIDownloadCache.h"
 #import "JSONKit.h"
 #import "Preferences.h"
 #import "Context.h"
@@ -39,6 +40,9 @@
     self = [super init];
     if (self) {
         // Initialization code here.
+        
+        // Use the default cache provided by ASIHTTPRequest
+        [ASIHTTPRequest setDefaultCache:[ASIDownloadCache sharedCache]];
     }
     
     return self;
@@ -70,6 +74,8 @@
 
 - (NSDictionary*) loadUser:(id) sender {
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"user"]]];
+    [request setCachePolicy: ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];
     NSDictionary *result = [[request responseString] objectFromJSONString];
@@ -83,6 +89,8 @@
     // FIXME : Add all param cf http://developer.github.com/v3/issues/#list-issues
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"issues"]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];
     
@@ -96,6 +104,8 @@
     // get gists
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"gists"]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];
     
@@ -109,6 +119,8 @@
     
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/orgs"]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];
 
@@ -121,6 +133,8 @@
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:[NSString stringWithFormat:@"orgs/%@/repos", name]]];
 
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];
     
@@ -132,8 +146,11 @@
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/repos"]];
 
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];
+    
     NSDictionary *result = [[request responseString] objectFromJSONString];
 
     return result;
@@ -158,7 +175,9 @@
     NSMutableSet *result = [[NSMutableSet alloc]init];
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/repos"]];
 
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];    
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];
     [self updateRemaining:request];
@@ -178,6 +197,9 @@
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:[NSString stringWithFormat:@"repos/%@/%@/pulls", userName, name]]];
 
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
+    
     [request startSynchronous];
     [self updateRemaining:request];
     int status = [request responseStatusCode];
@@ -194,6 +216,8 @@
     
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/followers"]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];
     NSDictionary *result = [[request responseString] objectFromJSONString];
@@ -205,6 +229,8 @@
     
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/following"]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];
     NSDictionary *result = [[request responseString] objectFromJSONString];
@@ -215,6 +241,8 @@
 - (NSDictionary *) loadWatchedRepos:(id) sender {
     NSString *url = [NSString stringWithFormat:@"%@&per_page=100", [self getOAuthURL:@"user/watched"]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];   
     NSDictionary *result = [[request responseString] objectFromJSONString];
@@ -228,6 +256,8 @@
     NSString *url = [NSString stringWithFormat:@"%@", [self getOAuthURL:[NSString stringWithFormat:@"users/%@/events", userName]]];
     NSLog(@"%@", url);
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];   
     NSDictionary *result = [[request responseString] objectFromJSONString];
@@ -241,6 +271,8 @@
     NSString *url = [NSString stringWithFormat:@"%@", [self getOAuthURL:[NSString stringWithFormat:@"users/%@/received_events", userName]]];
     
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];   
     NSDictionary *result = [[request responseString] objectFromJSONString];
@@ -251,6 +283,8 @@
 // Note : this is not available with oauth!
 - (NSDictionary *) getAuthorizations:(id) sender {
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"authorizations"]]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request setDelegate:self];
     [request startSynchronous];   
     NSDictionary *result = [[request responseString] objectFromJSONString];
@@ -265,6 +299,8 @@
         
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:@"gists"]]];
     [request appendPostData:[payload dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     
     [request startSynchronous];
     [self updateRemaining:request];
@@ -376,6 +412,8 @@
 - (NSDictionary *) getGist:(NSString*)gistId {
     NSDictionary *result = nil;
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:[self getOAuthURL:[NSString stringWithFormat:@"gists/%@", gistId]]]];
+    [request setCachePolicy:ASIAskServerIfModifiedCachePolicy | ASIFallbackToCacheIfLoadFailsCachePolicy];
+    [request setCacheStoragePolicy:ASICachePermanentlyCacheStoragePolicy];
     [request startSynchronous];
     [self updateRemaining:request];
     

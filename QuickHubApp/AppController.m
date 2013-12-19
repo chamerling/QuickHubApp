@@ -138,15 +138,24 @@
     [[NSRunLoop currentRunLoop] addTimer:eventTimer forMode:NSRunLoopCommonModes];
     
     [repositoryTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-    [gistTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:2]];
-    [organizationTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:3]];
-    [issueTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:4]];
-    [eventTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:5]];
-    [followTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:6]];
-    [watchingTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:7]];
-    [pullTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+    [gistTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    [organizationTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    [issueTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    [eventTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    [followTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    [watchingTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    [pullTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
     
-    [[NSRunLoop currentRunLoop] run];
+    // Create a semphore so we wait until the signal is raised to exit this thread
+    runloopSemaphore = dispatch_semaphore_create(0);
+    
+    while (dispatch_semaphore_wait(runloopSemaphore, DISPATCH_TIME_NOW)) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:2]];
+    }
+    
+    // Release the semaphore after finished with it
+    CFRelease(runloopSemaphore);
+    
     [pool release];
 }
 
@@ -163,7 +172,8 @@
         [eventTimer invalidate];
     }
     
-    // FIXME : how to kill the background thread? Is it garbaged when there is nothing more in the run loop?
+    // Signal for the thread to be deleted
+    dispatch_semaphore_signal(runloopSemaphore);
     NSLog(@"Stopped!");
 }
 

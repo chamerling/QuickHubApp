@@ -50,6 +50,8 @@
     // Reachability
     Reachability* hostReach;
     Reachability* internetReachable;
+    
+    dispatch_semaphore_t runloopSemaphore;
 }
 
 - (void) pollIssues:(id) sender;

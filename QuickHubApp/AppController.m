@@ -173,7 +173,7 @@
     }
     
     // Signal for the thread to be deleted
-    dispatch_semaphore_signal(runloopSemaphore);
+//    dispatch_semaphore_signal(runloopSemaphore);
     NSLog(@"Stopped!");
 }
 

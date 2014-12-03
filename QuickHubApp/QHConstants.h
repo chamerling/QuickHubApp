@@ -31,7 +31,7 @@
 #define APP_PREFIX @"org.chamerling.quickhubapp"
 
 #define appsite     @"http://quickhubapp.com"
-#define oauthsite   @"http://quickhubapp.com/oauth.html"
+#define oauthsite   @"https://github.com/login/oauth/authorize?client_id=c5a8828037f5233363fb&scope=user,public_repo,,gist"
 #define revokeurl   @"https://github.com/account/connections/"
 
 #define urlscheme   @"quickhubapp"

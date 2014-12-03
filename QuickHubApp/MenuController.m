@@ -30,7 +30,7 @@
 #import "EventMenuItemController.h"
 #import "EventMenuItemView.h"
 
-@interface MenuController (Private) 
+@interface MenuController (Private)
 - (NSMenu*) getIssuesMenu;
 - (NSMenu*) getOrgsMenu;
 - (NSMenu*) getReposMenu;
@@ -79,19 +79,19 @@
 // register to notifications so that the menu can be updated when data is retrieved from github...
 - (void) awakeFromNib {
     //NSLog(@"Registering notifications listeners for the menu controller");
-     
+    
     // register to internet connection changes so that we can update the first entry...
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(notifyInternet:)
-												 name:NOTIFY_INTERNET_UP
-											   object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-											 selector:@selector(notifyInternet:)
-												 name:NOTIFY_INTERNET_DOWN
-											   object:nil];
-
-
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notifyInternet:)
+                                                 name:NOTIFY_INTERNET_UP
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notifyInternet:)
+                                                 name:NOTIFY_INTERNET_DOWN
+                                               object:nil];
+    
+    
 }
 
 - (void)cleanMenus:(id)sender {
@@ -119,7 +119,7 @@
     menuItem = [statusMenu itemWithTitle:@"Pull Requests"];
     menu = [menuItem submenu];
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
-
+    
     // Delete users
     menuItem = [statusMenu itemWithTitle:@"Users"];
     NSMenu *tmp = [menuItem submenu];
@@ -163,8 +163,12 @@
     
     // process added and removed issues
     NSMutableSet* justGetIssues = [[NSMutableSet alloc] init];
-    for (NSArray *issue in result) {
-        [justGetIssues addObject:[issue valueForKey:@"number"]];
+    
+    for (id issue in result) {
+        
+        if ([issue isKindOfClass:[NSDictionary class]] && [[issue allKeys] containsObject:@"number"]) {
+            [justGetIssues addObject:[issue valueForKey:@"number"]];
+        }
     }
     
     NSMutableSet* removedIssues = [NSMutableSet setWithSet:existingIssues];
@@ -175,8 +179,8 @@
         if ([removedIssues count] > 1) {
             title = [NSString stringWithFormat:@"OMG, %d less issues", [removedIssues count]];
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                            object:title 
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION
+                                                            object:title
                                                           userInfo:nil];
     }
     
@@ -185,16 +189,16 @@
     
     if ([addedIssues count] > 0 && !firstIssueCall) {
         if ([addedIssues count] > 3) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                                object:[NSString stringWithFormat:@"%d new issues...", [addedIssues count]] 
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION
+                                                                object:[NSString stringWithFormat:@"%d new issues...", [addedIssues count]]
                                                               userInfo:nil];
         } else {
             for (NSString *key in addedIssues) {
                 for (NSArray *issue in result) {
                     if ([issue valueForKey:@"number"] == key) {
                         NSString *title = [issue valueForKey:@"title"];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_ISSUE_ADDED 
-                                                                            object:[NSString stringWithFormat:@"%@", title]                                                             userInfo:nil];                
+                        [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_ISSUE_ADDED
+                                                                            object:[NSString stringWithFormat:@"%@", title]                                                             userInfo:nil];
                     }
                 }
             }
@@ -209,10 +213,14 @@
     }
     
     // clear the existing Issues
-    existingIssues = [[NSMutableSet alloc]init]; 
+    existingIssues = [[NSMutableSet alloc]init];
     
-    for (NSDictionary *issue in result) {
-        [existingIssues addObject:[issue valueForKey:@"number"]];
+    for (id issue in result) {
+        
+        if ([issue isKindOfClass:[NSDictionary class]] && [[issue allKeys] containsObject:@"number"]) {
+            [justGetIssues addObject:[issue valueForKey:@"number"]];
+            [existingIssues addObject:[issue valueForKey:@"number"]];
+        }
         if (clean) {
             [self addIssue:issue top:NO];
         }
@@ -233,7 +241,7 @@
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Gists"];
     NSMenu *menu = [menuItem submenu];
-        
+    
     // process added and removed issues
     NSMutableSet* justGet = [[NSMutableSet alloc] init];
     for (NSArray *issue in result) {
@@ -249,9 +257,9 @@
         } else {
             title = [NSString stringWithString:@"RIP gist #"];
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                            object:title 
-                                                          userInfo:nil];       
+        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION
+                                                            object:title
+                                                          userInfo:nil];
     }
     
     NSMutableSet* added = [NSMutableSet setWithSet:justGet];
@@ -259,8 +267,8 @@
     
     if ([added count] > 0 && !firstGistCall) {
         if ([added count] > 3) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                                object:[NSString stringWithFormat:@"%d new gists!", [added count]] 
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION
+                                                                object:[NSString stringWithFormat:@"%d new gists!", [added count]]
                                                               userInfo:nil];
         } else {
             for (NSString *key in added) {
@@ -273,8 +281,8 @@
                         } else {
                             title = [NSString stringWithFormat:@"gist %@ : %@", [issue valueForKey:@"id"], description];
                         }
-                        [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_GIST_ADDED 
-                                                                            object:[NSString stringWithFormat:@"%@", title]                                                             userInfo:nil];                
+                        [[NSNotificationCenter defaultCenter] postNotificationName:GITHUB_NOTIFICATION_GIST_ADDED
+                                                                            object:[NSString stringWithFormat:@"%@", title]                                                             userInfo:nil];
                     }
                 }
             }
@@ -290,7 +298,7 @@
     }
     
     // clear the existing Issues
-    existingGists = [[NSMutableSet alloc]init]; 
+    existingGists = [[NSMutableSet alloc]init];
     
     for (NSDictionary *gist in result) {
         // cache for next time...
@@ -344,7 +352,7 @@
         [organizationItem autorelease];
         [menu addItem:organizationItem];
         //[self addItem:organizationItem to:menu top:FALSE];
-
+        
         NSDictionary* repos = [entry valueForKey:@"repos"];
         
         NSMenu* repositoriesMenu = [[NSMenu alloc] init];
@@ -385,7 +393,7 @@
             // HERE
             for (NSDictionary *repo in sorted) {
                 NSMenuItem *organizationRepoItem = [[NSMenuItem alloc] initWithTitle:[repo valueForKey:@"name"] action:@selector(repoPressed:) keyEquivalent:@""];
-
+                
                 [organizationRepoItem setRepresentedObject:[repo valueForKey:@"html_url"]];
                 
                 NSNumber *priv = [repo valueForKey:@"private"];
@@ -416,14 +424,14 @@
                 [popoverMenuItem setView:[details view]];
                 [popoverMenuItem autorelease];
                 
-                NSMenu *foomenu = [[NSMenu alloc] init];    
+                NSMenu *foomenu = [[NSMenu alloc] init];
                 [foomenu addItem:popoverMenuItem];
                 [organizationRepoItem setSubmenu:foomenu];
                 
                 [repositoriesMenu addItem:organizationRepoItem];
             }
         }
-        [organizationItem setSubmenu:repositoriesMenu]; 
+        [organizationItem setSubmenu:repositoriesMenu];
     }
     
     if (!result || [result count] == 0) {
@@ -453,8 +461,8 @@
     [removed minusSet:justGet];
     if ([removed count] > 0 && !firstRepositoryCall) {
         for (NSString *repo in removed) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                object:[NSString stringWithFormat:@"RIP repository '%@'", repo] userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION
+                                                                object:[NSString stringWithFormat:@"RIP repository '%@'", repo] userInfo:nil];
         }
     }
     
@@ -462,16 +470,16 @@
     [added minusSet:existingRepos];
     if ([added count] > 0 && !firstRepositoryCall) {
         if ([added count] > 3) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                                object:[NSString stringWithFormat:@"%d new repositories! Take coffee and code!", [added count]] 
+            [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION
+                                                                object:[NSString stringWithFormat:@"%d new repositories! Take coffee and code!", [added count]]
                                                               userInfo:nil];
         } else {
             for (NSString *key in added) {
                 for (NSArray *issue in result) {
                     if ([[issue valueForKey:@"name"] isEqual:key]) {
                         NSString *title = [issue valueForKey:@"name"];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION 
-                                                                            object:[NSString stringWithFormat:@"New repository '%@'", title]                                                             userInfo:nil];                
+                        [[NSNotificationCenter defaultCenter] postNotificationName:GENERIC_NOTIFICATION
+                                                                            object:[NSString stringWithFormat:@"New repository '%@'", title]                                                             userInfo:nil];
                     }
                 }
             }
@@ -485,7 +493,7 @@
     }
     
     // clear the existing repos
-    existingRepos = [[NSMutableSet alloc]init]; 
+    existingRepos = [[NSMutableSet alloc]init];
     
     // create an array from the JKArray in order to be able to sort it...
     // to be removed and updated the day JSONKit is no more used
@@ -500,7 +508,7 @@
     }];
     
     for (NSDictionary *repo in sorted) {
-        [existingRepos addObject:[repo valueForKey:@"name"]];                
+        [existingRepos addObject:[repo valueForKey:@"name"]];
         if (clean) {
             [self addRepo:repo top:NO];
         }
@@ -549,7 +557,7 @@
         [item autorelease];
         [menu addItem:item];
         //[self addItem:item to:menu top:FALSE];
-
+        
         // add submenus and item for each pull
         NSMenu* pullsMenu = [[NSMenu alloc] init];
         for (NSArray *pull in pulls) {
@@ -561,14 +569,14 @@
             [pullItem autorelease];
             [pullsMenu addItem:pullItem];
             //[self addItem:pullItem to:pullsMenu top:FALSE];
-
+            
         }
         [item setSubmenu:pullsMenu];
     }
     if (!keys || [keys count] == 0) {
         // default menu item
         [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
-
+        
         NSMenuItem *defaultItem = [[NSMenuItem alloc] initWithTitle:@"No pull requests" action:nil keyEquivalent:@""];
         [defaultItem autorelease];
         [menu addItem:defaultItem];
@@ -612,7 +620,7 @@
         [defaultItem autorelease];
         //[menu addItem:defaultItem];
         [self addItem:defaultItem to:menu top:FALSE];
-    }  
+    }
 }
 
 - (void) followingsFinished:(NSDictionary *)result {
@@ -623,7 +631,7 @@
     
     NSMenuItem *followingsItem = [tmp itemWithTitle:@"Following"];
     NSMenu *menu = [followingsItem submenu];
-        
+    
     // always delete...
     // FIXME = just add or delete the diff
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
@@ -658,7 +666,7 @@
     
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Watching"];
     NSMenu *menu = [menuItem submenu];
-        
+    
     // always delete...
     // FIXME : just delete or add the diff
     [self deleteOldEntriesFromMenu:menu fromItemTitle:@"deletelimit"];
@@ -702,8 +710,8 @@
     // get the repository name from the API url such as
     // 'https://api.github.com/repos/Jug-Montpellier/play-Jug/2' or 'https://api.github.com/repos/chamerling/JugApp/issues/1'
     
-    NSString *apiURL = [issue valueForKey:@"url"];    
-    NSString *repoName = [NSString stringWithString:[apiURL substringFromIndex:([[NSString stringWithString:@"https://api.github.com/repos/"] length])]];    
+    NSString *apiURL = [issue valueForKey:@"url"];
+    NSString *repoName = [NSString stringWithString:[apiURL substringFromIndex:([[NSString stringWithString:@"https://api.github.com/repos/"] length])]];
     if ([repoName rangeOfString:[NSString stringWithFormat:@"%@/", [[Preferences sharedInstance] login]]].length > 0) {
         repoName = [NSString stringWithString:[repoName substringFromIndex:([[NSString stringWithFormat:@"%@/", [[Preferences sharedInstance] login]] length])]];
         repoName = [repoName substringToIndex:[repoName rangeOfString:@"/issues"].location];
@@ -724,7 +732,7 @@
     } else {
         iconImage = [NSImage imageNamed:@"bullet_yellow.png"];
     }
-
+    
     [iconImage setSize:NSMakeSize(16,16)];
     [issueItem setImage:iconImage];
     [issueItem autorelease];
@@ -764,7 +772,7 @@
 
 - (void) addOrg:(NSDictionary *)org {
     //NSMenu *menu = [self getOrgsMenu];
-
+    
 }
 
 - (void) addRepo:(NSDictionary *)repo top:(BOOL)top{
@@ -806,12 +814,12 @@
     [popoverMenuItem setView:[details view]];
     [popoverMenuItem autorelease];
     
-    NSMenu *foomenu = [[NSMenu alloc] init];    
+    NSMenu *foomenu = [[NSMenu alloc] init];
     [foomenu addItem:popoverMenuItem];
     [organizationItem setSubmenu:foomenu];
     
     [self addItem:organizationItem to:menu top:top];
-
+    
 }
 
 - (void) addOrgRepo:(NSString *)orgName withRepo:(NSDictionary *)repo top:(BOOL)top {
@@ -819,7 +827,7 @@
     if (menu) {
         NSMenuItem *repoItem = [self createMenuItemForOrgRepo:repo];
         [self addItem:repoItem to:menu top:top];
-
+        
     } else {
         //NSLog(@"Repo menu not found");
     }
@@ -836,17 +844,17 @@
     
     // ID CARD
     /*
-    UserDetailsViewController *details = [[UserDetailsViewController alloc] initWithNibName:@"UserDetailsViewController" bundle:nil];
-    [details setUserData:user];
-    
-    NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
-    [popoverMenuItem setView:[details view]];
-    [popoverMenuItem autorelease];
-    
-    NSMenu *foomenu = [[NSMenu alloc] init];    
-    [foomenu addItem:popoverMenuItem];
-    [item setSubmenu:foomenu];
-    */
+     UserDetailsViewController *details = [[UserDetailsViewController alloc] initWithNibName:@"UserDetailsViewController" bundle:nil];
+     [details setUserData:user];
+     
+     NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
+     [popoverMenuItem setView:[details view]];
+     [popoverMenuItem autorelease];
+     
+     NSMenu *foomenu = [[NSMenu alloc] init];
+     [foomenu addItem:popoverMenuItem];
+     [item setSubmenu:foomenu];
+     */
     
     [self addItem:item to:menu top:FALSE];
 }
@@ -863,18 +871,18 @@
     
     // ID CARD
     /*
-    UserDetailsViewController *details = [[UserDetailsViewController alloc] initWithNibName:@"UserDetailsViewController" bundle:nil];
-    [details setUserData:user];
-    
-    NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
-    [popoverMenuItem setView:[details view]];
-    [popoverMenuItem autorelease];
-    
-    NSMenu *foomenu = [[NSMenu alloc] init];    
-    [foomenu addItem:popoverMenuItem];
-    [item setSubmenu:foomenu];
+     UserDetailsViewController *details = [[UserDetailsViewController alloc] initWithNibName:@"UserDetailsViewController" bundle:nil];
+     [details setUserData:user];
+     
+     NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
+     [popoverMenuItem setView:[details view]];
+     [popoverMenuItem autorelease];
+     
+     NSMenu *foomenu = [[NSMenu alloc] init];
+     [foomenu addItem:popoverMenuItem];
+     [item setSubmenu:foomenu];
      */
-
+    
     [self addItem:item to:menu top:FALSE];
 }
 
@@ -904,7 +912,7 @@
     [popoverMenuItem setView:[details view]];
     [popoverMenuItem autorelease];
     
-    NSMenu *foomenu = [[NSMenu alloc] init];    
+    NSMenu *foomenu = [[NSMenu alloc] init];
     [foomenu addItem:popoverMenuItem];
     [item setSubmenu:foomenu];
     
@@ -913,13 +921,13 @@
 
 - (void) addEvent:(NSDictionary *)event top:(BOOL)top {
     /*NSMenuItem *eventItem = [[NSMenuItem alloc] initWithTitle:[event valueForKey:@"message"] action:@selector(eventPressed:) keyEquivalent:@""];
+     
+     [eventItem setRepresentedObject:[event valueForKey:@"url"]];
+     [eventItem setEnabled:YES];
+     [eventItem autorelease];
+     */
     
-    [eventItem setRepresentedObject:[event valueForKey:@"url"]];
-    [eventItem setEnabled:YES];
-    [eventItem autorelease];
-    */
     
-  
     NSMenuItem *eventItem = [[NSMenuItem alloc] initWithTitle:[event valueForKey:@"message"] action:@selector(eventPressed:) keyEquivalent:@""];
     EventMenuItemController *controller = [[EventMenuItemController alloc] initWithNibName:@"EventMenuItemController" bundle:nil];
     [controller setEvent:event];
@@ -932,25 +940,25 @@
     [eventItem setState:NSMixedState];
     [eventItem autorelease];
     
-
+    
     NSInteger eventMenuSize = 20;
     if ([eventsMenu numberOfItems] >= eventMenuSize) {
         [eventsMenu removeItemAtIndex:eventMenuSize - 1];
     }
-        
-    [self addItem:eventItem to:eventsMenu top:top];    
+    
+    [self addItem:eventItem to:eventsMenu top:top];
 }
 
 - (void) addPull:(NSDictionary *)pull {
     //NSMenu *menu = [self getPullsMenu];
-
+    
 }
 
 # pragma mark - Actions on pressed menu items
 
 - (void) openPull:(id)sender {
     id selectedItem = [sender representedObject];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];    
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];
 }
 
 - (IBAction) repoPressed:(id) sender {
@@ -971,7 +979,7 @@
 
 - (IBAction) pullPressed:(id)sender {
     id selectedItem = [sender representedObject];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];    
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];
 }
 
 - (IBAction) organizationPressed:(id) sender {
@@ -981,17 +989,17 @@
 
 - (void) followerPressed:(id) sender {
     id selectedItem = [sender representedObject];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];    
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];
 }
 
 - (void) followingPressed:(id) sender {
     id selectedItem = [sender representedObject];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];        
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@", selectedItem]]];
 }
 
 - (void) eventPressed:(id) sender {
     id selectedItem = [sender representedObject];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];            
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", selectedItem]]];
 }
 
 - (IBAction)openFollowings:(id)sender {
@@ -1003,7 +1011,7 @@
 }
 
 - (IBAction)openWatchedRepositories:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@/following", [preferences login]]]]; 
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://github.com/%@/following", [preferences login]]]];
 }
 
 #pragma mark - item stuff
@@ -1032,9 +1040,9 @@
     firstIssueCall = YES;
     firstOrganizationCall = YES;
     firstRepositoryCall = YES;
-    existingRepos = [[NSMutableSet alloc]init]; 
-    existingGists = [[NSMutableSet alloc]init]; 
-    existingIssues = [[NSMutableSet alloc]init]; 
+    existingRepos = [[NSMutableSet alloc]init];
+    existingGists = [[NSMutableSet alloc]init];
+    existingIssues = [[NSMutableSet alloc]init];
 }
 
 #pragma mark - private
@@ -1069,16 +1077,16 @@
     
     // ID Card
     /*
-    RepositoryDetailsViewController *details = [[RepositoryDetailsViewController alloc] initWithNibName:@"RepositoryDetailsViewController" bundle:nil];
-    [details setRepositoryData:repo];
-    
-    NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
-    [popoverMenuItem setView:[details view]];
-    [popoverMenuItem autorelease];
-    
-    NSMenu *foomenu = [[NSMenu alloc] init];    
-    [foomenu addItem:popoverMenuItem];
-    [organizationRepoItem setSubmenu:foomenu];
+     RepositoryDetailsViewController *details = [[RepositoryDetailsViewController alloc] initWithNibName:@"RepositoryDetailsViewController" bundle:nil];
+     [details setRepositoryData:repo];
+     
+     NSMenuItem *popoverMenuItem = [[NSMenuItem alloc] init];
+     [popoverMenuItem setView:[details view]];
+     [popoverMenuItem autorelease];
+     
+     NSMenu *foomenu = [[NSMenu alloc] init];
+     [foomenu addItem:popoverMenuItem];
+     [organizationRepoItem setSubmenu:foomenu];
      */
     
     return organizationRepoItem;
@@ -1103,7 +1111,7 @@
 - (NSMenu*) getReposMenu {
     NSMenuItem *menuItem = [statusMenu itemWithTitle:@"Repositories"];
     return [menuItem submenu];
-   
+    
 }
 
 - (NSMenu*) getFollowingMenu {
@@ -1166,7 +1174,7 @@
     
     NSString *string = [NSString stringWithFormat:@"%d", index];
     NSLog(@"String %@", string);
-        
+    
     if (index && index >=0) {
         dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:item, menu, string, nil] forKeys:[NSArray arrayWithObjects:@"item", @"menu", "index", nil]];
     } else {
